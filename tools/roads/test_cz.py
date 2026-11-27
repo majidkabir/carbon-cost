@@ -2,7 +2,8 @@
 where the toll operator's map, read at its points (cz_myto.py), draws a
 layer, in that layer's class (a class II road in OpenStreetMap the map
 tolls as class I, a motorway it tolls as class I); a short tolled blip
-(a crossing) is left out; a way the capture doesn't know is tolled when
+(a crossing) is left out, and so is a road beside a motorway the map's
+line is the motorway's; a way the capture doesn't know is tolled when
 both its ends meet tolled ways of its class.
 
 Usage: python3 test_cz.py
@@ -43,6 +44,7 @@ def osm(path, new):
     way(8, 0, 5, dy=-0.03, highway="primary", ref="38")              # a blip at km 2.5 only
     way(10, 0, 3, dy=-0.06, highway="secondary", ref="434")          # class I on the map
     way(11, 0, 2, dy=-0.09, highway="motorway", ref="55")            # class I on the map
+    way(12, 0, 4, dy=0.0503, highway="secondary", ref="607")         # beside D1, 33 m off: the map's line is D1's
     if new:
         way(7, 10, 11, highway="primary", ref="38")                  # new: between tolled ends
         way(9, 13, 14, highway="primary", ref="38")                  # new: one end loose
@@ -56,7 +58,7 @@ def drawn(wid, x):
         return None if 4 <= x <= 6 else "nat"
     if wid == 8:
         return "nat" if 2.4 <= x <= 2.6 else None
-    return {3: "mw", 4: "mw", 6: "nat", 10: "nat", 11: "nat"}.get(wid)
+    return {3: "mw", 4: "mw", 6: "nat", 10: "nat", 11: "nat", 12: "mw"}.get(wid)
 
 
 def main():
@@ -97,8 +99,8 @@ def main():
     out = json.load(gzip.open(dst))
     km = lambda lines: sum(sum(((l[i + 2] - l[i]) ** 2 + (l[i + 3] - l[i + 1]) ** 2) ** 0.5 for i in range(0, len(l) - 2, 2)) for l in lines) / 1e5 / KM
     nat, mw = km(out["nat"]), km(out["mw"])
-    ok = sampled == {1, 2, 3, 4, 5, 6, 8, 10, 11} and abs(nat - 16) < 0.15 and abs(mw - 10) < 0.15 and out["network"] == "test; tolled stretches as the toll operator's map draws them (test, read 2026-11-27)"
-    print(f"sampled {sorted(sampled)} (want all but the new 7 and 9), nat {nat:.2f} km (want 16: 10 - 2 + 2 + 1 + 3 + 2, not the blip nor the loose way), mw {mw:.2f} km (want 10: D1's two carriageways, not D0)")
+    ok = sampled == {1, 2, 3, 4, 5, 6, 8, 10, 11, 12} and abs(nat - 16) < 0.15 and abs(mw - 10) < 0.15 and out["network"] == "test; tolled stretches as the toll operator's map draws them (test, read 2026-11-27)"
+    print(f"sampled {sorted(sampled)} (want all but the new 7 and 9), nat {nat:.2f} km (want 16: 10 - 2 + 2 + 1 + 3 + 2, not the blip nor the loose way), mw {mw:.2f} km (want 10: D1's two carriageways, not D0 nor the road beside D1)")
     print(out["network"])
     for f in os.listdir(d):
         os.remove(os.path.join(d, f))

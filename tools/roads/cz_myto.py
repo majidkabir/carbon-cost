@@ -113,9 +113,20 @@ def unrun(text):
     return [i % 2 == 1 for i, n in enumerate(int(x) for x in text.split(",")) for _ in range(n)]
 
 
+def parts(layers, c):
+    """A way's toll class and tolled parts, as (from, to) fractions of its
+    length, from the layer drawn at each of its points (None for none);
+    c, the way's own class, where none is."""
+    got = runs([l is not None for l in layers])
+    votes = Counter(layers[i] for a, b in got for i in range(a, b))
+    n = len(layers)
+    return (votes.most_common(1)[0][0] if votes else c), [(a / n, b / n) for a, b in got]
+
+
 def load():
-    """Way id -> (its toll class, its tolled parts as (from, to) fractions
-    of its length; [] for none), or None without a capture."""
+    """Way id -> (its own class, the layer drawn at each of its points:
+    "mw", "nat" or None, the points' [lon, lat]), or None without a
+    capture."""
     if not os.path.exists(CAPTURE) or not os.path.exists(SAMPLES):
         return None
     cap = json.load(open(CAPTURE, encoding="utf-8"))
@@ -129,9 +140,12 @@ def load():
     if not len(tolled) == len(other) == cap["points"] == total:
         raise SystemExit(f"CZ: the capture has {len(tolled)} and {len(other)} points, the samples {total}")
     out, k = {}, 0
-    for wid, c, n, _ in doc["ways"]:
-        parts = runs(tolled[k:k + n])
-        votes = Counter(OTHER[c] if other[k + i] else c for a, b in parts for i in range(a, b))
-        out[wid] = (votes.most_common(1)[0][0] if votes else c, [(a / n, b / n) for a, b in parts])
+    for wid, c, n, xy in doc["ways"]:
+        layers = [(OTHER[c] if other[k + i] else c) if tolled[k + i] else None for i in range(n)]
+        pts, x, y = [], 0, 0
+        for i in range(n):
+            x, y = x + xy[2 * i], y + xy[2 * i + 1]
+            pts.append((x / 1e5, y / 1e5))
+        out[wid] = (c, layers, pts)
         k += n
     return out

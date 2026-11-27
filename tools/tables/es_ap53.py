@@ -37,7 +37,8 @@ def pairs(text):
     return out
 
 
-def main(fetched, out, year="2026"):
+def main(fetched, out, year=None):
+    year = year or es_stretch.source_years("ap53")[-1]  # the newest table
     text = open(os.path.join(fetched, f"es-min-ap53-{year}.txt"), encoding="utf-8").read()
     flat = re.sub(r"\s+", " ", text)
     for need in ("BONIFICACIONES A PESADOS DEL RD 276/2025", "Pesados 1 Camiones y autocares de dos ejes",
@@ -82,7 +83,7 @@ def main(fetched, out, year="2026"):
     cs = es_stretch.system("AP-53", "Ministry of Transport's tolls in force: by entry and exit, either way.", secs, price,
                            [{"name": "P2", "min_kg": 3501, "min_axles": 4}, {"name": "P1", "min_kg": 3501}])
     tb = {
-        "country": "ES", "currency": "EUR", "valid_from": f"{year}-01-01", "crossings": True, "osm_extract": stamp,
+        "country": "ES", "currency": "EUR", "valid_from": f"{year}-01-01", "valid_to": f"{year}-12-31", "crossings": True, "osm_extract": stamp,
         "name": "AP-53 Santiago de Compostela – Alto de Santo Domingo",
         "law": (f"The Ministry of Transport's tolls in force from 1 January {year} on the AP-53, with Real Decreto-ley 20/2022 and the heavy-vehicle bonuses of Real Decreto 276/2025 applied: "
                 f"by entry and exit, either way, Pesados 1 (two or three axles) and Pesados 2 (four or more; Santiago – Alto de Santo Domingo EUR {g[1]:.2f} with IVA), excluding 21% IVA. "

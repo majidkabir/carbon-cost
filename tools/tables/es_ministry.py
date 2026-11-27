@@ -19,6 +19,8 @@ accesses MOTORWAYS (below) maps each of the table's stations to.
 import html, json, os, re, sys, unicodedata
 import xml.etree.ElementTree as ET
 
+import es_stretch  # noqa: E402
+
 IVA = 1.21
 GROUPS = [{"name": "Pesados 1", "min_kg": 3501, "max_axles": 3}, {"name": "Pesados 2", "min_kg": 3501, "min_axles": 4}]
 MOTORWAYS = {
@@ -123,7 +125,7 @@ def barrier(key, mw, fetched, out, srcs):
         sys.exit(f"{key}: {len(clusters)} toll plazas in OpenStreetMap, the table has {len(mw['barriers'])} barriers")
     plazas = [(round(sum(b[0] for b in c) / len(c), 6), round(sum(b[1] for b in c) / len(c), 6)) for c in clusters]
     stamp = d.get("osm3s", {}).get("timestamp_osm_base", "")[:10]
-    for year in ("2025", "2026"):
+    for year in es_stretch.source_years(key, "2025"):  # earlier years: tools/history
         sid = f"es-min-{key}-{year}"
         p = os.path.join(fetched, sid + ".txt")
         if not os.path.exists(p):
@@ -196,7 +198,7 @@ def main(fetched, out):
             if missing:
                 sys.exit(f"{key}: {missing} not on the concessionaire's map")
             stations.append({"name": st, "points": [{"name": n, "lat": pts[norm(n)][0], "lon": pts[norm(n)][1]} for n in names]})
-        for year in ("2025", "2026"):
+        for year in es_stretch.source_years(key, "2025"):  # earlier years: tools/history
             sid = f"es-min-{key}-{year}"
             p = os.path.join(fetched, sid + ".txt")
             if not os.path.exists(p):

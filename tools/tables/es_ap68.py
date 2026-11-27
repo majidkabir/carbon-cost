@@ -57,7 +57,8 @@ def tables(text):
     return out
 
 
-def main(fetched, out, year="2026"):
+def main(fetched, out, year=None):
+    year = year or es_stretch.source_years("ap68")[-1]  # the newest table
     text = open(os.path.join(fetched, f"es-min-ap68-{year}.txt"), encoding="utf-8").read()
     flat = re.sub(r"\s+", " ", text)
     t = tables(text)
@@ -130,7 +131,7 @@ def main(fetched, out, year="2026"):
     cs["etc_prices"] = es_stretch.system("AP-68", "", secs, tag, groups, label)["prices"]
     g = t["G"][("BILBAO", "ZARAGOZA")]
     tb = {
-        "country": "ES", "currency": "EUR", "valid_from": f"{year}-01-01", "crossings": True, "osm_extract": stamp,
+        "country": "ES", "currency": "EUR", "valid_from": f"{year}-01-01", "valid_to": f"{year}-12-31", "crossings": True, "osm_extract": stamp,
         "name": "AP-68 Bilbao – Zaragoza (Avasa)",
         "law": (f"The Ministry of Transport's tolls in force from 1 January {year} on the AP-68: by entry and exit, either way, Pesados 1 (two or three axles) and Pesados 2 (four or more; "
                 f"Bilbao – Zaragoza EUR {g[1]:.2f} with IVA), excluding 21% IVA. Heavy vehicles between Ziorraga and Altube are exempt (the Diputación Foral de Álava's convenio). "

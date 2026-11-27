@@ -36,6 +36,8 @@ line here, so the next change is checked for it.
   from the source, or from the rule the law gives (`tools/test_next_year.py`
   runs next year's case).
 - A value is checked against its captured source, not against itself.
+- A yearly rate ends with its year (valid_to), not open-ended; prices a
+  page gives with no date never change under the same valid_from.
 
 ## Road classes (tools/roads)
 

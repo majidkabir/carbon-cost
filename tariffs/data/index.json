@@ -1210,8 +1210,8 @@
    "file": "es/es-ap53-2026-01-01.orct.json",
    "name": "AP-53 Santiago de Compostela – Alto de Santo Domingo",
    "valid_from": "2026-01-01",
-   "valid_to": null,
-   "sha256": "7d94975d4b99d9b2298a429683ad0c20baa8095963f38bdcf84bf519a30d9992",
+   "valid_to": "2026-12-31",
+   "sha256": "cd07e57fcd501fa0cc744fc4a688b37af03676e1d8044d7e56105499da314a6c",
    "coverage": "complete"
   },
   {
@@ -1243,8 +1243,8 @@
    "file": "es/es-ap68-2026-01-01.orct.json",
    "name": "AP-68 Bilbao – Zaragoza (Avasa)",
    "valid_from": "2026-01-01",
-   "valid_to": null,
-   "sha256": "bedb04b60d1960a278e32ac626b1bb6c8c070761db304f4a076d87f9360d0b54",
+   "valid_to": "2026-12-31",
+   "sha256": "d1a7590232401242b87ca812cd8637ff5cbc06f32faed7d6523d84aab72a687c",
    "coverage": "complete"
   },
   {
@@ -2552,8 +2552,8 @@
    "file": "nl/nl-2027-01-01.orct.json",
    "name": "Dutch HGV charge (vrachtwagenheffing)",
    "valid_from": "2027-01-01",
-   "valid_to": null,
-   "sha256": "73a4216357abf15947e519a009710684e102f22a4ed4dfcb6607e75fef57ecd6",
+   "valid_to": "2027-12-31",
+   "sha256": "a8e81413078e3f95bce9d3c436f6679d2cc567acbe9165874ffc0641368be5e0",
    "coverage": "complete"
   },
   {
@@ -3014,8 +3014,8 @@
    "file": "pt/fuelco2-pt-2026-01-01.orct.json",
    "name": "Adicionamento sobre as emissões de CO2 (carbon tax on road diesel)",
    "valid_from": "2026-01-01",
-   "valid_to": null,
-   "sha256": "5393905151b90a38b4cc6a2e563d14c5d19292dcce365f549604a61671eab7bb",
+   "valid_to": "2026-12-31",
+   "sha256": "88865095ffa72bccbe66e0f16bd4ab0c191d693c5c3394782dd4fab53a979331",
    "coverage": "complete"
   },
   {

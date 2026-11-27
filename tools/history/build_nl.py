@@ -39,7 +39,7 @@ PERIODS = [
       "De tijdelijke tarieven zoals opgenomen in artikel 1 van dit besluit, liggen 22,3% lager dan de tarieven in de wet."],
      "Goedkeurend beleidsbesluit tijdelijke verlaging tarieven Wet vrachtwagenheffing, IENW/BSK-2026/84850, art. 1 (Staatscourant 2026, 18058): 22.3% below the statutory rates",
      [{"title": "Staatscourant 2026, nr. 18058: temporary reduced rates, 1 September - 31 December 2026", "url": "https://zoek.officielebekendmakingen.nl/stcrt-2026-18058.html"}, RIJK]),
-    ("nl-stcrt-2026-33659", "2027-01-01", "",
+    ("nl-stcrt-2026-33659", "2027-01-01", "2027-12-31",  # indexed each year (the 2027 tabelcorrectiefactor)
      ["Deze regeling treedt in werking met ingang van 1 januari 2027.",
       "De tabelcorrectiefactor over 2027 bedraagt 2,6 procent."],
      "Wet vrachtwagenheffing art. 5 lid 1, amounts indexed for 2027 by Regeling IENW/BSK-2026/181678 (Staatscourant 2026, 33659): the rates of 1 July 2026 times the 2027 tabelcorrectiefactor (2.6%); the temporary 22.3% reduction ended on 31 December 2026",

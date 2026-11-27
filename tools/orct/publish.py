@@ -95,7 +95,11 @@ def main(new, data):
                 shutil.copy(src, dst)
                 published.append(f)
             else:
-                review.append((f, "differs in more than OpenStreetMap's positions and extract date"))
+                # The same file is the same valid_from: prices a page gives
+                # with no date that changed are a new period, from the day
+                # they were first seen, not this one rewritten.
+                review.append((f, "differs in more than OpenStreetMap's positions and extract date (new prices under the same valid_from: "
+                                  "if its page gives no date, keep this one and add them from the day first seen)"))
     for f in published:
         print("published", f)
     for f, why in review:

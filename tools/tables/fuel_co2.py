@@ -303,6 +303,10 @@ def portugal(fetched, out, srcs):
             f["sources"].append(src(srcs, ks))
         if i + 1 < len(merged):
             f["valid_to"] = (datetime.date.fromisoformat(merged[i + 1][0]) - datetime.timedelta(days=1)).isoformat()
+        else:
+            # The rate is published for a year (art. 92.º-A n.º 2 and 3):
+            # the last is known to the end of the last year a source gives.
+            f["valid_to"] = max([s[0][:4] for s in steps] + list(kept)) + "-12-31"
         write(out, f)
 
 

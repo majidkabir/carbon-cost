@@ -8,9 +8,16 @@ Input: an Overpass JSON (out geom tags) with the motorway's carriageways,
 their junction nodes, the links within 1.5 km (their destination,
 destination:ref and exit_to tags) and toll booths.
 """
-import re, unicodedata
+import json, os, re, unicodedata
 
 import m6toll
+
+
+def source_years(key, since="0"):
+    """The years sources.json has the Ministry of Transport's table of a
+    motorway for (es-min-<key>-<year>), from since: the code names none."""
+    srcs = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sources.json"), encoding="utf-8"))["sources"]
+    return sorted({m.group(1) for s in srcs if (m := re.fullmatch(rf"es-min-{re.escape(key)}-(\d{{4}})", s["id"])) and m.group(1) >= since})
 
 
 def plain(s):

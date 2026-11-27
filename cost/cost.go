@@ -177,7 +177,9 @@ type Request struct {
 	Path [][2]float64 `json:"path,omitempty"`
 	// CountryKm prices a trip with no route: the km driven in each country
 	// (or region, ISO 3166-2, where tolls differ by region), from a
-	// tachograph, say. Only charges by the km and by the day are priced;
+	// tachograph, say. Only charges by the km and by the day are priced (by
+	// the day for one day: the result lists the trip's other days as
+	// missing);
 	// tolls at stations and on sections need a route, and the result lists
 	// them as missing; bridges, tunnels, ferries and zones aren't priced
 	// (a note says so). Not with from, to, stops, shipments or path.
@@ -546,8 +548,10 @@ type Missing struct {
 	// request doesn't give; the notes name it), "unpriced" (the table
 	// has no price for this use, such as an entry and exit it doesn't
 	// pair; the notes say which), "needs_time" (it goes by the time of day,
-	// a congestion tax: give time) or "before_table" (its first rates here
-	// start on Starts, after the trip's day: an earlier price isn't here).
+	// a congestion tax: give time), "before_table" (its first rates here
+	// start on Starts, after the trip's day: an earlier price isn't here)
+	// or "days_unknown" (it is by the day, priced for one: the trip, given
+	// as country_km, has no times to count its days by).
 	Reason string `json:"reason"`
 	// Ended is the last day of the last rates here; Starts, for
 	// "before_table", the first day of the first.
@@ -568,6 +572,9 @@ func (m Missing) Message() string {
 	}
 	if m.Reason == "needs_time" {
 		return fmt.Sprintf("%s %s (%s): not priced, it goes by the time of day (give time)", m.Area, what, m.Name)
+	}
+	if m.Reason == "days_unknown" {
+		return fmt.Sprintf("%s %s (%s): priced for one day; the trip's other days there aren't, as km by country have no times (give the route, with time)", m.Area, what, m.Name)
 	}
 	if m.Reason == "before_table" {
 		return fmt.Sprintf("%s %s (%s): the rates here start on %s, after the trip's day, so it isn't priced", m.Area, what, m.Name, m.Starts)
@@ -903,8 +910,13 @@ func (c Calculator) trip(ctx context.Context, req *Request, vt string) (sootcase
 	for i, s := range ships {
 		pr := pair{s.From, s.To}
 		v, ok := done[pr]
-		if !ok && s.To == s.From+1 {
-			v, ok = [3]float64{res.Legs[s.From].DistanceKm, perT[s.From][0], perT[s.From][1]}, true
+		if !ok && (s.To == s.From+1 || stops[s.From] == stops[s.To]) {
+			// One leg, or round to where it was loaded (its own route is
+			// none): the truck's legs it rides.
+			for j := s.From; j < s.To; j++ {
+				v = [3]float64{v[0] + res.Legs[j].DistanceKm, v[1] + perT[j][0], v[2] + perT[j][1]}
+			}
+			ok = true
 		}
 		if !ok {
 			r, err := c.Sootcase.CalculateWith(ctx, sootcase.Shipment{ID: "shipment-" + s.ID, WeightKg: s.WeightKg, AddRoadLegs: &no,

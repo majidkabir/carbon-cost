@@ -58,9 +58,20 @@ func TestBatchHandler(t *testing.T) {
 	if out.Results[1].Result != nil || !strings.Contains(out.Results[1].Error, "co2_class") {
 		t.Errorf("trip 2: %+v", out.Results[1])
 	}
+	// A trip whose JSON is wrong has its own error; the others are priced.
+	for _, bad := range []string{`{"nope": 1}`, `{"from": {"code": "DEHAM"}, "to": {"code": "DEBER"}, "cargo_kg": 20000, "truck": {"max_mass_kg": 40000, "axles": 5}}`, `{"cargo_kg": "20000"}`} {
+		rec := httptest.NewRecorder()
+		h.ServeHTTP(rec, httptest.NewRequest("POST", "/v1/carbon-cost/batch", strings.NewReader(`{"trips": [`+strings.Replace(trip, "%d", "1", 1)+`, `+bad+`]}`)))
+		var out BatchResponse
+		json.Unmarshal(rec.Body.Bytes(), &out)
+		if rec.Code != 200 || len(out.Results) != 2 || out.Results[0].Result == nil || out.Results[1].Result != nil || !strings.HasPrefix(out.Results[1].Error, "bad JSON: ") {
+			t.Errorf("%s: %d %s", bad, rec.Code, rec.Body.String())
+		}
+	}
 	for _, tc := range []struct{ body, want string }{
 		{`{"trips": []}`, "give 1 to 100"},
-		{`{"trips": [{"nope": 1}]}`, "bad JSON"},
+		{`{"trips": {}}`, "bad JSON"},
+		{`{"trips": [], "nope": 1}`, "bad JSON"},
 	} {
 		rec := httptest.NewRecorder()
 		h.ServeHTTP(rec, httptest.NewRequest("POST", "/v1/carbon-cost/batch", strings.NewReader(tc.body)))

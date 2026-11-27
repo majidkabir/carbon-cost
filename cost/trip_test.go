@@ -489,3 +489,24 @@ func TestCostShareByLoadingMetres(t *testing.T) {
 		t.Error("cost_share_by volume: want an error")
 	}
 }
+
+// A shipment unloaded where it was loaded (carried round S0 -> S1 -> S0)
+// rides the truck's legs: its distance and emissions are theirs, not its
+// own route's (none, from a place to itself).
+func TestShipmentRoundItsStart(t *testing.T) {
+	var calls []sootcase.Shipment
+	var mu sync.Mutex
+	fake := fakeLegs(t, &calls, &mu)
+	defer fake.Close()
+	c := Calculator{Sootcase: sootcase.Client{BaseURL: fake.URL}, Tariffs: all(t)}
+	s0, s1 := sootcase.Location{Code: "S0"}, sootcase.Location{Code: "S1"}
+	r, err := c.Calculate(context.Background(), Request{Date: "2026-11-03", Truck: truck40, Stops: []sootcase.Location{s0, s1, s0},
+		Shipments: []Shipment{{ID: "A", WeightKg: 10000, To: 2}}})
+	if err != nil {
+		t.Fatal(err)
+	}
+	// 10 t x 200 km at 0.08 kg per tkm.
+	if len(r.Shipments) != 1 || r.Shipments[0].DistanceKm != 200 || r.Shipments[0].TKm != 2000 || math.Abs(r.Shipments[0].TTWKg-160) > 0.01 || math.Abs(r.TTWKg-160) > 0.01 {
+		t.Errorf("shipment %+v, trip TTW %v", r.Shipments, r.TTWKg)
+	}
+}

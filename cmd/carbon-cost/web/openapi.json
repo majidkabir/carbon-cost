@@ -252,7 +252,7 @@
       "type": "number"
      },
      "price": {
-      "description": "Price says where the price comes from: \"given\", or \"Weekly Oil Bulletin <date>\".",
+      "description": "Price says where the price comes from: \"given\", \"Weekly Oil Bulletin <date>\", or a national statistic and its date (GB, NO, CH).",
       "type": "string"
      },
      "refund": {
@@ -282,7 +282,7 @@
       "type": "array"
      },
      "complete": {
-      "description": "Complete is false when some litres have no price (bought outside the EU without a price given); Unpriced lists those countries.",
+      "description": "Complete is false when some litres have no price (bought where neither the Weekly Oil Bulletin, from 2024, nor the national statistics read, GB, NO and CH, give one, and no price given); Unpriced lists those countries.",
       "type": "boolean"
      },
      "eur": {
@@ -302,7 +302,7 @@
       "type": "number"
      },
      "unpriced": {
-      "description": "Complete is false when some litres have no price (bought outside the EU without a price given); Unpriced lists those countries.",
+      "description": "Complete is false when some litres have no price (bought where neither the Weekly Oil Bulletin, from 2024, nor the national statistics read, GB, NO and CH, give one, and no price given); Unpriced lists those countries.",
       "items": {
        "type": "string"
       },
@@ -500,7 +500,7 @@
       "type": "string"
      },
      "reason": {
-      "description": "Reason is \"no_table\" (this tool has none for the area), \"ended\" (its rates ended on Ended and the next ones aren't here yet; also when the trip reaches the charge after that day), \"no_route\" (its tolls are at stations or on sections, and the trip was given as country_km), \"needs_truck_field\" (it goes by a truck field the request doesn't give; the notes name it), \"unpriced\" (the table has no price for this use, such as an entry and exit it doesn't pair; the notes say which), \"needs_time\" (it goes by the time of day, a congestion tax: give time) or \"before_table\" (its first rates here start on Starts, after the trip's day: an earlier price isn't here).",
+      "description": "Reason is \"no_table\" (this tool has none for the area), \"ended\" (its rates ended on Ended and the next ones aren't here yet; also when the trip reaches the charge after that day), \"no_route\" (its tolls are at stations or on sections, and the trip was given as country_km), \"needs_truck_field\" (it goes by a truck field the request doesn't give; the notes name it), \"unpriced\" (the table has no price for this use, such as an entry and exit it doesn't pair; the notes say which), \"needs_time\" (it goes by the time of day, a congestion tax: give time), \"before_table\" (its first rates here start on Starts, after the trip's day: an earlier price isn't here) or \"days_unknown\" (it is by the day, priced for one: the trip, given as country_km, has no times to count its days by).",
       "type": "string"
      },
      "starts": {
@@ -702,7 +702,7 @@
       "additionalProperties": {
        "type": "number"
       },
-      "description": "CountryKm prices a trip with no route: the km driven in each country (or region, ISO 3166-2, where tolls differ by region), from a tachograph, say. Only charges by the km and by the day are priced; tolls at stations and on sections need a route, and the result lists them as missing; bridges, tunnels, ferries and zones aren't priced (a note says so). Not with from, to, stops, shipments or path.",
+      "description": "CountryKm prices a trip with no route: the km driven in each country (or region, ISO 3166-2, where tolls differ by region), from a tachograph, say. Only charges by the km and by the day are priced (by the day for one day: the result lists the trip's other days as missing); tolls at stations and on sections need a route, and the result lists them as missing; bridges, tunnels, ferries and zones aren't priced (a note says so). Not with from, to, stops, shipments or path.",
       "type": "object"
      },
      "currency": {
@@ -2056,7 +2056,7 @@
       }
      },
      {
-      "description": "The dataset's file (e.g. dk-2026-01-01.orct.json), as /v1/rates lists it.",
+      "description": "The dataset's file name (e.g. dk-2026-01-01.orct.json): /v1/rates lists it after its country's folder (dk/dk-2026-01-01.orct.json).",
       "in": "path",
       "name": "file",
       "required": true,

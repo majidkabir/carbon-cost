@@ -166,7 +166,7 @@ func Generate(root, version string) ([]byte, error) {
 				"operationId": "getRates",
 				"parameters": []any{
 					map[string]any{"name": "cc", "in": "path", "required": true, "schema": map[string]any{"type": "string"}, "description": "Country code, lower case (e.g. dk)."},
-					map[string]any{"name": "file", "in": "path", "required": true, "schema": map[string]any{"type": "string"}, "description": "The dataset's file (e.g. dk-2026-01-01.orct.json), as /v1/rates lists it."},
+					map[string]any{"name": "file", "in": "path", "required": true, "schema": map[string]any{"type": "string"}, "description": "The dataset's file name (e.g. dk-2026-01-01.orct.json): /v1/rates lists it after its country's folder (dk/dk-2026-01-01.orct.json)."},
 				},
 				"responses": map[string]any{
 					"200": jsonBody(map[string]any{"type": "object", "description": "An ORCT dataset: https://github.com/majidkabir/orct"}, "The dataset."),

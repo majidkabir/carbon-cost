@@ -25,8 +25,10 @@ type FuelCost struct {
 	// litres priced: the diesel price already holds them, so
 	// with_fuel_eur leaves them out of the charges.
 	InPriceEUR float64 `json:"in_price_eur"`
-	// Complete is false when some litres have no price (bought outside
-	// the EU without a price given); Unpriced lists those countries.
+	// Complete is false when some litres have no price (bought where
+	// neither the Weekly Oil Bulletin, from 2024, nor the national
+	// statistics read, GB, NO and CH, give one, and no price given);
+	// Unpriced lists those countries.
 	Complete bool     `json:"complete"`
 	Unpriced []string `json:"unpriced,omitempty"`
 	// RefundEUR is the hauliers' partial refunds of the excise on the
@@ -45,8 +47,8 @@ type FuelBought struct {
 	// price.
 	EURPerL float64 `json:"eur_per_l,omitempty"`
 	EUR     float64 `json:"eur,omitempty"`
-	// Price says where the price comes from: "given", or "Weekly Oil
-	// Bulletin <date>".
+	// Price says where the price comes from: "given", "Weekly Oil
+	// Bulletin <date>", or a national statistic and its date (GB, NO, CH).
 	Price string `json:"price,omitempty"`
 	// RefundEURPerL is the refund of the excise per litre (diesel_refunds),
 	// and Refund the law it rests on.
@@ -164,7 +166,7 @@ func fuelCost(out *Response, req Request, date time.Time) {
 		note += ". Diesel refunds: " + strings.Join(refundNotes, "; ")
 	}
 	if !f.Complete {
-		note += fmt.Sprintf(". No price for the litres bought in %s (outside the bulletin's EU countries and the national statistics read: GB, NO, CH): give diesel_eur_per_l_by_country", strings.Join(f.Unpriced, ", "))
+		note += fmt.Sprintf(". No price for the litres bought in %s (none in the Weekly Oil Bulletin, whose data start in 2024, nor in the national statistics read, GB, NO and CH, for that day): give diesel_eur_per_l_by_country", strings.Join(f.Unpriced, ", "))
 	}
 	out.Notes = append(out.Notes, note+".")
 }

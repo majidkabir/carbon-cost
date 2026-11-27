@@ -895,7 +895,11 @@ func handlerAt(c cost.Calculator, tiles, public string, warm bool) (http.Handler
 		writeJSON(w, http.StatusOK, map[string]any{"places": ps})
 	})
 	mux.HandleFunc("POST /v1/carbon-cost/batch", func(w http.ResponseWriter, r *http.Request) {
-		var req BatchRequest
+		// Each trip is read on its own: one whose JSON is wrong has its
+		// error, and doesn't fail the others.
+		var req struct {
+			Trips []json.RawMessage `json:"trips"`
+		}
 		if !readJSON(w, r, &req) {
 			return
 		}
@@ -903,9 +907,28 @@ func handlerAt(c cost.Calculator, tiles, public string, warm bool) (http.Handler
 			writeJSON(w, http.StatusBadRequest, map[string]string{"error": fmt.Sprintf("trips: give 1 to %d", MaxBatch)})
 			return
 		}
-		ctx, cancel := context.WithTimeout(r.Context(), batchTime(w, len(req.Trips)))
+		trips, bad := make([]cost.Request, 0, len(req.Trips)), map[int]string{}
+		for i, raw := range req.Trips {
+			var t cost.Request
+			dec := json.NewDecoder(bytes.NewReader(raw))
+			dec.DisallowUnknownFields()
+			if err := dec.Decode(&t); err != nil {
+				bad[i] = "bad JSON: " + err.Error()
+				continue
+			}
+			trips = append(trips, t)
+		}
+		ctx, cancel := context.WithTimeout(r.Context(), batchTime(w, len(trips)))
 		defer cancel()
-		writeJSON(w, http.StatusOK, BatchResponse{Results: priceAll(ctx, c.Calculate, req.Trips)})
+		got, out := priceAll(ctx, c.Calculate, trips), make([]BatchItem, len(req.Trips))
+		for i := range out {
+			if e, ok := bad[i]; ok {
+				out[i].Error = e
+				continue
+			}
+			out[i], got = got[0], got[1:]
+		}
+		writeJSON(w, http.StatusOK, BatchResponse{Results: out})
 	})
 	// A CSV of trips, as calc -csv takes it (but no flag that reads a
 	// file or names a server), priced and sent back with the results.

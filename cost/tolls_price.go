@@ -570,6 +570,9 @@ func (p *pricer) perDay(b *batch, ds *tariffs.Dataset, nw *network, a area, toll
 	if len(days) > 0 {
 		p.note("%s", cc+": "+note)
 	}
+	if len(days) > 0 && len(req.CountryKm) > 0 && !slices.ContainsFunc(p.out.Missing, func(m Missing) bool { return m.Area == cc && m.Reason == "days_unknown" }) {
+		p.out.Missing = append(p.out.Missing, Missing{Area: cc, Charge: RoadToll, Name: ds.Name, Reason: "days_unknown"})
+	}
 	if hasMotorAxles(ds) && req.Truck.MotorAxles == 0 {
 		p.note("%s: the charge counts the motor vehicle's own axles; priced with the truck's %d axles. Give truck.motor_axles (e.g. 2 for a two-axle tractor).", cc, req.Truck.Axles)
 	}
@@ -731,6 +734,8 @@ func (p *pricer) tripDaysORCT(ds *tariffs.Dataset, ch *orct.Charge, country stri
 		day = "24h"
 	}
 	switch {
+	case len(req.CountryKm) > 0:
+		return []time.Time{p.noon(ds)}, "a time-based charge, priced at one day's rate: km by country have no passage times to count the trip's days by (give the route, with time); the other days are missing."
 	case day == "":
 		return []time.Time{p.noon(ds)}, "a time-based charge, priced at one day's rate; a trip over more days pays for each day or a longer period."
 	case req.Time == "" || len(sp) == 0:

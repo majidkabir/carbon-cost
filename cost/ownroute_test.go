@@ -339,7 +339,7 @@ func TestEurovignetteUnder12t(t *testing.T) {
 		cc, date string
 		eur      float64
 		complete bool
-	}{{"LU", "2027-04-01", 5, true}, {"LU", "2027-03-25", 0, true}, {"SE", "2027-04-01", 0, false}, {"SE", "2027-03-25", 0, true}} {
+	}{{"LU", "2027-04-01", 5, false}, {"LU", "2027-03-25", 0, true}, {"SE", "2027-04-01", 0, false}, {"SE", "2027-03-25", 0, true}} { // LU's day priced, the trip's other days unknown (km by country)
 		r, err := c.Calculate(context.Background(), Request{Date: tc.date, Truck: small, CargoKg: 2000, LPer100Km: 20, FuelCountry: "AT", CountryKm: map[string]float64{tc.cc: 50}})
 		if err != nil {
 			t.Fatal(err)

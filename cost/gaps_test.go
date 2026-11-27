@@ -1062,8 +1062,9 @@ func TestEurovignetteOncePerDay(t *testing.T) {
 				tolls = append(tolls, fmt.Sprintf("%s %.2f %s", l.Country, l.Amount, l.Currency))
 			}
 		}
-		if len(tolls) != 1 || !out.Complete {
-			t.Errorf("%s %v: road tolls %v (complete %v); want one day's Eurovignette", c.date, c.km, tolls, out.Complete)
+		// Km by country: the day priced, the trip's other days missing.
+		if len(tolls) != 1 || len(out.Missing) != 1 || out.Missing[0].Reason != "days_unknown" {
+			t.Errorf("%s %v: road tolls %v (missing %+v); want one day's Eurovignette", c.date, c.km, tolls, out.Missing)
 		}
 	}
 	// Alone, each state still charges its day.
@@ -1998,6 +1999,33 @@ func TestCesmeliKizkalesiFrom(t *testing.T) {
 		}
 		if (got > 0) != want {
 			t.Errorf("%s: TRY %.2f on Çeşmeli – Kızkalesi, want charged %v", date, got, want)
+		}
+	}
+}
+
+// Km by country have no passage times: a charge by the day is priced for
+// one day, the note says why, and the result lists the other days as
+// missing (it isn't complete), with time given or not.
+func TestCountryKmDaysUnknown(t *testing.T) {
+	for _, tm := range []string{"", "08:00"} {
+		out, err := Calculator{Tariffs: all(t)}.Calculate(context.Background(), Request{CountryKm: map[string]float64{"SE": 3200}, Date: "2026-10-01", Time: tm,
+			CargoKg: 10000, DieselL: 900, Truck: truck40, FX: map[string]float64{"SEK": 11.5}})
+		if err != nil {
+			t.Fatal(err)
+		}
+		days := 0
+		for _, l := range out.Lines {
+			if l.Charge == RoadToll && l.Country == "SE" {
+				days += l.Days
+			}
+		}
+		var miss []string
+		for _, m := range out.Missing {
+			miss = append(miss, m.Area+" "+m.Reason)
+		}
+		note := strings.Join(out.Notes, " | ")
+		if days != 1 || out.Complete || !slices.Contains(miss, "SE days_unknown") || !strings.Contains(note, "km by country") || strings.Contains(note, "give time (the departure)") {
+			t.Errorf("time %q: %d day(s), complete %v, missing %v, notes %s", tm, days, out.Complete, miss, note)
 		}
 	}
 }

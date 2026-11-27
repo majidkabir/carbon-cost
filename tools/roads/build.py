@@ -637,6 +637,12 @@ def place_pending(h, cc, city=None):
     osm = Counter({road: sum(g.length for g in trees[road][1]) / 1000 for road in trees})
     # The km of a section its relation lacks (one carriageway).
     room = lambda e: max(0.0, (span[e][2] - span[e][1]) / 1000 - h.sec_ckm[e])
+    # Sections whose relation has much more than the annex's km (ways past
+    # the section's ends): reported, as tolled km past the law's.
+    over = sorted(((h.sec_ckm[e] - (s1 - s0) / 1000, e) for e, (_, s0, s1) in span.items() if h.sec_ckm[e] > 1.3 * (s1 - s0) / 1000 + ROOM_KM), reverse=True)
+    if over:
+        print(cc, f"sections whose relation has more than 1.3 x the annex's km (+{ROOM_KM}): {len(over)}, {sum(x for x, _ in over):.1f} km over;",
+              ", ".join(f"{e} +{x:.1f}" for x, e in over[:12]))
     covered = {road: osm[road] >= COVERED * km * (2 if road.startswith("M") else 1) for road, km in annex.items()}
 
     def between(a, b):

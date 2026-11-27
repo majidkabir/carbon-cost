@@ -28,6 +28,10 @@ that class the line is drawn for; the build writes the samples for the
 next reading beside its output, and checks each class's tolled km against
 the law's (cz-network.json).
 
+In Bulgaria the class I and II roads are tolled where the toll segments
+of the list run (bg_network.py, bg-network.json), found along the roads
+by bgseg.py; the settlements between them aren't; the motorways all are.
+
 For Hungary, a fourth argument gives an extract of the administrative
 boundaries, for Budapest's. For Romania, a fourth argument gives an extract of the administrative
 boundaries and built-up land use: national roads inside the built-up
@@ -458,7 +462,9 @@ class Ways(osmium.SimpleHandler):
         ow = tags.get("oneway")
         oneway = -1 if ow == "-1" else 0 if ow == "no" else 1 if ow in ("yes", "1", "true") or roundabout or tags.get("highway") == "motorway" else 0
         self.bg.add(refs, roundabout, oneway, [n.ref for n in w.nodes], coords, tags)
-        self.bg_mw.append(c == "mw")
+        # A motorway by its ref; or by its highway, but not a class I or II
+        # road built as one (tolled only along its segments).
+        self.bg_mw.append(any(re.match(r"^A\W?\d", r) for r in refs) or (c == "mw" and not any(re.fullmatch(r"\d{1,2}", r) for r in refs)))
 
     def myto_way(self, w, c, coords, tags):
         refs = [r.strip() for r in (tags.get("ref") or "").split(";") if r.strip()]

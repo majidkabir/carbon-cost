@@ -2,8 +2,8 @@
 roads are tolled where their toll segments run (bgseg.py), found along
 the road between their ends: not in the settlement between two segments,
 across a roundabout without the road's ref, on each carriageway of a dual
-road by its direction's segment, on a road OSM tags as motorway, and on a
-ring road OSM gives no ref; a class II road with no segments isn't
+road by its direction's segment, on a road OSM tags as motorway (but not
+where it has no segment), and on a ring road OSM gives no ref; a class II road with no segments isn't
 tolled; motorways are.
 
 Usage: python3 test_bg.py
@@ -47,6 +47,7 @@ def osm(path):
     way(5, line(5, 0, 0.0302), highway="trunk", ref="6", oneway="yes")           # westbound, 22 m north
     way(6, line(0, 5, 0.06), highway="motorway", ref="A1", oneway="yes")          # motorway
     way(7, line(0, 3, 0.09), highway="motorway", ref="8", oneway="no")            # class I road 8, as motorway
+    way(11, line(3, 4, 0.09), highway="motorway", ref="8", oneway="no")           # ... in a settlement: no segment
     way(8, line(0, 2, 0.12), highway="primary", name="Околовръстен път")          # ring road 18, no ref
     way(9, line(0, 3, 0.15), highway="secondary", ref="99")                      # class II, segments
     way(10, line(0, 3, 0.18), highway="secondary", ref="20")                     # class II, none
@@ -78,7 +79,7 @@ def main():
     nat, mw = km(out["nat"]), km(out["mw"])
     want = 4 + 5 + 10 + 3 + 2 + 3  # road 1: 0-4, 6-11; road 6's carriageways; 8; 18; 99
     ok = abs(nat - want) < 0.15 and abs(mw - 5) < 0.05 and "toll segments of segments" in out["network"]
-    print(f"nat {nat:.2f} km (want {want} and the roundabout's half), mw {mw:.2f} km (want 5: A1, not road 8)")
+    print(f"nat {nat:.2f} km (want {want} and the roundabout's half), mw {mw:.2f} km (want 5: A1, not road 8 nor its stretch in a settlement)")
     for f in (src, dst, law):
         os.remove(f)
     os.rmdir(d)

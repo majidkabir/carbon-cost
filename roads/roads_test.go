@@ -181,3 +181,21 @@ func TestCzechTolledClassI(t *testing.T) {
 		}
 	}
 }
+
+// Bulgaria tolls its class I and II roads where the toll segments of the
+// list run: I-1 through Kresna, between two segments, isn't tolled;
+// II-99 Atia–Burgas, one of the listed class II roads, is.
+func TestBulgariaTollSegments(t *testing.T) {
+	ix, err := Default()
+	if err != nil {
+		t.Fatal(err)
+	}
+	kresna, _ := ix.Classify("BG", [][2]float64{{23.15085, 41.72757}, {23.15061, 41.72648}, {23.15152, 41.72529}, {23.15291, 41.72392}})
+	if kresna.Motorway+kresna.National > 0.05 {
+		t.Errorf("I-1 in Kresna: %+v, want local", kresna)
+	}
+	road99, _ := ix.Classify("BG", [][2]float64{{27.56068, 42.43549}, {27.56245, 42.4377}, {27.56439, 42.44142}, {27.56578, 42.44275}, {27.56688, 42.44338}})
+	if road99.National < 0.8 || road99.Local > 0.05 {
+		t.Errorf("II-99 Atia-Burgas: %+v, want class I and II", road99)
+	}
+}

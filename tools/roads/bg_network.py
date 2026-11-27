@@ -26,32 +26,48 @@ SECTIONS = (("mw", "Автомагистрали"), ("I", "Пътища първ
 
 
 class Rows(HTMLParser):
-    """The text of each table row, and of the text outside tables, in
-    order."""
+    """The text of each table row, and the text outside rows, in order.
+    The page lays the decree out in tables of tables: a row with rows in it
+    is layout, its own text (a heading) text outside rows."""
 
     def __init__(self):
         super().__init__()
-        self.items, self.row, self.cell, self.depth = [], None, None, 0
+        self.data = []  # (row, cell, text)
+        self.trs, self.tds, self.parent = [], [], {}
+        self.n = 0
 
     def handle_starttag(self, tag, attrs):
         if tag == "tr":
-            self.row = []
-        elif tag in ("td", "th") and self.row is not None:
-            self.cell = []
+            self.n += 1
+            self.parent[self.n] = self.trs[-1] if self.trs else None
+            self.trs.append(self.n)
+        elif tag in ("td", "th"):
+            self.n += 1
+            self.tds.append(self.n)
 
     def handle_endtag(self, tag):
-        if tag in ("td", "th") and self.row is not None and self.cell is not None:
-            self.row.append(re.sub(r"\s+", " ", "".join(self.cell)).strip())
-            self.cell = None
-        elif tag == "tr" and self.row is not None:
-            self.items.append(("row", self.row))
-            self.row = None
+        if tag == "tr" and self.trs:
+            self.trs.pop()
+        elif tag in ("td", "th") and self.tds:
+            self.tds.pop()
 
     def handle_data(self, data):
-        if self.cell is not None:
-            self.cell.append(data)
-        elif self.row is None and data.strip():
-            self.items.append(("text", re.sub(r"\s+", " ", data).strip()))
+        if data.strip():
+            self.data.append((self.trs[-1] if self.trs else None, self.tds[-1] if self.tds else None, data))
+
+    @property
+    def items(self):
+        outer = {p for p in self.parent.values() if p is not None}
+        out, rows = [], {}
+        for tr, td, text in self.data:
+            if tr is None or tr in outer:
+                out.append(("text", re.sub(r"\s+", " ", text).strip()))
+            elif tr not in rows:
+                rows[tr] = {td: [text]}
+                out.append(("row", rows[tr]))
+            else:
+                rows[tr].setdefault(td, []).append(text)
+        return [(k, v if k == "text" else [re.sub(r"\s+", " ", "".join(c)).strip() for c in v.values()]) for k, v in out]
 
 
 def roads(page):
@@ -72,7 +88,7 @@ def roads(page):
             road = f"A-{m.group(2)}" if sec == "mw" else m.group(1)
             if road not in out[sec]:
                 out[sec].append(road)
-        else:
+        elif not re.match(r"Номер|[ЕE]\W?\d", num):  # the heads; the E roads' rows
             print("bg_network: row not read:", sec, v[:2], file=sys.stderr)
     return out
 

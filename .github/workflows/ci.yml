@@ -22,6 +22,7 @@ jobs:
       - uses: actions/checkout@v5
       - run: python3 tools/orct/test_publish.py
       - run: python3 tools/orct/test_expiring.py
+      - run: python3 tools/test_next_year.py
       - run: pip install -q osmium shapely && python3 tools/roads/test_plnet.py && python3 tools/roads/test_hu.py && python3 tools/roads/test_cz.py && python3 tools/roads/test_bg.py
       - run: |
           for d in cost/testdata/synthetic/tables/*/; do
@@ -29,6 +30,12 @@ jobs:
             python3 tools/orct/convert.py "$d" "/tmp/synthetic/$v" > /dev/null
             diff -r "/tmp/synthetic/$v" "cost/testdata/synthetic/orct/$v"
           done
+  web:
+    # The calculator page in jsdom: what it sends and shows.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - run: npm install --prefix /tmp/web --no-save -q jsdom@24 && NODE_PATH=/tmp/web/node_modules node tools/web/test_page.cjs
   docker:
     runs-on: ubuntu-latest
     steps:

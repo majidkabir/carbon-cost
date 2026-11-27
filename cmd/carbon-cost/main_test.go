@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"net/http"
 	"net/http/httptest"
 	"strings"
@@ -119,5 +120,32 @@ func TestPanicsRecovered(t *testing.T) {
 	}, []cost.Request{{CargoKg: 1}, {CargoKg: 2}})
 	if out[0].Result == nil || !strings.Contains(out[1].Error, "internal error: boom") {
 		t.Errorf("batch: %+v", out)
+	}
+}
+
+// Every dataset /v1/rates lists is there at /v1/rates/{cc}/{file}, used
+// as the API description says (file: the name after the country folder).
+func TestRatesAsDocumented(t *testing.T) {
+	c, err := calculator(&sootcase.Client{BaseURL: "http://127.0.0.1:1"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	h := Handler(c, DefaultTiles)
+	rec := httptest.NewRecorder()
+	h.ServeHTTP(rec, httptest.NewRequest("GET", "/v1/rates", nil))
+	var list []struct {
+		Country string `json:"country"`
+		File    string `json:"file"`
+	}
+	if err := json.Unmarshal(rec.Body.Bytes(), &list); err != nil || len(list) == 0 {
+		t.Fatalf("%v: %.200s", err, rec.Body.String())
+	}
+	for _, d := range list {
+		cc, name, _ := strings.Cut(d.File, "/")
+		rec := httptest.NewRecorder()
+		h.ServeHTTP(rec, httptest.NewRequest("GET", "/v1/rates/"+cc+"/"+name, nil))
+		if rec.Code != 200 {
+			t.Errorf("%s (%s): GET /v1/rates/%s/%s: %d", d.File, d.Country, cc, name, rec.Code)
+		}
 	}
 }

@@ -3,9 +3,10 @@ where the toll operator's map, read at its points (cz_myto.py), draws a
 layer, in that layer's class (a class II road in OpenStreetMap the map
 tolls as class I, a motorway it tolls as class I); a short tolled blip
 (a crossing) is left out, and so is a road beside a motorway the map's
-line is the motorway's; a way the capture doesn't know takes the map's
-reading at the points beside it (OSM split a way), else is tolled when
-both its ends meet tolled ways of a class, as are the new ways between.
+line is the motorway's; a way takes the map's reading at the points on it,
+its own or (OSM split or merged it) others' running along it, not a
+crossing road's; ways with none are tolled when the ways of their ref
+joined to them meet tolled ways of that ref at every end.
 
 Usage: python3 test_cz.py
 """
@@ -29,9 +30,12 @@ def osm(path, new):
             nodes[key] = len(nodes) + 1
         return nodes[key]
 
-    def way(wid, x0, x1, dy=0.0, **tags):
-        steps = max(1, round(abs(x1 - x0) * 2))
-        ids = [node(x0 + (x1 - x0) * i / steps, dy) for i in range(steps + 1)]
+    def way(wid, x0, x1=None, dy=0.0, **tags):
+        if x1 is None:  # a list of (km, dy) points
+            ids = [node(x, y) for x, y in x0]
+        else:
+            steps = max(1, round(abs(x1 - x0) * 2))
+            ids = [node(x0 + (x1 - x0) * i / steps, dy) for i in range(steps + 1)]
         nds = "".join(f'<nd ref="{i}"/>' for i in ids)
         tg = "".join(f'<tag k="{k}" v="{v}"/>' for k, v in tags.items())
         ways.append(f'<way id="{wid}" version="1">{nds}{tg}</way>')
@@ -46,7 +50,11 @@ def osm(path, new):
     way(3, 0, 5, dy=0.05, highway="motorway", ref="D1", oneway="yes")
     way(4, 5, 0, dy=0.0502, highway="motorway", ref="D1", oneway="yes")
     way(5, 0, 3, dy=0.08, highway="motorway", ref="D0")              # not tolled on the map
-    way(6, 11, 13, highway="primary", ref="38")                      # tolled
+    if new:
+        way(6, 11, 13.8, highway="primary", ref="38")                # OSM merged way 16 into it
+    else:
+        way(6, 11, 13, highway="primary", ref="38")                  # tolled
+        way(16, 13, 13.8, highway="primary", ref="38")               # tolled
     way(8, 0, 5, dy=-0.03, highway="primary", ref="38")              # a blip at km 2.5 only
     way(10, 0, 3, dy=-0.06, highway="secondary", ref="434")          # class I on the map
     way(11, 0, 2, dy=-0.09, highway="motorway", ref="55")            # class I on the map
@@ -54,7 +62,9 @@ def osm(path, new):
     if new:
         way(7, 10, 10.5, highway="primary", ref="38")                # new: two ways between tolled ends
         way(14, 10.5, 11, highway="motorway", ref="38", oneway="no")  # (a class I road tagged motorway)
-        way(9, 13, 14, highway="primary", ref="38")                  # new: one end loose
+        way(9, 13.8, 14.8, highway="primary", ref="38")              # new: one end loose
+        way(17, [(10, 0), (10, 0.003), (11, 0.003), (11, 0)], highway="secondary", ref="999")  # new: another road between tolled ends
+        way(18, [(12.05, -0.0007), (12.05, 0.0007)], highway="primary", ref="2")             # new: crossing way 6 at one of its points
     pts = "".join(f'<node id="{i}" version="1" lat="{LAT + dy:.7f}" lon="{LON0 + x * KM:.7f}"/>' for (x, dy), i in nodes.items())
     open(path, "w").write('<?xml version="1.0"?><osm version="0.6">' + pts + "".join(ways) + "</osm>")
 
@@ -65,14 +75,14 @@ def drawn(wid, x):
         return None if 4 <= x <= 6 else "nat"
     if wid == 8:
         return "nat" if 2.4 <= x <= 2.6 else None
-    return {3: "mw", 4: "mw", 6: "nat", 10: "nat", 11: "nat", 12: "mw"}.get(wid)
+    return {3: "mw", 4: "mw", 6: "nat", 16: "nat", 10: "nat", 11: "nat", 12: "mw"}.get(wid)
 
 
 def main():
     d = tempfile.mkdtemp()
     src, dst = os.path.join(d, "cz.osm"), os.path.join(d, "cz.json.gz")
     build.CZ_LAW = os.path.join(d, "law.json")
-    json.dump({"source": "test: x", "sections": [{"class": "nat", "ref": "38", "km": 15.0, "text": "I/38"},
+    json.dump({"source": "test: x", "sections": [{"class": "nat", "ref": "38", "km": 15.8, "text": "I/38"},
                                                   {"class": "mw", "ref": "D1", "km": 5.0, "text": "D1"}]}, open(build.CZ_LAW, "w"))
     cz_myto.SAMPLES, cz_myto.CAPTURE = os.path.join(d, "samples.json.gz"), os.path.join(d, "capture.json")
     osm(src, False)
@@ -106,8 +116,8 @@ def main():
     out = json.load(gzip.open(dst))
     km = lambda lines: sum(sum(((l[i + 2] - l[i]) ** 2 + (l[i + 3] - l[i + 1]) ** 2) ** 0.5 for i in range(0, len(l) - 2, 2)) for l in lines) / 1e5 / KM
     nat, mw = km(out["nat"]), km(out["mw"])
-    ok = sampled == {1, 2, 3, 4, 5, 6, 8, 10, 11, 12} and abs(nat - 16) < 0.15 and abs(mw - 10) < 0.15 and out["network"] == "test; tolled stretches as the toll operator's map draws them (test, read 2026-11-27)"
-    print(f"sampled {sorted(sampled)} (want all but the new 7 and 9), nat {nat:.2f} km (want 16: 10 - 2 + 2 + 1 + 3 + 2, not the blip nor the loose way), mw {mw:.2f} km (want 10: D1's two carriageways, not D0 nor the road beside D1)")
+    ok = sampled == {1, 2, 3, 4, 5, 6, 8, 10, 11, 12, 16} and abs(nat - 16.8) < 0.15 and abs(mw - 10) < 0.15 and out["network"] == "test; tolled stretches as the toll operator's map draws them (test, read 2026-11-27)"
+    print(f"sampled {sorted(sampled)} (want all but the new 7 and 9), nat {nat:.2f} km (want 16.8: 10 - 2 + 2.8 + 1 + 3 + 2, not the blip, the loose way, the other road nor the crossing one), mw {mw:.2f} km (want 10: D1's two carriageways, not D0 nor the road beside D1)")
     print(out["network"])
     for f in os.listdir(d):
         os.remove(os.path.join(d, f))

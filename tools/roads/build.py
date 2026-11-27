@@ -13,15 +13,15 @@ in a toll section takes its class and suburban share from annex 1 of
 25/2013 NFM (hu-annex1.json, from tools/tables/hu.py); "mwf"/"natf" give each line's share, -1
 where unknown. A Hungarian way in no toll section is tolled only as one of
 one: the other carriageway (within TWIN_M of a section way of its road
-number along its length), a hole in a section's relation (a chain of such
-ways of the road whose ends meet that section's ways, which don't run
-between them, at most 1.3 times the section, 2.6 on M roads; in its class
-and share), or a gap in the sections' relations (a chain whose ends meet
-two sections' ways, at most GAP_KM longer than 1.3 times the annex
-between them, 2.6 on M roads, where annex 1 runs on between those
-sections without a break but a junction's, JOIN_KM; in the class and
-share of its sections there, or where the two meet in it, their mean
-share); the other main roads and motorways, such as those inside
+number along its length), or a hole or gap in the sections' relations: a
+chain of such ways of the road whose ends meet section ways of the road,
+where annex 1 runs on between them (but for a junction's JOIN_KM), and
+whose km (one carriageway: a oneway way counts half) the annex km OSM's
+relations lack there leave room for (ROOM, ROOM_KM). It takes the class
+and share of the section it is in, of the annex's sections between, or
+where two meet in it, their mean share. The other ways, such as an old
+road beside a section OSM has whole, and the other main roads and
+motorways, such as those inside
 Budapest or between two sections annex 1 doesn't join, aren't tolled. Lines are
 simplified to SIMPLIFY_M and stored as [lon, lat] * 1e5 integers.
 
@@ -67,6 +67,10 @@ TWIN_M, GAP_KM, BRIDGE_M = 60, 10, 60
 # Unlisted km between two of annex 1's sections a gap may run across (a
 # junction's; 32u9k695m ends at 10+463, 32u10k510m starts at 10+510).
 JOIN_KM = 0.1
+# A chain fills a hole or gap in the sections' relations if its km (one
+# carriageway) are at most ROOM times the annex km OSM's relations lack
+# there, plus ROOM_KM (OSM's lengths and the annex's differ a little).
+ROOM, ROOM_KM = 1.3, 0.3
 # A road whose toll sections OSM has for this share of annex 1's km (both
 # carriageways of an M road): its other ways are left out.
 COVERED = 0.9
@@ -375,7 +379,9 @@ class Ways(osmium.SimpleHandler):
         self.untolled = Counter()
         # sections_only: the section ways by road, and the other ways of
         # those classes (road refs, class, [lon, lat] points), placed after.
-        self.sec_lines, self.pending = {}, []
+        # sec_ckm: each section's km in OSM, one carriageway (a oneway way
+        # counts half).
+        self.sec_lines, self.pending, self.sec_ckm = {}, [], Counter()
         # myto (Czechia): the class I roads the law tolls; the map's
         # layers at each way's points (cz_myto.load); the ways sampled; the
         # ways the capture knows and doesn't, placed after; the end nodes of
@@ -397,7 +403,9 @@ class Ways(osmium.SimpleHandler):
             c, f, road, edid = sec
             if self.rule.get("sections_only"):
                 try:
-                    self.sec_lines.setdefault(road, []).append((LineString([(n.lon, n.lat) for n in w.nodes]), c, f, edid))
+                    pts = [(n.lon, n.lat) for n in w.nodes]
+                    self.sec_lines.setdefault(road, []).append((LineString(pts), c, f, edid))
+                    self.sec_ckm[edid] += cz_myto.length_m(pts) / 1000 * carriageway(tags)
                 except (osmium.InvalidLocationError, ValueError):
                     pass
         else:
@@ -455,7 +463,7 @@ class Ways(osmium.SimpleHandler):
         if len(coords) < 2:
             return
         if self.rule.get("sections_only") and not sec:
-            self.pending.append(([r.strip() for r in (tags.get("ref") or "").split(";") if r.strip()], c, coords))
+            self.pending.append(([r.strip() for r in (tags.get("ref") or "").split(";") if r.strip()], c, coords, carriageway(tags)))
             return
         if self.rule.get("myto"):
             return self.myto_way(w, c, coords, tags)
@@ -527,10 +535,7 @@ class Ways(osmium.SimpleHandler):
 
     def add_myto(self, c, coords, tags, refs):
         self.add(c, -1, coords, tags)
-        # One carriageway: a oneway way (a motorway's) counts half.
-        ow = tags.get("oneway")
-        one = ow in ("yes", "1", "true", "-1") or (ow != "no" and (tags.get("junction") in ("roundabout", "circular") or tags.get("highway") == "motorway"))
-        km = cz_myto.length_m(coords) / 1000 * (0.5 if one else 1)
+        km = cz_myto.length_m(coords) / 1000 * carriageway(tags)
         self.class_km[c] += km
         self.ref_km[(c, refs[0] if refs else "")] += km
 
@@ -580,15 +585,24 @@ class Ways(osmium.SimpleHandler):
                     self.op_km[op] += piece.length * 111.32 * 0.68
 
 
+def carriageway(tags):
+    """The share of one carriageway a way is: a oneway way (a motorway's,
+    a roundabout's) counts half."""
+    ow = tags.get("oneway")
+    one = ow in ("yes", "1", "true", "-1") or (ow != "no" and (tags.get("junction") in ("roundabout", "circular") or tags.get("highway") == "motorway"))
+    return 0.5 if one else 1
+
+
 def place_pending(h, cc, city=None):
     """Hungary: the ways outside the toll sections, placed. A section's
-    other carriageway, or a hole in its relation (its own ways not between
-    the chain's ends), takes the section's class and share; a gap in OSM's
-    relations where annex 1 runs on between the sections its chain meets
-    (but for holes of JOIN_KM), the class and share of the annex's
-    sections there (none: the two sections' mean share, the longer's
-    class); a chain between two sections with nothing of the annex between
-    them is left out.
+    other carriageway (within TWIN_M) takes the section's class and share.
+    A chain of the others whose ends meet section ways fills a hole or gap
+    in OSM's relations where annex 1 runs on there (but for holes of
+    JOIN_KM) and the annex km the relations lack there leave room for it
+    (one carriageway); it takes the section's class and share, the
+    annex's sections' between (none: the two sections' mean share, the
+    longer's class). A chain between two sections with nothing of the
+    annex between them is a break, not tolled.
     The rest is left out on a road whose sections OSM has (COVERED of the
     annex's km, both carriageways of an M road), and on a road whose
     sections it lacks is tolled by its ref as before, but not inside
@@ -617,16 +631,12 @@ def place_pending(h, cc, city=None):
             elif chain(r["start"]) != chain(end):
                 at += max(0, chain_m(r["start"]) - chain_m(end), chain(r["start"])[1] if chain(r["start"])[0] > chain(end)[0] else 0)
             span[r["id"]] = (road, at, at + r["m"])
-            by_road.setdefault(road, []).append((at, at + r["m"], r["f"], "mw" if r["level"] == "motorway" else "nat"))
+            by_road.setdefault(road, []).append((at, at + r["m"], r["f"], "mw" if r["level"] == "motorway" else "nat", r["id"]))
             annex[road] += r["m"] / 1000
             at, end = at + r["m"], r["end"]
     osm = Counter({road: sum(g.length for g in trees[road][1]) / 1000 for road in trees})
-    # Each section's own ways, to tell a hole in its relation (none of
-    # them between a chain's ends) from a road beside it.
-    own = {}
-    for road, (_, geoms, secs) in trees.items():
-        for g, (_, _, _, e) in zip(geoms, secs):
-            own.setdefault(e, []).append(g)
+    # The km of a section its relation lacks (one carriageway).
+    room = lambda e: max(0.0, (span[e][2] - span[e][1]) / 1000 - h.sec_ckm[e])
     covered = {road: osm[road] >= COVERED * km * (2 if road.startswith("M") else 1) for road, km in annex.items()}
 
     def between(a, b):
@@ -637,8 +647,8 @@ def place_pending(h, cc, city=None):
         if ra != rb:
             return None
         lo, hi = (a1, b0) if a1 <= b0 else (b1, a0)
-        inside = sorted((s0, s1, f, c) for s0, s1, f, c in by_road[ra] if s1 > lo and s0 < hi)
-        there = [(min(s1, hi) - max(s0, lo), f, c) for s0, s1, f, c in inside]
+        inside = sorted((s0, s1, f, c, e) for s0, s1, f, c, e in by_road[ra] if s1 > lo and s0 < hi)
+        there = [(min(s1, hi) - max(s0, lo), f, c) for s0, s1, f, c, _ in inside]
         on = sum(m for m, _, _ in there)
         by_class = Counter()
         for m, _, c in there:
@@ -646,9 +656,12 @@ def place_pending(h, cc, city=None):
         cf = (by_class.most_common(1)[0][0], sum(m * f for m, f, _ in there) / on) if on else None
         # The longest stretch there no section lists (a junction's, or a break).
         hole, at = 0, lo
-        for s0, s1, _, _ in inside:
+        for s0, s1, *_ in inside:
             hole, at = max(hole, s0 - at), max(at, s1)
-        return on / 1000, (hi - lo) / 1000, cf, max(hole, hi - at) / 1000
+        # The km OSM's relations lack there: the unlisted metres and each
+        # section's annex km beyond what its relation has.
+        lack = (hi - lo - on) / 1000 + sum(room(e) for *_, e in inside)
+        return on / 1000, (hi - lo) / 1000, cf, max(hole, hi - at) / 1000, lack
 
     def near(road, pt, d):
         """The nearest section way of road within d metres of pt, or None."""
@@ -666,8 +679,8 @@ def place_pending(h, cc, city=None):
     # Roads annex 1 tolls inside Budapest (the M0): a section way there.
     city_roads = {road for road, secs in h.sec_lines.items() if city is not None and any(ls.intersects(city) for ls, *_ in secs)}
     twins, gaps, breaks, dropped, kept, in_city = Counter(), Counter(), Counter(), Counter(), Counter(), Counter()
-    rest = []  # (refs, class, points, points in metres)
-    for refs, c, coords in h.pending:
+    rest = []  # (refs, class, points, points in metres, carriageway share)
+    for refs, c, coords, cw in h.pending:
         mc = m(coords)
         line = LineString(mc)
         n = max(2, int(line.length // 50) + 1)
@@ -683,7 +696,7 @@ def place_pending(h, cc, city=None):
             h.add(sc, sf, coords, {})
             twins[hit[0]] += line.length / 1000
         else:
-            rest.append((refs, c, coords, mc))
+            rest.append((refs, c, coords, mc, cw))
     # Chains of the remaining ways of one road: ways whose end comes within
     # BRIDGE_M of another (both carriageways, across a roundabout or a way
     # without the ref). A chain's ends are its two way ends farthest apart;
@@ -713,6 +726,7 @@ def place_pending(h, cc, city=None):
                     todo += [int(j) for j in tree.query(q.buffer(BRIDGE_M)) if int(j) not in chain and lines[int(j)].distance(q) <= BRIDGE_M]
             seen |= chain
             km = sum(lines[k].length for k in chain) / 1000
+            ckm = sum(lines[k].length * rest[ways[k]][4] for k in chain) / 1000  # one carriageway
             if km > 3 * GAP_KM and covered.get(road, False):
                 continue  # long: not a gap; left out below
             pts = [p for k in chain for p in (rest[ways[k]][3][0], rest[ways[k]][3][-1])]
@@ -731,26 +745,24 @@ def place_pending(h, cc, city=None):
                           ab and f"annex {ab[0]:.2f} of {ab[1]:.2f} km between, hole {ab[3]:.3f}", "->", what, cf or "")
 
             if ma and mb and ma[3] == mb[3]:
-                # A hole in one section's relation: the section's own ways
-                # don't run between the chain's ends (a road beside them
-                # isn't tolled), and the chain is no longer than the
-                # section allows.
-                mid = Point((a[0] + b[0]) / 2, (a[1] + b[1]) / 2)
-                hole = min(g.distance(mid) for g in own[ma[3]]) >= 0.25 * math.dist(a, b)
-                if hole and km <= (2.6 if road.startswith("M") else 1.3) * (span[ma[3]][2] - span[ma[3]][1]) / 1000:
+                # A hole in one section's relation (or its other
+                # carriageway, farther off): the km its relation lacks
+                # leave room for the chain (a road beside a section OSM
+                # has whole finds none).
+                if ckm <= ROOM * room(ma[3]) + ROOM_KM:
                     for k in chain:
                         h.add(ma[1], ma[2], rest[ways[k]][2], {})
                         decided[ways[k]] = "gap"
                     gaps[road] += km
                     show("hole", ma[1:3])
                 else:
-                    show("left (beside the section, or longer than it)")
+                    show(f"left (room {room(ma[3]):.2f} km)")
                 continue
             if ab is None:
                 show("left (no section at an end)")
                 continue
-            on, gap, cf, hole = ab
-            if hole <= JOIN_KM and km <= (2.6 if road.startswith("M") else 1.3) * gap + GAP_KM:
+            on, gap, cf, hole, lack = ab
+            if hole <= JOIN_KM and ckm <= ROOM * (lack + room(ma[3]) + room(mb[3])) + ROOM_KM:
                 # The annex runs on between them (but for a junction's
                 # few metres): OSM's relations lack it. Its km take the
                 # class and share of the annex's sections there; where
@@ -764,6 +776,8 @@ def place_pending(h, cc, city=None):
                     decided[ways[k]] = "gap"
                 gaps[road] += km
                 show("gap", (sc, round(sf, 3)))
+            elif hole <= JOIN_KM:
+                show(f"left (room {lack + room(ma[3]) + room(mb[3]):.2f} km)")
             elif on <= 0.001:
                 # No annex section between them: not tolled.
                 for k in chain:
@@ -773,7 +787,7 @@ def place_pending(h, cc, city=None):
             else:
                 # Part of it is in the annex: left as the road's other ways.
                 show("left (part in the annex)")
-    for i, (refs, c, coords, mc) in enumerate(rest):
+    for i, (refs, c, coords, mc, _) in enumerate(rest):
         if i in decided:
             continue
         road = next((r for r in refs if r in annex), refs[0] if refs else "(no ref)")

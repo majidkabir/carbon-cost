@@ -1020,7 +1020,7 @@
       "type": "array"
      },
      "missing": {
-      "description": "Missing lists the charges the trip meets that the total leaves out: areas with no table here, and rates that ended with no successor here yet (a new year's tariffs not yet published or added).",
+      "description": "Missing lists the charges the trip meets that the total leaves out, each with its reason (Missing.Reason): an area with no table here, rates that ended with no successor here yet (a new year's tariffs not yet published or added), and others a trip given as country_km, without a truck field, a time or a price the table has can't get.",
       "items": {
        "$ref": "#/components/schemas/Missing"
       },
@@ -1834,7 +1834,7 @@
         }
        }
       },
-      "description": "The request is wrong: its JSON, a field, or a place Sootcase doesn't know."
+      "description": "The request is wrong: its JSON, or not 1 to 100 trips."
      },
      "413": {
       "content": {

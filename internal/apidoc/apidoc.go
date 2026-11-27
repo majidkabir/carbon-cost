@@ -120,7 +120,7 @@ func Generate(root, version string) ([]byte, error) {
 				"operationId": "priceBatch",
 				"requestBody": map[string]any{"required": true, "content": map[string]any{"application/json": map[string]any{"schema": breq}}},
 				// Each trip's error, Sootcase's too, is in its item.
-				"responses": map[string]any{"200": jsonBody(bres, "Each trip's result or error, in the order asked."), "400": errs["400"], "413": errs["413"]},
+				"responses": map[string]any{"200": jsonBody(bres, "Each trip's result or error, in the order asked."), "400": jsonBody(errRef, "The request is wrong: its JSON, or not 1 to 100 trips."), "413": errs["413"]},
 			}},
 			"/v1/carbon-cost/csv": map[string]any{"post": map[string]any{
 				"summary": "Price a CSV of up to 100 trips",

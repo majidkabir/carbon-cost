@@ -683,6 +683,10 @@ def convert_points(b, t, systems, motor):
         if p.get("free_hours"):
             tfree = b.time_class("free", times=hours(p["free_hours"]), label="No charge")
             rows.append({"object": oid, "time_class": tfree, "priority": 2, "amount": "0"})
+        if p.get("free_dates"):
+            # Days of the year with no charge (MM-DD): Christmas Day.
+            tdays = b.time_class("free-days", days=[{"dates": p["free_dates"]}], label="No charge")
+            rows.append({"object": oid, "time_class": tdays, "priority": 2, "amount": "0"})
         kind = "congestion" if p.get("schedule") else "toll"
         by_window.setdefault((kind, p.get("valid_from") or "", p.get("valid_to") or ""), []).extend(rows)
         if p.get("group"):
@@ -1002,6 +1006,7 @@ def check(t, name):
         if p.get("within") and p["within"] not in names:
             bad.append(f"toll point {p['name']}: no closed system {p['within']!r} in the table")
         bad += [f"toll point {p['name']}: {k} must be [from, to] (HH:MM)" for k in ("free_hours", "night_hours") if p.get(k) and not is_hours(p[k])]
+        bad += [f"toll point {p['name']}: free_dates must be MM-DD" for x in p.get("free_dates") or [] if not re.fullmatch(r"\d\d-\d\d", x)]
         if any(p.get(k) and not is_day(p[k]) for k in ("valid_from", "valid_to")):
             bad.append(f"toll point {p['name']}: bad date")
         elif p.get("valid_from") and p.get("valid_to") and p["valid_to"] < p["valid_from"]:

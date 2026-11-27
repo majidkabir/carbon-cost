@@ -462,7 +462,7 @@ def thames(browser, fetched, out):
               "tolled_roads": "The Blackwall Tunnel (A102) and the Silvertown Tunnel under the Thames, each bore, either way.",
               "point_match_km": 0.15,
               "toll_points": [{"name": "Blackwall and Silvertown tunnels", "lat": lat, "lon": lon, "heading": head, "rate": 0,
-                               "classes": [{"min_kg": 3501, "rate": rate, "etc_rate": etc}], "free_hours": ["22:00", "05:59"]} for lat, lon, head in pts],
+                               "classes": [{"min_kg": 3501, "rate": rate, "etc_rate": etc}], "free_hours": ["22:00", "05:59"], "free_dates": ["12-25"]} for lat, lon, head in pts],
               "rows": []}
         if vt:
             tb["valid_to"] = vt

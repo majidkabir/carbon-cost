@@ -67,6 +67,15 @@
    "id": "free",
    "label": "No charge",
    "times": [["22:00", "06:00"]]
+  },
+  {
+   "id": "free-days",
+   "label": "No charge",
+   "days": [
+    {
+     "dates": ["12-25"]
+    }
+   ]
   }
  ],
  "user_classes": [
@@ -141,15 +150,19 @@
     ["pt1", "pt-1.1", null, null, null, "10.5"],
     ["pt1", "pt-1.1", "electronic", null, null, "5.25"],
     ["pt1", null, null, "free", 2, "0"],
+    ["pt1", null, null, "free-days", 2, "0"],
     ["pt2", "pt-1.1", null, null, null, "10.5"],
     ["pt2", "pt-1.1", "electronic", null, null, "5.25"],
     ["pt2", null, null, "free", 2, "0"],
+    ["pt2", null, null, "free-days", 2, "0"],
     ["pt3", "pt-1.1", null, null, null, "10.5"],
     ["pt3", "pt-1.1", "electronic", null, null, "5.25"],
     ["pt3", null, null, "free", 2, "0"],
+    ["pt3", null, null, "free-days", 2, "0"],
     ["pt4", "pt-1.1", null, null, null, "10.5"],
     ["pt4", "pt-1.1", "electronic", null, null, "5.25"],
-    ["pt4", null, null, "free", 2, "0"]
+    ["pt4", null, null, "free", 2, "0"],
+    ["pt4", null, null, "free-days", 2, "0"]
    ],
    "sources": ["s1", "s2"],
    "basis": "transcribed"

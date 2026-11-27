@@ -2304,7 +2304,8 @@ func TestLondonLEZ(t *testing.T) {
 }
 
 // The Blackwall and Silvertown tunnels: GBP 10.00 per HGV crossing from
-// 7 April 2025, 10.50 from 21 September 2026, none from 22:00 to 06:00.
+// 7 April 2025, 10.50 from 21 September 2026, none from 22:00 to 06:00
+// nor on Christmas Day (TfL: "except Christmas Day").
 func TestThamesTunnels(t *testing.T) {
 	// Through the middle of a Blackwall bore, along its heading (306.3°).
 	h := 306.3 * math.Pi / 180
@@ -2314,7 +2315,7 @@ func TestThamesTunnels(t *testing.T) {
 	for _, tc := range []struct {
 		date, at string
 		want     float64
-	}{{"2026-10-01", "12:00", 10.50}, {"2026-10-01", "23:00", 0}, {"2025-06-01", "12:00", 10.00}, {"2025-03-01", "12:00", 0}} {
+	}{{"2026-10-01", "12:00", 10.50}, {"2026-10-01", "23:00", 0}, {"2025-06-01", "12:00", 10.00}, {"2025-03-01", "12:00", 0}, {"2026-12-25", "12:00", 0}, {"2026-12-24", "12:00", 10.50}} {
 		d, _ := time.Parse("2006-01-02", tc.date)
 		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: truck40, Time: tc.at, FX: map[string]float64{"GBP": 0.84}}, d)
 		if err != nil {

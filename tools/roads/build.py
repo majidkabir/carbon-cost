@@ -476,15 +476,10 @@ class Ways(osmium.SimpleHandler):
         if self.myto is not None:
             slots = self.myto_points.slots(w.id, ls)
             read = [i for i, l in enumerate(slots) if l != "unread"]
-            own = self.myto.get(w.id)
-            if own:
-                # A way the map was read on, moved since: its unread
-                # slots take the layer most of its points had.
-                most = Counter(own[1]).most_common(1)[0][0]
-                slots = [most if l == "unread" else l for l in slots]
-            if not own and len(read) < len(slots) and all(i < cz_myto.END or i >= len(slots) - cz_myto.END for i in read):
-                # A way added since, unread but (from its neighbours' points)
-                # at most at its ends: placed by its ends instead.
+            if w.id not in self.myto and 2 * (len(slots) - len(read)) > len(slots) and all(i < cz_myto.END or i >= len(slots) - cz_myto.END for i in read):
+                # A way added since, mostly unread and read (from its
+                # neighbours' points) at most at its ends: placed by its
+                # ends instead.
                 self.new_ways.append((c, coords, tags, ends, nodes))
             else:
                 n = len(slots)
@@ -785,7 +780,8 @@ def myto_finish(h, cc, law, dst):
         h.add_parts(c, parts, ls, tags, refs, nodes)
         unread += cz_myto.length_m(list(ls.coords)) / 1000 * sum(l == "unread" for l in cz_myto.filled(keep)) / len(keep)
     print(cc, f"km the map draws on other roads beside a road of its class (left out): {beside:.1f}")
-    # Ways added since (unread but at their ends): those of a ref, and
+    # Ways added since (mostly unread, read at most at their ends): those
+    # of a ref, and
     # ref-less ones (a roundabout's) whose ends are on them or on tolled
     # ways of the ref, joined at their ends, are tolled in a class when
     # the chain has two ends or more (its ends, and the nodes where tolled
@@ -867,11 +863,11 @@ def myto_finish(h, cc, law, dst):
     free_km = sum(cz_myto.length_m(ways[j][1]) / 1000 for j in range(len(ways)) if j not in done)
     if ways or unread:
         print(cc, f"ways unread (added since the reading): {len(ways)}, {tolled_km:.1f} km tolled (between tolled ways), {free_km:.1f} km not; {unread:.1f} km of other ways unread, not tolled")
-    if h.myto is not None and tolled_km + free_km + unread > CHANGED_KM:
-        sys.exit(f"{cc}: {tolled_km + free_km + unread:.0f} km of ways changed since the toll map's reading, more than {CHANGED_KM}: take a new reading (tools/roads/cz_myto.py)")
     path = os.path.join(os.path.dirname(os.path.abspath(dst)), "cz-samples.json.gz")
     cz_myto.write_samples(h.samples, path, os.environ.get("OSM_EXTRACT", "")[:10] or None)
     print(cc, "samples for the next capture:", path, sum(cz_myto.count(list(ls.coords)) for *_, ls in h.samples), "points")
+    if h.myto is not None and tolled_km + free_km + unread > CHANGED_KM:
+        sys.exit(f"{cc}: {tolled_km + free_km + unread:.0f} km of ways changed since the toll map's reading, more than {CHANGED_KM}: take a new reading (tools/roads/cz_myto.py)")
     for (c, ref), v in sorted(h.ref_km.items(), key=lambda kv: -kv[1]):
         if v >= 0.5:
             print(cc, f"tolled {c:>3} {ref or '(no ref)':>6}: {v:6.1f} km")
@@ -1048,6 +1044,9 @@ def main(cc, src, dst, areas=None):
         network = myto_finish(h, cc, law, dst)
     if bg:
         network = bg_finish(h, cc, bg)
+    if cc == "HU":
+        network = ("25/2013. (V. 31.) NFM rendelet, 1. melléklet: its toll sections by OpenStreetMap's relations tagged ref:HU:edid"
+                   " (where OpenStreetMap mostly lacks a road's, its ways by their ref; not inside Budapest but the M0)")
     tolling = {op.split("|")[0] for op in h.op_km}
     for (key, x, y), km in sorted(h.untolled.items(), key=lambda kv: -kv[1]):
         if km >= 1 and key.split("|")[0] in tolling:
@@ -1071,7 +1070,7 @@ def main(cc, src, dst, areas=None):
     if urban is not None:
         print(cc, "national road km left out inside municipalities (both carriageways):", round(h.urban_km))
     out = {"country": cc, "simplify_m": SIMPLIFY_M, "mw": h.lines["mw"], "nat": h.lines["nat"]}
-    if law or bg:
+    if law or bg or cc == "HU":
         out["network"] = network
     # The extract's date (the workflow passes its osmosis_replication_timestamp).
     if os.environ.get("OSM_EXTRACT"):

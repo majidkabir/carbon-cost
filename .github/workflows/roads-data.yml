@@ -46,11 +46,12 @@ jobs:
               python3 tools/roads/cz_network.py law.txt | diff -u tools/roads/cz-network.json -
               osmium tags-filter -O -o roads.pbf in.pbf w/highway=motorway,trunk,primary,secondary
             elif [ $cc = BG ]; then
+              curl -fsSL --retry 5 --retry-delay 20 -o list.html "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=234264"
               curl -fsSL --retry 5 --retry-delay 20 -o seg.pdf https://dv.parliament.bg/DVPics/2022/78_22/6119.pdf
               pdftotext -layout seg.pdf seg.txt
-              wc -l seg.txt; head -60 seg.txt; echo ...; grep -n "Втори клас\|Първи клас" seg.txt | awk 'NR%40==1' | head -60; echo ...; tail -40 seg.txt
-              curl -fsSL --retry 5 --retry-delay 20 -o list.html "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=234264"
-              python3 -c "import html,re,sys; t=open('list.html',encoding='utf-8',errors='replace').read(); t=re.sub(r'<[^>]+>',' ',t); t=html.unescape(t); i=t.find('Пътища втори клас'); print(re.sub(r'\s+',' ',t[i:i+6000]))"
+              python3 tools/roads/bg_network.py list.html seg.txt > bg-law.json
+              cat bg-law.json
+              python3 -c "import re; t=open('list.html',encoding='utf-8',errors='replace').read(); i=t.find('Пътища първи клас'); print(t[i-3000:i+2500])"
               osmium tags-filter -O -o roads.pbf in.pbf w/highway=motorway,trunk,primary r/ref:HU:edid
             else
               osmium tags-filter -O -o roads.pbf in.pbf w/highway=motorway,trunk,primary r/ref:HU:edid

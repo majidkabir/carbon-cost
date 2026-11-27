@@ -555,10 +555,12 @@ type Missing struct {
 	// pair; the notes say which), "needs_time" (it goes by the time of day,
 	// a congestion tax: give time), "before_table" (its first rates here
 	// start on Starts, after the trip's day: an earlier price isn't here)
-	// or "days_unknown" (it is by the day, priced for the fewest days the
-	// trip can be there: given as country_km, with no route positions or
-	// no time, or by a table that doesn't say whether its day is a
-	// calendar day or 24 hours, its days can't be counted).
+	// or "days_unknown" (it is by the day, and its days can't be counted:
+	// given as country_km or with no route positions, priced at one day;
+	// with no time, priced leaving at 00:00 where another departure makes
+	// another count; or by a table that doesn't say whether its day is a
+	// calendar day or 24 hours, priced by 24 hours where calendar days are
+	// more).
 	Reason string `json:"reason"`
 	// Ended is the last day of the last rates here; Starts, for
 	// "before_table", the first day of the first.
@@ -581,7 +583,7 @@ func (m Missing) Message() string {
 		return fmt.Sprintf("%s %s (%s): not priced, it goes by the time of day (give time)", m.Area, what, m.Name)
 	}
 	if m.Reason == "days_unknown" {
-		return fmt.Sprintf("%s %s (%s): priced for the fewest days the trip can be there; more may be due, as its days can't be counted (the notes say what to give)", m.Area, what, m.Name)
+		return fmt.Sprintf("%s %s (%s): priced for the days the notes say, but its days can't be counted here, so more or fewer may be due (see the notes)", m.Area, what, m.Name)
 	}
 	if m.Reason == "before_table" {
 		return fmt.Sprintf("%s %s (%s): the rates here start on %s, after the trip's day, so it isn't priced", m.Area, what, m.Name, m.Starts)

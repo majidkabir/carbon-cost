@@ -16,7 +16,9 @@ line here, so the next change is checked for it.
   gives.
 - What depends on an input not given (the departure time, a table's day
   basis, the route's positions) is taken over every value it can take,
-  not one or two samples; the test case enters the country mid-trip.
+  not one or two samples (every departure minute, so DST days too); the
+  test case enters the country mid-trip. What stands for the input (a
+  departure of 00:00) is the same in every country of the trip.
 - The request and its result are in `TestInvariants` (cost); a new class
   of mistake is a new invariant there.
 

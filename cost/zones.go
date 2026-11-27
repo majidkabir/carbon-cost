@@ -1,6 +1,7 @@
 package cost
 
 import (
+	"sync"
 	"time"
 	_ "time/tzdata" // the zones below, also where the system has none
 )
@@ -27,13 +28,22 @@ var zones = map[string]string{
 
 // zone is the country's time zone, UTC if not known.
 func zone(country string) *time.Location {
+	if l, ok := loaded.Load(country); ok {
+		return l.(*time.Location)
+	}
+	l := time.UTC
 	if z, ok := zones[country]; ok {
-		if l, err := time.LoadLocation(z); err == nil {
-			return l
+		if x, err := time.LoadLocation(z); err == nil {
+			l = x
 		}
 	}
-	return time.UTC
+	loaded.Store(country, l)
+	return l
 }
+
+// loaded are the zones read (a trip's days are counted at each departure
+// minute).
+var loaded sync.Map
 
 // LocalZone is the country's time zone, Central European Time where it
 // isn't known: the day a trip there is on.

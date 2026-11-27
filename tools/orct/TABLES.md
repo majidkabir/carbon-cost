@@ -107,11 +107,12 @@ type Table struct {
 	PerTonneKm      bool `json:"per_tonne_km,omitempty"`
 	MaxChargeableKg int  `json:"max_chargeable_kg,omitempty"`
 	// PerDay tables charge their rates per day of use, whatever the km
-	// (time-based vignettes): a trip is priced at one day's charge.
+	// (time-based vignettes): a trip is priced for each day it is there.
 	PerDay bool `json:"per_day,omitempty"`
 	// Day is what a day of a PerDay charge is: "calendar" (00:00 to
 	// 24:00) or "24h" (24 hours from when it starts); "" not known, so a
-	// trip is priced at one day.
+	// trip is priced by 24 hours (the fewest), days_unknown where calendar
+	// days are more.
 	Day string `json:"day,omitempty"`
 	// MotorAxles tables count the axles of the motor vehicle alone (the
 	// truck or tractor), not of the combination: rows' axle bounds apply

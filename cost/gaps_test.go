@@ -2120,6 +2120,23 @@ func TestCountryKmCrossingsEachScheme(t *testing.T) {
 			t.Errorf("%s on %s: %v; want %v (missing %+v)", c.cc, c.day, got, c.want, out.Missing)
 		}
 	}
+	// A scheme whose tables all ended: ended, on its last day (here
+	// Llogara's, made to end on 31 October 2026).
+	var cut []*tariffs.Dataset
+	for _, ds := range all(t).All {
+		if ds.Country == "AL" && strings.Contains(ds.Name, "Llogara") {
+			x := *ds
+			x.ValidTo = "2026-10-31"
+			ds = &x
+		}
+		cut = append(cut, ds)
+	}
+	out, err := Calculator{Tariffs: &tariffs.Set{All: cut}}.Calculate(context.Background(), Request{CountryKm: map[string]float64{"AL": 300}, Date: "2026-11-26", CargoKg: 10000, DieselL: 100, Truck: truck40})
+	if err != nil || !slices.ContainsFunc(out.Missing, func(m Missing) bool {
+		return strings.Contains(m.Name, "Llogara") && m.Reason == "ended" && m.Ended == "2026-10-31"
+	}) {
+		t.Errorf("AL, Llogara ended: %v %+v", err, out.Missing)
+	}
 }
 
 // Rates set for a year end with it, the newest too: a trip after gets

@@ -212,6 +212,18 @@ func TestTripDays(t *testing.T) {
 			t.Errorf("%s: %d days, want %d (%s)", tc.name, got, tc.want, note)
 		}
 	}
+	// LV's day not known: unknown where calendar days are more than 24-hour
+	// periods (20:00 to 04:00 the next day: one period, two days), not where
+	// they are the same.
+	for _, c := range []struct {
+		at      string
+		unknown bool
+	}{{"20:00", true}, {"08:00", false}} {
+		p := newPricer(Request{Time: c.at, spans: map[string][][2]float64{"LV": {{0, 600}}}}, date, &Response{}, nil)
+		if _, note, unknown := p.tripDaysORCT(lv, networkOf(lv).perDay, "LV"); unknown != c.unknown {
+			t.Errorf("LV at %s: unknown %v, want %v (%s)", c.at, unknown, c.unknown, note)
+		}
+	}
 }
 
 // tripDaysOf counts the days of a dataset's time-based charge.
@@ -311,10 +323,11 @@ func TestNorwayRush(t *testing.T) {
 	}
 }
 
-// A country entered later in the trip: with no time, the fewest days
-// over every departure time, and days_unknown when another departure
-// makes more (leaving at 00:00 and at 23:59 isn't enough); with no route
-// positions, days_unknown even with time.
+// A country entered later in the trip: with no time, the days leaving at
+// 00:00, and days_unknown when another departure makes another count (each
+// minute's, so a day of 25 hours too); bans in the country make it unknown,
+// bans elsewhere don't; with no route positions, days_unknown even with
+// time.
 func TestDaysEnteredLater(t *testing.T) {
 	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
 	se, ok := all(t).Find("SE", date)
@@ -330,19 +343,49 @@ func TestDaysEnteredLater(t *testing.T) {
 		unknown bool
 	}{
 		{"no time, entered at 300 km", Request{}, [][2]float64{{300, 940}}, 1, true},
-		{"no time, with rests", Request{DriverRest: true}, [][2]float64{{300, 940}}, 1, true},
+		{"no time, with rests", Request{DriverRest: true}, [][2]float64{{300, 940}}, 2, true},
+		{"no time, 30 km on the day of 25 hours", Request{Date: "2026-10-25"}, [][2]float64{{300, 330}}, 1, true},
 		{"at 15:00", Request{Time: "15:00"}, [][2]float64{{300, 940}}, 2, false},
 		{"no positions, with time", Request{Time: "08:00"}, nil, 1, true},
 	} {
 		req := c.req
 		req.spans = map[string][][2]float64{"SE": c.spans}
-		p := newPricer(req, date, &Response{}, nil)
+		day := date
+		if req.Date != "" {
+			day, _ = time.Parse(time.DateOnly, req.Date)
+		}
+		p := newPricer(req, day, &Response{}, nil)
 		days, note, unknown := p.tripDaysORCT(se, nw.perDay, "SE")
 		if len(days) != c.days || unknown != c.unknown {
 			t.Errorf("%s: %d days, unknown %v; want %d, %v (%s)", c.name, len(days), unknown, c.days, c.unknown, note)
 		}
 		if c.req.Time != "" && strings.Contains(note, "give time") {
 			t.Errorf("%s: the note asks for time, which is given: %s", c.name, note)
+		}
+	}
+}
+
+// Bans and days: a ban in the country may lengthen its stretch (unknown);
+// one elsewhere moves its passages alike, which a 24-hour count doesn't
+// feel.
+func TestDaysAndBans(t *testing.T) {
+	date := time.Date(2026, 11, 11, 0, 0, 0, 0, time.UTC)
+	lt, ok := all(t).Find("LT", date)
+	if !ok {
+		t.Fatal("LT")
+	}
+	nw := networkOf(lt)
+	for _, c := range []struct {
+		ban     string
+		unknown bool
+	}{{"", false}, {"PL", false}, {"LT", true}} {
+		out := &Response{}
+		if c.ban != "" {
+			out.Bans = []BanHit{{Country: c.ban}}
+		}
+		p := newPricer(Request{spans: map[string][][2]float64{"LT": {{300, 500}}}}, date, out, nil)
+		if _, note, unknown := p.tripDaysORCT(lt, nw.perDay, "LT"); unknown != c.unknown {
+			t.Errorf("ban in %q: unknown %v, want %v (%s)", c.ban, unknown, c.unknown, note)
 		}
 	}
 }

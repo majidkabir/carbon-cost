@@ -90,6 +90,18 @@ const form = (w) => (n) => w.document.getElementById("f").elements.namedItem(n);
   f("fuel_bought").value = "DE=300, PL=150,5; CZ=20";
   req = w.eval("buildRequest()");
   check(JSON.stringify(req.fuel_purchases) === JSON.stringify([{ country: "DE", litres: 300 }, { country: "PL", litres: 150.5 }, { country: "CZ", litres: 20 }]), "diesel bought: " + JSON.stringify(req.fuel_purchases));
+  // A country twice: two purchases; km add up; a price of 0 is refused.
+  f("fuel_bought").value = "DE=300, PL=150, DE=200";
+  check(w.eval("buildRequest()").fuel_purchases.length === 3, "diesel bought DE twice: " + JSON.stringify(w.eval("buildRequest()").fuel_purchases));
+  f("fuel_bought").value = "";
+  f("country_km").value = "DE=120, PL=300, DE=80";
+  check(w.eval("buildRequest()").country_km.DE === 200, "km DE twice: " + JSON.stringify(w.eval("buildRequest()").country_km));
+  f("country_km").value = "";
+  f("diesel_price").value = "0";
+  err = "";
+  try { w.eval("buildRequest()"); } catch (e) { err = e.message; }
+  check(err.includes("EUR per litre"), "diesel 0: " + (err || "no error"));
+  f("diesel_price").value = "";
 }
 
 // Lists by country as calc reads them: the cases both run.
@@ -98,7 +110,7 @@ const form = (w) => (n) => w.document.getElementById("f").elements.namedItem(n);
   const { cases } = JSON.parse(require("fs").readFileSync(require("path").join(__dirname, "../../cmd/carbon-cost/testdata/countryvalues.json"), "utf8"));
   for (const [input, want] of cases) {
     let got = null;
-    try { got = Object.fromEntries(w.eval(`countryValues(${JSON.stringify(input)}, "x")`)); } catch (e) { got = null; }
+    try { got = JSON.parse(JSON.stringify(w.eval(`countryValues(${JSON.stringify(input)}, "x")`))); } catch (e) { got = null; }
     check(JSON.stringify(got) === JSON.stringify(want), `countryValues(${JSON.stringify(input)}): ${JSON.stringify(got)}, want ${JSON.stringify(want)}`);
   }
 }

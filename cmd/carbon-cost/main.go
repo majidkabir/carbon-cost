@@ -256,12 +256,16 @@ func parseCalcWith(args []string, errs flag.ErrorHandling, inspect func(*flag.Fl
 
 	var err error
 	if *bought != "" {
-		m, err := byCountry(*bought)
+		// Each purchase as given, a country twice too (as fuel_purchases).
+		vals, err := countryValues(*bought)
 		if err != nil {
 			return req, opts, fmt.Errorf("-fuel-bought: %w", err)
 		}
-		for _, cc := range slices.Sorted(maps.Keys(m)) {
-			req.FuelPurchases = append(req.FuelPurchases, cost.FuelPurchase{Country: cc, Litres: m[cc]})
+		for _, cv := range vals {
+			if cv.cc == "" {
+				return req, opts, fmt.Errorf("-fuel-bought: %v is not COUNTRY=litres", cv.v)
+			}
+			req.FuelPurchases = append(req.FuelPurchases, cost.FuelPurchase{Country: cv.cc, Litres: cv.v})
 		}
 	}
 	if *avoidFerries {
@@ -284,7 +288,7 @@ func parseCalcWith(args []string, errs flag.ErrorHandling, inspect func(*flag.Fl
 	}
 	switch {
 	case *ckm != "":
-		if req.CountryKm, err = byCountry(*ckm); err != nil {
+		if req.CountryKm, err = byCountry(*ckm, true); err != nil {
 			return req, opts, fmt.Errorf("-country-km: %w", err)
 		}
 		if *from != "" || *to != "" || *via != "" || *ships != "" || *back {
@@ -297,16 +301,16 @@ func parseCalcWith(args []string, errs flag.ErrorHandling, inspect func(*flag.Fl
 			return req, opts, err
 		}
 	}
-	if req.TolledShare, err = byCountry(*tolled); err != nil {
+	if req.TolledShare, err = byCountry(*tolled, false); err != nil {
 		return req, opts, fmt.Errorf("-tolled-share: %w", err)
 	}
-	if req.MotorwayShare, err = byCountry(*mway); err != nil {
+	if req.MotorwayShare, err = byCountry(*mway, false); err != nil {
 		return req, opts, fmt.Errorf("-motorway-share: %w", err)
 	}
-	if req.FX, err = byCountry(*fxs); err != nil {
+	if req.FX, err = byCountry(*fxs, false); err != nil {
 		return req, opts, fmt.Errorf("-fx: %w", err)
 	}
-	if req.EnvZoneKm, err = byCountry(*zone); err != nil {
+	if req.EnvZoneKm, err = byCountry(*zone, true); err != nil {
 		return req, opts, fmt.Errorf("-env-zone-km: %w", err)
 	}
 	if req.CompareCO2Classes, err = ints(*cmp); err != nil {
@@ -345,6 +349,9 @@ func dieselPriceFlag(req *cost.Request, v string) error {
 		if req.DieselEURPerLByCountry == nil {
 			req.DieselEURPerLByCountry = map[string]float64{}
 		}
+		if _, twice := req.DieselEURPerLByCountry[cv.cc]; twice {
+			return fmt.Errorf("%q: %s given twice", v, cv.cc)
+		}
 		req.DieselEURPerLByCountry[cv.cc] = cv.v
 	}
 	return nil
@@ -359,14 +366,17 @@ type countryValue struct {
 
 // countryValues reads a list of values by country (DE=320, a region
 // BE-BRU=0.2, a currency CHF=0.93; DE:320 too) or for all (a bare number):
-// entries separated by semicolons, or by commas before the next country.
-// A value has a decimal point (1.45), or a decimal comma (320,5; 1,45) but
-// for 1,200 (1200, or 1.2?), which is refused. -diesel-price,
-// -country-km, -fuel-bought, -tolled-share, -motorway-share, -fx and
-// -env-zone-km take it, as the page does (testdata/countryvalues.json is
-// both's cases).
+// entries separated by semicolons, or by commas before the next country
+// or after a value that has its decimal point or comma already
+// (PL=1.25,1.45). A value has a decimal point (1.45), or a decimal comma
+// (320,5; 1,45) but for 1,200 (1200, or 1.2?), which is refused, as is
+// 1.200 in a list that has decimal commas. -diesel-price, -country-km,
+// -fuel-bought, -tolled-share, -motorway-share, -fx and -env-zone-km take
+// it, as the page does (testdata/countryvalues.json is both's cases).
 func countryValues(s string) ([]countryValue, error) {
 	var out []countryValue
+	var ms [][]string
+	commas := false
 	for _, e := range listEntries(s) {
 		m := listEntry.FindStringSubmatch(e)
 		if m == nil {
@@ -374,6 +384,13 @@ func countryValues(s string) ([]countryValue, error) {
 		}
 		if m[3] == "," && len(m[2]) <= 3 && len(m[4]) == 3 {
 			return nil, fmt.Errorf("%q: %s,%s is %s%s or %s.%s: write it without the comma, or with a decimal point", e, m[2], m[4], m[2], m[4], m[2], m[4])
+		}
+		commas = commas || m[3] == ","
+		ms = append(ms, m)
+	}
+	for _, m := range ms {
+		if commas && m[3] == "." && len(m[2]) <= 3 && len(m[4]) == 3 {
+			return nil, fmt.Errorf("%q: with decimal commas, %s.%s is %s%s or %s,%s: write it so", s, m[2], m[4], m[2], m[4], m[2], m[4])
 		}
 		num := m[2]
 		if m[4] != "" {
@@ -385,21 +402,21 @@ func countryValues(s string) ([]countryValue, error) {
 	return out, nil
 }
 
-// listEntries splits a list at its semicolons, and at a comma the next
-// country follows (a comma between digits is a decimal comma).
+// listEntries splits a list as countryValues says.
 func listEntries(s string) []string {
 	var out []string
 	add := func(e string) {
-		if e = strings.TrimSpace(e); e != "" {
+		if e = strings.Trim(e, " \t"); e != "" {
 			out = append(out, e)
 		}
 	}
 	start := 0
 	for i := 0; i < len(s); i++ {
 		if s[i] == ',' {
-			rest := strings.TrimLeft(s[i+1:], " ")
-			if rest == "" || !(rest[0] >= 'A' && rest[0] <= 'Z' || rest[0] >= 'a' && rest[0] <= 'z') {
-				continue
+			rest := strings.TrimLeft(s[i+1:], " \t")
+			letter := rest != "" && (rest[0] >= 'A' && rest[0] <= 'Z' || rest[0] >= 'a' && rest[0] <= 'z')
+			if !letter && !strings.ContainsAny(valuePart(s[start:i]), ".,") {
+				continue // a decimal comma
 			}
 		} else if s[i] != ';' {
 			continue
@@ -411,7 +428,15 @@ func listEntries(s string) []string {
 	return out
 }
 
-var listEntry = regexp.MustCompile(`^(?:([A-Za-z]{2,3}(?:-[A-Za-z0-9]{1,3})?)\s*[=:]\s*)?(\d+)(?:([.,])(\d+))?$`)
+// valuePart is an entry's value (after its = or :).
+func valuePart(e string) string {
+	if i := strings.LastIndexAny(e, "=:"); i >= 0 {
+		return e[i+1:]
+	}
+	return e
+}
+
+var listEntry = regexp.MustCompile(`^(?:([A-Za-z]{2,3}(?:-[A-Za-z0-9]{1,3})?)[ \t]*[=:][ \t]*)?(\d+)(?:([.,])(\d+))?$`)
 
 // rfmsFlags takes the way driven, the diesel and the date from rFMS
 // files, where the other flags don't give them.
@@ -592,7 +617,10 @@ func ints(s string) ([]int, error) {
 }
 
 // byCountry reads "DK=1,DE=0.9".
-func byCountry(s string) (map[string]float64, error) {
+// byCountry reads a list by country (countryValues, no bare values): a
+// country given twice adds up where sum (km: a tachograph's DE, PL, DE
+// again), else is refused (a share, a rate).
+func byCountry(s string, sum bool) (map[string]float64, error) {
 	vals, err := countryValues(s)
 	if err != nil || vals == nil {
 		return nil, err
@@ -602,7 +630,10 @@ func byCountry(s string) (map[string]float64, error) {
 		if cv.cc == "" {
 			return nil, fmt.Errorf("%q: %v is not COUNTRY=number", s, cv.v)
 		}
-		out[cv.cc] = cv.v
+		if _, twice := out[cv.cc]; twice && !sum {
+			return nil, fmt.Errorf("%q: %s given twice", s, cv.cc)
+		}
+		out[cv.cc] += cv.v
 	}
 	return out, nil
 }

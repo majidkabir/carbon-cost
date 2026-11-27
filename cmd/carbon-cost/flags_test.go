@@ -194,27 +194,50 @@ func TestCountryValues(t *testing.T) {
 	}
 	for _, c := range file.Cases {
 		var in string
-		var want map[string]float64
+		var want [][2]any
 		json.Unmarshal(c[0], &in)
 		json.Unmarshal(c[1], &want)
 		vals, err := countryValues(in)
-		got := map[string]float64{}
+		got := [][2]any{}
 		for _, cv := range vals {
-			got[cv.cc] = cv.v
+			got = append(got, [2]any{cv.cc, cv.v})
 		}
 		if (err != nil) != (want == nil) || want != nil && !reflect.DeepEqual(got, want) {
 			t.Errorf("%q: %v %v; want %v", in, got, err, want)
 		}
 	}
-	// Each flag that takes a list.
-	for _, f := range []struct{ flag, v string }{{"-country-km", "DE=320,5;PL=410"}, {"-fuel-bought", "DE=30,5"}, {"-tolled-share", "DE=0,9"},
-		{"-motorway-share", "CZ=0,9"}, {"-fx", "CZK=24,3"}, {"-env-zone-km", "DK=4,5"}, {"-diesel-price", "DE=1,5"}} {
+	// Each flag that takes a list, and what it reads; a country twice adds
+	// up for km and is kept as two purchases, else is refused.
+	for _, f := range []struct {
+		flag, v string
+		got     func(cost.Request) any
+		want    any
+	}{
+		{"-country-km", "DE=320,5;PL=410", func(r cost.Request) any { return r.CountryKm }, map[string]float64{"DE": 320.5, "PL": 410}},
+		{"-country-km", "DE=120,PL=300,DE=80", func(r cost.Request) any { return r.CountryKm }, map[string]float64{"DE": 200, "PL": 300}},
+		{"-fuel-bought", "DE=30,5;PL=10,DE=20", func(r cost.Request) any { return r.FuelPurchases }, []cost.FuelPurchase{{Country: "DE", Litres: 30.5}, {Country: "PL", Litres: 10}, {Country: "DE", Litres: 20}}},
+		{"-tolled-share", "DE=0,9", func(r cost.Request) any { return r.TolledShare }, map[string]float64{"DE": 0.9}},
+		{"-motorway-share", "CZ=0,9", func(r cost.Request) any { return r.MotorwayShare }, map[string]float64{"CZ": 0.9}},
+		{"-fx", "CZK=24,3", func(r cost.Request) any { return r.FX }, map[string]float64{"CZK": 24.3}},
+		{"-env-zone-km", "DK=4,5", func(r cost.Request) any { return r.EnvZoneKm }, map[string]float64{"DK": 4.5}},
+		{"-diesel-price", "DE=1,5", func(r cost.Request) any { return r.DieselEURPerLByCountry }, map[string]float64{"DE": 1.5}},
+		{"-fx", "CZK=24.3,CZK=25", nil, nil},
+		{"-tolled-share", "DE=1,DE=0.5", nil, nil},
+		{"-diesel-price", "DE=1.5,DE=1.6", nil, nil},
+	} {
 		args := []string{"-cargo-kg", "1000", "-date", "2026-11-03", f.flag, f.v}
 		if f.flag != "-country-km" {
 			args = append(args, "-country-km", "DE=100,CZ=100")
 		}
-		if _, _, err := parseCalc(args, flag.ContinueOnError); err != nil {
-			t.Errorf("%s %s: %v", f.flag, f.v, err)
+		req, _, err := parseCalc(args, flag.ContinueOnError)
+		if f.got == nil {
+			if err == nil {
+				t.Errorf("%s %s: no error", f.flag, f.v)
+			}
+			continue
+		}
+		if err != nil || !reflect.DeepEqual(f.got(req), f.want) {
+			t.Errorf("%s %s: %v %v; want %v", f.flag, f.v, f.got(req), err, f.want)
 		}
 	}
 	// Every flag that takes text with numbers in it is a list flag, checked
@@ -269,8 +292,16 @@ func TestCSVLocaleLists(t *testing.T) {
 	if err := summarize([]io.Reader{strings.NewReader(priced)}, &rep, []string{"month"}); err != nil || !strings.Contains(rep.String(), "\n2026-11,2,") {
 		t.Errorf("report by month with a -date column: %v\n%s", err, rep.String())
 	}
-	// A BOM before a quoted first header cell (Excel's UTF-8 CSV).
-	if _, err := priceCSV(context.Background(), nil, nil, strings.NewReader("\ufeff\"Kunde, Ort\",country-km\nA,DE=10\n"), io.Discard, calcFlagNames(), 100, false); err != nil && strings.Contains(err.Error(), "bare") {
-		t.Errorf("BOM and a quoted cell: %v", err)
+	// A BOM before a quoted first header cell (Excel's UTF-8 CSV): its
+	// label read, the row priced.
+	none := func(context.Context, cost.Request) (cost.Response, error) { return cost.Response{}, nil }
+	var out strings.Builder
+	labels, err := priceCSV(context.Background(), none, []string{"-cargo-kg", "1000"}, strings.NewReader("\ufeff\"Kunde, Ort\",country-km\nA,DE=10\n"), &out, calcFlagNames(), 100, false)
+	if err != nil || !reflect.DeepEqual(labels, []string{"Kunde, Ort"}) || !strings.HasPrefix(out.String(), "\"Kunde, Ort\",country-km,") || strings.Contains(out.String(), "error: ") {
+		t.Errorf("BOM and a quoted cell: %v %q\n%s", err, labels, out.String())
+	}
+	// A ; CSV's shipment ids keep their commas; their kg take decimal commas.
+	if got, _ := csvLocale(';').in("shipments", "4711,4712:12000,5:0-2;B:8000:1-2", nil); got != "4711,4712:12000.5:0-2;B:8000:1-2" {
+		t.Errorf("shipments: %q", got)
 	}
 }

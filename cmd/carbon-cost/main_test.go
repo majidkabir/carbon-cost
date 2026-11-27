@@ -70,11 +70,11 @@ func TestFlagsParsing(t *testing.T) {
 	if _, err := location("91,0"); err == nil {
 		t.Error("lat 91: want an error")
 	}
-	m, err := byCountry("dk=1, DE=0.9")
+	m, err := byCountry("dk=1, DE=0.9", false)
 	if err != nil || m["DK"] != 1 || m["DE"] != 0.9 {
 		t.Errorf("byCountry: %v %v", m, err)
 	}
-	if _, err := byCountry("DE"); err == nil {
+	if _, err := byCountry("DE", false); err == nil {
 		t.Error("DE without a number: want an error")
 	}
 }

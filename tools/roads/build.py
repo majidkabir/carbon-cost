@@ -351,7 +351,7 @@ class Ways(osmium.SimpleHandler):
             self.urban_box = urban.envelope
         # law (Bulgaria): the class I and II road numbers the toll list has;
         # km kept by ref (one carriageway).
-        self.law_nat, self.law_km = None, Counter()
+        self.law_nat, self.law_km, self.law_urban = None, Counter(), Counter()
         self.urban_km = 0.0
         self.lines = {"mw": [], "nat": []}
         self.shares = {"mw": [], "nat": []}
@@ -396,7 +396,9 @@ class Ways(osmium.SimpleHandler):
                 except (osmium.InvalidLocationError, ValueError):
                     pass
         else:
-            if hw.endswith("_link") or hw not in ("motorway", "trunk", "primary") + (("secondary",) if self.rule.get("myto") else ()):
+            # Czechia's toll map and Bulgaria's list name class II roads too
+            # (OpenStreetMap's secondary).
+            if hw.endswith("_link") or hw not in ("motorway", "trunk", "primary") + (("secondary",) if self.rule.get("myto") or self.rule.get("law") else ()):
                 return
             c, f = classify(self.rule, tags), -1
             if c is None and self.rule.get("myto"):
@@ -516,6 +518,8 @@ class Ways(osmium.SimpleHandler):
         if c == "nat" and near is not None and ls.intersects(near):
             rest = ls.difference(near)
             self.urban_km += (ls.length - rest.length) * 111.32 * 0.68
+            if self.law_nat is not None:
+                self.law_urban[(tags.get("ref") or "").split(";")[0].strip()] += (ls.length - rest.length) * 111.32 * 0.68 * (0.5 if tags.get("oneway") == "yes" else 1)
             pieces = [g for g in getattr(rest, "geoms", [rest]) if g.geom_type == "LineString" and not g.is_empty]
         for piece in pieces:
             s = piece.simplify(SIMPLIFY_M / 111_320, preserve_topology=False)
@@ -784,7 +788,7 @@ def law_check(h, cc, law):
     seg = law.get("segments_2022", {}).get("km", {})
     for ref in sorted(set(seg) | set(h.law_km), key=lambda r: (not r.startswith("A"), int(re.sub(r"\D", "", r) or 0), r)):
         got, want = h.law_km.get(ref, 0), seg.get(ref)
-        print(cc, f"{ref:>5}: {got:6.1f} km kept, 2022 segments {want if want is not None else '-':>6}")
+        print(cc, f"{ref:>5}: {got:6.1f} km kept, {h.law_urban.get(ref, 0):5.1f} in settlements left out, 2022 segments {want if want is not None else '-':>6}")
     for c, refs in (("mw", [r for r in seg if r.startswith("A")]), ("nat", [r for r in seg if not r.startswith("A")])):
         got = sum(v for r, v in h.law_km.items() if (r.startswith("A")) == (c == "mw"))
         print(cc, f"{c}: {got:.0f} km kept (one carriageway), 2022 segments {sum(seg[r] for r in refs):.0f}")

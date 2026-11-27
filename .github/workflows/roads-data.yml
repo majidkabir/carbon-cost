@@ -55,7 +55,7 @@ jobs:
               python3 tools/roads/bg_network.py list.html law.txt > bg-law.json
               diff -u tools/roads/bg-network.json bg-law.json || { [ -s tools/roads/bg-network.json ] && exit 1; cat bg-law.json; cp bg-law.json tools/roads/bg-network.json; }
               rm -f list.html bg-law.json
-              osmium tags-filter -O -o roads.pbf in.pbf w/highway=motorway,trunk,primary
+              osmium tags-filter -O -o roads.pbf in.pbf w/highway=motorway,trunk,primary,secondary
             else
               osmium tags-filter -O -o roads.pbf in.pbf w/highway=motorway,trunk,primary r/ref:HU:edid
             fi

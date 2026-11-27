@@ -135,36 +135,59 @@ func webCSVFlags() map[string]bool {
 	return ok
 }
 
-// sniffComma is a CSV's separator: a semicolon where its first line has
-// more of them than commas outside quotes (Excel's where the decimal
-// symbol is a comma), else a comma; and the CSV to read.
-func sniffComma(in io.Reader) (io.Reader, csvLocale, error) {
+// sniffComma is a CSV's separator, a semicolon (Excel's where the decimal
+// symbol is a comma) or a comma: the one that splits its header into more
+// of the known column names, else the one it has more of outside quotes
+// (a label such as Kunde, Ort, PLZ needs no quotes in a ; CSV); and the
+// CSV to read.
+func sniffComma(in io.Reader, known map[string]bool) (io.Reader, csvLocale, error) {
 	b, err := io.ReadAll(in)
 	if err != nil {
 		return nil, 0, err
 	}
-	semi, comma, quoted := 0, 0, false
-	for _, c := range b {
-		switch {
-		case c == '"':
-			quoted = !quoted
-		case quoted:
-		case c == '\n':
-			if semi > comma {
-				return bytes.NewReader(b), ';', nil
+	head := bytes.TrimPrefix(b, []byte("\ufeff"))
+	score := func(sep byte) (names, seps int) {
+		cell, quoted := []byte{}, false
+		end := func() {
+			if known[strings.TrimPrefix(strings.TrimSpace(string(cell)), "-")] {
+				names++
 			}
-			return bytes.NewReader(b), ',', nil
-		case c == ';':
-			semi++
-		case c == ',':
-			comma++
+			cell = cell[:0]
 		}
+		for _, c := range head {
+			switch {
+			case c == '"':
+				quoted = !quoted
+			case quoted:
+				cell = append(cell, c)
+			case c == '\n':
+				end()
+				return
+			case c == sep:
+				seps++
+				end()
+			default:
+				cell = append(cell, c)
+			}
+		}
+		end()
+		return
 	}
-	if semi > comma {
+	sn, ss := score(';')
+	cn, cs := score(',')
+	if sn > cn || sn == cn && ss > cs {
 		return bytes.NewReader(b), ';', nil
 	}
 	return bytes.NewReader(b), ',', nil
 }
+
+// listFlags are calc's flags whose value holds numbers in a list
+// (country-km DE=320,PL=410; shipments A:12000:0-2).
+var listFlags = map[string]bool{"country-km": true, "fuel-bought": true, "shipments": true, "tolled-share": true, "motorway-share": true,
+	"fx": true, "env-zone-km": true, "diesel-price": true}
+
+// groupedInList is a number such as 12.500 in a list.
+var groupedInList = regexp.MustCompile(`(?:^|[=:,;\s])-?\d{1,3}(?:\.\d{3})+(?:$|[,;:\s])`)
 
 // csvLocale is a CSV's separator. Excel separates by semicolons where the
 // decimal symbol is a comma; there numbers have a decimal comma (28,5;
@@ -180,7 +203,8 @@ var (
 
 // in is a row's value for a flag, as calc reads it: in a ; CSV a number's
 // decimal comma made a point, and a date YYYY-MM-DD. A number such as
-// 12.500 (12500, or 12.5?) is refused.
+// 12.500 (12500, or 12.5?) is refused, alone or in a list; a list's
+// decimal commas are countryValues'.
 func (l csvLocale) in(name, v string, numeric map[string]bool) (string, error) {
 	if l != ';' {
 		return v, nil
@@ -189,6 +213,9 @@ func (l csvLocale) in(name, v string, numeric map[string]bool) (string, error) {
 		d, _ := strconv.Atoi(m[1])
 		mo, _ := strconv.Atoi(m[2])
 		return fmt.Sprintf("%s-%02d-%02d", m[3], mo, d), nil
+	}
+	if listFlags[name] && groupedInList.MatchString(v) {
+		return "", fmt.Errorf("%s %q: with ; between columns, 12.500 is 12500 or 12.5: write 12500, or 12,5 with ; between the countries", name, v)
 	}
 	if !numeric[name] {
 		return v, nil
@@ -258,7 +285,7 @@ func calcNumberFlags() map[string]bool {
 // rows; perShipment writes a row per shipment of a trip that has them.
 func priceCSV(ctx context.Context, calc func(context.Context, cost.Request) (cost.Response, error), base []string, in io.Reader, out io.Writer,
 	allowed map[string]bool, maxRows int, perShipment bool) ([]string, error) {
-	in, comma, err := sniffComma(in)
+	in, comma, err := sniffComma(in, allowed)
 	if err != nil {
 		return nil, fmt.Errorf("csv: %w", err)
 	}

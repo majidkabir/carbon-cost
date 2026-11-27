@@ -83,11 +83,21 @@ type reportGroup struct {
 
 // summarize adds up priced CSVs by the columns in by (month and year are
 // of trip_date).
+// reportKnown are the column names a priced CSV has: calc's flags and the
+// results.
+var reportKnown = func() map[string]bool {
+	m := calcFlagNames()
+	for _, c := range csvColumns {
+		m[c] = true
+	}
+	return m
+}()
+
 func summarize(ins []io.Reader, out io.Writer, by []string) error {
 	groups := map[string]*reportGroup{}
 	var first csvLocale // the report is written as the first file is
 	for n, in := range ins {
-		in, comma, err := sniffComma(in)
+		in, comma, err := sniffComma(in, reportKnown)
 		if err != nil {
 			return fmt.Errorf("file %d: %w", n+1, err)
 		}
@@ -133,7 +143,7 @@ func summarize(ins []io.Reader, out io.Writer, by []string) error {
 			// A row that failed has no trip_date: its date column, if any.
 			day := get(row, "trip_date")
 			if day == "" {
-				day = get(row, "date")
+				day, _ = comma.in("date", get(row, "date"), nil) // day first in a ; CSV
 			}
 			key := make([]string, len(by))
 			for i, g := range by {

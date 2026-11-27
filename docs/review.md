@@ -23,8 +23,10 @@ line here, so the next change is checked for it.
   updates every one.
 - A document that says how to call something has a test that calls it so.
 - An input format a change accepts is accepted everywhere the value goes
-  in (a flag, a CSV cell, a country's value in a list, the page), and what
-  it reads it also writes (`calc -csv`, `report`); a test gives each.
+  in (a flag, a CSV cell, every list that holds such a value, the page),
+  what it reads it also writes (`calc -csv`, `report`), and everything that
+  reads the value back reads it so (`report`'s date column); a test gives
+  each, one case a row.
 - A claim that a tool's output is read ("as Excel writes it") has a test
   with that output as the tool writes it, quotes and all.
 

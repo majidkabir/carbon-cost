@@ -79,6 +79,13 @@ const form = (w) => (n) => w.document.getElementById("f").elements.namedItem(n);
   err = "";
   try { w.eval("buildRequest()"); } catch (e) { err = e.message; }
   check(err.includes("; between"), "diesel DE=1,5,PL=1,4: " + (err || "no error"));
+  // Km by country the same way.
+  f("diesel_price").value = "";
+  f("country_km").value = "DE=320,5;PL=410";
+  req = w.eval("buildRequest()");
+  check(req.country_km && req.country_km.DE === 320.5 && req.country_km.PL === 410, "km DE=320,5;PL=410: " + JSON.stringify(req.country_km));
+  f("country_km").value = "DE=320,5";
+  check(w.eval("buildRequest()").country_km.DE === 320.5, "km DE=320,5");
 }
 
 // The CSV's separator is counted outside quotes, as the server does.

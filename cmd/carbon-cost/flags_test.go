@@ -5,8 +5,8 @@ import (
 	"encoding/csv"
 	"encoding/json"
 	"flag"
-	"reflect"
 	"io"
+	"reflect"
 	"runtime/debug"
 	"slices"
 	"strings"
@@ -88,6 +88,10 @@ func TestVersionFromModule(t *testing.T) {
 	if v := versionOf(&debug.BuildInfo{Main: debug.Module{Version: "v0.120.1-0.20261127223745-82420437f9fd"}}, true); v != "dev+8242043" {
 		t.Errorf("go install of a commit: %q", v)
 	}
+	if v := versionOf(&debug.BuildInfo{Main: debug.Module{Version: "v0.121.0+dirty"},
+		Settings: []debug.BuildSetting{{Key: "vcs.revision", Value: "979487f2aa"}, {Key: "vcs.modified", Value: "true"}}}, true); v != "dev+979487f.dirty" {
+		t.Errorf("a checkout at a tag, with changes: %q", v)
+	}
 }
 
 // A CSV separated by semicolons (Excel's in most European locales) is
@@ -109,8 +113,10 @@ func TestCSVSemicolons(t *testing.T) {
 }
 
 // A ; CSV as Excel writes it where the decimal symbol is a comma: decimal
-// commas, the day first, a label with commas; written back, and added up
-// by report, the same way. 12.500 (12500, or 12.5?) is refused.
+// commas (alone and in lists), the day first (with . - or /), a label
+// with commas; written back, and added up by report, the same way, a
+// failed row in its month. 12.500 (12500, or 12.5?) is refused, alone or
+// in a list.
 func TestCSVExcelDecimalComma(t *testing.T) {
 	c, err := calculator(&sootcase.Client{BaseURL: "http://127.0.0.1:1"})
 	if err != nil {
@@ -118,7 +124,10 @@ func TestCSVExcelDecimalComma(t *testing.T) {
 	}
 	in := "country-km;cargo-kg;date;l-per-100km;diesel-price;\"Kunde, Ort, PLZ\"\n" +
 		"DE=100,PL=100;1000;03.11.2026;28,5;1,5;\"A, B\"\n" +
-		"DE=100;12.500;03-11-2026;28,5;DE=1,5;C\n"
+		"DE=100;12.500;03-11-2026;28,5;1,5;B\n" +
+		"DE=100;1000;03/11/2026;28,5;DE=1,5;C\n" +
+		"\"DE=3.200,PL=4.100\";1000;03.11.2026;28,5;1,5;D\n" +
+		"\"DE=320,5;PL=410\";1000;03-11-2026;28,5;1,5;E\n"
 	var out strings.Builder
 	if _, err := priceCSV(context.Background(), c.Calculate, nil, strings.NewReader(in), &out, calcFlagNames(), 100, false); err != nil {
 		t.Fatal(err)
@@ -126,7 +135,7 @@ func TestCSVExcelDecimalComma(t *testing.T) {
 	rd := csv.NewReader(strings.NewReader(out.String()))
 	rd.Comma = ';'
 	rows, err := rd.ReadAll()
-	if err != nil || len(rows) != 3 {
+	if err != nil || len(rows) != 6 {
 		t.Fatalf("%v:\n%s", err, out.String())
 	}
 	col := map[string]int{}
@@ -140,18 +149,64 @@ func TestCSVExcelDecimalComma(t *testing.T) {
 	if e := rows[2][col["error"]]; !strings.Contains(e, "12.500") {
 		t.Errorf("row 2: %q", e)
 	}
+	if r := rows[3]; r[col["error"]] != "" || r[col["trip_date"]] != "2026-11-03" || !strings.HasPrefix(r[col["fuel_eur"]], "42,75") {
+		t.Errorf("row 3 (03/11/2026, DE=1,5): %q %q %q", r[col["error"]], r[col["trip_date"]], r[col["fuel_eur"]])
+	}
+	if e := rows[4][col["error"]]; !strings.Contains(e, "3.200") {
+		t.Errorf("row 4 (DE=3.200 in a list): %q", e)
+	}
+	if r := rows[5]; r[col["error"]] != "" || !strings.HasPrefix(r[col["distance_km"]], "730,5") {
+		t.Errorf("row 5 (DE=320,5;PL=410): %q %q", r[col["error"]], r[col["distance_km"]])
+	}
 	var rep strings.Builder
-	if err := summarize([]io.Reader{strings.NewReader(out.String())}, &rep, nil); err != nil {
+	if err := summarize([]io.Reader{strings.NewReader(out.String())}, &rep, []string{"month"}); err != nil {
 		t.Fatal(err)
 	}
 	lines := strings.Split(strings.TrimSpace(rep.String()), "\n")
-	if len(lines) != 2 || !strings.HasPrefix(lines[0], "rows;shipments;") || !strings.Contains(lines[1], ";85,5") {
-		t.Errorf("report:\n%s", rep.String())
+	if len(lines) != 2 || !strings.HasPrefix(lines[0], "month;rows;shipments;") || !strings.HasPrefix(lines[1], "2026-11;5;") || !strings.HasSuffix(lines[1], ";2") {
+		t.Errorf("report by month:\n%s", rep.String())
 	}
-	// A comma CSV with semicolons in a quoted label is still one.
-	if _, comma, _ := sniffComma(strings.NewReader("country-km,cargo-kg,\"Notes; a; b; c\"\nDE=100,1000,x\n")); comma != ',' {
-		t.Errorf("comma CSV read as %q", rune(comma))
+	// A comma CSV with semicolons in a quoted label is still one; a ; CSV
+	// with an unquoted label with commas (as Go's and Python's writers
+	// write it) is still one.
+	for in, want := range map[string]rune{
+		"country-km,cargo-kg,\"Notes; a; b; c\"\nDE=100,1000,x\n":                 ',',
+		"cargo-kg;date;Kunde, Ort, PLZ\n12000;03.11.2026;Muster, Berlin, 10115\n": ';',
+		"\ufeffcargo-kg;date\n12000;03.11.2026\n":                                 ';',
+	} {
+		if _, comma, _ := sniffComma(strings.NewReader(in), calcFlagNames()); rune(comma) != want {
+			t.Errorf("%q read as %q", in, rune(comma))
+		}
 	}
+}
+
+// Lists by country take decimal commas with ; between the countries (or
+// a lone value), as -diesel-price does; DE=1,5,PL=1,4 is refused.
+func TestCountryValues(t *testing.T) {
+	for in, want := range map[string]map[string]float64{
+		"DE=320,PL=410": {"DE": 320, "PL": 410}, "DE=320,5": {"DE": 320.5}, "DE=320,5;PL=410": {"DE": 320.5, "PL": 410},
+		"BE-BRU=0,2": {"BE-BRU": 0.2}, "DE=0.9, PL=1": {"DE": 0.9, "PL": 1},
+		"DE=1,5,PL=1,4": nil, "DE=1,5,PL": nil, "320": nil, "=5": nil,
+	} {
+		got, err := byCountry(in)
+		if (err != nil) != (want == nil) || want != nil && !reflect.DeepEqual(got, want) {
+			t.Errorf("%q: %v %v", in, got, err)
+		}
+	}
+	// Every flag that takes text with numbers in it is a list flag, checked
+	// for 12.500 in a ; CSV.
+	text := map[string]bool{"from": true, "to": true, "via": true, "date": true, "time": true, "vehicle": true, "tunnel-code": true, "route": true,
+		"ferry-ets-basis": true, "fuel-country": true, "cost-share-by": true, "currency": true, "compare": true, "sootcase": true, "path": true,
+		"rfms": true, "vin": true, "csv": true}
+	parseCalcWith(nil, flag.ContinueOnError, func(fs *flag.FlagSet) {
+		fs.VisitAll(func(f *flag.Flag) {
+			if g, ok := f.Value.(flag.Getter); ok {
+				if _, s := g.Get().(string); s && !text[f.Name] && !listFlags[f.Name] {
+					t.Errorf("-%s: a list flag, or text?", f.Name)
+				}
+			}
+		})
+	})
 }
 
 // Every result column is a number or named a text.

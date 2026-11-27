@@ -25,7 +25,7 @@ jobs:
           fi
           for x in $list; do
             cc=${x%%:*}; name=${x#*:}
-            curl -fsSL --retry 5 --retry-delay 20 --retry-all-errors -o in.pbf "https://download.geofabrik.de/europe/$name/$name-latest.osm.pbf"
+            curl -fsSL --retry 10 --retry-delay 60 --retry-all-errors -o in.pbf "https://download.geofabrik.de/europe/$name/$name-latest.osm.pbf"
             export OSM_EXTRACT=$(osmium fileinfo -g header.option.osmosis_replication_timestamp in.pbf)
             if [ $cc = PL ]; then
               # The tolled sections from the law (the parsed list in the

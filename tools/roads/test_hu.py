@@ -195,7 +195,7 @@ def run(by_ref):
     d = tempfile.mkdtemp()
     src, dst, areas = os.path.join(d, "hu.osm"), os.path.join(d, "hu.json.gz"), os.path.join(d, "areas.osm")
     osm(src, areas)
-    build.BY_REF = by_ref
+    build.BY_REF, build.HU_OFF = by_ref, float("inf")  # a few roads of the annex: not checked against its total
     build.main("HU", src, dst, areas)
     out = json.load(gzip.open(dst))
     km = lambda lines: sum(sum(((l[i + 2] - l[i]) ** 2 + (l[i + 3] - l[i + 1]) ** 2) ** 0.5 for i in range(0, len(l) - 2, 2)) for l in lines) / 1e5 / KM
@@ -225,6 +225,19 @@ def main():
     nat, mw, shares = run(True)
     ok = abs(nat - sections - loop) < 0.2 and abs(mw - 9 - m3) < 0.2 and shares
     print(f"nat {nat:.2f} km (want {sections + loop:.2f}), mw {mw:.2f} km (want {9 + m3:.2f}: M3's, M1 by ref outside Budapest 6, M0's section 1 and by ref in Budapest 2)")
+    # Far off the annex's total, the build stops.
+    build.HU_OFF, stopped = 0.05, ""
+    d = tempfile.mkdtemp()
+    try:
+        osm(os.path.join(d, "hu.osm"), os.path.join(d, "areas.osm"))
+        build.main("HU", os.path.join(d, "hu.osm"), os.path.join(d, "hu.json.gz"), os.path.join(d, "areas.osm"))
+    except SystemExit as e:
+        stopped = str(e)
+    for f in os.listdir(d):
+        os.remove(os.path.join(d, f))
+    os.rmdir(d)
+    print("with the total checked:", stopped)
+    ok = ok and "off annex 1's" in stopped
     nat, mw, shares = run(False)
     ok = ok and abs(nat - sections) < 0.2 and abs(mw - 1 - m3) < 0.2 and shares
     print(f"no ref rule: nat {nat:.2f} km (want {sections:.2f}: the gaps found as gaps), mw {mw:.2f} km (want {1 + m3:.2f}: M3's, M0's section)")

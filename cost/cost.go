@@ -512,8 +512,9 @@ type Response struct {
 	// Missing lists the charges the trip meets that the total leaves out,
 	// each with its reason (Missing.Reason): an area with no table here,
 	// rates that ended with no successor here yet (a new year's tariffs
-	// not yet published or added), and others a trip given as country_km,
-	// without a truck field, a time or a price the table has can't get.
+	// not yet published or added), rates here only from after the trip's
+	// day, and others a trip given as country_km, without a truck field,
+	// a time or a price the table has can't get.
 	Missing []Missing `json:"missing,omitempty"`
 	// Compare is the trip priced for each of CompareCO2Classes.
 	Compare []Comparison `json:"compare,omitempty"`

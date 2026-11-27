@@ -292,7 +292,15 @@ func (p *pricer) perKm(b *batch, ds *tariffs.Dataset, nw *network, a area, km, t
 		km   float64
 	}
 	parts := []part{{"", tolledKm}}
-	if len(nw.roadTypes) > 0 {
+	if len(nw.roadTypes) == 1 {
+		// One road type (Belarus's tolled roads, Italy's tolled
+		// motorways): every tolled km is priced at it.
+		parts = []part{{nw.roadTypes[0], tolledKm}}
+		if byRoute && !shareGiven {
+			p.note("%s: by OpenStreetMap along the route, %.0f%% of the %.1f km are on tolled roads and %.0f%% on roads not tolled. Give tolled_share.%s to override.",
+				cc, 100*(rk.Motorway+rk.National)/rk.Total(), km, 100*rk.Local/rk.Total(), cc)
+		}
+	} else if len(nw.roadTypes) > 0 {
 		mw, given := 0.0, false
 		for _, k := range []string{a.code, a.country} {
 			if v, ok := req.MotorwayShare[k]; ok {

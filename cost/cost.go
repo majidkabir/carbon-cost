@@ -219,8 +219,10 @@ type Request struct {
 	// Night: the trip passes night-tariff sections between 22:00 and
 	// 05:00 (Austria's A 13 Brenner).
 	Night bool `json:"night,omitempty"`
-	// MotorwayShare is the share of an area's tolled km on motorways
-	// (default 0), where its rates differ by road type (Brussels).
+	// MotorwayShare is the share of an area's tolled km on motorways,
+	// where its rates differ by road type (CZ, PL, BG, SK, HU, RO,
+	// Brussels). Default: on a route, OpenStreetMap's road classes along
+	// it; else the tariff's motorway_share (1; Brussels 0).
 	MotorwayShare map[string]float64 `json:"motorway_share,omitempty"`
 	// EnvZoneKm is km driven on tolled roads inside environmental zones,
 	// by country (Denmark charges a surcharge there).

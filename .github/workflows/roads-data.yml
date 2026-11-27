@@ -74,7 +74,17 @@ jobs:
               osmium tags-filter -O -o areas.pbf in.pbf r/boundary=administrative
               extra=areas.pbf
             fi
-            ROADS_DEBUG=$(cat tools/roads/DEBUG 2>/dev/null) python3 tools/roads/build.py $cc roads.pbf out/$(echo $cc | tr A-Z a-z).json.gz $extra
+            if [ $cc = CZ ]; then
+              # A stop (too much changed since the toll map's reading, or a
+              # class off the law's) keeps the last CZ data and pushes the
+              # new samples for the next reading; the run fails at the end.
+              if ! ROADS_DEBUG=$(cat tools/roads/DEBUG 2>/dev/null) python3 tools/roads/build.py CZ roads.pbf out/cz.json.gz $extra; then
+                touch cz-stopped
+                [ -f out/cz.json.gz ] || { git fetch -q origin roads-out && git show FETCH_HEAD:cz.json.gz > out/cz.json.gz; }
+              fi
+            else
+              ROADS_DEBUG=$(cat tools/roads/DEBUG 2>/dev/null) python3 tools/roads/build.py $cc roads.pbf out/$(echo $cc | tr A-Z a-z).json.gz $extra
+            fi
             rm -f in.pbf roads.pbf areas.pbf law.pdf law.txt
           done
           ls -la out
@@ -84,3 +94,9 @@ jobs:
           git init -q -b roads-out && git add -A
           git -c user.name=actions -c user.email=actions@github.com commit -qm "roads data from OpenStreetMap"
           git push -qf "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" roads-out
+      - name: CZ stopped
+        run: |
+          if [ -f cz-stopped ]; then
+            echo "::error::CZ stopped (see Build): its data on roads-out is the last one; take a new reading with the samples there (tools/roads/cz_myto.py)"
+            exit 1
+          fi

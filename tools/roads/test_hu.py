@@ -14,6 +14,7 @@ import build  # noqa: E402
 # Along latitude 47.5 from 19.30° E (1 km is about 0.0132° of longitude).
 KM = 1 / (111.32 * 0.6756)
 LAT, LON0 = 47.5, 19.30
+LOOP = ((1, -0.14), (1.5, -0.1364), (3.5, -0.1364), (4, -0.14))     # road 83's old road: 3.28 km
 
 
 def osm(path, areas):
@@ -26,6 +27,14 @@ def osm(path, areas):
             nid[0] += 1
             x = LON0 + (x0 + (x1 - x0) * i / steps) * KM
             nodes.append(f'<node id="{nid[0]}" version="1" lat="{LAT + dy:.7f}" lon="{x:.7f}"/>')
+            ids.append(nid[0])
+        return ids
+
+    def pts(*xy):
+        ids = []
+        for x, dy in xy:
+            nid[0] += 1
+            nodes.append(f'<node id="{nid[0]}" version="1" lat="{LAT + dy:.7f}" lon="{LON0 + x * KM:.7f}"/>')
             ids.append(nid[0])
         return ids
 
@@ -91,7 +100,8 @@ def osm(path, areas):
     way(51, line(1.0, 1.8, dy=-0.08), highway="primary", ref="12")    # its hole
     way(52, line(1.8, 2.788, dy=-0.08), highway="primary", ref="12")  # 12u8k756m
     # Road 14: 14u3k670m (0.022) then 14u6k105m (0.428), whose relation
-    # lacks its first km: that km (drawn from 14u3k670m on) at 0.428.
+    # lacks its first km: the annex can't say where in that km the two
+    # sections meet, so it takes their mean (0.225).
     way(53, line(0, 2.435, dy=-0.10), highway="primary", ref="14")    # 14u3k670m
     way(54, line(2.435, 3.435, dy=-0.10), highway="primary", ref="14")  # 14u6k105m's first km, missing
     way(55, line(3.435, 4.772, dy=-0.10), highway="primary", ref="14")  # 14u6k105m
@@ -100,7 +110,12 @@ def osm(path, areas):
     way(56, line(0, 2, dy=-0.12), highway="primary", ref="57")        # 57u28k530m
     way(57, line(2, 2.846, dy=-0.12), highway="primary", ref="57")    # 90 m + 57u33k950m + 83 m
     way(58, line(2.846, 4.846, dy=-0.12), highway="primary", ref="57")  # 57u34k623m
-    secs = (("12u8k756m", [50, 52]), ("14u3k670m", [53]), ("14u6k105m", [55]), ("57u28k530m", [56]), ("57u34k623m", [58]), ("32u8k277m", [46]), ("32u10k510m", [49]), ("38u0k0m", [43]), ("38u1k565m", [45]), ("47u203k452m", [40]), ("47u205k517m", [42]), ("3u22k810m", [1]), ("3u25k636m", [4]), ("3u17k534m", [7]), ("M0u0k0m", [11]),
+    # Road 83: a road of its ref leaving 83u45k322m (complete in its
+    # relation) at km 1 and back at km 4, 400 m off: not a hole in it, so
+    # not tolled where the road's sections are in OSM.
+    way(59, line(0, 6.501, dy=-0.14), highway="primary", ref="83")    # 83u45k322m
+    way(60, pts(*LOOP), highway="primary", ref="83")                  # the old road beside it
+    secs = (("83u45k322m", [59]), ("12u8k756m", [50, 52]), ("14u3k670m", [53]), ("14u6k105m", [55]), ("57u28k530m", [56]), ("57u34k623m", [58]), ("32u8k277m", [46]), ("32u10k510m", [49]), ("38u0k0m", [43]), ("38u1k565m", [45]), ("47u203k452m", [40]), ("47u205k517m", [42]), ("3u22k810m", [1]), ("3u25k636m", [4]), ("3u17k534m", [7]), ("M0u0k0m", [11]),
             ("21u6k640m", [20, 21]), ("21u10k715m", [24, 25]), ("21u14k263m", [29]))
     for rid, (edid, ws) in enumerate(secs, 1):
         members = "".join(f'<member type="way" ref="{w}" role=""/>' for w in ws)
@@ -137,15 +152,16 @@ def run(covered):
                                   if abs(l[1] / 1e5 - LAT - dy) < 0.0002 and x0 < ((l[0] + l[-2]) / 2e5 - LON0) / KM < x1}
     print("shares: road 21's gaps", at(21, 24), at(26, 29), "road 12's hole", at(1.1, 1.7, -0.08), "road 14's", at(2.5, 3.4, -0.10), "road 57's", at(2.1, 2.8, -0.12))
     named = (named and at(21, 24) == {0.134} and at(26, 27.4) <= {0.788} and at(27.6, 29) <= {0.788}
-             and at(1.1, 1.7, -0.08) == {0.088} and at(2.5, 3.4, -0.10) == {0.428} and at(2.1, 2.8, -0.12) == {0.593})
+             and at(1.1, 1.7, -0.08) == {0.088} and at(2.5, 3.4, -0.10) == {0.225} and at(2.1, 2.8, -0.12) == {0.593})
     return km(out["nat"]), km(out["mw"]), len(out["natf"]) == len(out["nat"]) and named
 
 
 def main():
-    sections = 12 + 6 + 6 + 2 + 2.96 + 8.872 + 6.927 + 4.271 + 2.788 + 4.772 + 4.846  # roads 12, 14, 57; road 32: 1.388 + 0.727 + 0.047 + 2.109; road 47: 2.767 + 1.002 + 5.103; road 38: 3.125 + 3.802; road 3: 3 + 3 + 1, the other carriageway 3, the gap 2; road 21: 2 x 1 + 2 x 2 + 2, its dual gap 2 x 3, the gap across the roundabout 2.96
+    sections = 12 + 6 + 6 + 2 + 2.96 + 8.872 + 6.927 + 4.271 + 2.788 + 4.772 + 4.846 + 6.501  # roads 12, 14, 57, 83; road 32: 1.388 + 0.727 + 0.047 + 2.109; road 47: 2.767 + 1.002 + 5.103; road 38: 3.125 + 3.802; road 3: 3 + 3 + 1, the other carriageway 3, the gap 2; road 21: 2 x 1 + 2 x 2 + 2, its dual gap 2 x 3, the gap across the roundabout 2.96
+    loop = 2 * (0.5 ** 2 + 0.4 ** 2) ** 0.5 + 2  # road 83's old road, tolled by its ref only where OSM lacks the road's sections
     nat, mw, shares = run(0.9)
-    ok = abs(nat - sections) < 0.2 and abs(mw - 9) < 0.2 and shares
-    print(f"nat {nat:.2f} km (want {sections:.2f}), mw {mw:.2f} km (want 9: M1 by ref outside Budapest 6, M0's section 1 and by ref in Budapest 2)")
+    ok = abs(nat - sections - loop) < 0.2 and abs(mw - 9) < 0.2 and shares
+    print(f"nat {nat:.2f} km (want {sections + loop:.2f}), mw {mw:.2f} km (want 9: M1 by ref outside Budapest 6, M0's section 1 and by ref in Budapest 2)")
     nat, mw, shares = run(0)
     ok = ok and abs(nat - sections) < 0.2 and abs(mw - 1) < 0.2 and shares
     print(f"every road covered: nat {nat:.2f} km (want {sections:.2f}: the gaps found as gaps), mw {mw:.2f} km (want 1: M0's section)")

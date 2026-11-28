@@ -366,9 +366,9 @@ type countryValue struct {
 
 // countryValues reads a list of values by country (DE=320, a region
 // BE-BRU=0.2, a currency CHF=0.93; DE:320 too) or for all (a bare number):
-// entries separated by semicolons, or by commas before the next country
-// or after a value that has its decimal point or comma already
-// (PL=1.25,1.45). A value has a decimal point (1.45), or a decimal comma
+// entries separated by semicolons, or by commas before the next country,
+// or between two values that each have a decimal point or comma
+// (PL=1.25,1.45; PL=1,25,1,45; not DE=1.234,5). A value has a decimal point (1.45), or a decimal comma
 // (320,5; 1,45) but for 1,200 (1200, or 1.2?), which is refused, as is
 // 1.200 in a list that has decimal commas, or in a list of counts (km,
 // litres: 3.200 km is 3200 written the European way, more likely than a
@@ -392,7 +392,7 @@ func countryValues(s string, counts bool) ([]countryValue, error) {
 	}
 	for _, m := range ms {
 		if (commas || counts) && m[3] == "." && len(m[2]) <= 3 && len(m[4]) == 3 {
-			return nil, fmt.Errorf("%q: %s.%s is %s%s or %s,%s here: write %s%s, or %s,%s with ; between the countries", s, m[2], m[4], m[2], m[4], m[2], m[4], m[2], m[4], m[2], m[4])
+			return nil, fmt.Errorf("%q: %s.%s is %s%s, or %s.%s to three decimals? write %s%s, or the decimals without the trailing zeros", s, m[2], m[4], m[2], m[4], m[2], m[4], m[2], m[4])
 		}
 		num := m[2]
 		if m[4] != "" {
@@ -420,10 +420,10 @@ func listEntries(s string) []string {
 		if s[i] == ',' {
 			rest := strings.TrimLeft(s[i+1:], " \t")
 			letter := rest != "" && (rest[0] >= 'A' && rest[0] <= 'Z' || rest[0] >= 'a' && rest[0] <= 'z')
-			// A bare value after one with its decimal point or comma
-			// (PL=1.25,1.45), not DE=1.234,5 (1234.5, the European way?).
-			next, _, _ := strings.Cut(strings.SplitN(rest, ";", 2)[0], ",")
-			if !letter && !(strings.ContainsAny(valuePart(s[start:i]), ".,") && strings.Contains(next, ".")) {
+			// A bare value after one with its decimal point or comma, itself
+			// with one (PL=1.25,1.45), not DE=1.234,5 (1234.5, the European way?).
+			next := leadingNumber.FindString(rest)
+			if !letter && !(strings.ContainsAny(valuePart(s[start:i]), ".,") && strings.ContainsAny(next, ".,")) {
 				continue // a decimal comma, or refused with the entry
 			}
 		} else if s[i] != ';' {
@@ -443,6 +443,8 @@ func valuePart(e string) string {
 	}
 	return e
 }
+
+var leadingNumber = regexp.MustCompile(`^[0-9]+(?:[.,][0-9]+)?`)
 
 var listEntry = regexp.MustCompile(`^(?:([A-Za-z]{2,3}(?:-[A-Za-z0-9]{1,3})?)[ \t]*[=:][ \t]*)?(\d+)(?:([.,])(\d+))?$`)
 

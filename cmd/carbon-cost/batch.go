@@ -187,6 +187,19 @@ func sniffComma(in io.Reader, known map[string]bool) (io.Reader, csvLocale, erro
 var listFlags = map[string]bool{"country-km": true, "fuel-bought": true, "shipments": true, "tolled-share": true, "motorway-share": true,
 	"fx": true, "env-zone-km": true, "diesel-price": true}
 
+// pointed is a list cell of a ; CSV with its decimal commas made points;
+// there a decimal comma is one: 3,200 is 3.2, written 3.2000, as 3.200
+// would be refused (3200 the European way, or 3.2?).
+func pointed(v string) string {
+	return digitComma.ReplaceAllStringFunc(v, func(m string) string {
+		sm := digitComma.FindStringSubmatch(m)
+		if len(sm[2]) <= 3 && len(sm[3]) == 3 {
+			sm[3] += "0"
+		}
+		return sm[1] + sm[2] + "." + sm[3]
+	})
+}
+
 // digitComma is a number with a decimal comma.
 var digitComma = regexp.MustCompile(`(^|[^0-9.])([0-9]+),([0-9]+)`)
 
@@ -225,13 +238,13 @@ func (l csvLocale) in(name, v string, numeric map[string]bool) (string, error) {
 		// points: here a comma between digits is one, but in a shipment's
 		// id (A:..., or 4711,4712:...) or after a decimal point.
 		if name != "shipments" {
-			return digitComma.ReplaceAllString(v, "${1}${2}.${3}"), nil
+			return pointed(v), nil
 		}
 		ships := strings.Split(v, ";")
 		for i, sh := range ships {
 			parts := strings.Split(sh, ":")
 			for k := 1; k < len(parts); k++ {
-				parts[k] = digitComma.ReplaceAllString(parts[k], "${1}${2}.${3}")
+				parts[k] = pointed(parts[k])
 			}
 			ships[i] = strings.Join(parts, ":")
 		}

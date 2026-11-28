@@ -585,8 +585,9 @@ $("clearpath").addEventListener("click", () => setDriven(null));
 // pairs reads "DE=300, PL=150" into { DE: 300, PL: 150 }.
 // Values by country (DE=320, a region BE-BRU=0.2, a currency CHF=0.93;
 // DE:320 too) or for all (a bare number): entries separated by semicolons,
-// or by commas before the next country or after a value that has its
-// decimal point or comma already (PL=1.25,1.45). A value has a decimal
+// or by commas before the next country, or between two values that each
+// have a decimal point or comma (PL=1.25,1.45; PL=1,25,1,45; not
+// DE=1.234,5). A value has a decimal
 // point (1.45), or a decimal comma (320,5; 1,45) but for 1,200 (1200, or
 // 1.2?), which is refused, as is 1.200 in a list that has decimal commas,
 // or in a list of counts (km, litres). As calc reads them
@@ -598,10 +599,10 @@ function countryValues(s, what, counts) {
   for (let i = 0; i < s.length; i++) {
     if (s[i] === ",") {
       const rest = s.slice(i + 1).replace(/^[ \t]+/, ""), value = s.slice(start, i).split(/[=:]/).pop();
-      // A bare value after one with its decimal point or comma (PL=1.25,1.45),
-      // not DE=1.234,5 (1234.5, the European way?).
-      const next = rest.split(";")[0].split(",")[0];
-      if (!/^[A-Za-z]/.test(rest) && !(/[.,]/.test(value) && next.includes("."))) continue; // a decimal comma, or refused with the entry
+      // A bare value after one with its decimal point or comma, itself with
+      // one (PL=1.25,1.45), not DE=1.234,5 (1234.5, the European way?).
+      const next = (rest.match(/^[0-9]+(?:[.,][0-9]+)?/) || [""])[0];
+      if (!/^[A-Za-z]/.test(rest) && !(/[.,]/.test(value) && /[.,]/.test(next))) continue; // a decimal comma, or refused with the entry
     } else if (s[i] !== ";") continue;
     entries.push(trim(s.slice(start, i)));
     start = i + 1;
@@ -618,7 +619,7 @@ function countryValues(s, what, counts) {
   const commas = ms.some((m) => m[3] === ",");
   return ms.map((m) => {
     if ((commas || counts) && m[3] === "." && m[2].length <= 3 && m[4].length === 3)
-      throw new Error(`${what}: ${m[2]}.${m[4]} is ${m[2]}${m[4]} or ${m[2]},${m[4]} here: write ${m[2]}${m[4]}, or ${m[2]},${m[4]} with ; between the countries`);
+      throw new Error(`${what}: ${m[2]}.${m[4]} is ${m[2]}${m[4]}, or ${m[2]}.${m[4]} to three decimals? write ${m[2]}${m[4]}, or the decimals without the trailing zeros`);
     const v = +(m[2] + (m[4] ? "." + m[4] : ""));
     if (!isFinite(v)) throw new Error(`${what}: ${m[2]} is no number`);
     return [m[1] ? m[1].toUpperCase() : "", v];

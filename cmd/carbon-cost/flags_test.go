@@ -282,11 +282,12 @@ func TestCSVLocaleLists(t *testing.T) {
 		want       string
 		wantsError bool
 	}{
-		{';', "fx", "CZK=24,305", "CZK=24.305", false},
+		{';', "fx", "CZK=24,305", "CZK=24.3050", false}, // (24.305, not refused as 24305 the European way)
+		{';', "country-km", "DE=3,200;PL=4,1", "DE=3.2000;PL=4.1", false},
 		{';', "shipments", "A:12000,5:0-2;B:800:1-2:ldm=2,4,pallets=6", "A:12000.5:0-2;B:800:1-2:ldm=2.4,pallets=6", false},
 		{';', "country-km", "DE=100,PL=100", "DE=100,PL=100", false},
 		{';', "country-km", "DE=3.200,PL=4.100", "", true},
-		{';', "diesel-price", "1,459", "1.459", false},
+		{';', "diesel-price", "1,459", "1.4590", false},
 		{',', "country-km", "DE=1,200", "DE=1,200", false},
 	} {
 		got, err := c.comma.in(c.name, c.v, calcNumberFlags())

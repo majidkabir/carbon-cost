@@ -1,0 +1,1330 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width">
+    <script>
+!function(T,l,y){var S=T.location,k="script",D="instrumentationKey",C="ingestionendpoint",I="disableExceptionTracking",E="ai.device.",b="toLowerCase",w="crossOrigin",N="POST",e="appInsightsSDK",t=y.name||"appInsights";(y.name||T[e])&&(T[e]=t);var n=T[t]||function(d){var g=!1,f=!1,m={initialize:!0,queue:[],sv:"5",version:2,config:d};function v(e,t){var n={},a="Browser";return n[E+"id"]=a[b](),n[E+"type"]=a,n["ai.operation.name"]=S&&S.pathname||"_unknown_",n["ai.internal.sdkVersion"]="javascript:snippet_"+(m.sv||m.version),{time:function(){var e=new Date;function t(e){var t=""+e;return 1===t.length&&(t="0"+t),t}return e.getUTCFullYear()+"-"+t(1+e.getUTCMonth())+"-"+t(e.getUTCDate())+"T"+t(e.getUTCHours())+":"+t(e.getUTCMinutes())+":"+t(e.getUTCSeconds())+"."+((e.getUTCMilliseconds()/1e3).toFixed(3)+"").slice(2,5)+"Z"}(),iKey:e,name:"Microsoft.ApplicationInsights."+e.replace(/-/g,"")+"."+t,sampleRate:100,tags:n,data:{baseData:{ver:2}}}}var h=d.url||y.src;if(h){function a(e){var t,n,a,i,r,o,s,c,u,p,l;g=!0,m.queue=[],f||(f=!0,t=h,s=function(){var e={},t=d.connectionString;if(t)for(var n=t.split(";"),a=0;a<n.length;a++){var i=n[a].split("=");2===i.length&&(e[i[0][b]()]=i[1])}if(!e[C]){var r=e.endpointsuffix,o=r?e.location:null;e[C]="https://"+(o?o+".":"")+"dc."+(r||"services.visualstudio.com")}return e}(),c=s[D]||d[D]||"",u=s[C],p=u?u+"/v2/track":d.endpointUrl,(l=[]).push((n="SDK LOAD Failure: Failed to load Application Insights SDK script (See stack for details)",a=t,i=p,(o=(r=v(c,"Exception")).data).baseType="ExceptionData",o.baseData.exceptions=[{typeName:"SDKLoadFailed",message:n.replace(/\./g,"-"),hasFullStack:!1,stack:n+"\nSnippet failed to load ["+a+"] -- Telemetry is disabled\nHelp Link: https://go.microsoft.com/fwlink/?linkid=2128109\nHost: "+(S&&S.pathname||"_unknown_")+"\nEndpoint: "+i,parsedStack:[]}],r)),l.push(function(e,t,n,a){var i=v(c,"Message"),r=i.data;r.baseType="MessageData";var o=r.baseData;return o.message='AI (Internal): 99 message:"'+("SDK LOAD Failure: Failed to load Application Insights SDK script (See stack for details) ("+n+")").replace(/\"/g,"")+'"',o.properties={endpoint:a},i}(0,0,t,p)),function(e,t){if(JSON){var n=T.fetch;if(n&&!y.useXhr)n(t,{method:N,body:JSON.stringify(e),mode:"cors"});else if(XMLHttpRequest){var a=new XMLHttpRequest;a.open(N,t),a.setRequestHeader("Content-type","application/json"),a.send(JSON.stringify(e))}}}(l,p))}function i(e,t){f||setTimeout(function(){!t&&m.core||a()},500)}var e=function(){var n=l.createElement(k);n.src=h;var e=y[w];return!e&&""!==e||"undefined"==n[w]||(n[w]=e),n.onload=i,n.onerror=a,n.onreadystatechange=function(e,t){"loaded"!==n.readyState&&"complete"!==n.readyState||i(0,t)},n}();y.ld<0?l.getElementsByTagName("head")[0].appendChild(e):setTimeout(function(){l.getElementsByTagName(k)[0].parentNode.appendChild(e)},y.ld||0)}try{m.cookie=l.cookie}catch(p){}function t(e){for(;e.length;)!function(t){m[t]=function(){var e=arguments;g||m.queue.push(function(){m[t].apply(m,e)})}}(e.pop())}var n="track",r="TrackPage",o="TrackEvent";t([n+"Event",n+"PageView",n+"Exception",n+"Trace",n+"DependencyData",n+"Metric",n+"PageViewPerformance","start"+r,"stop"+r,"start"+o,"stop"+o,"addTelemetryInitializer","setAuthenticatedUserContext","clearAuthenticatedUserContext","flush"]),m.SeverityLevel={Verbose:0,Information:1,Warning:2,Error:3,Critical:4};var s=(d.extensionConfig||{}).ApplicationInsightsAnalytics||{};if(!0!==d[I]&&!0!==s[I]){var c="onerror";t(["_"+c]);var u=T[c];T[c]=function(e,t,n,a,i){var r=u&&u(e,t,n,a,i);return!0!==r&&m["_"+c]({message:e,url:t,lineNumber:n,columnNumber:a,error:i}),r},d.autoExceptionInstrumented=!0}return m}(y.cfg);function a(){y.onInit&&y.onInit(n)}(T[t]=n).queue&&0===n.queue.length?(n.queue.push(a),n.trackPageView({})):a()}(window,document,{src: "https://js.monitor.azure.com/scripts/b/ai.2.gbl.min.js", crossOrigin: "anonymous", cfg: { instrumentationKey:'082da0b0-09c6-494a-91b8-f614aa205882', disableCookiesUsage: false }});
+</script>
+
+    
+    
+<script>
+    (function () {
+        var blockedPatterns = ["google.com","doubleclick.net","salesmanago.pl","beffe.destinationgotland.se","cookieinformation.com","linkedin.com","googleadservices.com","hotjar.io"];
+
+        function shouldBlock(value) {
+            if (!value) return false;
+
+            var s = String(value).toLowerCase();
+
+            for (var i = 0; i < blockedPatterns.length; i++) {
+                if (s.indexOf(blockedPatterns[i]) !== -1) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        if (!window.appInsights || typeof window.appInsights.addTelemetryInitializer !== "function") {
+            return;
+        }
+
+        window.appInsights.addTelemetryInitializer(function (item) {
+            var baseType = item && item.baseType;
+            var baseData = item && item.baseData || {};
+
+            if (baseType === "RemoteDependencyData") {
+                var target =
+                    baseData.target ||
+                    baseData.name ||
+                    baseData.data ||
+                    "";
+
+                if (shouldBlock(target)) {
+                    return false;
+                }
+            }
+
+            return true;
+        });
+    })();
+</script>
+
+
+    
+
+	    <!-- Google Tag Manager -->
+	    <script>
+            (function (w, d, s, l, i) {
+                w[l] = w[l] || []; w[l].push({
+                    'gtm.start':
+
+                        new Date().getTime(), event: 'gtm.js'
+                }); var f = d.getElementsByTagName(s)[0],
+
+                    j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+
+                        'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+
+            })(window, document, 'script', 'dataLayer', 'GTM-KH83Z6Z');
+        </script>
+        <!-- End Google Tag Manager -->
+
+	
+
+	
+<title>Our ships</title>
+
+
+<meta name="title" content="Our ships">
+<meta name="description" content="">
+<meta property="og:title">
+<meta property="og:description" content="">
+<meta property="og:image" content="">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+	<link rel="manifest" href="/favicons/site.webmanifest">
+	<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+	<link rel="shortcut icon" href="/favicons/favicon.ico">
+	<meta name="msapplication-TileColor" content="#2d89ef">
+	<meta name="msapplication-config" content="/favicons/browserconfig.xml">
+	<meta name="theme-color" content="#ffffff">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&display=swap" rel="stylesheet">
+	<link href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet"
+	integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+	
+	<script type="module" src="/assets/main.js?v=xv_ouoVGGxIE6Y5DmXUWriGVG6KFeQ6CgUy2n1U-_DE" crossorigin="anonymous" integrity="sha384-hG9U6Iv/wGYMkVRZ6R7MyQsyJoYjixP&#x2B;fr8xnH/fYulPWtdpOUYEiRhX5PFu9KPr"></script>
+	<link rel="stylesheet" href="/assets/main.css?v=rzpx0dVNILtjhezrEU7U9nFKzw-jzwQ-2rgYwYvN9kg" crossorigin="anonymous" integrity="sha384-rGxGEg/zMdQvBXjbUXQji1xHBBiW/0d4HIlrQwb/UssuonY3Q0xH7lnc25471X/u">
+
+
+	
+
+    <script type="application/json" id="dgAppConfig">
+        {
+            "apiUrl": "https://beffe.destinationgotland.se",
+            "cmsApiUrl": "/",
+            "defaultLocale": "en-US",
+            "myPagesUrl": "/en/my-pages/",
+            "bookingConfirmationPageUrl": "/en/booking-confirmation/",
+            "checkoutUrl":"/en/Checkout/",
+            "receiptPageUrl":"/en/receipt/",
+            "voucherPageUrl":"/en/voucher/",
+            "transportBookingUrl":"/en/travel-search-results/",
+            "accommodationBookingUrl": "/en/accommodation-search-results/",
+            "eventBookingUrl": "/en/experience-search-results/",
+            "myOrderUrl": "/en/my-booking/",
+            "cruiseBookingUrl": "/en/Cruise/",
+            "cruiseStartUrl": "/",
+            "birka": {"routes":[{"key":"SESTO","label":"Stockholm"},{"key":"FIMHQ","label":"Mariehamn"},{"key":"SEVBY","label":"Visby"},{"key":"PLNOW","label":"Gdansk"},{"key":"SEHND","label":"H\u00F6ga kusten"},{"key":"LVRIX","label":"Riga"},{"key":"SEYST","label":"Ystad"},{"key":"DKRNN","label":"Bornholm"}]},
+            "handleEntryEventEvents": false,
+            "handleNorticEvents": false,
+            "handleGalaxyEvents": false
+            }
+    </script>
+	
+</head>
+<body>
+
+
+
+        <!-- Google Tag Manager (noscript) -->
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KH83Z6Z" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
+
+
+
+
+<div id="dg-app" class="absolute left-0 right-0 top-0"></div>
+
+
+
+
+
+
+<!-- Header -->
+<header class="header">
+  <div id="skip-link-widget"></div>
+  <div class="container-default">
+    <div class="header__content">
+      <a href="/en/" class="header__logo-wrapper">
+        <picture>
+          <img alt="Destination Gotland logo" src="https://www.destinationgotland.se/icons/logo.svg">
+        </picture>
+      </a>
+
+        <nav class="header__main-links">
+        <ul>
+
+
+<li class="header__main-links-item">
+        <a class="header__main-links-trigger" href="/en/travel/">
+            <span>Travel</span>
+        </a>
+
+</li>
+
+<li class="header__main-links-item">
+        <a class="header__main-links-trigger" href="/en/accommodation/">
+            <span>Accommodation</span>
+        </a>
+
+</li>
+
+<li class="header__main-links-item">
+        <a class="header__main-links-trigger" href="/en/experiences/">
+            <span>Experiences</span>
+        </a>
+
+</li>
+
+<li class="header__main-links-item">
+        <a class="header__main-links-trigger" href="/en/conference/">
+            <span>Conference</span>
+        </a>
+
+</li>
+
+<li class="header__main-links-item">
+        <a class="header__main-links-trigger" href="/kryssning-birka/">
+            <span>Cruise</span>
+        </a>
+
+</li>
+
+<li class="header__main-links-item">
+        <a class="header__main-links-trigger" href="/en/traffic-information/">
+            <span>Traffic info</span>
+        </a>
+
+</li>        </ul>
+      </nav>
+
+      <span class="flex-1">
+        <!-- Filler -->
+      </span>
+
+      <nav class="header__icon-links">
+        <ul>
+
+<li id="header-quick-search">
+    <button id="open-search-button" aria-controls="search-box" type="button">
+        <div>
+            <i data-svg-icon="search"></i>
+        </div>
+        <span>Search</span>
+    </button>
+    <div id="search-box" class="hidden" data-lang="en">
+        <div>
+<form action="/en/search-page/" class="quick-search-form" method="get">                <div class="searchfield">
+                    <i data-svg-icon="search"></i>
+                    <input type="text" tabindex="0" name="q" autofocus
+                           placeholder="Search..." />
+                    <button type="button" tabindex="-1" class="searchfield__clear"><i data-svg-icon="close-x"></i></button>
+                </div>
+                <div class="searchbox-results">
+                    <p class="searchbox-header popular">Popular searches</p>
+                    <p class="searchbox-header search">
+                        Search results:
+                        <button type="submit" tabindex="0">
+                            View all results<i data-svg-icon="arrow"></i>
+                        </button>
+                    </p>
+                    <ul class="searchbox-results-list popular">
+                    </ul>
+                    <ul class="searchbox-results-list search">
+                    </ul>
+                    <p class="searchbox-no-results">Your search did not return any results</p>
+                    <div class="loading-indicator">
+                        <div><i data-svg-icon="search"></i></div>
+                    </div>
+                </div>
+</form>        </div>
+    </div>
+</li>          <li id="session-menu-widget">
+            <!-- Injected here -->
+          </li>
+          <li id="header-checkout-widget">
+            <!-- Injected here -->
+          </li>
+          <li>
+            <button id="open-main-drawer-button" aria-controls="main-drawer">
+              <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                <path d="M25 15a1 1 0 0 1 .117 1.993L25 17H7a1 1 0 0 1-.117-1.993L7 15h18zm0-6a1 1 0 0 1 .117 1.993L25 11H7a1 1 0 0 1-.117-1.993L7 9h18zm0 12a1 1 0 0 1 .117 1.993L25 23H7a1 1 0 0 1-.117-1.993L7 21h18z" fill-rule="nonzero" fill="currentColor"></path>
+              </svg>
+              <span>Menu</span>
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<div class="main-outer-wrapper">
+	<div class="main-inner-wrapper">
+		
+
+<section class="hero-block">
+<picture><source srcset="/cdn-cgi/image/width=1024,format=auto,fit=crop/globalassets/allt-om-resan/vara-fartyg/microsoftteams-image-4.png 1024w, /cdn-cgi/image/width=2880,format=auto,fit=crop/globalassets/allt-om-resan/vara-fartyg/microsoftteams-image-4.png 2880w, /cdn-cgi/image/width=4320,format=auto,fit=crop/globalassets/allt-om-resan/vara-fartyg/microsoftteams-image-4.png 4320w" sizes="1024px, (min-width:1025px) 2880px, (min-wdth:2881px) 4320px" /><img alt="" src="/cdn-cgi/image/width=4320,format=auto,fit=crop/globalassets/allt-om-resan/vara-fartyg/microsoftteams-image-4.png" loading="lazy" decoding="async" class="hero-background"/></picture>    <div>
+            <h1>Our ships</h1>
+    </div>
+</section>
+
+<div class="main-with-aside container-default">
+    <main>
+                <h2 class="main-with-aside__heading">Ships in Gotland traffic</h2>
+
+        
+
+
+
+
+
+<section class="rich-text-block py-6 px-6 bg-primary-100">
+    <div class="container-default">
+        <div class=" "><p class="text-20 font-medium mb-6">Destination Gotland has two vessel types in the Gotland service, the newest vessels are powered by liquefied natural gas (LNG) and biogas (LBG) to reduce their climate footprint.</p>
+<p><img src="/globalassets/6-misc/fartyg/dji_0770.jpg" alt="" width="1358" height="875"></p>
+<h3><br>SF1650 - M/S Gotland</h3>
+<p>M/S Gotland operates the Visby&ndash;Nynäshamn/Oskarshamn route.<br><br></p>
+<h6>Key dimensions</h6>
+<ul class="rich-text-block__default-bullet-list list-disc">
+<li>Built: 2019</li>
+<li>Length: 199.9 m</li>
+<li>Beam: 25.86 m</li>
+<li>Passengers: 1,650</li>
+<li>Cabin berths: 98</li>
+<li>Car capacity: 500 cars or 1,745 lane meters</li>
+<li>Ice class: DNVGL, Ice Class 1A</li>
+<li>Service speed: 28.5 knots</li>
+<li>Main machinery: 46,800 kW<br><br></li>
+</ul>
+<p><a class="underline link" href="/globalassets/dokument/oversiktskartor/sf1650-seatingplan.pdf" target="_blank" rel="noopener">See overview map (pdf)</a><br><br></p>
+<hr>
+<p><img src="/globalassets/6-misc/fartyg/dji_0818-kopiera.jpg" alt="" width="1358" height="1017"></p>
+<h3><br>SF1650 - M/S VISBY</h3>
+<p>M/S Visby operates the Visby&ndash;Nynäshamn/Oskarshamn route.</p>
+<p>&nbsp;</p>
+<h6>Key dimensions</h6>
+<ul class="rich-text-block__default-bullet-list list-disc">
+<li>Built: 2018</li>
+<li>Length: 199.9 m</li>
+<li>Beam: 25.86 m</li>
+<li>Passengers: 1,650</li>
+<li>Cabin berths: 98</li>
+<li>Car capacity: 500 cars or 1,745 lane meters</li>
+<li>Ice class: DNVGL, Ice Class 1A</li>
+<li>Service speed: 28.5 knots</li>
+<li>Main machinery: 46,800 kW</li>
+</ul>
+<p>&nbsp;</p>
+<p><a class="underline link" href="/globalassets/dokument/oversiktskartor/sf1650-seatingplan.pdf" target="_blank" rel="noopener">See overview map (pdf)</a></p>
+<p>&nbsp;</p>
+<p><img src="/globalassets/6-misc/fartyg/dji_0750-kopiera.jpg" alt="" width="1358" height="905"></p>
+<h4>&nbsp;</h4>
+<h3>SF 1500 - M/S DROTTEN</h3>
+<p>M/S Drotten operates the Visby&ndash;Nynäshamn/Oskarshamn route.</p>
+<p>&nbsp;</p>
+<h6>Key dimensions</h6>
+<ul class="rich-text-block__default-bullet-list list-disc">
+<li>Built: 2003</li>
+<li>Length: 196 m</li>
+<li>Beam: 25.67 m</li>
+<li>Passengers: 1,500</li>
+<li>Cabin berths: 115</li>
+<li>Car capacity: 500 cars or 1,800 lane meters</li>
+<li>Ice class: DNVGL, Ice Class 1A</li>
+<li>Service speed: 28.5 knots</li>
+<li>Main machinery: 50,400 kW</li>
+</ul>
+<p>&nbsp;</p>
+<p><a class="underline link" title="Översikt SF1500" href="/globalassets/dokument/oversiktskartor/sf1500-seatingplan.pdf" target="_blank" rel="noopener">See overview map (pdf)</a></p></div>
+    </div>
+
+</section>
+    </main>
+
+    
+
+<!-- Nav -->
+<aside class="aside-navigation">
+    <a href="/en/all-about-the-trip/"><h4>All about the trip</h4></a>
+    <nav>
+         <ul>
+                        <li class="aside-navigation__list-item ">
+                <div class="aside-navigation__root-link-wrapper">
+                       <a class="aside-navigation__root-link" href="/en/all-about-the-trip/before-the-trip/">
+                           Before the trip
+                       </a>
+                    <button class="aside-navigation__toggle-button" />
+                </div>
+
+                    <ul class="aside-navigation__sub-list">
+                                <li class="aside-navigation__sub-list-item ">
+            <a href="/en/all-about-the-trip/before-the-trip/connections-to-the-gotland-ferry/" class="aside-navigation__sub-link">
+            Connections to the Gotland ferry
+            </a>        
+        </li>
+        <li class="aside-navigation__sub-list-item ">
+            <a href="/en/all-about-the-trip/before-the-trip/water-bus/" class="aside-navigation__sub-link">
+            How B&#xE5;tbussen works
+            </a>        
+        </li>
+        <li class="aside-navigation__sub-list-item ">
+            <a href="/en/all-about-the-trip/before-the-trip/boat-bus-stops/" class="aside-navigation__sub-link">
+            Boat bus stops
+            </a>        
+        </li>
+
+                    </ul>
+            </li>
+            <li class="aside-navigation__list-item ">
+                <div class="aside-navigation__root-link-wrapper">
+                       <a class="aside-navigation__root-link" href="/en/all-about-the-trip/onboard-offerings/">
+                           Onboard offerings
+                       </a>
+                </div>
+
+            </li>
+            <li class="aside-navigation__list-item ">
+                <div class="aside-navigation__root-link-wrapper">
+                       <a class="aside-navigation__root-link" href="/en/all-about-the-trip/comfort-options/">
+                           Comfort options
+                       </a>
+                </div>
+
+            </li>
+            <li class="aside-navigation__list-item ">
+                <div class="aside-navigation__root-link-wrapper">
+                       <a class="aside-navigation__root-link" href="/en/all-about-the-trip/seat-reservation/">
+                           Seat reservation
+                       </a>
+                </div>
+
+            </li>
+            <li class="aside-navigation__list-item is-active">
+                <div class="aside-navigation__root-link-wrapper">
+                       <a class="aside-navigation__root-link" href="/en/all-about-the-trip/our-ferries/">
+                           Our ships
+                       </a>
+                </div>
+
+            </li>
+            <li class="aside-navigation__list-item ">
+                <div class="aside-navigation__root-link-wrapper">
+                       <a class="aside-navigation__root-link" href="/en/all-about-the-trip/ferry-terminals/">
+                           Ferry terminals
+                       </a>
+                </div>
+
+            </li>
+
+       </ul>
+    </nav>
+</aside>
+</div>
+	</div>
+
+	
+
+<!-- Footer -->
+<footer class="footer">
+    <!-- Upper content -->
+    <div class="footer__upper-content">
+        <div class="container-default">
+            <h2 class="sr-only">Contact and newsletter</h2>
+            <div class="footer__upper-content-grid">
+                
+
+
+<div class="footer__card">
+    <i data-svg-icon="calendar-clock"></i>
+    <div class="footer__card-texts">
+        <span></span>
+        
+
+    </div>
+</div>
+                
+
+
+<div class="footer__card">
+    <i data-svg-icon="person"></i>
+    <div class="footer__card-texts">
+        <span></span>
+        
+
+    </div>
+</div>
+                
+
+
+<div class="footer__card">
+    <i data-svg-icon="gift"></i>
+    <div class="footer__card-texts">
+        <span></span>
+        
+
+    </div>
+</div>
+            </div>
+
+            <div class="footer__upper-content-grid !pt-0">
+                <div class="space-y-3">
+                    <h3></h3>
+                    <p></p>
+                </div>
+
+                <div class="mb-8 space-y-3">
+                    <div class="text-h5 md-down:hidden">&nbsp;</div>
+                    <a href="tel:" class="footer__contact-link">
+                        <img src="https://www.destinationgotland.se/icons/phone-icon-blue.svg" alt="">
+                        <span></span>
+                    </a>
+                    <a href="mailto:" class="footer__contact-link">
+                        <img src="https://www.destinationgotland.se/icons/envelope-icon-blue.svg" alt="">
+                        <span></span>
+                    </a>
+                </div>
+
+                <div>
+                    <h3 class="mb-3"></h3>
+                    <p class="mb-5"></p>
+                    <a href="/en/"
+                        class="btn btn-secondary w-full">Subscribe</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lower content -->
+    <div class="footer__lower-content">
+        <div class="container-default">
+            <h2 class="sr-only">Footer navigation</h2>
+            <div class="footer__link-lists">
+                
+
+
+<ul>
+    <li>
+        <h3></h3>
+    </li>
+</ul>
+
+                
+
+
+<ul>
+    <li>
+        <h3></h3>
+    </li>
+</ul>
+
+                
+
+
+<ul>
+    <li>
+        <h3></h3>
+    </li>
+</ul>
+
+                
+
+
+<ul>
+    <li>
+        <h3></h3>
+    </li>
+</ul>
+
+            </div>
+
+            <div class="footer__social-wrapper">
+                <div class="footer__social-icons">
+                    <a href=""
+                        aria-label="Visit us on Facebook">
+                        <i class="icon-btn bg-white">
+                            <img src="https://www.destinationgotland.se/icons/facebook-icon-blue.svg" alt="">
+                        </i>
+                    </a>
+                    <a href=""
+                        aria-label="Follow us on Instagram">
+                        <i class="icon-btn bg-white">
+                            <img src="https://www.destinationgotland.se/icons/instagram-icon-blue.svg" alt="">
+                        </i>
+                    </a>
+                    <a href=""
+                        aria-label="Follow us on LinkedIn">
+                        <i class="icon-btn bg-white">
+                            <img src="https://www.destinationgotland.se/icons/linkedin-icon-blue.svg" alt="">
+                        </i>
+                    </a>
+                    <a href=""
+                        aria-label="Watch our videos on YouTube">
+                        <i class="icon-btn bg-white">
+                            <img src="https://www.destinationgotland.se/icons/youtube-icon-blue.svg" alt="">
+                        </i>
+                    </a>
+                </div>
+                
+
+<div class="language-picker">
+    <button class="language-picker__button" aria-label="Select Language"
+        aria-haspopup="listbox">
+        <span class="language-picker__flag-and-text">
+            <img src="/icons/flag-en.svg" alt="" />
+            <span>English</span>
+        </span>
+
+        <span class="language-picker__button-arrow">
+            <i data-svg-icon="chevron"></i>
+        </span>
+    </button>
+
+    <div class="language-picker__dropdown hidden" aria-labelledby="language-picker__description">
+        <p id="language-picker__description">Select Language</p>
+        <div role="listbox">
+                <a lang="en" hreflang="en"
+                    aria-selected="true"
+                    href="/en/all-about-the-trip/our-ferries/"
+                    class="language-picker__option is-active">
+                    <span class="language-picker__flag-and-text">
+                        <img src="/icons/flag-en.svg" alt="">
+                        <span>English</span>
+                        <i data-svg-icon="check" class="language-picker__check-icon"></i>
+                    </span>
+                </a>
+                <a lang="de" hreflang="de"
+                    aria-selected=""
+                    href="/de/"
+                    class="language-picker__option">
+                    <span class="language-picker__flag-and-text">
+                        <img src="/icons/flag-de.svg" alt="">
+                        <span>Deutsch</span>
+                        <i data-svg-icon="check" class="language-picker__check-icon"></i>
+                    </span>
+                </a>
+                <a lang="sv" hreflang="sv"
+                    aria-selected=""
+                    href="/allt-om-resan/vara-farjor/"
+                    class="language-picker__option">
+                    <span class="language-picker__flag-and-text">
+                        <img src="/icons/flag-sv.svg" alt="">
+                        <span>Svenska</span>
+                        <i data-svg-icon="check" class="language-picker__check-icon"></i>
+                    </span>
+                </a>
+                <a lang="da" hreflang="da"
+                    aria-selected=""
+                    href="/da/allt-om-resan/vara-farjor/"
+                    class="language-picker__option">
+                    <span class="language-picker__flag-and-text">
+                        <img src="/icons/flag-da.svg" alt="">
+                        <span>Dansk</span>
+                        <i data-svg-icon="check" class="language-picker__check-icon"></i>
+                    </span>
+                </a>
+        </div>
+    </div>
+</div>
+            </div>
+
+            <div class="footer__certified">
+                <button id="scroll-to-top-btn" class="btn footer__scroll-to-top-btn">
+                    <img class="w-6 h-6" src="https://www.destinationgotland.se/icons/chevron-right-white.svg" alt="">
+                    <span>TO TOP OF PAGE</span>
+                </button>
+
+                <p>Destination Gotland has been quality and environmental management certified according to ISO 9001 and ISO 14001 since 2003</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer__bottom-content">
+        <img class="inline" src="https://www.destinationgotland.se/icons/logo.svg" alt="Destination Gotland logo">
+    </div>
+</footer>
+</div>
+
+
+
+
+
+
+
+
+<!-- Hamburger menu in header -->
+<div id="main-drawer" class="drawer" tabindex="-1">
+	<div class="drawer__header">
+		<div class="flex-1"></div>
+		<button id="close-main-drawer-button" aria-controls="main-drawer" class="drawer__close-btn">
+			<img src="/icons/x-icon-blue.svg" alt="">
+			<span>Close</span>
+		</button>
+	</div>
+
+	<div class="drawer__main">
+
+		<section class="drawer__nav-section">
+			<nav class="drawer__primary-nav hidden" data-nav-id="nav-0">
+				<ul class="drawer__primary-nav-list">
+						<li>
+							<a href="/en/travel/">Travel</a>
+						</li>                        
+						<li>
+							<a href="/en/accommodation/">Accommodation</a>
+						</li>                        
+						<li>
+							<a href="/en/experiences/">Experiences</a>
+						</li>                        
+						<li>
+							<a href="/en/conference/">Conference</a>
+						</li>                        
+						<li>
+							<a href="/kryssning-birka/">Cruise</a>
+						</li>                        
+						<li>
+							<a href="/en/traffic-information/">Traffic info</a>
+						</li>                        
+				</ul>
+			</nav>
+            
+                    <nav class="drawer__secondary-nav hidden" data-nav-id="nav-0">                        
+
+            <ul>
+                    <li class="">
+                        <a href="/en/prices-booking-info/">Ticket types &amp; discounts</a>                        
+                            <button class="drawer__nav-next-level-button" data-navigate-to-id="nav-0-714">
+                                <img src="/icons/chevron-icon-blue.svg" alt="Show subpages"/>
+                            </button>
+                    </li>
+                    <li class="is-active">
+                        <a href="/en/all-about-the-trip/">All about the trip</a>                        
+                            <button class="drawer__nav-next-level-button" data-navigate-to-id="nav-0-80">
+                                <img src="/icons/chevron-icon-blue.svg" alt="Show subpages"/>
+                            </button>
+                    </li>
+                    <li class="">
+                        <a href="/en/about-us/">About us</a>                        
+                            <button class="drawer__nav-next-level-button" data-navigate-to-id="nav-0-33">
+                                <img src="/icons/chevron-icon-blue.svg" alt="Show subpages"/>
+                            </button>
+                    </li>
+                    <li class="">
+                        <a href="/en/search-page/">Search</a>                        
+                    </li>
+            </ul>
+        </nav>
+        <nav class="drawer__secondary-nav hidden" data-nav-id="nav-0-714">                        
+                <button class="drawer__nav-go-back-button" data-navigate-to-id="nav-0">
+                    <img src="/icons/link-arrow-blue.svg" alt="" />
+                    <span>Ticket types &amp; discounts</span>
+                </button>
+
+            <ul>
+                    <li class="">
+                        <a href="/en/prices-booking-info/ticket-types-and-discounts/">Ticket types and discounts</a>                        
+                    </li>
+                    <li class="">
+                        <a href="/en/prices-booking-info/Benefit-card/">Benefit card</a>                        
+                    </li>
+                    <li class="">
+                        <a href="/en/prices-booking-info/freight-goods/">Freight &amp; cargo</a>                        
+                            <button class="drawer__nav-next-level-button" data-navigate-to-id="nav-0-720">
+                                <img src="/icons/chevron-icon-blue.svg" alt="Show subpages"/>
+                            </button>
+                    </li>
+                    <li class="">
+                        <a href="/en/prices-booking-info/group-travel/">Group trips</a>                        
+                    </li>
+                    <li class="">
+                        <a href="/en/prices-booking-info/sports-trips/">Sports trips</a>                        
+                    </li>
+            </ul>
+        </nav>
+        <nav class="drawer__secondary-nav hidden" data-nav-id="nav-0-142">                        
+                <button class="drawer__nav-go-back-button" data-navigate-to-id="nav-0-714">
+                    <img src="/icons/link-arrow-blue.svg" alt="" />
+                    <span>Ticket types and discounts</span>
+                </button>
+
+            <ul>
+            </ul>
+        </nav>
+        <nav class="drawer__secondary-nav hidden" data-nav-id="nav-0-715">                        
+                <button class="drawer__nav-go-back-button" data-navigate-to-id="nav-0-714">
+                    <img src="/icons/link-arrow-blue.svg" alt="" />
+                    <span>Benefit card</span>
+                </button>
+
+            <ul>
+            </ul>
+        </nav>
+        <nav class="drawer__secondary-nav hidden" data-nav-id="nav-0-720">                        
+                <button class="drawer__nav-go-back-button" data-navigate-to-id="nav-0-714">
+                    <img src="/icons/link-arrow-blue.svg" alt="" />
+                    <span>Freight &amp; cargo</span>
+                </button>
+
+            <ul>
+                    <li class="">
+                        <a href="/en/prices-booking-info/freight-goods/opening-hours-freight-checkin/">Freight Check-in opening hours</a>                        
+                    </li>
+            </ul>
+        </nav>
+        <nav class="drawer__secondary-nav hidden" data-nav-id="nav-0-723">                        
+                <button class="drawer__nav-go-back-button" data-navigate-to-id="nav-0-720">
+                    <img src="/icons/link-arrow-blue.svg" alt="" />
+                    <span>Freight Check-in opening hours</span>
+                </button>
+
+            <ul>
+            </ul>
+        </nav>
+        <nav class="drawer__secondary-nav hidden" data-nav-id="nav-0-798">                        
+                <button class="drawer__nav-go-back-button" data-navigate-to-id="nav-0-714">
+                    <img src="/icons/link-arrow-blue.svg" alt="" />
+                    <span>Group trips</span>
+                </button>
+
+            <ul>
+            </ul>
+        </nav>
+        <nav class="drawer__secondary-nav hidden" data-nav-id="nav-0-840">                        
+                <button class="drawer__nav-go-back-button" data-navigate-to-id="nav-0-714">
+                    <img src="/icons/link-arrow-blue.svg" alt="" />
+                    <span>Sports trips</span>
+                </button>
+
+            <ul>
+            </ul>
+        </nav>
+        <nav class="drawer__secondary-nav hidden" data-nav-id="nav-0-80">                        
+                <button class="drawer__nav-go-back-button" data-navigate-to-id="nav-0">
+                    <img src="/icons/link-arrow-blue.svg" alt="" />
+                    <span>All about the trip</span>
+                </button>
+
+            <ul>
+                    <li class="">
+                        <a href="/en/all-about-the-trip/before-the-trip/">Before the trip</a>                        
+                            <button class="drawer__nav-next-level-button" data-navigate-to-id="nav-0-81">
+                                <img src="/icons/chevron-icon-blue.svg" alt="Show subpages"/>
+                            </button>
+                    </li>
+                    <li class="">
+                        <a href="/en/all-about-the-trip/onboard-offerings/">Onboard offerings</a>                        
+                    </li>
+                    <li class="">
+                        <a href="/en/all-about-the-trip/comfort-options/">Comfort options</a>                        
+                    </li>
+                    <li class="">
+                        <a href="/en/all-about-the-trip/seat-reservation/">Seat reservation</a>                        
+                    </li>
+                    <li class="is-active">
+                        <a href="/en/all-about-the-trip/our-ferries/">Our ships</a>                        
+                    </li>
+                    <li class="">
+                        <a href="/en/all-about-the-trip/ferry-terminals/">Ferry terminals</a>                        
+                    </li>
+            </ul>
+        </nav>
+        <nav class="drawer__secondary-nav hidden" data-nav-id="nav-0-81">                        
+                <button class="drawer__nav-go-back-button" data-navigate-to-id="nav-0-80">
+                    <img src="/icons/link-arrow-blue.svg" alt="" />
+                    <span>Before the trip</span>
+                </button>
+
+            <ul>
+                    <li class="">
+                        <a href="/en/all-about-the-trip/before-the-trip/connections-to-the-gotland-ferry/">Connections to the Gotland ferry</a>                        
+                    </li>
+                    <li class="">
+                        <a href="/en/all-about-the-trip/before-the-trip/water-bus/">How B&#xE5;tbussen works</a>                        
+                    </li>
+                    <li class="">
+                        <a href="/en/all-about-the-trip/before-the-trip/boat-bus-stops/">Boat bus stops</a>                        
+                    </li>
+            </ul>
+        </nav>
+        <nav class="drawer__secondary-nav hidden" data-nav-id="nav-0-891">                        
+                <button class="drawer__nav-go-back-button" data-navigate-to-id="nav-0-81">
+                    <img src="/icons/link-arrow-blue.svg" alt="" />
+                    <span>Connections to the Gotland ferry</span>
+                </button>
+
+            <ul>
+            </ul>
+        </nav>
+        <nav class="drawer__secondary-nav hidden" data-nav-id="nav-0-889">                        
+                <button class="drawer__nav-go-back-button" data-navigate-to-id="nav-0-81">
+                    <img src="/icons/link-arrow-blue.svg" alt="" />
+                    <span>How B&#xE5;tbussen works</span>
+                </button>
+
+            <ul>
+            </ul>
+        </nav>
+        <nav class="drawer__secondary-nav hidden" data-nav-id="nav-0-890">                        
+                <button class="drawer__nav-go-back-button" data-navigate-to-id="nav-0-81">
+                    <img src="/icons/link-arrow-blue.svg" alt="" />
+                    <span>Boat bus stops</span>
+                </button>
+
+            <ul>
+            </ul>
+        </nav>
+        <nav class="drawer__secondary-nav hidden" data-nav-id="nav-0-218">                        
+                <button class="drawer__nav-go-back-button" data-navigate-to-id="nav-0-80">
+                    <img src="/icons/link-arrow-blue.svg" alt="" />
+                    <span>Onboard offerings</span>
+                </button>
+
+            <ul>
+            </ul>
+        </nav>
+        <nav class="drawer__secondary-nav hidden" data-nav-id="nav-0-96">                        
+                <button class="drawer__nav-go-back-button" data-navigate-to-id="nav-0-80">
+                    <img src="/icons/link-arrow-blue.svg" alt="" />
+                    <span>Comfort options</span>
+                </button>
+
+            <ul>
+            </ul>
+        </nav>
+        <nav class="drawer__secondary-nav hidden" data-nav-id="nav-0-901">                        
+                <button class="drawer__nav-go-back-button" data-navigate-to-id="nav-0-80">
+                    <img src="/icons/link-arrow-blue.svg" alt="" />
+                    <span>Seat reservation</span>
+                </button>
+
+            <ul>
+            </ul>
+        </nav>
+        <nav class="drawer__secondary-nav hidden" data-nav-id="nav-0-49">                        
+                <button class="drawer__nav-go-back-button" data-navigate-to-id="nav-0-80">
+                    <img src="/icons/link-arrow-blue.svg" alt="" />
+                    <span>Our ships</span>
+                </button>
+
+            <ul>
+            </ul>
+        </nav>
+        <nav class="drawer__secondary-nav hidden" data-nav-id="nav-0-660">                        
+                <button class="drawer__nav-go-back-button" data-navigate-to-id="nav-0-80">
+                    <img src="/icons/link-arrow-blue.svg" alt="" />
+                    <span>Ferry terminals</span>
+                </button>
+
+            <ul>
+            </ul>
+        </nav>
+        <nav class="drawer__secondary-nav hidden" data-nav-id="nav-0-33">                        
+                <button class="drawer__nav-go-back-button" data-navigate-to-id="nav-0">
+                    <img src="/icons/link-arrow-blue.svg" alt="" />
+                    <span>About us</span>
+                </button>
+
+            <ul>
+                    <li class="">
+                        <a href="/en/about-us/about-destination-gotland/">About Destination Gotland</a>                        
+                            <button class="drawer__nav-next-level-button" data-navigate-to-id="nav-0-15">
+                                <img src="/icons/chevron-icon-blue.svg" alt="Show subpages"/>
+                            </button>
+                    </li>
+                    <li class="">
+                        <a href="/en/about-us/Gotland-Promotion-Ltd/">Gotland Promotion Ltd</a>                        
+                    </li>
+                    <li class="">
+                        <a href="/en/about-us/sustainability-environment/">Sustainability &amp; Environment</a>                        
+                            <button class="drawer__nav-next-level-button" data-navigate-to-id="nav-0-70">
+                                <img src="/icons/chevron-icon-blue.svg" alt="Show subpages"/>
+                            </button>
+                    </li>
+                    <li class="">
+                        <a href="/en/about-us/safety-security/">Safety &amp; security</a>                        
+                            <button class="drawer__nav-next-level-button" data-navigate-to-id="nav-0-79">
+                                <img src="/icons/chevron-icon-blue.svg" alt="Show subpages"/>
+                            </button>
+                    </li>
+                    <li class="">
+                        <a href="/en/about-us/frequently-asked-questions-faq/">Frequently asked questions FAQ</a>                        
+                    </li>
+            </ul>
+        </nav>
+        <nav class="drawer__secondary-nav hidden" data-nav-id="nav-0-15">                        
+                <button class="drawer__nav-go-back-button" data-navigate-to-id="nav-0-33">
+                    <img src="/icons/link-arrow-blue.svg" alt="" />
+                    <span>About Destination Gotland</span>
+                </button>
+
+            <ul>
+                    <li class="">
+                        <a href="/en/about-us/about-destination-gotland/Management-team/">Management team</a>                        
+                    </li>
+                    <li class="">
+                        <a href="/en/about-us/about-destination-gotland/quality-management-system/">Quality management system</a>                        
+                    </li>
+                    <li class="">
+                        <a href="/en/about-us/about-destination-gotland/privacy-policy/">Privacy Policy</a>                        
+                    </li>
+                    <li class="">
+                        <a href="/en/about-us/about-destination-gotland/press-room/">Press room</a>                        
+                    </li>
+                    <li class="">
+                        <a href="/en/about-us/about-destination-gotland/statistics/">Statistics</a>                        
+                    </li>
+                    <li class="">
+                        <a href="/en/about-us/about-destination-gotland/sponsorship/">Sponsorship</a>                        
+                    </li>
+                    <li class="">
+                        <a href="/en/about-us/about-destination-gotland/How-it-works/">How it works</a>                        
+                    </li>
+            </ul>
+        </nav>
+        <nav class="drawer__secondary-nav hidden" data-nav-id="nav-0-20">                        
+                <button class="drawer__nav-go-back-button" data-navigate-to-id="nav-0-15">
+                    <img src="/icons/link-arrow-blue.svg" alt="" />
+                    <span>Management team</span>
+                </button>
+
+            <ul>
+            </ul>
+        </nav>
+        <nav class="drawer__secondary-nav hidden" data-nav-id="nav-0-61">                        
+                <button class="drawer__nav-go-back-button" data-navigate-to-id="nav-0-15">
+                    <img src="/icons/link-arrow-blue.svg" alt="" />
+                    <span>Quality management system</span>
+                </button>
+
+            <ul>
+            </ul>
+        </nav>
+        <nav class="drawer__secondary-nav hidden" data-nav-id="nav-0-63">                        
+                <button class="drawer__nav-go-back-button" data-navigate-to-id="nav-0-15">
+                    <img src="/icons/link-arrow-blue.svg" alt="" />
+                    <span>Privacy Policy</span>
+                </button>
+
+            <ul>
+            </ul>
+        </nav>
+        <nav class="drawer__secondary-nav hidden" data-nav-id="nav-0-934">                        
+                <button class="drawer__nav-go-back-button" data-navigate-to-id="nav-0-15">
+                    <img src="/icons/link-arrow-blue.svg" alt="" />
+                    <span>Press room</span>
+                </button>
+
+            <ul>
+            </ul>
+        </nav>
+        <nav class="drawer__secondary-nav hidden" data-nav-id="nav-0-64">                        
+                <button class="drawer__nav-go-back-button" data-navigate-to-id="nav-0-15">
+                    <img src="/icons/link-arrow-blue.svg" alt="" />
+                    <span>Statistics</span>
+                </button>
+
+            <ul>
+            </ul>
+        </nav>
+        <nav class="drawer__secondary-nav hidden" data-nav-id="nav-0-3015">                        
+                <button class="drawer__nav-go-back-button" data-navigate-to-id="nav-0-15">
+                    <img src="/icons/link-arrow-blue.svg" alt="" />
+                    <span>Sponsorship</span>
+                </button>
+
+            <ul>
+            </ul>
+        </nav>
+        <nav class="drawer__secondary-nav hidden" data-nav-id="nav-0-14401">                        
+                <button class="drawer__nav-go-back-button" data-navigate-to-id="nav-0-15">
+                    <img src="/icons/link-arrow-blue.svg" alt="" />
+                    <span>How it works</span>
+                </button>
+
+            <ul>
+            </ul>
+        </nav>
+        <nav class="drawer__secondary-nav hidden" data-nav-id="nav-0-69">                        
+                <button class="drawer__nav-go-back-button" data-navigate-to-id="nav-0-33">
+                    <img src="/icons/link-arrow-blue.svg" alt="" />
+                    <span>Gotland Promotion Ltd</span>
+                </button>
+
+            <ul>
+            </ul>
+        </nav>
+        <nav class="drawer__secondary-nav hidden" data-nav-id="nav-0-70">                        
+                <button class="drawer__nav-go-back-button" data-navigate-to-id="nav-0-33">
+                    <img src="/icons/link-arrow-blue.svg" alt="" />
+                    <span>Sustainability &amp; Environment</span>
+                </button>
+
+            <ul>
+                    <li class="">
+                        <a href="/en/about-us/sustainability-environment/sustainability-on-board/">Sustainability on board</a>                        
+                    </li>
+                    <li class="">
+                        <a href="/en/about-us/sustainability-environment/sustainability-in-developed-countries/">Sustainability on land</a>                        
+                    </li>
+            </ul>
+        </nav>
+        <nav class="drawer__secondary-nav hidden" data-nav-id="nav-0-71">                        
+                <button class="drawer__nav-go-back-button" data-navigate-to-id="nav-0-70">
+                    <img src="/icons/link-arrow-blue.svg" alt="" />
+                    <span>Sustainability on board</span>
+                </button>
+
+            <ul>
+            </ul>
+        </nav>
+        <nav class="drawer__secondary-nav hidden" data-nav-id="nav-0-72">                        
+                <button class="drawer__nav-go-back-button" data-navigate-to-id="nav-0-70">
+                    <img src="/icons/link-arrow-blue.svg" alt="" />
+                    <span>Sustainability on land</span>
+                </button>
+
+            <ul>
+            </ul>
+        </nav>
+        <nav class="drawer__secondary-nav hidden" data-nav-id="nav-0-79">                        
+                <button class="drawer__nav-go-back-button" data-navigate-to-id="nav-0-33">
+                    <img src="/icons/link-arrow-blue.svg" alt="" />
+                    <span>Safety &amp; security</span>
+                </button>
+
+            <ul>
+                    <li class="">
+                        <a href="/en/about-us/safety-security/safety-on-board/">Safety on board</a>                        
+                    </li>
+                    <li class="">
+                        <a href="/en/about-us/safety-security/safety-training-courses/">Security training</a>                        
+                    </li>
+                    <li class="">
+                        <a href="/en/about-us/safety-security/advanced-firefighting/">Advanced Firefighting</a>                        
+                    </li>
+                    <li class="">
+                        <a href="/en/about-us/safety-security/basic-safety/">Basic Safety</a>                        
+                    </li>
+                    <li class="">
+                        <a href="/en/about-us/safety-security/fast-rescue-boats/">Fast rescue boats</a>                        
+                    </li>
+                    <li class="">
+                        <a href="/en/about-us/safety-security/Professional-development-package/">Professional development package</a>                        
+                    </li>
+                    <li class="">
+                        <a href="/en/about-us/safety-security/medical-care/">Medical care</a>                        
+                    </li>
+                    <li class="">
+                        <a href="/en/about-us/safety-security/medical-first-aid/">Medical first aid</a>                        
+                    </li>
+                    <li class="">
+                        <a href="/en/about-us/safety-security/proficiency-in-survivalcrafts-and-rescueboats/">Proficiency in survival craft and rescue boats</a>                        
+                    </li>
+            </ul>
+        </nav>
+        <nav class="drawer__secondary-nav hidden" data-nav-id="nav-0-210">                        
+                <button class="drawer__nav-go-back-button" data-navigate-to-id="nav-0-79">
+                    <img src="/icons/link-arrow-blue.svg" alt="" />
+                    <span>Safety on board</span>
+                </button>
+
+            <ul>
+            </ul>
+        </nav>
+        <nav class="drawer__secondary-nav hidden" data-nav-id="nav-0-211">                        
+                <button class="drawer__nav-go-back-button" data-navigate-to-id="nav-0-79">
+                    <img src="/icons/link-arrow-blue.svg" alt="" />
+                    <span>Security training</span>
+                </button>
+
+            <ul>
+            </ul>
+        </nav>
+        <nav class="drawer__secondary-nav hidden" data-nav-id="nav-0-1295">                        
+                <button class="drawer__nav-go-back-button" data-navigate-to-id="nav-0-79">
+                    <img src="/icons/link-arrow-blue.svg" alt="" />
+                    <span>Advanced Firefighting</span>
+                </button>
+
+            <ul>
+            </ul>
+        </nav>
+        <nav class="drawer__secondary-nav hidden" data-nav-id="nav-0-1296">                        
+                <button class="drawer__nav-go-back-button" data-navigate-to-id="nav-0-79">
+                    <img src="/icons/link-arrow-blue.svg" alt="" />
+                    <span>Basic Safety</span>
+                </button>
+
+            <ul>
+            </ul>
+        </nav>
+        <nav class="drawer__secondary-nav hidden" data-nav-id="nav-0-1297">                        
+                <button class="drawer__nav-go-back-button" data-navigate-to-id="nav-0-79">
+                    <img src="/icons/link-arrow-blue.svg" alt="" />
+                    <span>Fast rescue boats</span>
+                </button>
+
+            <ul>
+            </ul>
+        </nav>
+        <nav class="drawer__secondary-nav hidden" data-nav-id="nav-0-1298">                        
+                <button class="drawer__nav-go-back-button" data-navigate-to-id="nav-0-79">
+                    <img src="/icons/link-arrow-blue.svg" alt="" />
+                    <span>Professional development package</span>
+                </button>
+
+            <ul>
+            </ul>
+        </nav>
+        <nav class="drawer__secondary-nav hidden" data-nav-id="nav-0-1299">                        
+                <button class="drawer__nav-go-back-button" data-navigate-to-id="nav-0-79">
+                    <img src="/icons/link-arrow-blue.svg" alt="" />
+                    <span>Medical care</span>
+                </button>
+
+            <ul>
+            </ul>
+        </nav>
+        <nav class="drawer__secondary-nav hidden" data-nav-id="nav-0-1300">                        
+                <button class="drawer__nav-go-back-button" data-navigate-to-id="nav-0-79">
+                    <img src="/icons/link-arrow-blue.svg" alt="" />
+                    <span>Medical first aid</span>
+                </button>
+
+            <ul>
+            </ul>
+        </nav>
+        <nav class="drawer__secondary-nav hidden" data-nav-id="nav-0-1301">                        
+                <button class="drawer__nav-go-back-button" data-navigate-to-id="nav-0-79">
+                    <img src="/icons/link-arrow-blue.svg" alt="" />
+                    <span>Proficiency in survival craft and rescue boats</span>
+                </button>
+
+            <ul>
+            </ul>
+        </nav>
+        <nav class="drawer__secondary-nav hidden" data-nav-id="nav-0-967">                        
+                <button class="drawer__nav-go-back-button" data-navigate-to-id="nav-0-33">
+                    <img src="/icons/link-arrow-blue.svg" alt="" />
+                    <span>Frequently asked questions FAQ</span>
+                </button>
+
+            <ul>
+            </ul>
+        </nav>
+        <nav class="drawer__secondary-nav hidden" data-nav-id="nav-0-15472">                        
+                <button class="drawer__nav-go-back-button" data-navigate-to-id="nav-0">
+                    <img src="/icons/link-arrow-blue.svg" alt="" />
+                    <span>Search</span>
+                </button>
+
+            <ul>
+            </ul>
+        </nav>
+
+            
+		</section>
+
+		<section class="drawer__button-section">
+
+				<a class="btn btn-outline-primary" href="/en/my-pages/"><i data-svg-icon="boat"></i>Log in/Find booking</a>
+				<a class="btn btn-outline-primary" href="/en/my-pages/"><i data-svg-icon="person"></i>Travel agency/Business customers</a>
+				<a class="btn btn-outline-primary" href="/en/timetable/"><i data-svg-icon="calendar-clock"></i>Timetable</a>
+				<a class="btn btn-outline-primary" href="/en/traffic-information/"><i data-svg-icon="bell"></i>Traffic info</a>
+				<a class="btn btn-outline-primary" href="/en/contact/"><i data-svg-icon="headset"></i>Contact us</a>
+
+		</section>
+
+        <section class="drawer__language-section">
+            
+
+<div class="language-picker">
+    <button class="language-picker__button" aria-label="Select Language"
+        aria-haspopup="listbox">
+        <span class="language-picker__flag-and-text">
+            <img src="/icons/flag-en.svg" alt="" />
+            <span>English</span>
+        </span>
+
+        <span class="language-picker__button-arrow">
+            <i data-svg-icon="chevron"></i>
+        </span>
+    </button>
+
+    <div class="language-picker__dropdown hidden" aria-labelledby="language-picker__description">
+        <p id="language-picker__description">Select Language</p>
+        <div role="listbox">
+                <a lang="en" hreflang="en"
+                    aria-selected="true"
+                    href="/en/all-about-the-trip/our-ferries/"
+                    class="language-picker__option is-active">
+                    <span class="language-picker__flag-and-text">
+                        <img src="/icons/flag-en.svg" alt="">
+                        <span>English</span>
+                        <i data-svg-icon="check" class="language-picker__check-icon"></i>
+                    </span>
+                </a>
+                <a lang="de" hreflang="de"
+                    aria-selected=""
+                    href="/de/"
+                    class="language-picker__option">
+                    <span class="language-picker__flag-and-text">
+                        <img src="/icons/flag-de.svg" alt="">
+                        <span>Deutsch</span>
+                        <i data-svg-icon="check" class="language-picker__check-icon"></i>
+                    </span>
+                </a>
+                <a lang="sv" hreflang="sv"
+                    aria-selected=""
+                    href="/allt-om-resan/vara-farjor/"
+                    class="language-picker__option">
+                    <span class="language-picker__flag-and-text">
+                        <img src="/icons/flag-sv.svg" alt="">
+                        <span>Svenska</span>
+                        <i data-svg-icon="check" class="language-picker__check-icon"></i>
+                    </span>
+                </a>
+                <a lang="da" hreflang="da"
+                    aria-selected=""
+                    href="/da/allt-om-resan/vara-farjor/"
+                    class="language-picker__option">
+                    <span class="language-picker__flag-and-text">
+                        <img src="/icons/flag-da.svg" alt="">
+                        <span>Dansk</span>
+                        <i data-svg-icon="check" class="language-picker__check-icon"></i>
+                    </span>
+                </a>
+        </div>
+    </div>
+</div>
+        </section>
+	</div>
+</div>
+
+
+
+<div class="hidden">
+    
+
+</div>
+
+
+<script defer="defer" src="/Util/Find/epi-util/find.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded',function(){if(typeof FindApi === 'function'){var api = new FindApi();api.setApplicationUrl('/');api.setServiceApiBaseUrl('/find_v2/');api.processEventFromCurrentUri();api.bindWindowEvents();api.bindAClickEvent();api.sendBufferedEvents();}})
+</script>
+
+</body>
+</html>

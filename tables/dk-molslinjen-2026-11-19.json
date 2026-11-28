@@ -1,0 +1,117 @@
+{
+ "country": "DK",
+ "currency": "DKK",
+ "valid_from": "2026-11-19",
+ "crossings": true,
+ "ferry": true,
+ "name": "MOLSLINJEN's ferries Aarhus–Odden, Ebeltoft–Odden, trucks",
+ "law": "MOLSLINJEN's freight prices per single trip, excluding VAT, on Aarhus–Odden, Ebeltoft–Odden: Forvogn to 12 m DKK 1100; Sættevogn to 17 m DKK 1500; Vogntog to 19 m DKK 1500 (DKK up to 12 m 1100, 12-19 m 1500 by length). Its ETS fee (DKK 152, 200) isn't added: carbon-cost prices the EU ETS on the crossing from the ships' MRV data. Other vehicles to 25 m are priced only \"from DKK 3,300\": not used. The page gives no date: valid_from is the day it was first read. Ports at OpenStreetMap's ferry terminals, priced where the line goes out on its car ferry line.",
+ "sources": [
+  {
+   "title": "MOLSLINJEN: freight prices",
+   "url": "https://www.molslinjen.dk/alt-det-praktiske/fragt"
+  },
+  {
+   "title": "OpenStreetMap (Overpass API): Denmark's ferry lines and terminals",
+   "url": "https://www.openstreetmap.org/"
+  }
+ ],
+ "vehicles": "Trucks over 3.5 t, by length (truck.length_m)",
+ "min_kg": 3501,
+ "tolled_roads": "MOLSLINJEN's ferries Aarhus–Odden, Ebeltoft–Odden.",
+ "closed_systems": [
+  {
+   "name": "MOLSLINJEN: Aarhus–Odden",
+   "law": "MOLSLINJEN's freight prices: Aarhus–Odden",
+   "groups": [
+    {
+     "name": "up to 12 m",
+     "min_kg": 3501,
+     "max_length_m": 12
+    },
+    {
+     "name": "12-19 m",
+     "min_kg": 3501,
+     "max_length_m": 19,
+     "min_length_m": 12
+    }
+   ],
+   "stations": [
+    {
+     "name": "Aarhus",
+     "points": [
+      {
+       "name": "Aarhus port, 0.5 km out on the line to Odden (OSM way 12648578)",
+       "lat": 56.15617,
+       "lon": 10.256237
+      }
+     ]
+    },
+    {
+     "name": "Odden",
+     "points": [
+      {
+       "name": "Odden port, 2.7 km out on the line to Aarhus (OSM way 12648578)",
+       "lat": 55.968235,
+       "lon": 11.265266
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Aarhus|Odden": {
+     "up to 12 m": 1100.0,
+     "12-19 m": 1500.0
+    }
+   }
+  },
+  {
+   "name": "MOLSLINJEN: Ebeltoft–Odden",
+   "law": "MOLSLINJEN's freight prices: Ebeltoft–Odden",
+   "groups": [
+    {
+     "name": "up to 12 m",
+     "min_kg": 3501,
+     "max_length_m": 12
+    },
+    {
+     "name": "12-19 m",
+     "min_kg": 3501,
+     "max_length_m": 19,
+     "min_length_m": 12
+    }
+   ],
+   "stations": [
+    {
+     "name": "Ebeltoft",
+     "points": [
+      {
+       "name": "Ebeltoft port, 0.5 km out on the line to Odden (OSM way 23180841)",
+       "lat": 56.151544,
+       "lon": 10.661377
+      }
+     ]
+    },
+    {
+     "name": "Odden",
+     "points": [
+      {
+       "name": "Odden port, 2.5 km out on the line to Ebeltoft (OSM way 23180841)",
+       "lat": 55.970718,
+       "lon": 11.267878
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Ebeltoft|Odden": {
+     "up to 12 m": 1100.0,
+     "12-19 m": 1500.0
+    }
+   }
+  }
+ ],
+ "rows": []
+}

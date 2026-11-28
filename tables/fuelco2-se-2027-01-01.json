@@ -1,0 +1,15 @@
+{
+ "country": "SE",
+ "currency": "SEK",
+ "valid_from": "2027-01-01",
+ "name": "Koldioxidskatt on diesel (environmental class 1)",
+ "rate_per_l": 2.815,
+ "law": "Lag (1994:1776) om skatt på energi, 2 kap. 1 §: the koldioxidskatt on unmarked diesel of environmental class 1, 2 815 kronor per cubic metre from 2027-01-01, as Skatteverket's rate page gives it (the law's amounts, recalculated each year with the consumer price index, and the temporary reductions set by Parliament). The supplier pays it on the fuel it sells and passes it on in the pump price, so a trip pays it where its fuel is bought. Litres are the trip's road fuel as given (diesel_l), or its tank-to-wheel CO2 at 2.67 kg per litre of diesel (EN 16258:2012).",
+ "sources": [
+  {
+   "title": "Skatteverket: Skatt på bränsle, the energy and carbon dioxide tax rates by period (from 2020), per fuel; unmarked diesel of environmental class 1 per cubic metre",
+   "url": "https://www.skatteverket.se/4.15532c7b1442f256bae5e56.html"
+  }
+ ],
+ "valid_to": "2027-12-31"
+}

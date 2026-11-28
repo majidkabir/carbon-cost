@@ -1,0 +1,5742 @@
+{
+ "country": "RS",
+ "currency": "RSD",
+ "valid_from": "2026-07-01",
+ "name": "Serbian motorway toll (putarina)",
+ "law": "JP Putevi Srbije's Odluka o visini posebne naknade za upotrebu javnog puta, njegovog dela i putnog objekta (putarina), with the Government's consent, as amended in Službeni glasnik RS 57/2026 (applying from 2026-07-01): the toll in RSD from entry to exit station on each characteristic section, by vehicle category. The decision's tables are scans: read by OCR (tools/rs/gazette_ocr.py), each price checked against its mirror cell and category IV against III; 1 pairs where a category couldn't be read for certain have no price for it. Stations placed at OpenStreetMap's toll booths of their name. The Belgrade bypass (category IV per section) is its own table. Held to Putevi Srbije's current price list (its RSD amounts, from 2026-07-01): the same on every pair it has. The list is in force from 07:00 on 2026-07-01; here from the start of that day, so a trip earlier that day is priced at it.",
+ "sources": [
+  {
+   "title": "Službeni glasnik RS 57/2026: Odluka o izmeni i dopuni Odluke o visini posebne naknade za upotrebu javnog puta, njegovog dela i putnog objekta (putarina)",
+   "url": "https://slgl.pravno-informacioni-sistem.rs/api/prins/viewdoc?uuid=f53f31ab-c0d8-4d1f-a057-b7576ef451ea"
+  },
+  {
+   "title": "Pravno-informacioni sistem RS: Odluka o visini posebne naknade ... (putarina), its amendments",
+   "url": "https://pravno-informacioni-sistem.rs/eli/rep/sgrs/drugeorganizacije/odluka/2019/40/1/reg"
+  },
+  {
+   "title": "OpenStreetMap (Geofabrik extract), toll booths",
+   "url": "https://download.geofabrik.de/europe/serbia.html"
+  },
+  {
+   "title": "JP Putevi Srbije: toll price list (PDF), whose RSD amounts the table is held to",
+   "url": "https://www.putevi-srbije.rs/images/pdf/cene_putarina_lat.pdf"
+  }
+ ],
+ "vehicles": "Vehicles over 3.5 t (categories III and IV)",
+ "min_kg": 3501,
+ "tolled_roads": "Motorways A1 (Subotica–Beograd–Preševo), A2 (Obrenovac–Požega), A3 (Šid–Beograd), A4 (Niš–Dimitrovgrad) and the Morava corridor, as the decision's sections.",
+ "closed_systems": [
+  {
+   "name": "A3 Beograd – Šid",
+   "law": "Odluka o visini posebne naknade za upotrebu javnog puta, njegovog dela i putnog objekta (putarina), as amended in Službeni glasnik RS 57/2026: RSD from entry to exit station; vehicle categories III (2-3 axles over 3.5 t) and IV (4 or more axles)",
+   "groups": [
+    {
+     "name": "K3",
+     "min_kg": 3501,
+     "max_axles": 3
+    },
+    {
+     "name": "K4",
+     "min_kg": 3501,
+     "min_axles": 4
+    }
+   ],
+   "stations": [
+    {
+     "name": "ADAŠEVCI",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 45.04603,
+       "lon": 19.21021
+      },
+      {
+       "name": "booth",
+       "lat": 45.05011,
+       "lon": 19.20964
+      }
+     ]
+    },
+    {
+     "name": "HRTKOVCI",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 44.85934,
+       "lon": 19.77466
+      }
+     ]
+    },
+    {
+     "name": "KUZMIN",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 45.03564,
+       "lon": 19.38617
+      },
+      {
+       "name": "booth",
+       "lat": 45.03562,
+       "lon": 19.38634
+      }
+     ]
+    },
+    {
+     "name": "PEĆINCI",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 44.91878,
+       "lon": 19.95309
+      }
+     ]
+    },
+    {
+     "name": "RUMA",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 44.96792,
+       "lon": 19.80832
+      },
+      {
+       "name": "booth",
+       "lat": 44.96786,
+       "lon": 19.80853
+      }
+     ]
+    },
+    {
+     "name": "SREMSKA MITROVICA",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 44.99531,
+       "lon": 19.64502
+      },
+      {
+       "name": "booth",
+       "lat": 44.99545,
+       "lon": 19.64502
+      }
+     ]
+    },
+    {
+     "name": "ŠABAC",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 44.80839,
+       "lon": 19.71923
+      },
+      {
+       "name": "booth",
+       "lat": 44.80828,
+       "lon": 19.71934
+      }
+     ]
+    },
+    {
+     "name": "ŠID",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 45.04832,
+       "lon": 19.19241
+      },
+      {
+       "name": "booth",
+       "lat": 45.04848,
+       "lon": 19.19242
+      }
+     ]
+    },
+    {
+     "name": "ŠIMANOVCI",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 44.88212,
+       "lon": 20.11373
+      },
+      {
+       "name": "booth",
+       "lat": 44.88239,
+       "lon": 20.11393
+      }
+     ]
+    }
+   ],
+   "prices": {
+    "ŠID|ADAŠEVCI": {
+     "K3": 150,
+     "K4": 290
+    },
+    "ŠID|KUZMIN": {
+     "K3": 370,
+     "K4": 740
+    },
+    "ŠID|SREMSKA MITROVICA": {
+     "K3": 720,
+     "K4": 1450
+    },
+    "ŠID|RUMA": {
+     "K3": 950,
+     "K4": 1900
+    },
+    "ŠID|HRTKOVCI": {
+     "K3": 1150,
+     "K4": 2300
+    },
+    "ŠID|ŠABAC": {
+     "K3": 1380,
+     "K4": 2760
+    },
+    "ŠID|PEĆINCI": {
+     "K3": 1140,
+     "K4": 2270
+    },
+    "ŠID|ŠIMANOVCI": {
+     "K3": 1560,
+     "K4": 3120
+    },
+    "ADAŠEVCI|KUZMIN": {
+     "K3": 230,
+     "K4": 450
+    },
+    "ADAŠEVCI|SREMSKA MITROVICA": {
+     "K3": 580,
+     "K4": 1160
+    },
+    "ADAŠEVCI|RUMA": {
+     "K3": 810,
+     "K4": 1610
+    },
+    "ADAŠEVCI|HRTKOVCI": {
+     "K3": 1000,
+     "K4": 2010
+    },
+    "ADAŠEVCI|ŠABAC": {
+     "K3": 1230,
+     "K4": 2460
+    },
+    "ADAŠEVCI|PEĆINCI": {
+     "K3": 990,
+     "K4": 1980
+    },
+    "ADAŠEVCI|ŠIMANOVCI": {
+     "K3": 1410,
+     "K4": 2820
+    },
+    "KUZMIN|SREMSKA MITROVICA": {
+     "K3": 350,
+     "K4": 710
+    },
+    "KUZMIN|RUMA": {
+     "K3": 580,
+     "K4": 1160
+    },
+    "KUZMIN|HRTKOVCI": {
+     "K3": 780,
+     "K4": 1560
+    },
+    "KUZMIN|ŠABAC": {
+     "K3": 1010,
+     "K4": 2010
+    },
+    "KUZMIN|PEĆINCI": {
+     "K3": 770,
+     "K4": 1530
+    },
+    "KUZMIN|ŠIMANOVCI": {
+     "K3": 1190,
+     "K4": 2370
+    },
+    "SREMSKA MITROVICA|RUMA": {
+     "K3": 230,
+     "K4": 460
+    },
+    "SREMSKA MITROVICA|HRTKOVCI": {
+     "K3": 430,
+     "K4": 850
+    },
+    "SREMSKA MITROVICA|ŠABAC": {
+     "K3": 650,
+     "K4": 1310
+    },
+    "SREMSKA MITROVICA|PEĆINCI": {
+     "K3": 410,
+     "K4": 830
+    },
+    "SREMSKA MITROVICA|ŠIMANOVCI": {
+     "K3": 830,
+     "K4": 1670
+    },
+    "RUMA|HRTKOVCI": {
+     "K3": 230,
+     "K4": 460
+    },
+    "RUMA|ŠABAC": {
+     "K3": 460,
+     "K4": 910
+    },
+    "RUMA|PEĆINCI": {
+     "K3": 210,
+     "K4": 430
+    },
+    "RUMA|ŠIMANOVCI": {
+     "K3": 640,
+     "K4": 1270
+    },
+    "HRTKOVCI|ŠABAC": {
+     "K3": 230,
+     "K4": 460
+    },
+    "HRTKOVCI|PEĆINCI": {
+     "K3": 410,
+     "K4": 830
+    },
+    "HRTKOVCI|ŠIMANOVCI": {
+     "K3": 830,
+     "K4": 1670
+    },
+    "ŠABAC|PEĆINCI": {
+     "K3": 640,
+     "K4": 1280
+    },
+    "ŠABAC|ŠIMANOVCI": {
+     "K3": 1060,
+     "K4": 2120
+    },
+    "PEĆINCI|ŠIMANOVCI": {
+     "K3": 420,
+     "K4": 840
+    }
+   }
+  },
+  {
+   "name": "A2 Beograd – Požega",
+   "law": "Odluka o visini posebne naknade za upotrebu javnog puta, njegovog dela i putnog objekta (putarina), as amended in Službeni glasnik RS 57/2026: RSD from entry to exit station; vehicle categories III (2-3 axles over 3.5 t) and IV (4 or more axles)",
+   "groups": [
+    {
+     "name": "K3",
+     "min_kg": 3501,
+     "max_axles": 3
+    },
+    {
+     "name": "K4",
+     "min_kg": 3501,
+     "min_axles": 4
+    }
+   ],
+   "stations": [
+    {
+     "name": "ADRANI",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 43.76179,
+       "lon": 20.65521
+      },
+      {
+       "name": "booth",
+       "lat": 43.7617,
+       "lon": 20.65535
+      }
+     ]
+    },
+    {
+     "name": "LAJKOVAC",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 44.35984,
+       "lon": 20.13098
+      },
+      {
+       "name": "booth",
+       "lat": 44.35987,
+       "lon": 20.13089
+      }
+     ]
+    },
+    {
+     "name": "LJIG",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 44.23176,
+       "lon": 20.24935
+      }
+     ]
+    },
+    {
+     "name": "LUČANI",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 43.83701,
+       "lon": 20.15681
+      }
+     ]
+    },
+    {
+     "name": "OBRENOVAC",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 44.57129,
+       "lon": 20.19029
+      },
+      {
+       "name": "booth",
+       "lat": 44.57404,
+       "lon": 20.19092
+      }
+     ]
+    },
+    {
+     "name": "PAKOVRAĆE",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 43.90299,
+       "lon": 20.26156
+      },
+      {
+       "name": "booth",
+       "lat": 43.90313,
+       "lon": 20.26158
+      }
+     ]
+    },
+    {
+     "name": "PRELJINA KONJEVIĆI",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 43.89862,
+       "lon": 20.40846
+      },
+      {
+       "name": "booth",
+       "lat": 43.8985,
+       "lon": 20.40869
+      }
+     ]
+    },
+    {
+     "name": "PRILIPAC",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 43.8205,
+       "lon": 20.09095
+      },
+      {
+       "name": "booth",
+       "lat": 43.82038,
+       "lon": 20.09086
+      }
+     ]
+    },
+    {
+     "name": "TAKOVO",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 44.04374,
+       "lon": 20.38165
+      }
+     ]
+    },
+    {
+     "name": "UB",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 44.45491,
+       "lon": 20.12153
+      }
+     ]
+    }
+   ],
+   "prices": {
+    "OBRENOVAC|UB": {
+     "K3": 440,
+     "K4": 880
+    },
+    "OBRENOVAC|LAJKOVAC": {
+     "K3": 670,
+     "K4": 1350
+    },
+    "OBRENOVAC|LJIG": {
+     "K3": 1080,
+     "K4": 2160
+    },
+    "OBRENOVAC|TAKOVO": {
+     "K3": 1620,
+     "K4": 3240
+    },
+    "OBRENOVAC|PRELJINA KONJEVIĆI": {
+     "K3": 1980,
+     "K4": 3950
+    },
+    "OBRENOVAC|PAKOVRAĆE": {
+     "K3": 2160,
+     "K4": 4310
+    },
+    "OBRENOVAC|LUČANI": {
+     "K3": 2580,
+     "K4": 5160
+    },
+    "OBRENOVAC|PRILIPAC": {
+     "K3": 2860,
+     "K4": 5720
+    },
+    "OBRENOVAC|ADRANI": {
+     "K3": 2430,
+     "K4": 4870
+    },
+    "UB|LAJKOVAC": {
+     "K3": 240,
+     "K4": 470
+    },
+    "UB|LJIG": {
+     "K3": 640,
+     "K4": 1280
+    },
+    "UB|TAKOVO": {
+     "K3": 1180,
+     "K4": 2360
+    },
+    "UB|PRELJINA KONJEVIĆI": {
+     "K3": 1540,
+     "K4": 3070
+    },
+    "UB|PAKOVRAĆE": {
+     "K3": 1720,
+     "K4": 3440
+    },
+    "UB|LUČANI": {
+     "K3": 2140,
+     "K4": 4280
+    },
+    "UB|PRILIPAC": {
+     "K3": 2420,
+     "K4": 4840
+    },
+    "UB|ADRANI": {
+     "K3": 1990,
+     "K4": 3990
+    },
+    "LAJKOVAC|LJIG": {
+     "K3": 410,
+     "K4": 810
+    },
+    "LAJKOVAC|TAKOVO": {
+     "K3": 950,
+     "K4": 1890
+    },
+    "LAJKOVAC|PRELJINA KONJEVIĆI": {
+     "K3": 1300,
+     "K4": 2600
+    },
+    "LAJKOVAC|PAKOVRAĆE": {
+     "K3": 1480,
+     "K4": 2960
+    },
+    "LAJKOVAC|LUČANI": {
+     "K3": 1900,
+     "K4": 3810
+    },
+    "LAJKOVAC|PRILIPAC": {
+     "K3": 2190,
+     "K4": 4370
+    },
+    "LAJKOVAC|ADRANI": {
+     "K3": 1760,
+     "K4": 3520
+    },
+    "LJIG|TAKOVO": {
+     "K3": 540,
+     "K4": 1080
+    },
+    "LJIG|PRELJINA KONJEVIĆI": {
+     "K3": 900,
+     "K4": 1790
+    },
+    "LJIG|PAKOVRAĆE": {
+     "K3": 1080,
+     "K4": 2150
+    },
+    "LJIG|LUČANI": {
+     "K3": 1500,
+     "K4": 3000
+    },
+    "LJIG|PRILIPAC": {
+     "K3": 1780,
+     "K4": 3560
+    },
+    "LJIG|ADRANI": {
+     "K3": 1350,
+     "K4": 2700
+    },
+    "TAKOVO|PRELJINA KONJEVIĆI": {
+     "K3": 360,
+     "K4": 710
+    },
+    "TAKOVO|PAKOVRAĆE": {
+     "K3": 540,
+     "K4": 1070
+    },
+    "TAKOVO|LUČANI": {
+     "K3": 960,
+     "K4": 1920
+    },
+    "TAKOVO|PRILIPAC": {
+     "K3": 1240,
+     "K4": 2480
+    },
+    "TAKOVO|ADRANI": {
+     "K3": 810,
+     "K4": 1630
+    },
+    "PRELJINA KONJEVIĆI|PAKOVRAĆE": {
+     "K3": 270,
+     "K4": 540
+    },
+    "PRELJINA KONJEVIĆI|LUČANI": {
+     "K3": 690,
+     "K4": 1380
+    },
+    "PRELJINA KONJEVIĆI|PRILIPAC": {
+     "K3": 970,
+     "K4": 1940
+    },
+    "PRELJINA KONJEVIĆI|ADRANI": {
+     "K3": 460,
+     "K4": 910
+    },
+    "PAKOVRAĆE|LUČANI": {
+     "K3": 420,
+     "K4": 840
+    },
+    "PAKOVRAĆE|PRILIPAC": {
+     "K3": 700,
+     "K4": 1410
+    },
+    "PAKOVRAĆE|ADRANI": {
+     "K3": 720,
+     "K4": 1450
+    },
+    "LUČANI|PRILIPAC": {
+     "K3": 280,
+     "K4": 560
+    },
+    "LUČANI|ADRANI": {
+     "K3": 1150,
+     "K4": 2290
+    },
+    "PRILIPAC|ADRANI": {
+     "K3": 1430,
+     "K4": 2850
+    }
+   }
+  },
+  {
+   "name": "A1 Beograd – Subotica",
+   "law": "Odluka o visini posebne naknade za upotrebu javnog puta, njegovog dela i putnog objekta (putarina), as amended in Službeni glasnik RS 57/2026: RSD from entry to exit station; vehicle categories III (2-3 axles over 3.5 t) and IV (4 or more axles)",
+   "groups": [
+    {
+     "name": "K3",
+     "min_kg": 3501,
+     "max_axles": 3
+    },
+    {
+     "name": "K4",
+     "min_kg": 3501,
+     "min_axles": 4
+    }
+   ],
+   "stations": [
+    {
+     "name": "BAČKA TOPOLA",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 45.82318,
+       "lon": 19.68493
+      },
+      {
+       "name": "booth",
+       "lat": 45.82476,
+       "lon": 19.68898
+      },
+      {
+       "name": "booth",
+       "lat": 45.82477,
+       "lon": 19.68891
+      },
+      {
+       "name": "booth",
+       "lat": 45.82321,
+       "lon": 19.68502
+      }
+     ]
+    },
+    {
+     "name": "BEŠKA",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 45.13511,
+       "lon": 20.09016
+      },
+      {
+       "name": "booth",
+       "lat": 45.13511,
+       "lon": 20.09029
+      }
+     ]
+    },
+    {
+     "name": "FEKETIĆ",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 45.64023,
+       "lon": 19.71451
+      },
+      {
+       "name": "booth",
+       "lat": 45.64017,
+       "lon": 19.71456
+      },
+      {
+       "name": "booth",
+       "lat": 45.64687,
+       "lon": 19.71546
+      },
+      {
+       "name": "booth",
+       "lat": 45.64694,
+       "lon": 19.71546
+      }
+     ]
+    },
+    {
+     "name": "INĐIJA",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 45.06971,
+       "lon": 20.14803
+      },
+      {
+       "name": "booth",
+       "lat": 45.06975,
+       "lon": 20.14814
+      }
+     ]
+    },
+    {
+     "name": "KOVILJ",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 45.24055,
+       "lon": 20.03462
+      },
+      {
+       "name": "booth",
+       "lat": 45.24063,
+       "lon": 20.0347
+      }
+     ]
+    },
+    {
+     "name": "MARADIK",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 45.0994,
+       "lon": 20.10304
+      }
+     ]
+    },
+    {
+     "name": "NOVI SAD - JUG",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 45.28786,
+       "lon": 19.89044
+      },
+      {
+       "name": "booth",
+       "lat": 45.28826,
+       "lon": 19.89088
+      }
+     ]
+    },
+    {
+     "name": "NOVI SAD - SEVER",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 45.3134,
+       "lon": 19.79968
+      },
+      {
+       "name": "booth",
+       "lat": 45.31299,
+       "lon": 19.79895
+      }
+     ]
+    },
+    {
+     "name": "STARA PAZOVA",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 45.00648,
+       "lon": 20.20132
+      },
+      {
+       "name": "booth",
+       "lat": 45.00653,
+       "lon": 20.20147
+      }
+     ]
+    },
+    {
+     "name": "SUBOTICA",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 46.02106,
+       "lon": 19.734
+      },
+      {
+       "name": "booth",
+       "lat": 46.02108,
+       "lon": 19.73385
+      }
+     ]
+    },
+    {
+     "name": "VRBAS",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 45.55434,
+       "lon": 19.71762
+      },
+      {
+       "name": "booth",
+       "lat": 45.55525,
+       "lon": 19.72196
+      },
+      {
+       "name": "booth",
+       "lat": 45.55524,
+       "lon": 19.72186
+      },
+      {
+       "name": "booth",
+       "lat": 45.55434,
+       "lon": 19.71771
+      }
+     ]
+    },
+    {
+     "name": "ZMAJEVO",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 45.44036,
+       "lon": 19.7395
+      },
+      {
+       "name": "booth",
+       "lat": 45.44037,
+       "lon": 19.7394
+      },
+      {
+       "name": "booth",
+       "lat": 45.44206,
+       "lon": 19.73542
+      },
+      {
+       "name": "booth",
+       "lat": 45.44208,
+       "lon": 19.7353
+      }
+     ]
+    },
+    {
+     "name": "ŽEDNIK",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 45.93382,
+       "lon": 19.71106
+      },
+      {
+       "name": "booth",
+       "lat": 45.9338,
+       "lon": 19.71114
+      },
+      {
+       "name": "booth",
+       "lat": 45.93455,
+       "lon": 19.70756
+      },
+      {
+       "name": "booth",
+       "lat": 45.93457,
+       "lon": 19.70747
+      }
+     ]
+    }
+   ],
+   "prices": {
+    "SUBOTICA|ŽEDNIK": {
+     "K3": 340,
+     "K4": 680
+    },
+    "SUBOTICA|INĐIJA": {
+     "K3": 2260,
+     "K4": 4510
+    },
+    "SUBOTICA|STARA PAZOVA": {
+     "K3": 2540,
+     "K4": 5090
+    },
+    "SUBOTICA|BAČKA TOPOLA": {
+     "K3": 540,
+     "K4": 1080
+    },
+    "SUBOTICA|FEKETIĆ": {
+     "K3": 880,
+     "K4": 1760
+    },
+    "SUBOTICA|VRBAS": {
+     "K3": 1040,
+     "K4": 2090
+    },
+    "SUBOTICA|ZMAJEVO": {
+     "K3": 1250,
+     "K4": 2510
+    },
+    "SUBOTICA|NOVI SAD - SEVER": {
+     "K3": 1520,
+     "K4": 3050
+    },
+    "SUBOTICA|KOVILJ": {
+     "K3": 1840,
+     "K4": 3680
+    },
+    "SUBOTICA|BEŠKA": {
+     "K3": 2100,
+     "K4": 4210
+    },
+    "MARADIK|INĐIJA": {
+     "K3": 80,
+     "K4": 160
+    },
+    "MARADIK|STARA PAZOVA": {
+     "K3": 370,
+     "K4": 730
+    },
+    "INĐIJA|STARA PAZOVA": {
+     "K3": 290,
+     "K4": 580
+    },
+    "ŽEDNIK|INĐIJA": {
+     "K3": 1920,
+     "K4": 3830
+    },
+    "ŽEDNIK|STARA PAZOVA": {
+     "K3": 2200,
+     "K4": 4410
+    },
+    "ŽEDNIK|BAČKA TOPOLA": {
+     "K3": 200,
+     "K4": 400
+    },
+    "ŽEDNIK|FEKETIĆ": {
+     "K3": 540,
+     "K4": 1080
+    },
+    "ŽEDNIK|VRBAS": {
+     "K3": 700,
+     "K4": 1410
+    },
+    "ŽEDNIK|ZMAJEVO": {
+     "K3": 920,
+     "K4": 1830
+    },
+    "ŽEDNIK|NOVI SAD - SEVER": {
+     "K3": 1180,
+     "K4": 2370
+    },
+    "ŽEDNIK|KOVILJ": {
+     "K3": 1500,
+     "K4": 3000
+    },
+    "ŽEDNIK|BEŠKA": {
+     "K3": 1770,
+     "K4": 3530
+    },
+    "BAČKA TOPOLA|INĐIJA": {
+     "K3": 1710,
+     "K4": 3430
+    },
+    "BAČKA TOPOLA|STARA PAZOVA": {
+     "K3": 2000,
+     "K4": 4000
+    },
+    "BAČKA TOPOLA|FEKETIĆ": {
+     "K3": 340,
+     "K4": 680
+    },
+    "BAČKA TOPOLA|VRBAS": {
+     "K3": 500,
+     "K4": 1000
+    },
+    "BAČKA TOPOLA|ZMAJEVO": {
+     "K3": 710,
+     "K4": 1430
+    },
+    "BAČKA TOPOLA|NOVI SAD - SEVER": {
+     "K3": 980,
+     "K4": 1960
+    },
+    "BAČKA TOPOLA|KOVILJ": {
+     "K3": 1300,
+     "K4": 2600
+    },
+    "BAČKA TOPOLA|BEŠKA": {
+     "K3": 1560,
+     "K4": 3130
+    },
+    "FEKETIĆ|INĐIJA": {
+     "K3": 1380,
+     "K4": 2750
+    },
+    "FEKETIĆ|STARA PAZOVA": {
+     "K3": 1660,
+     "K4": 3330
+    },
+    "FEKETIĆ|VRBAS": {
+     "K3": 160,
+     "K4": 330
+    },
+    "FEKETIĆ|ZMAJEVO": {
+     "K3": 380,
+     "K4": 750
+    },
+    "FEKETIĆ|NOVI SAD - SEVER": {
+     "K3": 640,
+     "K4": 1290
+    },
+    "FEKETIĆ|KOVILJ": {
+     "K3": 960,
+     "K4": 1920
+    },
+    "FEKETIĆ|BEŠKA": {
+     "K3": 1230,
+     "K4": 2450
+    },
+    "VRBAS|INĐIJA": {
+     "K3": 1210,
+     "K4": 2420
+    },
+    "VRBAS|STARA PAZOVA": {
+     "K3": 1500,
+     "K4": 3000
+    },
+    "VRBAS|ZMAJEVO": {
+     "K3": 210,
+     "K4": 420
+    },
+    "VRBAS|NOVI SAD - SEVER": {
+     "K3": 480,
+     "K4": 960
+    },
+    "VRBAS|KOVILJ": {
+     "K3": 800,
+     "K4": 1590
+    },
+    "VRBAS|BEŠKA": {
+     "K3": 1060,
+     "K4": 2120
+    },
+    "ZMAJEVO|INĐIJA": {
+     "K3": 1000,
+     "K4": 2000
+    },
+    "ZMAJEVO|STARA PAZOVA": {
+     "K3": 1290,
+     "K4": 2580
+    },
+    "ZMAJEVO|NOVI SAD - SEVER": {
+     "K3": 270,
+     "K4": 540
+    },
+    "ZMAJEVO|KOVILJ": {
+     "K3": 590,
+     "K4": 1170
+    },
+    "ZMAJEVO|BEŠKA": {
+     "K3": 850,
+     "K4": 1700
+    },
+    "NOVI SAD - JUG|INĐIJA": {
+     "K3": 730,
+     "K4": 1460
+    },
+    "NOVI SAD - JUG|STARA PAZOVA": {
+     "K3": 1020,
+     "K4": 2040
+    },
+    "NOVI SAD - JUG|KOVILJ": {
+     "K3": 320,
+     "K4": 630
+    },
+    "NOVI SAD - JUG|BEŠKA": {
+     "K3": 580,
+     "K4": 1160
+    },
+    "KOVILJ|INĐIJA": {
+     "K3": 410,
+     "K4": 830
+    },
+    "KOVILJ|STARA PAZOVA": {
+     "K3": 700,
+     "K4": 1410
+    },
+    "KOVILJ|BEŠKA": {
+     "K3": 260,
+     "K4": 530
+    },
+    "BEŠKA|INĐIJA": {
+     "K3": 150,
+     "K4": 300
+    },
+    "BEŠKA|STARA PAZOVA": {
+     "K3": 440,
+     "K4": 880
+    }
+   }
+  },
+  {
+   "name": "A1, A4 Beograd – Niš – Preševo / Dimitrovgrad",
+   "law": "Odluka o visini posebne naknade za upotrebu javnog puta, njegovog dela i putnog objekta (putarina), as amended in Službeni glasnik RS 57/2026: RSD from entry to exit station; vehicle categories III (2-3 axles over 3.5 t) and IV (4 or more axles)",
+   "groups": [
+    {
+     "name": "K3",
+     "min_kg": 3501,
+     "max_axles": 3
+    },
+    {
+     "name": "K4",
+     "min_kg": 3501,
+     "min_axles": 4
+    }
+   ],
+   "stations": [
+    {
+     "name": "ALEKSINAC",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 43.52613,
+       "lon": 21.72212
+      },
+      {
+       "name": "booth",
+       "lat": 43.52622,
+       "lon": 21.72216
+      }
+     ]
+    },
+    {
+     "name": "ALEKSINAČKI RUDNICI",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 43.55152,
+       "lon": 21.68873
+      }
+     ]
+    },
+    {
+     "name": "BATOČINA",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 44.15031,
+       "lon": 21.11234
+      },
+      {
+       "name": "booth",
+       "lat": 44.15163,
+       "lon": 21.11445
+      },
+      {
+       "name": "booth",
+       "lat": 44.15027,
+       "lon": 21.11244
+      }
+     ]
+    },
+    {
+     "name": "BELA PALANKA",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 43.23369,
+       "lon": 22.31653
+      }
+     ]
+    },
+    {
+     "name": "BEOGRAD",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 44.66456,
+       "lon": 20.61256
+      },
+      {
+       "name": "booth",
+       "lat": 44.66423,
+       "lon": 20.61189
+      }
+     ]
+    },
+    {
+     "name": "BRESTOVAC",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 43.14984,
+       "lon": 21.89265
+      }
+     ]
+    },
+    {
+     "name": "BUJANOVAC JUG",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 42.4532,
+       "lon": 21.77762
+      }
+     ]
+    },
+    {
+     "name": "BUJANOVAC SEVER",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 42.46689,
+       "lon": 21.80868
+      }
+     ]
+    },
+    {
+     "name": "DIMITROVGRAD",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 43.02192,
+       "lon": 22.73643
+      },
+      {
+       "name": "booth",
+       "lat": 43.02172,
+       "lon": 22.73636
+      }
+     ]
+    },
+    {
+     "name": "DOLJEVAC SELO",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 43.19327,
+       "lon": 21.85022
+      }
+     ]
+    },
+    {
+     "name": "GRDELICA",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 42.88623,
+       "lon": 22.06858
+      }
+     ]
+    },
+    {
+     "name": "JAGODINA",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 43.99896,
+       "lon": 21.26631
+      },
+      {
+       "name": "booth",
+       "lat": 43.99891,
+       "lon": 21.26638
+      }
+     ]
+    },
+    {
+     "name": "KOLARI",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 44.57478,
+       "lon": 20.89488
+      },
+      {
+       "name": "booth",
+       "lat": 44.57644,
+       "lon": 20.89542
+      }
+     ]
+    },
+    {
+     "name": "KOŠEVI",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 43.5868,
+       "lon": 21.23085
+      },
+      {
+       "name": "booth",
+       "lat": 43.58679,
+       "lon": 21.23101
+      }
+     ]
+    },
+    {
+     "name": "KRUŠEVAC ISTOK",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 43.6052,
+       "lon": 21.33422
+      },
+      {
+       "name": "booth",
+       "lat": 43.60521,
+       "lon": 21.33453
+      }
+     ]
+    },
+    {
+     "name": "KRUŠEVAC ZAPAD",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 43.60765,
+       "lon": 21.30838
+      },
+      {
+       "name": "booth",
+       "lat": 43.60789,
+       "lon": 21.3084
+      }
+     ]
+    },
+    {
+     "name": "LAPOVO",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 44.18448,
+       "lon": 21.1119
+      },
+      {
+       "name": "booth",
+       "lat": 44.18448,
+       "lon": 21.11183
+      },
+      {
+       "name": "booth",
+       "lat": 44.18464,
+       "lon": 21.11019
+      },
+      {
+       "name": "booth",
+       "lat": 44.18465,
+       "lon": 21.11011
+      }
+     ]
+    },
+    {
+     "name": "LESKOVAC CENTAR",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 43.09009,
+       "lon": 21.93833
+      }
+     ]
+    },
+    {
+     "name": "LESKOVAC JUG",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 42.97057,
+       "lon": 22.03386
+      }
+     ]
+    },
+    {
+     "name": "MALI POŽAREVAC",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 44.56307,
+       "lon": 20.66944
+      },
+      {
+       "name": "booth",
+       "lat": 44.56306,
+       "lon": 20.66962
+      }
+     ]
+    },
+    {
+     "name": "MALČA",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 43.31918,
+       "lon": 22.0199
+      }
+     ]
+    },
+    {
+     "name": "MARKOVAC",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 44.23717,
+       "lon": 21.11962
+      },
+      {
+       "name": "booth",
+       "lat": 44.23722,
+       "lon": 21.11958
+      },
+      {
+       "name": "booth",
+       "lat": 44.23953,
+       "lon": 21.11673
+      },
+      {
+       "name": "booth",
+       "lat": 44.23954,
+       "lon": 21.11666
+      }
+     ]
+    },
+    {
+     "name": "MEROŠINA",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 43.27931,
+       "lon": 21.79816
+      }
+     ]
+    },
+    {
+     "name": "NIŠ ISTOK",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 43.34217,
+       "lon": 21.93634
+      }
+     ]
+    },
+    {
+     "name": "NIŠ JUG",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 43.32757,
+       "lon": 21.81582
+      },
+      {
+       "name": "booth",
+       "lat": 43.32747,
+       "lon": 21.81577
+      }
+     ]
+    },
+    {
+     "name": "NIŠ SEVER",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 43.34961,
+       "lon": 21.85813
+      },
+      {
+       "name": "booth",
+       "lat": 43.34973,
+       "lon": 21.85816
+      }
+     ]
+    },
+    {
+     "name": "PARAĆIN",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 43.85604,
+       "lon": 21.43351
+      },
+      {
+       "name": "booth",
+       "lat": 43.85732,
+       "lon": 21.43784
+      }
+     ]
+    },
+    {
+     "name": "PIROT ISTOK",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 43.12356,
+       "lon": 22.61863
+      }
+     ]
+    },
+    {
+     "name": "PIROT ZAPAD",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 43.18849,
+       "lon": 22.56647
+      },
+      {
+       "name": "booth",
+       "lat": 43.1885,
+       "lon": 22.56653
+      }
+     ]
+    },
+    {
+     "name": "POŽAREVAC",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 44.58001,
+       "lon": 20.98246
+      },
+      {
+       "name": "booth",
+       "lat": 44.57991,
+       "lon": 20.98255
+      }
+     ]
+    },
+    {
+     "name": "PREDEJANE",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 42.82034,
+       "lon": 22.12382
+      },
+      {
+       "name": "booth",
+       "lat": 42.82038,
+       "lon": 22.12371
+      }
+     ]
+    },
+    {
+     "name": "PREŠEVO",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 42.30264,
+       "lon": 21.70968
+      },
+      {
+       "name": "booth",
+       "lat": 42.30265,
+       "lon": 21.70946
+      }
+     ]
+    },
+    {
+     "name": "RAŽANJ",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 43.68398,
+       "lon": 21.54625
+      },
+      {
+       "name": "booth",
+       "lat": 43.68403,
+       "lon": 21.54629
+      }
+     ]
+    },
+    {
+     "name": "SMEDEREVO",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 44.58996,
+       "lon": 20.95723
+      },
+      {
+       "name": "booth",
+       "lat": 44.58997,
+       "lon": 20.95732
+      }
+     ]
+    },
+    {
+     "name": "TRSTENIK",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 43.61934,
+       "lon": 21.02218
+      }
+     ]
+    },
+    {
+     "name": "UMČARI",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 44.57543,
+       "lon": 20.74515
+      },
+      {
+       "name": "booth",
+       "lat": 44.57456,
+       "lon": 20.74643
+      },
+      {
+       "name": "booth",
+       "lat": 44.57562,
+       "lon": 20.74535
+      }
+     ]
+    },
+    {
+     "name": "VELIKA DRENOVA",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 43.61533,
+       "lon": 21.17206
+      },
+      {
+       "name": "booth",
+       "lat": 43.61535,
+       "lon": 21.17199
+      }
+     ]
+    },
+    {
+     "name": "VELIKA PLANA",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 44.33915,
+       "lon": 21.08002
+      }
+     ]
+    },
+    {
+     "name": "VLADIČIN HAN",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 42.70351,
+       "lon": 22.07237
+      }
+     ]
+    },
+    {
+     "name": "VODANJ",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 44.58286,
+       "lon": 20.82145
+      },
+      {
+       "name": "booth",
+       "lat": 44.58522,
+       "lon": 20.81907
+      },
+      {
+       "name": "booth",
+       "lat": 44.58279,
+       "lon": 20.82147
+      },
+      {
+       "name": "booth",
+       "lat": 44.58517,
+       "lon": 20.81911
+      }
+     ]
+    },
+    {
+     "name": "VRANJE",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 42.54404,
+       "lon": 21.92814
+      }
+     ]
+    },
+    {
+     "name": "VRBA",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 43.70161,
+       "lon": 20.77868
+      }
+     ]
+    },
+    {
+     "name": "VRNJAČKA BANJA",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 43.6492,
+       "lon": 20.91132
+      },
+      {
+       "name": "booth",
+       "lat": 43.64932,
+       "lon": 20.91139
+      }
+     ]
+    },
+    {
+     "name": "ĆIĆEVAC",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 43.72267,
+       "lon": 21.42099
+      },
+      {
+       "name": "booth",
+       "lat": 43.72274,
+       "lon": 21.42076
+      }
+     ]
+    },
+    {
+     "name": "ĆUPRIJA",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 43.93423,
+       "lon": 21.3889
+      },
+      {
+       "name": "booth",
+       "lat": 43.93795,
+       "lon": 21.39009
+      }
+     ]
+    }
+   ],
+   "prices": {
+    "BEOGRAD|MALI POŽAREVAC": {
+     "K3": 300,
+     "K4": 610
+    },
+    "BEOGRAD|BATOČINA": {
+     "K3": 1560,
+     "K4": 3110
+    },
+    "BEOGRAD|JAGODINA": {
+     "K3": 1910,
+     "K4": 3830
+    },
+    "BEOGRAD|ĆUPRIJA": {
+     "K3": 2130,
+     "K4": 4260
+    },
+    "BEOGRAD|PARAĆIN": {
+     "K3": 2300,
+     "K4": 4610
+    },
+    "BEOGRAD|RAŽANJ": {
+     "K3": 2710,
+     "K4": 5420
+    },
+    "BEOGRAD|ALEKSINAČKI RUDNICI": {
+     "K3": 3060,
+     "K4": 6110
+    },
+    "BEOGRAD|ALEKSINAC": {
+     "K3": 3140,
+     "K4": 6270
+    },
+    "BEOGRAD|NIŠ JUG": {
+     "K3": 3540,
+     "K4": 7080
+    },
+    "BEOGRAD|MEROŠINA": {
+     "K3": 3630,
+     "K4": 7270
+    },
+    "BEOGRAD|DOLJEVAC SELO": {
+     "K3": 3810,
+     "K4": 7610
+    },
+    "BEOGRAD|UMČARI": {
+     "K3": 410,
+     "K4": 820
+    },
+    "BEOGRAD|BRESTOVAC": {
+     "K3": 3910,
+     "K4": 7810
+    },
+    "BEOGRAD|LESKOVAC CENTAR": {
+     "K3": 4020,
+     "K4": 8050
+    },
+    "BEOGRAD|LESKOVAC JUG": {
+     "K3": 4290,
+     "K4": 8580
+    },
+    "BEOGRAD|GRDELICA": {
+     "K3": 4470,
+     "K4": 8940
+    },
+    "BEOGRAD|PREDEJANE": {
+     "K3": 4740,
+     "K4": 9480
+    },
+    "BEOGRAD|VLADIČIN HAN": {
+     "K3": 5160,
+     "K4": 10310
+    },
+    "BEOGRAD|VRANJE": {
+     "K3": 5540,
+     "K4": 11090
+    },
+    "BEOGRAD|BUJANOVAC SEVER": {
+     "K3": 5770,
+     "K4": 11540
+    },
+    "BEOGRAD|BUJANOVAC JUG": {
+     "K3": 5830,
+     "K4": 11660
+    },
+    "BEOGRAD|PREŠEVO": {
+     "K3": 6170,
+     "K4": 12340
+    },
+    "BEOGRAD|VODANJ": {
+     "K3": 510,
+     "K4": 1010
+    },
+    "BEOGRAD|NIŠ SEVER": {
+     "K3": 3520,
+     "K4": 7040
+    },
+    "BEOGRAD|NIŠ ISTOK": {
+     "K3": 3630,
+     "K4": 7260
+    },
+    "BEOGRAD|MALČA": {
+     "K3": 3750,
+     "K4": 7510
+    },
+    "BEOGRAD|BELA PALANKA": {
+     "K3": 4300,
+     "K4": 8600
+    },
+    "BEOGRAD|PIROT ZAPAD": {
+     "K3": 4720,
+     "K4": 9440
+    },
+    "BEOGRAD|PIROT ISTOK": {
+     "K3": 4930,
+     "K4": 9860
+    },
+    "BEOGRAD|DIMITROVGRAD": {
+     "K3": 5410,
+     "K4": 10830
+    },
+    "BEOGRAD|ĆIĆEVAC": {
+     "K3": 2570,
+     "K4": 5140
+    },
+    "BEOGRAD|KRUŠEVAC ISTOK": {
+     "K3": 2880,
+     "K4": 5760
+    },
+    "BEOGRAD|KRUŠEVAC ZAPAD": {
+     "K3": 2910,
+     "K4": 5820
+    },
+    "BEOGRAD|KOLARI": {
+     "K3": 610,
+     "K4": 1220
+    },
+    "BEOGRAD|KOŠEVI": {
+     "K3": 3010,
+     "K4": 6020
+    },
+    "BEOGRAD|VELIKA DRENOVA": {
+     "K3": 3140,
+     "K4": 6270
+    },
+    "BEOGRAD|TRSTENIK": {
+     "K3": 3370,
+     "K4": 6740
+    },
+    "BEOGRAD|VRNJAČKA BANJA": {
+     "K3": 3560,
+     "K4": 7130
+    },
+    "BEOGRAD|VRBA": {
+     "K3": 3790,
+     "K4": 7580
+    },
+    "BEOGRAD|SMEDEREVO": {
+     "K3": 700,
+     "K4": 1400
+    },
+    "BEOGRAD|POŽAREVAC": {
+     "K3": 730,
+     "K4": 1450
+    },
+    "BEOGRAD|VELIKA PLANA": {
+     "K3": 1200,
+     "K4": 2400
+    },
+    "BEOGRAD|MARKOVAC": {
+     "K3": 1390,
+     "K4": 2780
+    },
+    "BEOGRAD|LAPOVO": {
+     "K3": 1490,
+     "K4": 2990
+    },
+    "BATOČINA|JAGODINA": {
+     "K3": 360,
+     "K4": 710
+    },
+    "BATOČINA|ĆUPRIJA": {
+     "K3": 570,
+     "K4": 1140
+    },
+    "BATOČINA|PARAĆIN": {
+     "K3": 750,
+     "K4": 1490
+    },
+    "BATOČINA|RAŽANJ": {
+     "K3": 1150,
+     "K4": 2310
+    },
+    "BATOČINA|ALEKSINAČKI RUDNICI": {
+     "K3": 1500,
+     "K4": 3000
+    },
+    "BATOČINA|ALEKSINAC": {
+     "K3": 1580,
+     "K4": 3160
+    },
+    "BATOČINA|NIŠ JUG": {
+     "K3": 1980,
+     "K4": 3970
+    },
+    "BATOČINA|MEROŠINA": {
+     "K3": 2080,
+     "K4": 4160
+    },
+    "BATOČINA|DOLJEVAC SELO": {
+     "K3": 2250,
+     "K4": 4500
+    },
+    "BATOČINA|BRESTOVAC": {
+     "K3": 2350,
+     "K4": 4700
+    },
+    "BATOČINA|LESKOVAC CENTAR": {
+     "K3": 2470,
+     "K4": 4940
+    },
+    "BATOČINA|LESKOVAC JUG": {
+     "K3": 2730,
+     "K4": 5470
+    },
+    "BATOČINA|GRDELICA": {
+     "K3": 2920,
+     "K4": 5830
+    },
+    "BATOČINA|PREDEJANE": {
+     "K3": 3180,
+     "K4": 6370
+    },
+    "BATOČINA|VLADIČIN HAN": {
+     "K3": 3600,
+     "K4": 7200
+    },
+    "BATOČINA|VRANJE": {
+     "K3": 3990,
+     "K4": 7970
+    },
+    "BATOČINA|BUJANOVAC SEVER": {
+     "K3": 4210,
+     "K4": 8420
+    },
+    "BATOČINA|BUJANOVAC JUG": {
+     "K3": 4270,
+     "K4": 8550
+    },
+    "BATOČINA|PREŠEVO": {
+     "K3": 4610,
+     "K4": 9220
+    },
+    "BATOČINA|NIŠ SEVER": {
+     "K3": 1970,
+     "K4": 3930
+    },
+    "BATOČINA|NIŠ ISTOK": {
+     "K3": 2070,
+     "K4": 4150
+    },
+    "BATOČINA|MALČA": {
+     "K3": 2200,
+     "K4": 4390
+    },
+    "BATOČINA|BELA PALANKA": {
+     "K3": 2740,
+     "K4": 5490
+    },
+    "BATOČINA|PIROT ZAPAD": {
+     "K3": 3160,
+     "K4": 6320
+    },
+    "BATOČINA|PIROT ISTOK": {
+     "K3": 3370,
+     "K4": 6750
+    },
+    "BATOČINA|DIMITROVGRAD": {
+     "K3": 3860,
+     "K4": 7720
+    },
+    "BATOČINA|ĆIĆEVAC": {
+     "K3": 1010,
+     "K4": 2030
+    },
+    "BATOČINA|KRUŠEVAC ISTOK": {
+     "K3": 1320,
+     "K4": 2650
+    },
+    "BATOČINA|KRUŠEVAC ZAPAD": {
+     "K3": 1350,
+     "K4": 2700
+    },
+    "BATOČINA|KOŠEVI": {
+     "K3": 1450,
+     "K4": 2910
+    },
+    "BATOČINA|VELIKA DRENOVA": {
+     "K3": 1580,
+     "K4": 3160
+    },
+    "BATOČINA|TRSTENIK": {
+     "K3": 1810,
+     "K4": 3620
+    },
+    "BATOČINA|VRNJAČKA BANJA": {
+     "K3": 2010,
+     "K4": 4010
+    },
+    "BATOČINA|VRBA": {
+     "K3": 2240,
+     "K4": 4470
+    },
+    "JAGODINA|ĆUPRIJA": {
+     "K3": 210,
+     "K4": 430
+    },
+    "JAGODINA|PARAĆIN": {
+     "K3": 390,
+     "K4": 780
+    },
+    "JAGODINA|RAŽANJ": {
+     "K3": 800,
+     "K4": 1600
+    },
+    "JAGODINA|ALEKSINAČKI RUDNICI": {
+     "K3": 1140,
+     "K4": 2290
+    },
+    "JAGODINA|ALEKSINAC": {
+     "K3": 1220,
+     "K4": 2450
+    },
+    "JAGODINA|NIŠ JUG": {
+     "K3": 1630,
+     "K4": 3250
+    },
+    "JAGODINA|MEROŠINA": {
+     "K3": 1720,
+     "K4": 3440
+    },
+    "JAGODINA|DOLJEVAC SELO": {
+     "K3": 1890,
+     "K4": 3790
+    },
+    "JAGODINA|BRESTOVAC": {
+     "K3": 1990,
+     "K4": 3980
+    },
+    "JAGODINA|LESKOVAC CENTAR": {
+     "K3": 2110,
+     "K4": 4220
+    },
+    "JAGODINA|LESKOVAC JUG": {
+     "K3": 2380,
+     "K4": 4750
+    },
+    "JAGODINA|GRDELICA": {
+     "K3": 2560,
+     "K4": 5120
+    },
+    "JAGODINA|PREDEJANE": {
+     "K3": 2830,
+     "K4": 5650
+    },
+    "JAGODINA|VLADIČIN HAN": {
+     "K3": 3240,
+     "K4": 6490
+    },
+    "JAGODINA|VRANJE": {
+     "K3": 3630,
+     "K4": 7260
+    },
+    "JAGODINA|BUJANOVAC SEVER": {
+     "K3": 3860,
+     "K4": 7710
+    },
+    "JAGODINA|BUJANOVAC JUG": {
+     "K3": 3920,
+     "K4": 7840
+    },
+    "JAGODINA|PREŠEVO": {
+     "K3": 4250,
+     "K4": 8510
+    },
+    "JAGODINA|NIŠ SEVER": {
+     "K3": 1610,
+     "K4": 3220
+    },
+    "JAGODINA|NIŠ ISTOK": {
+     "K3": 1720,
+     "K4": 3440
+    },
+    "JAGODINA|MALČA": {
+     "K3": 1840,
+     "K4": 3680
+    },
+    "JAGODINA|BELA PALANKA": {
+     "K3": 2390,
+     "K4": 4770
+    },
+    "JAGODINA|PIROT ZAPAD": {
+     "K3": 2810,
+     "K4": 5610
+    },
+    "JAGODINA|PIROT ISTOK": {
+     "K3": 3020,
+     "K4": 6030
+    },
+    "JAGODINA|DIMITROVGRAD": {
+     "K3": 3500,
+     "K4": 7000
+    },
+    "JAGODINA|ĆIĆEVAC": {
+     "K3": 660,
+     "K4": 1310
+    },
+    "JAGODINA|KRUŠEVAC ISTOK": {
+     "K3": 970,
+     "K4": 1930
+    },
+    "JAGODINA|KRUŠEVAC ZAPAD": {
+     "K3": 1000,
+     "K4": 1990
+    },
+    "JAGODINA|KOŠEVI": {
+     "K3": 1100,
+     "K4": 2190
+    },
+    "JAGODINA|VELIKA DRENOVA": {
+     "K3": 1220,
+     "K4": 2450
+    },
+    "JAGODINA|TRSTENIK": {
+     "K3": 1450,
+     "K4": 2910
+    },
+    "JAGODINA|VRNJAČKA BANJA": {
+     "K3": 1650,
+     "K4": 3300
+    },
+    "JAGODINA|VRBA": {
+     "K3": 1880,
+     "K4": 3760
+    },
+    "ĆUPRIJA|PARAĆIN": {
+     "K3": 180,
+     "K4": 350
+    },
+    "ĆUPRIJA|RAŽANJ": {
+     "K3": 580,
+     "K4": 1170
+    },
+    "ĆUPRIJA|ALEKSINAČKI RUDNICI": {
+     "K3": 930,
+     "K4": 1860
+    },
+    "ĆUPRIJA|ALEKSINAC": {
+     "K3": 1010,
+     "K4": 2020
+    },
+    "ĆUPRIJA|NIŠ JUG": {
+     "K3": 1410,
+     "K4": 2820
+    },
+    "ĆUPRIJA|MEROŠINA": {
+     "K3": 1510,
+     "K4": 3010
+    },
+    "ĆUPRIJA|DOLJEVAC SELO": {
+     "K3": 1680,
+     "K4": 3360
+    },
+    "ĆUPRIJA|BRESTOVAC": {
+     "K3": 1780,
+     "K4": 3560
+    },
+    "ĆUPRIJA|LESKOVAC CENTAR": {
+     "K3": 1900,
+     "K4": 3790
+    },
+    "ĆUPRIJA|LESKOVAC JUG": {
+     "K3": 2160,
+     "K4": 4320
+    },
+    "ĆUPRIJA|GRDELICA": {
+     "K3": 2340,
+     "K4": 4690
+    },
+    "ĆUPRIJA|PREDEJANE": {
+     "K3": 2610,
+     "K4": 5220
+    },
+    "ĆUPRIJA|VLADIČIN HAN": {
+     "K3": 3030,
+     "K4": 6060
+    },
+    "ĆUPRIJA|VRANJE": {
+     "K3": 3420,
+     "K4": 6830
+    },
+    "ĆUPRIJA|BUJANOVAC SEVER": {
+     "K3": 3640,
+     "K4": 7280
+    },
+    "ĆUPRIJA|BUJANOVAC JUG": {
+     "K3": 3700,
+     "K4": 7410
+    },
+    "ĆUPRIJA|PREŠEVO": {
+     "K3": 4040,
+     "K4": 8080
+    },
+    "ĆUPRIJA|NIŠ SEVER": {
+     "K3": 1390,
+     "K4": 2790
+    },
+    "ĆUPRIJA|NIŠ ISTOK": {
+     "K3": 1500,
+     "K4": 3010
+    },
+    "ĆUPRIJA|MALČA": {
+     "K3": 1630,
+     "K4": 3250
+    },
+    "ĆUPRIJA|BELA PALANKA": {
+     "K3": 2170,
+     "K4": 4340
+    },
+    "ĆUPRIJA|PIROT ZAPAD": {
+     "K3": 2590,
+     "K4": 5180
+    },
+    "ĆUPRIJA|PIROT ISTOK": {
+     "K3": 2800,
+     "K4": 5600
+    },
+    "ĆUPRIJA|DIMITROVGRAD": {
+     "K3": 3290,
+     "K4": 6570
+    },
+    "ĆUPRIJA|ĆIĆEVAC": {
+     "K3": 440,
+     "K4": 880
+    },
+    "ĆUPRIJA|KRUŠEVAC ISTOK": {
+     "K3": 750,
+     "K4": 1500
+    },
+    "ĆUPRIJA|KRUŠEVAC ZAPAD": {
+     "K3": 780,
+     "K4": 1560
+    },
+    "ĆUPRIJA|KOŠEVI": {
+     "K3": 880,
+     "K4": 1760
+    },
+    "ĆUPRIJA|VELIKA DRENOVA": {
+     "K3": 1010,
+     "K4": 2020
+    },
+    "ĆUPRIJA|TRSTENIK": {
+     "K3": 1240,
+     "K4": 2480
+    },
+    "ĆUPRIJA|VRNJAČKA BANJA": {
+     "K3": 1440,
+     "K4": 2870
+    },
+    "ĆUPRIJA|VRBA": {
+     "K3": 1660,
+     "K4": 3330
+    },
+    "PARAĆIN|RAŽANJ": {
+     "K3": 410,
+     "K4": 820
+    },
+    "PARAĆIN|ALEKSINAČKI RUDNICI": {
+     "K3": 750,
+     "K4": 1510
+    },
+    "PARAĆIN|ALEKSINAC": {
+     "K3": 830,
+     "K4": 1670
+    },
+    "PARAĆIN|NIŠ JUG": {
+     "K3": 1240,
+     "K4": 2470
+    },
+    "PARAĆIN|MEROŠINA": {
+     "K3": 1330,
+     "K4": 2660
+    },
+    "PARAĆIN|DOLJEVAC SELO": {
+     "K3": 1500,
+     "K4": 3010
+    },
+    "PARAĆIN|BRESTOVAC": {
+     "K3": 1600,
+     "K4": 3210
+    },
+    "PARAĆIN|LESKOVAC CENTAR": {
+     "K3": 1720,
+     "K4": 3440
+    },
+    "PARAĆIN|LESKOVAC JUG": {
+     "K3": 1990,
+     "K4": 3970
+    },
+    "PARAĆIN|GRDELICA": {
+     "K3": 2170,
+     "K4": 4340
+    },
+    "PARAĆIN|PREDEJANE": {
+     "K3": 2440,
+     "K4": 4870
+    },
+    "PARAĆIN|VLADIČIN HAN": {
+     "K3": 2850,
+     "K4": 5710
+    },
+    "PARAĆIN|VRANJE": {
+     "K3": 3240,
+     "K4": 6480
+    },
+    "PARAĆIN|BUJANOVAC SEVER": {
+     "K3": 3470,
+     "K4": 6930
+    },
+    "PARAĆIN|BUJANOVAC JUG": {
+     "K3": 3530,
+     "K4": 7060
+    },
+    "PARAĆIN|PREŠEVO": {
+     "K3": 3860,
+     "K4": 7730
+    },
+    "PARAĆIN|NIŠ SEVER": {
+     "K3": 1220,
+     "K4": 2440
+    },
+    "PARAĆIN|NIŠ ISTOK": {
+     "K3": 1330,
+     "K4": 2660
+    },
+    "PARAĆIN|MALČA": {
+     "K3": 1450,
+     "K4": 2900
+    },
+    "PARAĆIN|BELA PALANKA": {
+     "K3": 2000,
+     "K4": 3990
+    },
+    "PARAĆIN|PIROT ZAPAD": {
+     "K3": 2420,
+     "K4": 4830
+    },
+    "PARAĆIN|PIROT ISTOK": {
+     "K3": 2630,
+     "K4": 5250
+    },
+    "PARAĆIN|DIMITROVGRAD": {
+     "K3": 3110,
+     "K4": 6220
+    },
+    "PARAĆIN|ĆIĆEVAC": {
+     "K3": 270,
+     "K4": 530
+    },
+    "PARAĆIN|KRUŠEVAC ISTOK": {
+     "K3": 580,
+     "K4": 1150
+    },
+    "PARAĆIN|KRUŠEVAC ZAPAD": {
+     "K3": 610,
+     "K4": 1210
+    },
+    "PARAĆIN|KOŠEVI": {
+     "K3": 710,
+     "K4": 1410
+    },
+    "PARAĆIN|VELIKA DRENOVA": {
+     "K3": 830,
+     "K4": 1670
+    },
+    "PARAĆIN|TRSTENIK": {
+     "K3": 1070,
+     "K4": 2130
+    },
+    "PARAĆIN|VRNJAČKA BANJA": {
+     "K3": 1260,
+     "K4": 2520
+    },
+    "PARAĆIN|VRBA": {
+     "K3": 1490,
+     "K4": 2980
+    },
+    "RAŽANJ|ALEKSINAČKI RUDNICI": {
+     "K3": 340,
+     "K4": 690
+    },
+    "RAŽANJ|ALEKSINAC": {
+     "K3": 430,
+     "K4": 850
+    },
+    "RAŽANJ|NIŠ JUG": {
+     "K3": 830,
+     "K4": 1660
+    },
+    "RAŽANJ|MEROŠINA": {
+     "K3": 920,
+     "K4": 1850
+    },
+    "RAŽANJ|DOLJEVAC SELO": {
+     "K3": 1100,
+     "K4": 2190
+    },
+    "RAŽANJ|BRESTOVAC": {
+     "K3": 1190,
+     "K4": 2390
+    },
+    "RAŽANJ|LESKOVAC CENTAR": {
+     "K3": 1310,
+     "K4": 2630
+    },
+    "RAŽANJ|LESKOVAC JUG": {
+     "K3": 1580,
+     "K4": 3160
+    },
+    "RAŽANJ|GRDELICA": {
+     "K3": 1760,
+     "K4": 3520
+    },
+    "RAŽANJ|PREDEJANE": {
+     "K3": 2030,
+     "K4": 4060
+    },
+    "RAŽANJ|VLADIČIN HAN": {
+     "K3": 2450,
+     "K4": 4890
+    },
+    "RAŽANJ|VRANJE": {
+     "K3": 2830,
+     "K4": 5660
+    },
+    "RAŽANJ|BUJANOVAC SEVER": {
+     "K3": 3060,
+     "K4": 6110
+    },
+    "RAŽANJ|BUJANOVAC JUG": {
+     "K3": 3120,
+     "K4": 6240
+    },
+    "RAŽANJ|PREŠEVO": {
+     "K3": 3460,
+     "K4": 6910
+    },
+    "RAŽANJ|NIŠ SEVER": {
+     "K3": 810,
+     "K4": 1620
+    },
+    "RAŽANJ|NIŠ ISTOK": {
+     "K3": 920,
+     "K4": 1840
+    },
+    "RAŽANJ|MALČA": {
+     "K3": 1040,
+     "K4": 2080
+    },
+    "RAŽANJ|BELA PALANKA": {
+     "K3": 1590,
+     "K4": 3180
+    },
+    "RAŽANJ|PIROT ZAPAD": {
+     "K3": 2010,
+     "K4": 4020
+    },
+    "RAŽANJ|PIROT ISTOK": {
+     "K3": 2220,
+     "K4": 4440
+    },
+    "RAŽANJ|DIMITROVGRAD": {
+     "K3": 2700,
+     "K4": 5410
+    },
+    "RAŽANJ|ĆIĆEVAC": {
+     "K3": 280,
+     "K4": 560
+    },
+    "RAŽANJ|KRUŠEVAC ISTOK": {
+     "K3": 590,
+     "K4": 1180
+    },
+    "RAŽANJ|KRUŠEVAC ZAPAD": {
+     "K3": 620,
+     "K4": 1240
+    },
+    "RAŽANJ|KOŠEVI": {
+     "K3": 720,
+     "K4": 1440
+    },
+    "RAŽANJ|VELIKA DRENOVA": {
+     "K3": 850,
+     "K4": 1690
+    },
+    "RAŽANJ|TRSTENIK": {
+     "K3": 1080,
+     "K4": 2160
+    },
+    "RAŽANJ|VRNJAČKA BANJA": {
+     "K3": 1270,
+     "K4": 2550
+    },
+    "RAŽANJ|VRBA": {
+     "K3": 1500,
+     "K4": 3010
+    },
+    "ALEKSINAČKI RUDNICI|ALEKSINAC": {
+     "K3": 80,
+     "K4": 160
+    },
+    "ALEKSINAČKI RUDNICI|NIŠ JUG": {
+     "K3": 480,
+     "K4": 970
+    },
+    "ALEKSINAČKI RUDNICI|MEROŠINA": {
+     "K3": 580,
+     "K4": 1160
+    },
+    "ALEKSINAČKI RUDNICI|DOLJEVAC SELO": {
+     "K3": 750,
+     "K4": 1500
+    },
+    "ALEKSINAČKI RUDNICI|BRESTOVAC": {
+     "K3": 850,
+     "K4": 1700
+    },
+    "ALEKSINAČKI RUDNICI|LESKOVAC CENTAR": {
+     "K3": 970,
+     "K4": 1940
+    },
+    "ALEKSINAČKI RUDNICI|LESKOVAC JUG": {
+     "K3": 1230,
+     "K4": 2470
+    },
+    "ALEKSINAČKI RUDNICI|GRDELICA": {
+     "K3": 1420,
+     "K4": 2830
+    },
+    "ALEKSINAČKI RUDNICI|PREDEJANE": {
+     "K3": 1680,
+     "K4": 3370
+    },
+    "ALEKSINAČKI RUDNICI|VLADIČIN HAN": {
+     "K3": 2100,
+     "K4": 4200
+    },
+    "ALEKSINAČKI RUDNICI|VRANJE": {
+     "K3": 2490,
+     "K4": 4970
+    },
+    "ALEKSINAČKI RUDNICI|BUJANOVAC SEVER": {
+     "K3": 2710,
+     "K4": 5430
+    },
+    "ALEKSINAČKI RUDNICI|BUJANOVAC JUG": {
+     "K3": 2780,
+     "K4": 5550
+    },
+    "ALEKSINAČKI RUDNICI|PREŠEVO": {
+     "K3": 3110,
+     "K4": 6220
+    },
+    "ALEKSINAČKI RUDNICI|NIŠ SEVER": {
+     "K3": 470,
+     "K4": 930
+    },
+    "ALEKSINAČKI RUDNICI|NIŠ ISTOK": {
+     "K3": 580,
+     "K4": 1150
+    },
+    "ALEKSINAČKI RUDNICI|MALČA": {
+     "K3": 700,
+     "K4": 1400
+    },
+    "ALEKSINAČKI RUDNICI|BELA PALANKA": {
+     "K3": 1240,
+     "K4": 2490
+    },
+    "ALEKSINAČKI RUDNICI|PIROT ZAPAD": {
+     "K3": 1660,
+     "K4": 3330
+    },
+    "ALEKSINAČKI RUDNICI|PIROT ISTOK": {
+     "K3": 1870,
+     "K4": 3750
+    },
+    "ALEKSINAČKI RUDNICI|DIMITROVGRAD": {
+     "K3": 2360,
+     "K4": 4720
+    },
+    "ALEKSINAČKI RUDNICI|ĆIĆEVAC": {
+     "K3": 630,
+     "K4": 1250
+    },
+    "ALEKSINAČKI RUDNICI|KRUŠEVAC ISTOK": {
+     "K3": 930,
+     "K4": 1870
+    },
+    "ALEKSINAČKI RUDNICI|KRUŠEVAC ZAPAD": {
+     "K3": 960,
+     "K4": 1930
+    },
+    "ALEKSINAČKI RUDNICI|KOŠEVI": {
+     "K3": 1070,
+     "K4": 2130
+    },
+    "ALEKSINAČKI RUDNICI|VELIKA DRENOVA": {
+     "K3": 1190,
+     "K4": 2380
+    },
+    "ALEKSINAČKI RUDNICI|TRSTENIK": {
+     "K3": 1420,
+     "K4": 2850
+    },
+    "ALEKSINAČKI RUDNICI|VRNJAČKA BANJA": {
+     "K3": 1620,
+     "K4": 3240
+    },
+    "ALEKSINAČKI RUDNICI|VRBA": {
+     "K3": 1850,
+     "K4": 3700
+    },
+    "ALEKSINAC|NIŠ JUG": {
+     "K3": 400,
+     "K4": 800
+    },
+    "ALEKSINAC|MEROŠINA": {
+     "K3": 500,
+     "K4": 1000
+    },
+    "ALEKSINAC|DOLJEVAC SELO": {
+     "K3": 670,
+     "K4": 1340
+    },
+    "ALEKSINAC|BRESTOVAC": {
+     "K3": 770,
+     "K4": 1540
+    },
+    "ALEKSINAC|LESKOVAC CENTAR": {
+     "K3": 890,
+     "K4": 1780
+    },
+    "ALEKSINAC|LESKOVAC JUG": {
+     "K3": 1150,
+     "K4": 2300
+    },
+    "ALEKSINAC|GRDELICA": {
+     "K3": 1340,
+     "K4": 2670
+    },
+    "ALEKSINAC|PREDEJANE": {
+     "K3": 1600,
+     "K4": 3210
+    },
+    "ALEKSINAC|VLADIČIN HAN": {
+     "K3": 2020,
+     "K4": 4040
+    },
+    "ALEKSINAC|VRANJE": {
+     "K3": 2410,
+     "K4": 4810
+    },
+    "ALEKSINAC|BUJANOVAC SEVER": {
+     "K3": 2630,
+     "K4": 5260
+    },
+    "ALEKSINAC|BUJANOVAC JUG": {
+     "K3": 2690,
+     "K4": 5390
+    },
+    "ALEKSINAC|PREŠEVO": {
+     "K3": 3030,
+     "K4": 6060
+    },
+    "ALEKSINAC|NIŠ SEVER": {
+     "K3": 380,
+     "K4": 770
+    },
+    "ALEKSINAC|NIŠ ISTOK": {
+     "K3": 490,
+     "K4": 990
+    },
+    "ALEKSINAC|MALČA": {
+     "K3": 620,
+     "K4": 1230
+    },
+    "ALEKSINAC|BELA PALANKA": {
+     "K3": 1160,
+     "K4": 2320
+    },
+    "ALEKSINAC|PIROT ZAPAD": {
+     "K3": 1580,
+     "K4": 3160
+    },
+    "ALEKSINAC|PIROT ISTOK": {
+     "K3": 1790,
+     "K4": 3590
+    },
+    "ALEKSINAC|DIMITROVGRAD": {
+     "K3": 2280,
+     "K4": 4560
+    },
+    "ALEKSINAC|ĆIĆEVAC": {
+     "K3": 710,
+     "K4": 1410
+    },
+    "ALEKSINAC|KRUŠEVAC ISTOK": {
+     "K3": 1020,
+     "K4": 2030
+    },
+    "ALEKSINAC|KRUŠEVAC ZAPAD": {
+     "K3": 1040,
+     "K4": 2090
+    },
+    "ALEKSINAC|KOŠEVI": {
+     "K3": 1150,
+     "K4": 2290
+    },
+    "ALEKSINAC|VELIKA DRENOVA": {
+     "K3": 1270,
+     "K4": 2550
+    },
+    "ALEKSINAC|TRSTENIK": {
+     "K3": 1500,
+     "K4": 3010
+    },
+    "ALEKSINAC|VRNJAČKA BANJA": {
+     "K3": 1700,
+     "K4": 3400
+    },
+    "ALEKSINAC|VRBA": {
+     "K3": 1930,
+     "K4": 3860
+    },
+    "NIŠ JUG|MEROŠINA": {
+     "K3": 100,
+     "K4": 190
+    },
+    "NIŠ JUG|DOLJEVAC SELO": {
+     "K3": 270,
+     "K4": 540
+    },
+    "NIŠ JUG|BRESTOVAC": {
+     "K3": 370,
+     "K4": 730
+    },
+    "NIŠ JUG|LESKOVAC CENTAR": {
+     "K3": 490,
+     "K4": 970
+    },
+    "NIŠ JUG|LESKOVAC JUG": {
+     "K3": 750,
+     "K4": 1500
+    },
+    "NIŠ JUG|GRDELICA": {
+     "K3": 930,
+     "K4": 1870
+    },
+    "NIŠ JUG|PREDEJANE": {
+     "K3": 1200,
+     "K4": 2400
+    },
+    "NIŠ JUG|VLADIČIN HAN": {
+     "K3": 1620,
+     "K4": 3240
+    },
+    "NIŠ JUG|VRANJE": {
+     "K3": 2000,
+     "K4": 4010
+    },
+    "NIŠ JUG|BUJANOVAC SEVER": {
+     "K3": 2230,
+     "K4": 4460
+    },
+    "NIŠ JUG|BUJANOVAC JUG": {
+     "K3": 2290,
+     "K4": 4580
+    },
+    "NIŠ JUG|PREŠEVO": {
+     "K3": 2630,
+     "K4": 5260
+    },
+    "NIŠ JUG|NIŠ SEVER": {
+     "K3": 100,
+     "K4": 200
+    },
+    "NIŠ JUG|NIŠ ISTOK": {
+     "K3": 210,
+     "K4": 420
+    },
+    "NIŠ JUG|MALČA": {
+     "K3": 330,
+     "K4": 660
+    },
+    "NIŠ JUG|BELA PALANKA": {
+     "K3": 880,
+     "K4": 1750
+    },
+    "NIŠ JUG|PIROT ZAPAD": {
+     "K3": 1300,
+     "K4": 2590
+    },
+    "NIŠ JUG|PIROT ISTOK": {
+     "K3": 1510,
+     "K4": 3010
+    },
+    "NIŠ JUG|DIMITROVGRAD": {
+     "K3": 1990,
+     "K4": 3980
+    },
+    "NIŠ JUG|ĆIĆEVAC": {
+     "K3": 1110,
+     "K4": 2220
+    },
+    "NIŠ JUG|KRUŠEVAC ISTOK": {
+     "K3": 1420,
+     "K4": 2840
+    },
+    "NIŠ JUG|KRUŠEVAC ZAPAD": {
+     "K3": 1450,
+     "K4": 2890
+    },
+    "NIŠ JUG|KOŠEVI": {
+     "K3": 1550,
+     "K4": 3100
+    },
+    "NIŠ JUG|VELIKA DRENOVA": {
+     "K3": 1680,
+     "K4": 3350
+    },
+    "NIŠ JUG|TRSTENIK": {
+     "K3": 1910,
+     "K4": 3810
+    },
+    "NIŠ JUG|VRNJAČKA BANJA": {
+     "K3": 2100,
+     "K4": 4200
+    },
+    "NIŠ JUG|VRBA": {
+     "K3": 2330,
+     "K4": 4660
+    },
+    "MEROŠINA|DOLJEVAC SELO": {
+     "K3": 170,
+     "K4": 350
+    },
+    "MEROŠINA|BRESTOVAC": {
+     "K3": 270,
+     "K4": 540
+    },
+    "MEROŠINA|LESKOVAC CENTAR": {
+     "K3": 390,
+     "K4": 780
+    },
+    "MEROŠINA|LESKOVAC JUG": {
+     "K3": 650,
+     "K4": 1310
+    },
+    "MEROŠINA|GRDELICA": {
+     "K3": 840,
+     "K4": 1680
+    },
+    "MEROŠINA|PREDEJANE": {
+     "K3": 1100,
+     "K4": 2210
+    },
+    "MEROŠINA|VLADIČIN HAN": {
+     "K3": 1520,
+     "K4": 3050
+    },
+    "MEROŠINA|VRANJE": {
+     "K3": 1910,
+     "K4": 3820
+    },
+    "MEROŠINA|BUJANOVAC SEVER": {
+     "K3": 2130,
+     "K4": 4270
+    },
+    "MEROŠINA|BUJANOVAC JUG": {
+     "K3": 2200,
+     "K4": 4390
+    },
+    "MEROŠINA|PREŠEVO": {
+     "K3": 2530,
+     "K4": 5070
+    },
+    "MEROŠINA|NIŠ SEVER": {
+     "K3": 190,
+     "K4": 390
+    },
+    "MEROŠINA|NIŠ ISTOK": {
+     "K3": 300,
+     "K4": 610
+    },
+    "MEROŠINA|MALČA": {
+     "K3": 430,
+     "K4": 850
+    },
+    "MEROŠINA|BELA PALANKA": {
+     "K3": 970,
+     "K4": 1940
+    },
+    "MEROŠINA|PIROT ZAPAD": {
+     "K3": 1390,
+     "K4": 2780
+    },
+    "MEROŠINA|PIROT ISTOK": {
+     "K3": 1600,
+     "K4": 3200
+    },
+    "MEROŠINA|DIMITROVGRAD": {
+     "K3": 2090,
+     "K4": 4170
+    },
+    "MEROŠINA|ĆIĆEVAC": {
+     "K3": 1200,
+     "K4": 2410
+    },
+    "MEROŠINA|KRUŠEVAC ISTOK": {
+     "K3": 1510,
+     "K4": 3030
+    },
+    "MEROŠINA|KRUŠEVAC ZAPAD": {
+     "K3": 1540,
+     "K4": 3080
+    },
+    "MEROŠINA|KOŠEVI": {
+     "K3": 1640,
+     "K4": 3290
+    },
+    "MEROŠINA|VELIKA DRENOVA": {
+     "K3": 1770,
+     "K4": 3540
+    },
+    "MEROŠINA|TRSTENIK": {
+     "K3": 2000,
+     "K4": 4000
+    },
+    "MEROŠINA|VRNJAČKA BANJA": {
+     "K3": 2200,
+     "K4": 4390
+    },
+    "MEROŠINA|VRBA": {
+     "K3": 2430,
+     "K4": 4850
+    },
+    "DOLJEVAC SELO|BRESTOVAC": {
+     "K3": 100,
+     "K4": 200
+    },
+    "DOLJEVAC SELO|LESKOVAC CENTAR": {
+     "K3": 220,
+     "K4": 430
+    },
+    "DOLJEVAC SELO|LESKOVAC JUG": {
+     "K3": 480,
+     "K4": 960
+    },
+    "DOLJEVAC SELO|GRDELICA": {
+     "K3": 660,
+     "K4": 1330
+    },
+    "DOLJEVAC SELO|PREDEJANE": {
+     "K3": 930,
+     "K4": 1860
+    },
+    "DOLJEVAC SELO|VLADIČIN HAN": {
+     "K3": 1350,
+     "K4": 2700
+    },
+    "DOLJEVAC SELO|VRANJE": {
+     "K3": 1740,
+     "K4": 3470
+    },
+    "DOLJEVAC SELO|BUJANOVAC SEVER": {
+     "K3": 1960,
+     "K4": 3920
+    },
+    "DOLJEVAC SELO|BUJANOVAC JUG": {
+     "K3": 2020,
+     "K4": 4050
+    },
+    "DOLJEVAC SELO|PREŠEVO": {
+     "K3": 2360,
+     "K4": 4720
+    },
+    "DOLJEVAC SELO|NIŠ SEVER": {
+     "K3": 370,
+     "K4": 730
+    },
+    "DOLJEVAC SELO|NIŠ ISTOK": {
+     "K3": 480,
+     "K4": 950
+    },
+    "DOLJEVAC SELO|MALČA": {
+     "K3": 600,
+     "K4": 1200
+    },
+    "DOLJEVAC SELO|BELA PALANKA": {
+     "K3": 1140,
+     "K4": 2290
+    },
+    "DOLJEVAC SELO|PIROT ZAPAD": {
+     "K3": 1560,
+     "K4": 3130
+    },
+    "DOLJEVAC SELO|PIROT ISTOK": {
+     "K3": 1770,
+     "K4": 3550
+    },
+    "DOLJEVAC SELO|DIMITROVGRAD": {
+     "K3": 2260,
+     "K4": 4520
+    },
+    "DOLJEVAC SELO|ĆIĆEVAC": {
+     "K3": 1380,
+     "K4": 2750
+    },
+    "DOLJEVAC SELO|KRUŠEVAC ISTOK": {
+     "K3": 1690,
+     "K4": 3370
+    },
+    "DOLJEVAC SELO|KRUŠEVAC ZAPAD": {
+     "K3": 1720,
+     "K4": 3430
+    },
+    "DOLJEVAC SELO|KOŠEVI": {
+     "K3": 1820,
+     "K4": 3630
+    },
+    "DOLJEVAC SELO|VELIKA DRENOVA": {
+     "K3": 1940,
+     "K4": 3890
+    },
+    "DOLJEVAC SELO|TRSTENIK": {
+     "K3": 2170,
+     "K4": 4350
+    },
+    "DOLJEVAC SELO|VRNJAČKA BANJA": {
+     "K3": 2370,
+     "K4": 4740
+    },
+    "DOLJEVAC SELO|VRBA": {
+     "K3": 2600,
+     "K4": 5200
+    },
+    "MALI POŽAREVAC|BATOČINA": {
+     "K3": 1250,
+     "K4": 2500
+    },
+    "MALI POŽAREVAC|JAGODINA": {
+     "K3": 1610,
+     "K4": 3220
+    },
+    "MALI POŽAREVAC|ĆUPRIJA": {
+     "K3": 1820,
+     "K4": 3650
+    },
+    "MALI POŽAREVAC|PARAĆIN": {
+     "K3": 2000,
+     "K4": 4000
+    },
+    "MALI POŽAREVAC|RAŽANJ": {
+     "K3": 2410,
+     "K4": 4810
+    },
+    "MALI POŽAREVAC|ALEKSINAČKI RUDNICI": {
+     "K3": 2750,
+     "K4": 5500
+    },
+    "MALI POŽAREVAC|ALEKSINAC": {
+     "K3": 2830,
+     "K4": 5670
+    },
+    "MALI POŽAREVAC|NIŠ JUG": {
+     "K3": 3240,
+     "K4": 6470
+    },
+    "MALI POŽAREVAC|MEROŠINA": {
+     "K3": 3330,
+     "K4": 6660
+    },
+    "MALI POŽAREVAC|DOLJEVAC SELO": {
+     "K3": 3500,
+     "K4": 7010
+    },
+    "MALI POŽAREVAC|UMČARI": {
+     "K3": 110,
+     "K4": 210
+    },
+    "MALI POŽAREVAC|BRESTOVAC": {
+     "K3": 3600,
+     "K4": 7200
+    },
+    "MALI POŽAREVAC|LESKOVAC CENTAR": {
+     "K3": 3720,
+     "K4": 7440
+    },
+    "MALI POŽAREVAC|LESKOVAC JUG": {
+     "K3": 3980,
+     "K4": 7970
+    },
+    "MALI POŽAREVAC|GRDELICA": {
+     "K3": 4170,
+     "K4": 8340
+    },
+    "MALI POŽAREVAC|PREDEJANE": {
+     "K3": 4440,
+     "K4": 8870
+    },
+    "MALI POŽAREVAC|VLADIČIN HAN": {
+     "K3": 4850,
+     "K4": 9710
+    },
+    "MALI POŽAREVAC|VRANJE": {
+     "K3": 5240,
+     "K4": 10480
+    },
+    "MALI POŽAREVAC|BUJANOVAC SEVER": {
+     "K3": 5460,
+     "K4": 10930
+    },
+    "MALI POŽAREVAC|BUJANOVAC JUG": {
+     "K3": 5530,
+     "K4": 11050
+    },
+    "MALI POŽAREVAC|PREŠEVO": {
+     "K3": 5860,
+     "K4": 11730
+    },
+    "MALI POŽAREVAC|VODANJ": {
+     "K3": 200,
+     "K4": 410
+    },
+    "MALI POŽAREVAC|NIŠ SEVER": {
+     "K3": 3220,
+     "K4": 6440
+    },
+    "MALI POŽAREVAC|NIŠ ISTOK": {
+     "K3": 3330,
+     "K4": 6650
+    },
+    "MALI POŽAREVAC|MALČA": {
+     "K3": 3450,
+     "K4": 6900
+    },
+    "MALI POŽAREVAC|BELA PALANKA": {
+     "K3": 4000,
+     "K4": 7990
+    },
+    "MALI POŽAREVAC|PIROT ZAPAD": {
+     "K3": 4410,
+     "K4": 8830
+    },
+    "MALI POŽAREVAC|PIROT ISTOK": {
+     "K3": 4630,
+     "K4": 9250
+    },
+    "MALI POŽAREVAC|DIMITROVGRAD": {
+     "K3": 5110,
+     "K4": 10220
+    },
+    "MALI POŽAREVAC|ĆIĆEVAC": {
+     "K3": 2270,
+     "K4": 4530
+    },
+    "MALI POŽAREVAC|KRUŠEVAC ISTOK": {
+     "K3": 2570,
+     "K4": 5150
+    },
+    "MALI POŽAREVAC|KRUŠEVAC ZAPAD": {
+     "K3": 2600,
+     "K4": 5210
+    },
+    "MALI POŽAREVAC|KOLARI": {
+     "K3": 300,
+     "K4": 610
+    },
+    "MALI POŽAREVAC|KOŠEVI": {
+     "K3": 2710,
+     "K4": 5410
+    },
+    "MALI POŽAREVAC|VELIKA DRENOVA": {
+     "K3": 2830,
+     "K4": 5670
+    },
+    "MALI POŽAREVAC|TRSTENIK": {
+     "K3": 3060,
+     "K4": 6130
+    },
+    "MALI POŽAREVAC|VRNJAČKA BANJA": {
+     "K3": 3260,
+     "K4": 6520
+    },
+    "MALI POŽAREVAC|VRBA": {
+     "K3": 3490,
+     "K4": 6980
+    },
+    "MALI POŽAREVAC|SMEDEREVO": {
+     "K3": 400,
+     "K4": 790
+    },
+    "MALI POŽAREVAC|POŽAREVAC": {
+     "K3": 420,
+     "K4": 840
+    },
+    "MALI POŽAREVAC|VELIKA PLANA": {
+     "K3": 900,
+     "K4": 1790
+    },
+    "MALI POŽAREVAC|MARKOVAC": {
+     "K3": 1090,
+     "K4": 2170
+    },
+    "MALI POŽAREVAC|LAPOVO": {
+     "K3": 1190,
+     "K4": 2380
+    },
+    "BRESTOVAC|LESKOVAC CENTAR": {
+     "K3": 120,
+     "K4": 240
+    },
+    "BRESTOVAC|LESKOVAC JUG": {
+     "K3": 380,
+     "K4": 770
+    },
+    "BRESTOVAC|GRDELICA": {
+     "K3": 570,
+     "K4": 1130
+    },
+    "BRESTOVAC|PREDEJANE": {
+     "K3": 830,
+     "K4": 1670
+    },
+    "BRESTOVAC|VLADIČIN HAN": {
+     "K3": 1250,
+     "K4": 2500
+    },
+    "BRESTOVAC|VRANJE": {
+     "K3": 1640,
+     "K4": 3280
+    },
+    "BRESTOVAC|BUJANOVAC SEVER": {
+     "K3": 1860,
+     "K4": 3730
+    },
+    "BRESTOVAC|BUJANOVAC JUG": {
+     "K3": 1930,
+     "K4": 3850
+    },
+    "BRESTOVAC|PREŠEVO": {
+     "K3": 2260,
+     "K4": 4520
+    },
+    "BRESTOVAC|NIŠ SEVER": {
+     "K3": 460,
+     "K4": 930
+    },
+    "BRESTOVAC|NIŠ ISTOK": {
+     "K3": 570,
+     "K4": 1150
+    },
+    "BRESTOVAC|MALČA": {
+     "K3": 700,
+     "K4": 1390
+    },
+    "BRESTOVAC|BELA PALANKA": {
+     "K3": 1240,
+     "K4": 2490
+    },
+    "BRESTOVAC|PIROT ZAPAD": {
+     "K3": 1660,
+     "K4": 3320
+    },
+    "BRESTOVAC|PIROT ISTOK": {
+     "K3": 1870,
+     "K4": 3750
+    },
+    "BRESTOVAC|DIMITROVGRAD": {
+     "K3": 2360,
+     "K4": 4720
+    },
+    "BRESTOVAC|ĆIĆEVAC": {
+     "K3": 1480,
+     "K4": 2950
+    },
+    "BRESTOVAC|KRUŠEVAC ISTOK": {
+     "K3": 1780,
+     "K4": 3570
+    },
+    "BRESTOVAC|KRUŠEVAC ZAPAD": {
+     "K3": 1810,
+     "K4": 3630
+    },
+    "BRESTOVAC|KOŠEVI": {
+     "K3": 1920,
+     "K4": 3830
+    },
+    "BRESTOVAC|VELIKA DRENOVA": {
+     "K3": 2040,
+     "K4": 4080
+    },
+    "BRESTOVAC|TRSTENIK": {
+     "K3": 2270,
+     "K4": 4550
+    },
+    "BRESTOVAC|VRNJAČKA BANJA": {
+     "K3": 2470,
+     "K4": 4940
+    },
+    "BRESTOVAC|VRBA": {
+     "K3": 2700,
+     "K4": 5390
+    },
+    "LESKOVAC CENTAR|LESKOVAC JUG": {
+     "K3": 260,
+     "K4": 530
+    },
+    "LESKOVAC CENTAR|GRDELICA": {
+     "K3": 450,
+     "K4": 890
+    },
+    "LESKOVAC CENTAR|PREDEJANE": {
+     "K3": 710,
+     "K4": 1430
+    },
+    "LESKOVAC CENTAR|VLADIČIN HAN": {
+     "K3": 1130,
+     "K4": 2270
+    },
+    "LESKOVAC CENTAR|VRANJE": {
+     "K3": 1520,
+     "K4": 3040
+    },
+    "LESKOVAC CENTAR|BUJANOVAC SEVER": {
+     "K3": 1740,
+     "K4": 3490
+    },
+    "LESKOVAC CENTAR|BUJANOVAC JUG": {
+     "K3": 1810,
+     "K4": 3610
+    },
+    "LESKOVAC CENTAR|PREŠEVO": {
+     "K3": 2140,
+     "K4": 4290
+    },
+    "LESKOVAC CENTAR|NIŠ SEVER": {
+     "K3": 580,
+     "K4": 1170
+    },
+    "LESKOVAC CENTAR|NIŠ ISTOK": {
+     "K3": 690,
+     "K4": 1390
+    },
+    "LESKOVAC CENTAR|MALČA": {
+     "K3": 820,
+     "K4": 1630
+    },
+    "LESKOVAC CENTAR|BELA PALANKA": {
+     "K3": 1360,
+     "K4": 2720
+    },
+    "LESKOVAC CENTAR|PIROT ZAPAD": {
+     "K3": 1780,
+     "K4": 3560
+    },
+    "LESKOVAC CENTAR|PIROT ISTOK": {
+     "K3": 1990,
+     "K4": 3980
+    },
+    "LESKOVAC CENTAR|DIMITROVGRAD": {
+     "K3": 2480,
+     "K4": 4950
+    },
+    "LESKOVAC CENTAR|ĆIĆEVAC": {
+     "K3": 1590,
+     "K4": 3190
+    },
+    "LESKOVAC CENTAR|KRUŠEVAC ISTOK": {
+     "K3": 1900,
+     "K4": 3810
+    },
+    "LESKOVAC CENTAR|KRUŠEVAC ZAPAD": {
+     "K3": 1930,
+     "K4": 3860
+    },
+    "LESKOVAC CENTAR|KOŠEVI": {
+     "K3": 2030,
+     "K4": 4070
+    },
+    "LESKOVAC CENTAR|VELIKA DRENOVA": {
+     "K3": 2160,
+     "K4": 4320
+    },
+    "LESKOVAC CENTAR|TRSTENIK": {
+     "K3": 2390,
+     "K4": 4780
+    },
+    "LESKOVAC CENTAR|VRNJAČKA BANJA": {
+     "K3": 2590,
+     "K4": 5170
+    },
+    "LESKOVAC CENTAR|VRBA": {
+     "K3": 2820,
+     "K4": 5630
+    },
+    "LESKOVAC JUG|GRDELICA": {
+     "K3": 180,
+     "K4": 370
+    },
+    "LESKOVAC JUG|PREDEJANE": {
+     "K3": 450,
+     "K4": 900
+    },
+    "LESKOVAC JUG|VLADIČIN HAN": {
+     "K3": 870,
+     "K4": 1740
+    },
+    "LESKOVAC JUG|VRANJE": {
+     "K3": 1250,
+     "K4": 2510
+    },
+    "LESKOVAC JUG|BUJANOVAC SEVER": {
+     "K3": 1480,
+     "K4": 2960
+    },
+    "LESKOVAC JUG|BUJANOVAC JUG": {
+     "K3": 1540,
+     "K4": 3080
+    },
+    "LESKOVAC JUG|PREŠEVO": {
+     "K3": 1880,
+     "K4": 3760
+    },
+    "LESKOVAC JUG|NIŠ SEVER": {
+     "K3": 850,
+     "K4": 1700
+    },
+    "LESKOVAC JUG|NIŠ ISTOK": {
+     "K3": 960,
+     "K4": 1920
+    },
+    "LESKOVAC JUG|MALČA": {
+     "K3": 1080,
+     "K4": 2160
+    },
+    "LESKOVAC JUG|BELA PALANKA": {
+     "K3": 1630,
+     "K4": 3250
+    },
+    "LESKOVAC JUG|PIROT ZAPAD": {
+     "K3": 2050,
+     "K4": 4090
+    },
+    "LESKOVAC JUG|PIROT ISTOK": {
+     "K3": 2260,
+     "K4": 4510
+    },
+    "LESKOVAC JUG|DIMITROVGRAD": {
+     "K3": 2740,
+     "K4": 5480
+    },
+    "LESKOVAC JUG|ĆIĆEVAC": {
+     "K3": 1860,
+     "K4": 3720
+    },
+    "LESKOVAC JUG|KRUŠEVAC ISTOK": {
+     "K3": 2170,
+     "K4": 4330
+    },
+    "LESKOVAC JUG|KRUŠEVAC ZAPAD": {
+     "K3": 2200,
+     "K4": 4390
+    },
+    "LESKOVAC JUG|KOŠEVI": {
+     "K3": 2300,
+     "K4": 4600
+    },
+    "LESKOVAC JUG|VELIKA DRENOVA": {
+     "K3": 2430,
+     "K4": 4850
+    },
+    "LESKOVAC JUG|TRSTENIK": {
+     "K3": 2660,
+     "K4": 5310
+    },
+    "LESKOVAC JUG|VRNJAČKA BANJA": {
+     "K3": 2850,
+     "K4": 5700
+    },
+    "LESKOVAC JUG|VRBA": {
+     "K3": 3080,
+     "K4": 6160
+    },
+    "GRDELICA|PREDEJANE": {
+     "K3": 270,
+     "K4": 530
+    },
+    "GRDELICA|VLADIČIN HAN": {
+     "K3": 690,
+     "K4": 1370
+    },
+    "GRDELICA|VRANJE": {
+     "K3": 1070,
+     "K4": 2140
+    },
+    "GRDELICA|BUJANOVAC SEVER": {
+     "K3": 1300,
+     "K4": 2590
+    },
+    "GRDELICA|BUJANOVAC JUG": {
+     "K3": 1360,
+     "K4": 2720
+    },
+    "GRDELICA|PREŠEVO": {
+     "K3": 1700,
+     "K4": 3390
+    },
+    "GRDELICA|NIŠ SEVER": {
+     "K3": 1030,
+     "K4": 2060
+    },
+    "GRDELICA|NIŠ ISTOK": {
+     "K3": 1140,
+     "K4": 2280
+    },
+    "GRDELICA|MALČA": {
+     "K3": 1260,
+     "K4": 2530
+    },
+    "GRDELICA|BELA PALANKA": {
+     "K3": 1810,
+     "K4": 3620
+    },
+    "GRDELICA|PIROT ZAPAD": {
+     "K3": 2230,
+     "K4": 4460
+    },
+    "GRDELICA|PIROT ISTOK": {
+     "K3": 2440,
+     "K4": 4880
+    },
+    "GRDELICA|DIMITROVGRAD": {
+     "K3": 2920,
+     "K4": 5850
+    },
+    "GRDELICA|ĆIĆEVAC": {
+     "K3": 2040,
+     "K4": 4080
+    },
+    "GRDELICA|KRUŠEVAC ISTOK": {
+     "K3": 2350,
+     "K4": 4700
+    },
+    "GRDELICA|KRUŠEVAC ZAPAD": {
+     "K3": 2380,
+     "K4": 4760
+    },
+    "GRDELICA|KOŠEVI": {
+     "K3": 2480,
+     "K4": 4960
+    },
+    "GRDELICA|VELIKA DRENOVA": {
+     "K3": 2610,
+     "K4": 5220
+    },
+    "GRDELICA|TRSTENIK": {
+     "K3": 2840,
+     "K4": 5680
+    },
+    "GRDELICA|VRNJAČKA BANJA": {
+     "K3": 3030,
+     "K4": 6070
+    },
+    "GRDELICA|VRBA": {
+     "K3": 3260,
+     "K4": 6530
+    },
+    "PREDEJANE|VLADIČIN HAN": {
+     "K3": 420,
+     "K4": 840
+    },
+    "PREDEJANE|VRANJE": {
+     "K3": 800,
+     "K4": 1610
+    },
+    "PREDEJANE|BUJANOVAC SEVER": {
+     "K3": 1030,
+     "K4": 2060
+    },
+    "PREDEJANE|BUJANOVAC JUG": {
+     "K3": 1090,
+     "K4": 2180
+    },
+    "PREDEJANE|PREŠEVO": {
+     "K3": 1430,
+     "K4": 2860
+    },
+    "PREDEJANE|NIŠ SEVER": {
+     "K3": 1300,
+     "K4": 2600
+    },
+    "PREDEJANE|NIŠ ISTOK": {
+     "K3": 1410,
+     "K4": 2820
+    },
+    "PREDEJANE|MALČA": {
+     "K3": 1530,
+     "K4": 3060
+    },
+    "PREDEJANE|BELA PALANKA": {
+     "K3": 2080,
+     "K4": 4150
+    },
+    "PREDEJANE|PIROT ZAPAD": {
+     "K3": 2500,
+     "K4": 4990
+    },
+    "PREDEJANE|PIROT ISTOK": {
+     "K3": 2710,
+     "K4": 5410
+    },
+    "PREDEJANE|DIMITROVGRAD": {
+     "K3": 3190,
+     "K4": 6380
+    },
+    "PREDEJANE|ĆIĆEVAC": {
+     "K3": 2310,
+     "K4": 4620
+    },
+    "PREDEJANE|KRUŠEVAC ISTOK": {
+     "K3": 2620,
+     "K4": 5240
+    },
+    "PREDEJANE|KRUŠEVAC ZAPAD": {
+     "K3": 2650,
+     "K4": 5290
+    },
+    "PREDEJANE|KOŠEVI": {
+     "K3": 2750,
+     "K4": 5500
+    },
+    "PREDEJANE|VELIKA DRENOVA": {
+     "K3": 2880,
+     "K4": 5750
+    },
+    "PREDEJANE|TRSTENIK": {
+     "K3": 3110,
+     "K4": 6210
+    },
+    "PREDEJANE|VRNJAČKA BANJA": {
+     "K3": 3300,
+     "K4": 6600
+    },
+    "PREDEJANE|VRBA": {
+     "K3": 3530,
+     "K4": 7060
+    },
+    "VLADIČIN HAN|VRANJE": {
+     "K3": 390,
+     "K4": 770
+    },
+    "VLADIČIN HAN|BUJANOVAC SEVER": {
+     "K3": 610,
+     "K4": 1220
+    },
+    "VLADIČIN HAN|BUJANOVAC JUG": {
+     "K3": 670,
+     "K4": 1350
+    },
+    "VLADIČIN HAN|PREŠEVO": {
+     "K3": 1010,
+     "K4": 2020
+    },
+    "VLADIČIN HAN|NIŠ SEVER": {
+     "K3": 1720,
+     "K4": 3430
+    },
+    "VLADIČIN HAN|NIŠ ISTOK": {
+     "K3": 1830,
+     "K4": 3650
+    },
+    "VLADIČIN HAN|MALČA": {
+     "K3": 1950,
+     "K4": 3900
+    },
+    "VLADIČIN HAN|BELA PALANKA": {
+     "K3": 2490,
+     "K4": 4990
+    },
+    "VLADIČIN HAN|PIROT ZAPAD": {
+     "K3": 2910,
+     "K4": 5830
+    },
+    "VLADIČIN HAN|PIROT ISTOK": {
+     "K3": 3120,
+     "K4": 6250
+    },
+    "VLADIČIN HAN|DIMITROVGRAD": {
+     "K3": 3610,
+     "K4": 7220
+    },
+    "VLADIČIN HAN|ĆIĆEVAC": {
+     "K3": 2730,
+     "K4": 5450
+    },
+    "VLADIČIN HAN|KRUŠEVAC ISTOK": {
+     "K3": 3040,
+     "K4": 6070
+    },
+    "VLADIČIN HAN|KRUŠEVAC ZAPAD": {
+     "K3": 3070,
+     "K4": 6130
+    },
+    "VLADIČIN HAN|KOŠEVI": {
+     "K3": 3170,
+     "K4": 6330
+    },
+    "VLADIČIN HAN|VELIKA DRENOVA": {
+     "K3": 3290,
+     "K4": 6590
+    },
+    "VLADIČIN HAN|TRSTENIK": {
+     "K3": 3520,
+     "K4": 7050
+    },
+    "VLADIČIN HAN|VRNJAČKA BANJA": {
+     "K3": 3720,
+     "K4": 7440
+    },
+    "VLADIČIN HAN|VRBA": {
+     "K3": 3950,
+     "K4": 7900
+    },
+    "VRANJE|BUJANOVAC SEVER": {
+     "K3": 230,
+     "K4": 450
+    },
+    "VRANJE|BUJANOVAC JUG": {
+     "K3": 290,
+     "K4": 580
+    },
+    "VRANJE|PREŠEVO": {
+     "K3": 620,
+     "K4": 1250
+    },
+    "VRANJE|NIŠ SEVER": {
+     "K3": 2100,
+     "K4": 4210
+    },
+    "VRANJE|NIŠ ISTOK": {
+     "K3": 2210,
+     "K4": 4420
+    },
+    "VRANJE|MALČA": {
+     "K3": 2330,
+     "K4": 4670
+    },
+    "VRANJE|BELA PALANKA": {
+     "K3": 2880,
+     "K4": 5760
+    },
+    "VRANJE|PIROT ZAPAD": {
+     "K3": 3300,
+     "K4": 6600
+    },
+    "VRANJE|PIROT ISTOK": {
+     "K3": 3510,
+     "K4": 7020
+    },
+    "VRANJE|DIMITROVGRAD": {
+     "K3": 4000,
+     "K4": 7990
+    },
+    "VRANJE|ĆIĆEVAC": {
+     "K3": 3110,
+     "K4": 6230
+    },
+    "VRANJE|KRUŠEVAC ISTOK": {
+     "K3": 3420,
+     "K4": 6840
+    },
+    "VRANJE|KRUŠEVAC ZAPAD": {
+     "K3": 3450,
+     "K4": 6900
+    },
+    "VRANJE|KOŠEVI": {
+     "K3": 3550,
+     "K4": 7110
+    },
+    "VRANJE|VELIKA DRENOVA": {
+     "K3": 3680,
+     "K4": 7360
+    },
+    "VRANJE|TRSTENIK": {
+     "K3": 3910,
+     "K4": 7820
+    },
+    "VRANJE|VRNJAČKA BANJA": {
+     "K3": 4110,
+     "K4": 8210
+    },
+    "VRANJE|VRBA": {
+     "K3": 4330,
+     "K4": 8670
+    },
+    "BUJANOVAC SEVER|BUJANOVAC JUG": {
+     "K3": 60,
+     "K4": 120
+    },
+    "BUJANOVAC SEVER|PREŠEVO": {
+     "K3": 400,
+     "K4": 800
+    },
+    "BUJANOVAC SEVER|NIŠ SEVER": {
+     "K3": 2330,
+     "K4": 4660
+    },
+    "BUJANOVAC SEVER|NIŠ ISTOK": {
+     "K3": 2440,
+     "K4": 4870
+    },
+    "BUJANOVAC SEVER|MALČA": {
+     "K3": 2560,
+     "K4": 5120
+    },
+    "BUJANOVAC SEVER|BELA PALANKA": {
+     "K3": 3110,
+     "K4": 6210
+    },
+    "BUJANOVAC SEVER|PIROT ZAPAD": {
+     "K3": 3520,
+     "K4": 7050
+    },
+    "BUJANOVAC SEVER|PIROT ISTOK": {
+     "K3": 3740,
+     "K4": 7470
+    },
+    "BUJANOVAC SEVER|DIMITROVGRAD": {
+     "K3": 4220,
+     "K4": 8440
+    },
+    "BUJANOVAC SEVER|ĆIĆEVAC": {
+     "K3": 3340,
+     "K4": 6680
+    },
+    "BUJANOVAC SEVER|KRUŠEVAC ISTOK": {
+     "K3": 3650,
+     "K4": 7290
+    },
+    "BUJANOVAC SEVER|KRUŠEVAC ZAPAD": {
+     "K3": 3680,
+     "K4": 7350
+    },
+    "BUJANOVAC SEVER|KOŠEVI": {
+     "K3": 3780,
+     "K4": 7560
+    },
+    "BUJANOVAC SEVER|VELIKA DRENOVA": {
+     "K3": 3900,
+     "K4": 7810
+    },
+    "BUJANOVAC SEVER|TRSTENIK": {
+     "K3": 4140,
+     "K4": 8270
+    },
+    "BUJANOVAC SEVER|VRNJAČKA BANJA": {
+     "K3": 4330,
+     "K4": 8660
+    },
+    "BUJANOVAC SEVER|VRBA": {
+     "K3": 4560,
+     "K4": 9120
+    },
+    "BUJANOVAC JUG|PREŠEVO": {
+     "K3": 340,
+     "K4": 670
+    },
+    "BUJANOVAC JUG|NIŠ SEVER": {
+     "K3": 2390,
+     "K4": 4780
+    },
+    "BUJANOVAC JUG|NIŠ ISTOK": {
+     "K3": 2500,
+     "K4": 5000
+    },
+    "BUJANOVAC JUG|MALČA": {
+     "K3": 2620,
+     "K4": 5240
+    },
+    "BUJANOVAC JUG|BELA PALANKA": {
+     "K3": 3170,
+     "K4": 6340
+    },
+    "BUJANOVAC JUG|PIROT ZAPAD": {
+     "K3": 3590,
+     "K4": 7170
+    },
+    "BUJANOVAC JUG|PIROT ISTOK": {
+     "K3": 3800,
+     "K4": 7600
+    },
+    "BUJANOVAC JUG|DIMITROVGRAD": {
+     "K3": 4280,
+     "K4": 8570
+    },
+    "BUJANOVAC JUG|ĆIĆEVAC": {
+     "K3": 3400,
+     "K4": 6800
+    },
+    "BUJANOVAC JUG|KRUŠEVAC ISTOK": {
+     "K3": 3710,
+     "K4": 7420
+    },
+    "BUJANOVAC JUG|KRUŠEVAC ZAPAD": {
+     "K3": 3740,
+     "K4": 7480
+    },
+    "BUJANOVAC JUG|KOŠEVI": {
+     "K3": 3840,
+     "K4": 7680
+    },
+    "BUJANOVAC JUG|VELIKA DRENOVA": {
+     "K3": 3970,
+     "K4": 7930
+    },
+    "BUJANOVAC JUG|TRSTENIK": {
+     "K3": 4200,
+     "K4": 8400
+    },
+    "BUJANOVAC JUG|VRNJAČKA BANJA": {
+     "K3": 4390,
+     "K4": 8790
+    },
+    "BUJANOVAC JUG|VRBA": {
+     "K3": 4620,
+     "K4": 9250
+    },
+    "PREŠEVO|NIŠ SEVER": {
+     "K3": 2730,
+     "K4": 5450
+    },
+    "PREŠEVO|NIŠ ISTOK": {
+     "K3": 2840,
+     "K4": 5670
+    },
+    "PREŠEVO|MALČA": {
+     "K3": 2960,
+     "K4": 5920
+    },
+    "PREŠEVO|BELA PALANKA": {
+     "K3": 3500,
+     "K4": 7010
+    },
+    "PREŠEVO|PIROT ZAPAD": {
+     "K3": 3920,
+     "K4": 7850
+    },
+    "PREŠEVO|PIROT ISTOK": {
+     "K3": 4130,
+     "K4": 8270
+    },
+    "PREŠEVO|DIMITROVGRAD": {
+     "K3": 4620,
+     "K4": 9240
+    },
+    "PREŠEVO|ĆIĆEVAC": {
+     "K3": 3740,
+     "K4": 7470
+    },
+    "PREŠEVO|KRUŠEVAC ISTOK": {
+     "K3": 4050,
+     "K4": 8090
+    },
+    "PREŠEVO|KRUŠEVAC ZAPAD": {
+     "K3": 4080,
+     "K4": 8150
+    },
+    "PREŠEVO|KOŠEVI": {
+     "K3": 4180,
+     "K4": 8350
+    },
+    "PREŠEVO|VELIKA DRENOVA": {
+     "K3": 4300,
+     "K4": 8610
+    },
+    "PREŠEVO|TRSTENIK": {
+     "K3": 4540,
+     "K4": 9070
+    },
+    "PREŠEVO|VRNJAČKA BANJA": {
+     "K3": 4730,
+     "K4": 9460
+    },
+    "PREŠEVO|VRBA": {
+     "K3": 4960,
+     "K4": 9920
+    },
+    "UMČARI|BATOČINA": {
+     "K3": 1150,
+     "K4": 2290
+    },
+    "UMČARI|JAGODINA": {
+     "K3": 1500,
+     "K4": 3010
+    },
+    "UMČARI|ĆUPRIJA": {
+     "K3": 1720,
+     "K4": 3440
+    },
+    "UMČARI|PARAĆIN": {
+     "K3": 1890,
+     "K4": 3790
+    },
+    "UMČARI|RAŽANJ": {
+     "K3": 2300,
+     "K4": 4600
+    },
+    "UMČARI|ALEKSINAČKI RUDNICI": {
+     "K3": 2650,
+     "K4": 5290
+    },
+    "UMČARI|ALEKSINAC": {
+     "K3": 2730,
+     "K4": 5450
+    },
+    "UMČARI|NIŠ JUG": {
+     "K3": 3130,
+     "K4": 6260
+    },
+    "UMČARI|MEROŠINA": {
+     "K3": 3220,
+     "K4": 6450
+    },
+    "UMČARI|DOLJEVAC SELO": {
+     "K3": 3400,
+     "K4": 6790
+    },
+    "UMČARI|BRESTOVAC": {
+     "K3": 3500,
+     "K4": 6990
+    },
+    "UMČARI|LESKOVAC CENTAR": {
+     "K3": 3610,
+     "K4": 7230
+    },
+    "UMČARI|LESKOVAC JUG": {
+     "K3": 3880,
+     "K4": 7760
+    },
+    "UMČARI|GRDELICA": {
+     "K3": 4060,
+     "K4": 8120
+    },
+    "UMČARI|PREDEJANE": {
+     "K3": 4330,
+     "K4": 8660
+    },
+    "UMČARI|VLADIČIN HAN": {
+     "K3": 4750,
+     "K4": 9490
+    },
+    "UMČARI|VRANJE": {
+     "K3": 5130,
+     "K4": 10270
+    },
+    "UMČARI|BUJANOVAC SEVER": {
+     "K3": 5360,
+     "K4": 10720
+    },
+    "UMČARI|BUJANOVAC JUG": {
+     "K3": 5420,
+     "K4": 10840
+    },
+    "UMČARI|PREŠEVO": {
+     "K3": 5760,
+     "K4": 11520
+    },
+    "UMČARI|VODANJ": {
+     "K3": 100,
+     "K4": 190
+    },
+    "UMČARI|NIŠ SEVER": {
+     "K3": 3110,
+     "K4": 6220
+    },
+    "UMČARI|NIŠ ISTOK": {
+     "K3": 3220,
+     "K4": 6440
+    },
+    "UMČARI|MALČA": {
+     "K3": 3340,
+     "K4": 6690
+    },
+    "UMČARI|BELA PALANKA": {
+     "K3": 3890,
+     "K4": 7780
+    },
+    "UMČARI|PIROT ZAPAD": {
+     "K3": 4310,
+     "K4": 8620
+    },
+    "UMČARI|PIROT ISTOK": {
+     "K3": 4520,
+     "K4": 9040
+    },
+    "UMČARI|DIMITROVGRAD": {
+     "K3": 5010,
+     "K4": 10010
+    },
+    "UMČARI|ĆIĆEVAC": {
+     "K3": 2160,
+     "K4": 4320
+    },
+    "UMČARI|KRUŠEVAC ISTOK": {
+     "K3": 2470,
+     "K4": 4940
+    },
+    "UMČARI|KRUŠEVAC ZAPAD": {
+     "K3": 2500,
+     "K4": 5000
+    },
+    "UMČARI|KOLARI": {
+     "K3": 200,
+     "K4": 400
+    },
+    "UMČARI|KOŠEVI": {
+     "K3": 2600,
+     "K4": 5200
+    },
+    "UMČARI|VELIKA DRENOVA": {
+     "K3": 2730,
+     "K4": 5450
+    },
+    "UMČARI|TRSTENIK": {
+     "K3": 2960,
+     "K4": 5920
+    },
+    "UMČARI|VRNJAČKA BANJA": {
+     "K3": 3150,
+     "K4": 6310
+    },
+    "UMČARI|VRBA": {
+     "K3": 3380,
+     "K4": 6760
+    },
+    "UMČARI|SMEDEREVO": {
+     "K3": 290,
+     "K4": 580
+    },
+    "UMČARI|POŽAREVAC": {
+     "K3": 320,
+     "K4": 630
+    },
+    "UMČARI|VELIKA PLANA": {
+     "K3": 790,
+     "K4": 1580
+    },
+    "UMČARI|MARKOVAC": {
+     "K3": 980,
+     "K4": 1960
+    },
+    "UMČARI|LAPOVO": {
+     "K3": 1080,
+     "K4": 2170
+    },
+    "NIŠ SEVER|NIŠ ISTOK": {
+     "K3": 110,
+     "K4": 220
+    },
+    "NIŠ SEVER|MALČA": {
+     "K3": 230,
+     "K4": 460
+    },
+    "NIŠ SEVER|BELA PALANKA": {
+     "K3": 780,
+     "K4": 1560
+    },
+    "NIŠ SEVER|PIROT ZAPAD": {
+     "K3": 1200,
+     "K4": 2390
+    },
+    "NIŠ SEVER|PIROT ISTOK": {
+     "K3": 1410,
+     "K4": 2820
+    },
+    "NIŠ SEVER|DIMITROVGRAD": {
+     "K3": 1890,
+     "K4": 3790
+    },
+    "NIŠ SEVER|ĆIĆEVAC": {
+     "K3": 1090,
+     "K4": 2180
+    },
+    "NIŠ SEVER|KRUŠEVAC ISTOK": {
+     "K3": 1400,
+     "K4": 2800
+    },
+    "NIŠ SEVER|KRUŠEVAC ZAPAD": {
+     "K3": 1430,
+     "K4": 2860
+    },
+    "NIŠ SEVER|KOŠEVI": {
+     "K3": 1530,
+     "K4": 3060
+    },
+    "NIŠ SEVER|VELIKA DRENOVA": {
+     "K3": 1660,
+     "K4": 3320
+    },
+    "NIŠ SEVER|TRSTENIK": {
+     "K3": 1890,
+     "K4": 3780
+    },
+    "NIŠ SEVER|VRNJAČKA BANJA": {
+     "K3": 2080,
+     "K4": 4170
+    },
+    "NIŠ SEVER|VRBA": {
+     "K3": 2310,
+     "K4": 4630
+    },
+    "NIŠ ISTOK|MALČA": {
+     "K3": 120,
+     "K4": 240
+    },
+    "NIŠ ISTOK|BELA PALANKA": {
+     "K3": 670,
+     "K4": 1340
+    },
+    "NIŠ ISTOK|PIROT ZAPAD": {
+     "K3": 1090,
+     "K4": 2180
+    },
+    "NIŠ ISTOK|PIROT ISTOK": {
+     "K3": 1300,
+     "K4": 2600
+    },
+    "NIŠ ISTOK|DIMITROVGRAD": {
+     "K3": 1780,
+     "K4": 3570
+    },
+    "NIŠ ISTOK|ĆIĆEVAC": {
+     "K3": 1200,
+     "K4": 2400
+    },
+    "NIŠ ISTOK|KRUŠEVAC ISTOK": {
+     "K3": 1510,
+     "K4": 3020
+    },
+    "NIŠ ISTOK|KRUŠEVAC ZAPAD": {
+     "K3": 1540,
+     "K4": 3080
+    },
+    "NIŠ ISTOK|KOŠEVI": {
+     "K3": 1640,
+     "K4": 3280
+    },
+    "NIŠ ISTOK|VELIKA DRENOVA": {
+     "K3": 1770,
+     "K4": 3540
+    },
+    "NIŠ ISTOK|TRSTENIK": {
+     "K3": 2000,
+     "K4": 4000
+    },
+    "NIŠ ISTOK|VRNJAČKA BANJA": {
+     "K3": 2190,
+     "K4": 4390
+    },
+    "NIŠ ISTOK|VRBA": {
+     "K3": 2420,
+     "K4": 4850
+    },
+    "MALČA|BELA PALANKA": {
+     "K3": 550,
+     "K4": 1090
+    },
+    "MALČA|PIROT ZAPAD": {
+     "K3": 970,
+     "K4": 1930
+    },
+    "MALČA|PIROT ISTOK": {
+     "K3": 1180,
+     "K4": 2350
+    },
+    "MALČA|DIMITROVGRAD": {
+     "K3": 1660,
+     "K4": 3320
+    },
+    "MALČA|ĆIĆEVAC": {
+     "K3": 1320,
+     "K4": 2650
+    },
+    "MALČA|KRUŠEVAC ISTOK": {
+     "K3": 1630,
+     "K4": 3260
+    },
+    "MALČA|KRUŠEVAC ZAPAD": {
+     "K3": 1660,
+     "K4": 3320
+    },
+    "MALČA|KOŠEVI": {
+     "K3": 1760,
+     "K4": 3530
+    },
+    "MALČA|VELIKA DRENOVA": {
+     "K3": 1890,
+     "K4": 3780
+    },
+    "MALČA|TRSTENIK": {
+     "K3": 2120,
+     "K4": 4240
+    },
+    "MALČA|VRNJAČKA BANJA": {
+     "K3": 2320,
+     "K4": 4630
+    },
+    "MALČA|VRBA": {
+     "K3": 2550,
+     "K4": 5090
+    },
+    "BELA PALANKA|PIROT ZAPAD": {
+     "K3": 420,
+     "K4": 840
+    },
+    "BELA PALANKA|PIROT ISTOK": {
+     "K3": 630,
+     "K4": 1260
+    },
+    "BELA PALANKA|DIMITROVGRAD": {
+     "K3": 1120,
+     "K4": 2230
+    },
+    "BELA PALANKA|ĆIĆEVAC": {
+     "K3": 1870,
+     "K4": 3740
+    },
+    "BELA PALANKA|KRUŠEVAC ISTOK": {
+     "K3": 2180,
+     "K4": 4360
+    },
+    "BELA PALANKA|KRUŠEVAC ZAPAD": {
+     "K3": 2210,
+     "K4": 4410
+    },
+    "BELA PALANKA|KOŠEVI": {
+     "K3": 2310,
+     "K4": 4620
+    },
+    "BELA PALANKA|VELIKA DRENOVA": {
+     "K3": 2440,
+     "K4": 4870
+    },
+    "BELA PALANKA|TRSTENIK": {
+     "K3": 2670,
+     "K4": 5330
+    },
+    "BELA PALANKA|VRNJAČKA BANJA": {
+     "K3": 2860,
+     "K4": 5720
+    },
+    "BELA PALANKA|VRBA": {
+     "K3": 3090,
+     "K4": 6180
+    },
+    "PIROT ZAPAD|PIROT ISTOK": {
+     "K3": 210,
+     "K4": 420
+    },
+    "PIROT ZAPAD|DIMITROVGRAD": {
+     "K3": 700,
+     "K4": 1390
+    },
+    "PIROT ZAPAD|ĆIĆEVAC": {
+     "K3": 2290,
+     "K4": 4580
+    },
+    "PIROT ZAPAD|KRUŠEVAC ISTOK": {
+     "K3": 2600,
+     "K4": 5190
+    },
+    "PIROT ZAPAD|KRUŠEVAC ZAPAD": {
+     "K3": 2630,
+     "K4": 5250
+    },
+    "PIROT ZAPAD|KOŠEVI": {
+     "K3": 2730,
+     "K4": 5460
+    },
+    "PIROT ZAPAD|VELIKA DRENOVA": {
+     "K3": 2860,
+     "K4": 5710
+    },
+    "PIROT ZAPAD|TRSTENIK": {
+     "K3": 3090,
+     "K4": 6170
+    },
+    "PIROT ZAPAD|VRNJAČKA BANJA": {
+     "K3": 3280,
+     "K4": 6560
+    },
+    "PIROT ZAPAD|VRBA": {
+     "K3": 3510,
+     "K4": 7020
+    },
+    "PIROT ISTOK|DIMITROVGRAD": {
+     "K3": 490,
+     "K4": 970
+    },
+    "PIROT ISTOK|ĆIĆEVAC": {
+     "K3": 2500,
+     "K4": 5000
+    },
+    "PIROT ISTOK|KRUŠEVAC ISTOK": {
+     "K3": 2810,
+     "K4": 5620
+    },
+    "PIROT ISTOK|KRUŠEVAC ZAPAD": {
+     "K3": 2840,
+     "K4": 5670
+    },
+    "PIROT ISTOK|KOŠEVI": {
+     "K3": 2940,
+     "K4": 5880
+    },
+    "PIROT ISTOK|VELIKA DRENOVA": {
+     "K3": 3070,
+     "K4": 6130
+    },
+    "PIROT ISTOK|TRSTENIK": {
+     "K3": 3300,
+     "K4": 6590
+    },
+    "PIROT ISTOK|VRNJAČKA BANJA": {
+     "K3": 3490,
+     "K4": 6980
+    },
+    "PIROT ISTOK|VRBA": {
+     "K3": 3720,
+     "K4": 7440
+    },
+    "DIMITROVGRAD|ĆIĆEVAC": {
+     "K3": 2980,
+     "K4": 5970
+    },
+    "DIMITROVGRAD|KRUŠEVAC ISTOK": {
+     "K3": 3290,
+     "K4": 6590
+    },
+    "DIMITROVGRAD|KRUŠEVAC ZAPAD": {
+     "K3": 3320,
+     "K4": 6650
+    },
+    "DIMITROVGRAD|KOŠEVI": {
+     "K3": 3420,
+     "K4": 6850
+    },
+    "DIMITROVGRAD|VELIKA DRENOVA": {
+     "K3": 3550,
+     "K4": 7100
+    },
+    "DIMITROVGRAD|TRSTENIK": {
+     "K3": 3780,
+     "K4": 7560
+    },
+    "DIMITROVGRAD|VRNJAČKA BANJA": {
+     "K3": 3980,
+     "K4": 7950
+    },
+    "DIMITROVGRAD|VRBA": {
+     "K3": 4210,
+     "K4": 8410
+    },
+    "ĆIĆEVAC|KRUŠEVAC ISTOK": {
+     "K3": 310,
+     "K4": 620
+    },
+    "ĆIĆEVAC|KRUŠEVAC ZAPAD": {
+     "K3": 340,
+     "K4": 680
+    },
+    "ĆIĆEVAC|KOŠEVI": {
+     "K3": 440,
+     "K4": 880
+    },
+    "ĆIĆEVAC|VELIKA DRENOVA": {
+     "K3": 570,
+     "K4": 1130
+    },
+    "ĆIĆEVAC|TRSTENIK": {
+     "K3": 800,
+     "K4": 1600
+    },
+    "ĆIĆEVAC|VRNJAČKA BANJA": {
+     "K3": 990,
+     "K4": 1990
+    },
+    "ĆIĆEVAC|VRBA": {
+     "K3": 1220,
+     "K4": 2440
+    },
+    "KRUŠEVAC ISTOK|KRUŠEVAC ZAPAD": {
+     "K3": 30,
+     "K4": 60
+    },
+    "KRUŠEVAC ISTOK|KOŠEVI": {
+     "K3": 130,
+     "K4": 260
+    },
+    "KRUŠEVAC ISTOK|VELIKA DRENOVA": {
+     "K3": 260,
+     "K4": 520
+    },
+    "KRUŠEVAC ISTOK|TRSTENIK": {
+     "K3": 490,
+     "K4": 980
+    },
+    "KRUŠEVAC ISTOK|VRNJAČKA BANJA": {
+     "K3": 680,
+     "K4": 1370
+    },
+    "KRUŠEVAC ISTOK|VRBA": {
+     "K3": 910,
+     "K4": 1830
+    },
+    "KRUŠEVAC ZAPAD|KOŠEVI": {
+     "K3": 100,
+     "K4": 200
+    },
+    "KRUŠEVAC ZAPAD|VELIKA DRENOVA": {
+     "K3": 230,
+     "K4": 460
+    },
+    "KRUŠEVAC ZAPAD|TRSTENIK": {
+     "K3": 460,
+     "K4": 920
+    },
+    "KRUŠEVAC ZAPAD|VRNJAČKA BANJA": {
+     "K3": 650,
+     "K4": 1310
+    },
+    "KRUŠEVAC ZAPAD|VRBA": {
+     "K3": 880,
+     "K4": 1770
+    },
+    "VODANJ|BATOČINA": {
+     "K3": 1050,
+     "K4": 2100
+    },
+    "VODANJ|JAGODINA": {
+     "K3": 1410,
+     "K4": 2810
+    },
+    "VODANJ|ĆUPRIJA": {
+     "K3": 1620,
+     "K4": 3240
+    },
+    "VODANJ|PARAĆIN": {
+     "K3": 1800,
+     "K4": 3590
+    },
+    "VODANJ|RAŽANJ": {
+     "K3": 2200,
+     "K4": 4410
+    },
+    "VODANJ|ALEKSINAČKI RUDNICI": {
+     "K3": 2550,
+     "K4": 5100
+    },
+    "VODANJ|ALEKSINAC": {
+     "K3": 2630,
+     "K4": 5260
+    },
+    "VODANJ|NIŠ JUG": {
+     "K3": 3030,
+     "K4": 6060
+    },
+    "VODANJ|MEROŠINA": {
+     "K3": 3130,
+     "K4": 6260
+    },
+    "VODANJ|DOLJEVAC SELO": {
+     "K3": 3300,
+     "K4": 6600
+    },
+    "VODANJ|BRESTOVAC": {
+     "K3": 3400,
+     "K4": 6800
+    },
+    "VODANJ|LESKOVAC CENTAR": {
+     "K3": 3520,
+     "K4": 7040
+    },
+    "VODANJ|LESKOVAC JUG": {
+     "K3": 3780,
+     "K4": 7560
+    },
+    "VODANJ|GRDELICA": {
+     "K3": 3970,
+     "K4": 7930
+    },
+    "VODANJ|PREDEJANE": {
+     "K3": 4230,
+     "K4": 8470
+    },
+    "VODANJ|VLADIČIN HAN": {
+     "K3": 4650,
+     "K4": 9300
+    },
+    "VODANJ|VRANJE": {
+     "K3": 5040,
+     "K4": 10070
+    },
+    "VODANJ|BUJANOVAC SEVER": {
+     "K3": 5260,
+     "K4": 10520
+    },
+    "VODANJ|BUJANOVAC JUG": {
+     "K3": 5320,
+     "K4": 10650
+    },
+    "VODANJ|PREŠEVO": {
+     "K3": 5660,
+     "K4": 11320
+    },
+    "VODANJ|NIŠ SEVER": {
+     "K3": 3010,
+     "K4": 6030
+    },
+    "VODANJ|NIŠ ISTOK": {
+     "K3": 3120,
+     "K4": 6250
+    },
+    "VODANJ|MALČA": {
+     "K3": 3250,
+     "K4": 6490
+    },
+    "VODANJ|BELA PALANKA": {
+     "K3": 3790,
+     "K4": 7580
+    },
+    "VODANJ|PIROT ZAPAD": {
+     "K3": 4210,
+     "K4": 8420
+    },
+    "VODANJ|PIROT ISTOK": {
+     "K3": 4420,
+     "K4": 8850
+    },
+    "VODANJ|DIMITROVGRAD": {
+     "K3": 4910,
+     "K4": 9820
+    },
+    "VODANJ|ĆIĆEVAC": {
+     "K3": 2060,
+     "K4": 4130
+    },
+    "VODANJ|KRUŠEVAC ISTOK": {
+     "K3": 2370,
+     "K4": 4740
+    },
+    "VODANJ|KRUŠEVAC ZAPAD": {
+     "K3": 2400,
+     "K4": 4800
+    },
+    "VODANJ|KOLARI": {
+     "K3": 100,
+     "K4": 200
+    },
+    "VODANJ|KOŠEVI": {
+     "K3": 2500,
+     "K4": 5010
+    },
+    "VODANJ|VELIKA DRENOVA": {
+     "K3": 2630,
+     "K4": 5260
+    },
+    "VODANJ|TRSTENIK": {
+     "K3": 2860,
+     "K4": 5720
+    },
+    "VODANJ|VRNJAČKA BANJA": {
+     "K3": 3060,
+     "K4": 6110
+    },
+    "VODANJ|VRBA": {
+     "K3": 3290,
+     "K4": 6570
+    },
+    "VODANJ|SMEDEREVO": {
+     "K3": 190,
+     "K4": 390
+    },
+    "VODANJ|POŽAREVAC": {
+     "K3": 220,
+     "K4": 440
+    },
+    "VODANJ|VELIKA PLANA": {
+     "K3": 690,
+     "K4": 1390
+    },
+    "VODANJ|MARKOVAC": {
+     "K3": 880,
+     "K4": 1770
+    },
+    "VODANJ|LAPOVO": {
+     "K3": 990,
+     "K4": 1970
+    },
+    "KOŠEVI|VELIKA DRENOVA": {
+     "K3": 130,
+     "K4": 250
+    },
+    "KOŠEVI|TRSTENIK": {
+     "K3": 360,
+     "K4": 720
+    },
+    "KOŠEVI|VRNJAČKA BANJA": {
+     "K3": 550,
+     "K4": 1110
+    },
+    "KOŠEVI|VRBA": {
+     "K3": 780,
+     "K4": 1560
+    },
+    "VELIKA DRENOVA|TRSTENIK": {
+     "K3": 230,
+     "K4": 460
+    },
+    "VELIKA DRENOVA|VRNJAČKA BANJA": {
+     "K3": 430,
+     "K4": 850
+    },
+    "VELIKA DRENOVA|VRBA": {
+     "K3": 660,
+     "K4": 1310
+    },
+    "TRSTENIK|VRNJAČKA BANJA": {
+     "K3": 190,
+     "K4": 390
+    },
+    "TRSTENIK|VRBA": {
+     "K3": 420,
+     "K4": 850
+    },
+    "VRNJAČKA BANJA|VRBA": {
+     "K3": 230,
+     "K4": 460
+    },
+    "KOLARI|BATOČINA": {
+     "K3": 950,
+     "K4": 1900
+    },
+    "KOLARI|JAGODINA": {
+     "K3": 1300,
+     "K4": 2610
+    },
+    "KOLARI|ĆUPRIJA": {
+     "K3": 1520,
+     "K4": 3040
+    },
+    "KOLARI|PARAĆIN": {
+     "K3": 1690,
+     "K4": 3390
+    },
+    "KOLARI|RAŽANJ": {
+     "K3": 2100,
+     "K4": 4200
+    },
+    "KOLARI|ALEKSINAČKI RUDNICI": {
+     "K3": 2450,
+     "K4": 4890
+    },
+    "KOLARI|ALEKSINAC": {
+     "K3": 2530,
+     "K4": 5060
+    },
+    "KOLARI|NIŠ JUG": {
+     "K3": 2930,
+     "K4": 5860
+    },
+    "KOLARI|MEROŠINA": {
+     "K3": 3030,
+     "K4": 6050
+    },
+    "KOLARI|DOLJEVAC SELO": {
+     "K3": 3200,
+     "K4": 6400
+    },
+    "KOLARI|BRESTOVAC": {
+     "K3": 3300,
+     "K4": 6590
+    },
+    "KOLARI|LESKOVAC CENTAR": {
+     "K3": 3420,
+     "K4": 6830
+    },
+    "KOLARI|LESKOVAC JUG": {
+     "K3": 3680,
+     "K4": 7360
+    },
+    "KOLARI|GRDELICA": {
+     "K3": 3860,
+     "K4": 7730
+    },
+    "KOLARI|PREDEJANE": {
+     "K3": 4130,
+     "K4": 8260
+    },
+    "KOLARI|VLADIČIN HAN": {
+     "K3": 4550,
+     "K4": 9100
+    },
+    "KOLARI|VRANJE": {
+     "K3": 4930,
+     "K4": 9870
+    },
+    "KOLARI|BUJANOVAC SEVER": {
+     "K3": 5160,
+     "K4": 10320
+    },
+    "KOLARI|BUJANOVAC JUG": {
+     "K3": 5220,
+     "K4": 10440
+    },
+    "KOLARI|PREŠEVO": {
+     "K3": 5560,
+     "K4": 11120
+    },
+    "KOLARI|NIŠ SEVER": {
+     "K3": 2910,
+     "K4": 5830
+    },
+    "KOLARI|NIŠ ISTOK": {
+     "K3": 3020,
+     "K4": 6050
+    },
+    "KOLARI|MALČA": {
+     "K3": 3140,
+     "K4": 6290
+    },
+    "KOLARI|BELA PALANKA": {
+     "K3": 3690,
+     "K4": 7380
+    },
+    "KOLARI|PIROT ZAPAD": {
+     "K3": 4110,
+     "K4": 8220
+    },
+    "KOLARI|PIROT ISTOK": {
+     "K3": 4320,
+     "K4": 8640
+    },
+    "KOLARI|DIMITROVGRAD": {
+     "K3": 4810,
+     "K4": 9610
+    },
+    "KOLARI|ĆIĆEVAC": {
+     "K3": 1960,
+     "K4": 3920
+    },
+    "KOLARI|KRUŠEVAC ISTOK": {
+     "K3": 2270,
+     "K4": 4540
+    },
+    "KOLARI|KRUŠEVAC ZAPAD": {
+     "K3": 2300,
+     "K4": 4600
+    },
+    "KOLARI|KOŠEVI": {
+     "K3": 2400,
+     "K4": 4800
+    },
+    "KOLARI|VELIKA DRENOVA": {
+     "K3": 2530,
+     "K4": 5060
+    },
+    "KOLARI|TRSTENIK": {
+     "K3": 2760,
+     "K4": 5520
+    },
+    "KOLARI|VRNJAČKA BANJA": {
+     "K3": 2950,
+     "K4": 5910
+    },
+    "KOLARI|VRBA": {
+     "K3": 3180,
+     "K4": 6370
+    },
+    "KOLARI|SMEDEREVO": {
+     "K3": 90,
+     "K4": 190
+    },
+    "KOLARI|POŽAREVAC": {
+     "K3": 120,
+     "K4": 230
+    },
+    "KOLARI|VELIKA PLANA": {
+     "K3": 590,
+     "K4": 1180
+    },
+    "KOLARI|MARKOVAC": {
+     "K3": 780,
+     "K4": 1560
+    },
+    "KOLARI|LAPOVO": {
+     "K3": 890,
+     "K4": 1770
+    },
+    "SMEDEREVO|BATOČINA": {
+     "K3": 850,
+     "K4": 1710
+    },
+    "SMEDEREVO|JAGODINA": {
+     "K3": 1210,
+     "K4": 2420
+    },
+    "SMEDEREVO|ĆUPRIJA": {
+     "K3": 1430,
+     "K4": 2850
+    },
+    "SMEDEREVO|PARAĆIN": {
+     "K3": 1600,
+     "K4": 3200
+    },
+    "SMEDEREVO|RAŽANJ": {
+     "K3": 2010,
+     "K4": 4020
+    },
+    "SMEDEREVO|ALEKSINAČKI RUDNICI": {
+     "K3": 2350,
+     "K4": 4710
+    },
+    "SMEDEREVO|ALEKSINAC": {
+     "K3": 2440,
+     "K4": 4870
+    },
+    "SMEDEREVO|NIŠ JUG": {
+     "K3": 2840,
+     "K4": 5680
+    },
+    "SMEDEREVO|MEROŠINA": {
+     "K3": 2930,
+     "K4": 5870
+    },
+    "SMEDEREVO|DOLJEVAC SELO": {
+     "K3": 3110,
+     "K4": 6210
+    },
+    "SMEDEREVO|BRESTOVAC": {
+     "K3": 3200,
+     "K4": 6410
+    },
+    "SMEDEREVO|LESKOVAC CENTAR": {
+     "K3": 3320,
+     "K4": 6650
+    },
+    "SMEDEREVO|LESKOVAC JUG": {
+     "K3": 3590,
+     "K4": 7170
+    },
+    "SMEDEREVO|GRDELICA": {
+     "K3": 3770,
+     "K4": 7540
+    },
+    "SMEDEREVO|PREDEJANE": {
+     "K3": 4040,
+     "K4": 8080
+    },
+    "SMEDEREVO|VLADIČIN HAN": {
+     "K3": 4460,
+     "K4": 8910
+    },
+    "SMEDEREVO|VRANJE": {
+     "K3": 4840,
+     "K4": 9680
+    },
+    "SMEDEREVO|BUJANOVAC SEVER": {
+     "K3": 5070,
+     "K4": 10130
+    },
+    "SMEDEREVO|BUJANOVAC JUG": {
+     "K3": 5130,
+     "K4": 10260
+    },
+    "SMEDEREVO|PREŠEVO": {
+     "K3": 5470,
+     "K4": 10930
+    },
+    "SMEDEREVO|NIŠ SEVER": {
+     "K3": 2820,
+     "K4": 5640
+    },
+    "SMEDEREVO|NIŠ ISTOK": {
+     "K3": 2930,
+     "K4": 5860
+    },
+    "SMEDEREVO|MALČA": {
+     "K3": 3050,
+     "K4": 6100
+    },
+    "SMEDEREVO|BELA PALANKA": {
+     "K3": 3600,
+     "K4": 7200
+    },
+    "SMEDEREVO|PIROT ZAPAD": {
+     "K3": 4020,
+     "K4": 8030
+    },
+    "SMEDEREVO|PIROT ISTOK": {
+     "K3": 4230,
+     "K4": 8460
+    },
+    "SMEDEREVO|DIMITROVGRAD": {
+     "K3": 4710,
+     "K4": 9430
+    },
+    "SMEDEREVO|ĆIĆEVAC": {
+     "K3": 1870,
+     "K4": 3740
+    },
+    "SMEDEREVO|KRUŠEVAC ISTOK": {
+     "K3": 2180,
+     "K4": 4350
+    },
+    "SMEDEREVO|KRUŠEVAC ZAPAD": {
+     "K3": 2210,
+     "K4": 4410
+    },
+    "SMEDEREVO|KOŠEVI": {
+     "K3": 2310,
+     "K4": 4620
+    },
+    "SMEDEREVO|VELIKA DRENOVA": {
+     "K3": 2440,
+     "K4": 4870
+    },
+    "SMEDEREVO|TRSTENIK": {
+     "K3": 2670,
+     "K4": 5330
+    },
+    "SMEDEREVO|VRNJAČKA BANJA": {
+     "K3": 2860,
+     "K4": 5720
+    },
+    "SMEDEREVO|VRBA": {
+     "K3": 3090,
+     "K4": 6180
+    },
+    "SMEDEREVO|POŽAREVAC": {
+     "K3": 20
+    },
+    "SMEDEREVO|VELIKA PLANA": {
+     "K3": 500,
+     "K4": 1000
+    },
+    "SMEDEREVO|MARKOVAC": {
+     "K3": 690,
+     "K4": 1380
+    },
+    "SMEDEREVO|LAPOVO": {
+     "K3": 790,
+     "K4": 1580
+    },
+    "POŽAREVAC|BATOČINA": {
+     "K3": 830,
+     "K4": 1660
+    },
+    "POŽAREVAC|JAGODINA": {
+     "K3": 1190,
+     "K4": 2370
+    },
+    "POŽAREVAC|ĆUPRIJA": {
+     "K3": 1400,
+     "K4": 2800
+    },
+    "POŽAREVAC|PARAĆIN": {
+     "K3": 1580,
+     "K4": 3150
+    },
+    "POŽAREVAC|RAŽANJ": {
+     "K3": 1990,
+     "K4": 3970
+    },
+    "POŽAREVAC|ALEKSINAČKI RUDNICI": {
+     "K3": 2330,
+     "K4": 4660
+    },
+    "POŽAREVAC|ALEKSINAC": {
+     "K3": 2410,
+     "K4": 4820
+    },
+    "POŽAREVAC|NIŠ JUG": {
+     "K3": 2810,
+     "K4": 5630
+    },
+    "POŽAREVAC|MEROŠINA": {
+     "K3": 2910,
+     "K4": 5820
+    },
+    "POŽAREVAC|DOLJEVAC SELO": {
+     "K3": 3080,
+     "K4": 6160
+    },
+    "POŽAREVAC|BRESTOVAC": {
+     "K3": 3180,
+     "K4": 6360
+    },
+    "POŽAREVAC|LESKOVAC CENTAR": {
+     "K3": 3300,
+     "K4": 6600
+    },
+    "POŽAREVAC|LESKOVAC JUG": {
+     "K3": 3560,
+     "K4": 7130
+    },
+    "POŽAREVAC|GRDELICA": {
+     "K3": 3750,
+     "K4": 7490
+    },
+    "POŽAREVAC|PREDEJANE": {
+     "K3": 4010,
+     "K4": 8030
+    },
+    "POŽAREVAC|VLADIČIN HAN": {
+     "K3": 4430,
+     "K4": 8860
+    },
+    "POŽAREVAC|VRANJE": {
+     "K3": 4820,
+     "K4": 9630
+    },
+    "POŽAREVAC|BUJANOVAC SEVER": {
+     "K3": 5040,
+     "K4": 10080
+    },
+    "POŽAREVAC|BUJANOVAC JUG": {
+     "K3": 5100,
+     "K4": 10210
+    },
+    "POŽAREVAC|PREŠEVO": {
+     "K3": 5440,
+     "K4": 10880
+    },
+    "POŽAREVAC|NIŠ SEVER": {
+     "K3": 2800,
+     "K4": 5590
+    },
+    "POŽAREVAC|NIŠ ISTOK": {
+     "K3": 2910,
+     "K4": 5810
+    },
+    "POŽAREVAC|MALČA": {
+     "K3": 3030,
+     "K4": 6050
+    },
+    "POŽAREVAC|BELA PALANKA": {
+     "K3": 3570,
+     "K4": 7150
+    },
+    "POŽAREVAC|PIROT ZAPAD": {
+     "K3": 3990,
+     "K4": 7990
+    },
+    "POŽAREVAC|PIROT ISTOK": {
+     "K3": 4200,
+     "K4": 8410
+    },
+    "POŽAREVAC|DIMITROVGRAD": {
+     "K3": 4690,
+     "K4": 9380
+    },
+    "POŽAREVAC|ĆIĆEVAC": {
+     "K3": 1840,
+     "K4": 3690
+    },
+    "POŽAREVAC|KRUŠEVAC ISTOK": {
+     "K3": 2150,
+     "K4": 4310
+    },
+    "POŽAREVAC|KRUŠEVAC ZAPAD": {
+     "K3": 2180,
+     "K4": 4360
+    },
+    "POŽAREVAC|KOŠEVI": {
+     "K3": 2280,
+     "K4": 4570
+    },
+    "POŽAREVAC|VELIKA DRENOVA": {
+     "K3": 2410,
+     "K4": 4820
+    },
+    "POŽAREVAC|TRSTENIK": {
+     "K3": 2640,
+     "K4": 5280
+    },
+    "POŽAREVAC|VRNJAČKA BANJA": {
+     "K3": 2840,
+     "K4": 5670
+    },
+    "POŽAREVAC|VRBA": {
+     "K3": 3070,
+     "K4": 6130
+    },
+    "POŽAREVAC|VELIKA PLANA": {
+     "K3": 470,
+     "K4": 950
+    },
+    "POŽAREVAC|MARKOVAC": {
+     "K3": 660,
+     "K4": 1330
+    },
+    "POŽAREVAC|LAPOVO": {
+     "K3": 770,
+     "K4": 1540
+    },
+    "VELIKA PLANA|BATOČINA": {
+     "K3": 360,
+     "K4": 710
+    },
+    "VELIKA PLANA|JAGODINA": {
+     "K3": 710,
+     "K4": 1430
+    },
+    "VELIKA PLANA|ĆUPRIJA": {
+     "K3": 930,
+     "K4": 1860
+    },
+    "VELIKA PLANA|PARAĆIN": {
+     "K3": 1100,
+     "K4": 2210
+    },
+    "VELIKA PLANA|RAŽANJ": {
+     "K3": 1510,
+     "K4": 3020
+    },
+    "VELIKA PLANA|ALEKSINAČKI RUDNICI": {
+     "K3": 1860,
+     "K4": 3710
+    },
+    "VELIKA PLANA|ALEKSINAC": {
+     "K3": 1940,
+     "K4": 3870
+    },
+    "VELIKA PLANA|NIŠ JUG": {
+     "K3": 2340,
+     "K4": 4680
+    },
+    "VELIKA PLANA|MEROŠINA": {
+     "K3": 2430,
+     "K4": 4870
+    },
+    "VELIKA PLANA|DOLJEVAC SELO": {
+     "K3": 2610,
+     "K4": 5220
+    },
+    "VELIKA PLANA|BRESTOVAC": {
+     "K3": 2710,
+     "K4": 5410
+    },
+    "VELIKA PLANA|LESKOVAC CENTAR": {
+     "K3": 2820,
+     "K4": 5650
+    },
+    "VELIKA PLANA|LESKOVAC JUG": {
+     "K3": 3090,
+     "K4": 6180
+    },
+    "VELIKA PLANA|GRDELICA": {
+     "K3": 3270,
+     "K4": 6540
+    },
+    "VELIKA PLANA|PREDEJANE": {
+     "K3": 3540,
+     "K4": 7080
+    },
+    "VELIKA PLANA|VLADIČIN HAN": {
+     "K3": 3960,
+     "K4": 7920
+    },
+    "VELIKA PLANA|VRANJE": {
+     "K3": 4340,
+     "K4": 8690
+    },
+    "VELIKA PLANA|BUJANOVAC SEVER": {
+     "K3": 4570,
+     "K4": 9140
+    },
+    "VELIKA PLANA|BUJANOVAC JUG": {
+     "K3": 4630,
+     "K4": 9260
+    },
+    "VELIKA PLANA|PREŠEVO": {
+     "K3": 4970,
+     "K4": 9940
+    },
+    "VELIKA PLANA|NIŠ SEVER": {
+     "K3": 2320,
+     "K4": 4640
+    },
+    "VELIKA PLANA|NIŠ ISTOK": {
+     "K3": 2430,
+     "K4": 4860
+    },
+    "VELIKA PLANA|MALČA": {
+     "K3": 2550,
+     "K4": 5110
+    },
+    "VELIKA PLANA|BELA PALANKA": {
+     "K3": 3100,
+     "K4": 6200
+    },
+    "VELIKA PLANA|PIROT ZAPAD": {
+     "K3": 3520,
+     "K4": 7040
+    },
+    "VELIKA PLANA|PIROT ISTOK": {
+     "K3": 3730,
+     "K4": 7460
+    },
+    "VELIKA PLANA|DIMITROVGRAD": {
+     "K3": 4220,
+     "K4": 8430
+    },
+    "VELIKA PLANA|ĆIĆEVAC": {
+     "K3": 1370,
+     "K4": 2740
+    },
+    "VELIKA PLANA|KRUŠEVAC ISTOK": {
+     "K3": 1680,
+     "K4": 3360
+    },
+    "VELIKA PLANA|KRUŠEVAC ZAPAD": {
+     "K3": 1710,
+     "K4": 3420
+    },
+    "VELIKA PLANA|KOŠEVI": {
+     "K3": 1810,
+     "K4": 3620
+    },
+    "VELIKA PLANA|VELIKA DRENOVA": {
+     "K3": 1940,
+     "K4": 3870
+    },
+    "VELIKA PLANA|TRSTENIK": {
+     "K3": 2170,
+     "K4": 4340
+    },
+    "VELIKA PLANA|VRNJAČKA BANJA": {
+     "K3": 2360,
+     "K4": 4730
+    },
+    "VELIKA PLANA|VRBA": {
+     "K3": 2590,
+     "K4": 5190
+    },
+    "VELIKA PLANA|MARKOVAC": {
+     "K3": 190,
+     "K4": 380
+    },
+    "VELIKA PLANA|LAPOVO": {
+     "K3": 290,
+     "K4": 590
+    },
+    "MARKOVAC|BATOČINA": {
+     "K3": 170,
+     "K4": 330
+    },
+    "MARKOVAC|JAGODINA": {
+     "K3": 520,
+     "K4": 1050
+    },
+    "MARKOVAC|ĆUPRIJA": {
+     "K3": 740,
+     "K4": 1480
+    },
+    "MARKOVAC|PARAĆIN": {
+     "K3": 910,
+     "K4": 1830
+    },
+    "MARKOVAC|RAŽANJ": {
+     "K3": 1320,
+     "K4": 2640
+    },
+    "MARKOVAC|ALEKSINAČKI RUDNICI": {
+     "K3": 1670,
+     "K4": 3330
+    },
+    "MARKOVAC|ALEKSINAC": {
+     "K3": 1750,
+     "K4": 3490
+    },
+    "MARKOVAC|NIŠ JUG": {
+     "K3": 2150,
+     "K4": 4300
+    },
+    "MARKOVAC|MEROŠINA": {
+     "K3": 2240,
+     "K4": 4490
+    },
+    "MARKOVAC|DOLJEVAC SELO": {
+     "K3": 2420,
+     "K4": 4840
+    },
+    "MARKOVAC|BRESTOVAC": {
+     "K3": 2520,
+     "K4": 5030
+    },
+    "MARKOVAC|LESKOVAC CENTAR": {
+     "K3": 2630,
+     "K4": 5270
+    },
+    "MARKOVAC|LESKOVAC JUG": {
+     "K3": 2900,
+     "K4": 5800
+    },
+    "MARKOVAC|GRDELICA": {
+     "K3": 3080,
+     "K4": 6160
+    },
+    "MARKOVAC|PREDEJANE": {
+     "K3": 3350,
+     "K4": 6700
+    },
+    "MARKOVAC|VLADIČIN HAN": {
+     "K3": 3770,
+     "K4": 7540
+    },
+    "MARKOVAC|VRANJE": {
+     "K3": 4150,
+     "K4": 8310
+    },
+    "MARKOVAC|BUJANOVAC SEVER": {
+     "K3": 4380,
+     "K4": 8760
+    },
+    "MARKOVAC|BUJANOVAC JUG": {
+     "K3": 4440,
+     "K4": 8880
+    },
+    "MARKOVAC|PREŠEVO": {
+     "K3": 4780,
+     "K4": 9560
+    },
+    "MARKOVAC|NIŠ SEVER": {
+     "K3": 2130,
+     "K4": 4260
+    },
+    "MARKOVAC|NIŠ ISTOK": {
+     "K3": 2240,
+     "K4": 4480
+    },
+    "MARKOVAC|MALČA": {
+     "K3": 2360,
+     "K4": 4730
+    },
+    "MARKOVAC|BELA PALANKA": {
+     "K3": 2910,
+     "K4": 5820
+    },
+    "MARKOVAC|PIROT ZAPAD": {
+     "K3": 3330,
+     "K4": 6660
+    },
+    "MARKOVAC|PIROT ISTOK": {
+     "K3": 3540,
+     "K4": 7080
+    },
+    "MARKOVAC|DIMITROVGRAD": {
+     "K3": 4030,
+     "K4": 8050
+    },
+    "MARKOVAC|ĆIĆEVAC": {
+     "K3": 1180,
+     "K4": 2360
+    },
+    "MARKOVAC|KRUŠEVAC ISTOK": {
+     "K3": 1490,
+     "K4": 2980
+    },
+    "MARKOVAC|KRUŠEVAC ZAPAD": {
+     "K3": 1520,
+     "K4": 3040
+    },
+    "MARKOVAC|KOŠEVI": {
+     "K3": 1620,
+     "K4": 3240
+    },
+    "MARKOVAC|VELIKA DRENOVA": {
+     "K3": 1750,
+     "K4": 3490
+    },
+    "MARKOVAC|TRSTENIK": {
+     "K3": 1980,
+     "K4": 3960
+    },
+    "MARKOVAC|VRNJAČKA BANJA": {
+     "K3": 2170,
+     "K4": 4350
+    },
+    "MARKOVAC|VRBA": {
+     "K3": 2400,
+     "K4": 4810
+    },
+    "MARKOVAC|LAPOVO": {
+     "K3": 100,
+     "K4": 210
+    },
+    "LAPOVO|BATOČINA": {
+     "K3": 60,
+     "K4": 120
+    },
+    "LAPOVO|JAGODINA": {
+     "K3": 420,
+     "K4": 840
+    },
+    "LAPOVO|ĆUPRIJA": {
+     "K3": 630,
+     "K4": 1270
+    },
+    "LAPOVO|PARAĆIN": {
+     "K3": 810,
+     "K4": 1620
+    },
+    "LAPOVO|RAŽANJ": {
+     "K3": 1220,
+     "K4": 2430
+    },
+    "LAPOVO|ALEKSINAČKI RUDNICI": {
+     "K3": 1560,
+     "K4": 3120
+    },
+    "LAPOVO|ALEKSINAC": {
+     "K3": 1640,
+     "K4": 3290
+    },
+    "LAPOVO|NIŠ JUG": {
+     "K3": 2050,
+     "K4": 4090
+    },
+    "LAPOVO|MEROŠINA": {
+     "K3": 2140,
+     "K4": 4280
+    },
+    "LAPOVO|DOLJEVAC SELO": {
+     "K3": 2310,
+     "K4": 4630
+    },
+    "LAPOVO|BRESTOVAC": {
+     "K3": 2410,
+     "K4": 4820
+    },
+    "LAPOVO|LESKOVAC CENTAR": {
+     "K3": 2530,
+     "K4": 5060
+    },
+    "LAPOVO|LESKOVAC JUG": {
+     "K3": 2800,
+     "K4": 5590
+    },
+    "LAPOVO|GRDELICA": {
+     "K3": 2980,
+     "K4": 5960
+    },
+    "LAPOVO|PREDEJANE": {
+     "K3": 3250,
+     "K4": 6490
+    },
+    "LAPOVO|VLADIČIN HAN": {
+     "K3": 3660,
+     "K4": 7330
+    },
+    "LAPOVO|VRANJE": {
+     "K3": 4050,
+     "K4": 8100
+    },
+    "LAPOVO|BUJANOVAC SEVER": {
+     "K3": 4270,
+     "K4": 8550
+    },
+    "LAPOVO|BUJANOVAC JUG": {
+     "K3": 4340,
+     "K4": 8670
+    },
+    "LAPOVO|PREŠEVO": {
+     "K3": 4670,
+     "K4": 9350
+    },
+    "LAPOVO|NIŠ SEVER": {
+     "K3": 2030,
+     "K4": 4060
+    },
+    "LAPOVO|NIŠ ISTOK": {
+     "K3": 2140,
+     "K4": 4270
+    },
+    "LAPOVO|MALČA": {
+     "K3": 2260,
+     "K4": 4520
+    },
+    "LAPOVO|BELA PALANKA": {
+     "K3": 2810,
+     "K4": 5610
+    },
+    "LAPOVO|PIROT ZAPAD": {
+     "K3": 3220,
+     "K4": 6450
+    },
+    "LAPOVO|PIROT ISTOK": {
+     "K3": 3440,
+     "K4": 6870
+    },
+    "LAPOVO|DIMITROVGRAD": {
+     "K3": 3920,
+     "K4": 7840
+    },
+    "LAPOVO|ĆIĆEVAC": {
+     "K3": 1080,
+     "K4": 2150
+    },
+    "LAPOVO|KRUŠEVAC ISTOK": {
+     "K3": 1380,
+     "K4": 2770
+    },
+    "LAPOVO|KRUŠEVAC ZAPAD": {
+     "K3": 1410,
+     "K4": 2830
+    },
+    "LAPOVO|KOŠEVI": {
+     "K3": 1520,
+     "K4": 3030
+    },
+    "LAPOVO|VELIKA DRENOVA": {
+     "K3": 1640,
+     "K4": 3290
+    },
+    "LAPOVO|TRSTENIK": {
+     "K3": 1870,
+     "K4": 3750
+    },
+    "LAPOVO|VRNJAČKA BANJA": {
+     "K3": 2070,
+     "K4": 4140
+    },
+    "LAPOVO|VRBA": {
+     "K3": 2300,
+     "K4": 4600
+    }
+   }
+  }
+ ],
+ "osm_extract": "2026-11-27"
+}

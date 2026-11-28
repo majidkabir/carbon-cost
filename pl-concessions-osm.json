@@ -1,0 +1,2230 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-11-28T09:35:51Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "node",
+  "id": 29944097,
+  "lat": 52.3508110,
+  "lon": 16.8473571,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "160",
+    "name": "Poznań Komorniki",
+    "noref": "yes",
+    "note:ref": "Na A2 nie stosuje się numeracji węzłów. Zobacz https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf",
+    "old_name": "Komorniki"
+  }
+},
+{
+  "type": "node",
+  "id": 34802048,
+  "lat": 50.0012066,
+  "lon": 19.9438840,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "419",
+    "name": "Kraków Łagiewniki",
+    "old_name": "Łagiewnicki",
+    "unsigned_ref": "R7"
+  }
+},
+{
+  "type": "node",
+  "id": 34802068,
+  "lat": 49.9919033,
+  "lon": 19.9128923,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "417",
+    "name": "Kraków Południe",
+    "old_name": "Zakopiański",
+    "unsigned_ref": "R6"
+  }
+},
+{
+  "type": "node",
+  "id": 37828762,
+  "lat": 50.0038792,
+  "lon": 20.0149456,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "425",
+    "name": "Kraków Wieliczka",
+    "old_name": "Wielicka",
+    "unsigned_ref": "R8"
+  }
+},
+{
+  "type": "node",
+  "id": 147784902,
+  "lat": 49.9918149,
+  "lon": 19.9130275,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "417",
+    "name": "Kraków Południe",
+    "old_name": "Zakopiański",
+    "unsigned_ref": "R6"
+  }
+},
+{
+  "type": "node",
+  "id": 148056450,
+  "lat": 52.3535220,
+  "lon": 16.9072549,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "164",
+    "name": "Poznań Luboń",
+    "noref": "yes",
+    "note:ref": "Na A2 nie stosuje się numeracji węzłów. Zobacz https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf",
+    "old_name": "Dębina"
+  }
+},
+{
+  "type": "node",
+  "id": 192620733,
+  "lat": 50.2146692,
+  "lon": 19.1365177,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "347",
+    "name": "Mysłowice",
+    "unsigned_ref": "44"
+  }
+},
+{
+  "type": "node",
+  "id": 201785380,
+  "lat": 50.2069157,
+  "lon": 19.1706811,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "350",
+    "name": "Brzęczkowice",
+    "unsigned_ref": "45A"
+  }
+},
+{
+  "type": "node",
+  "id": 201795743,
+  "lat": 50.1519652,
+  "lon": 19.3945245,
+  "tags": {
+    "highway": "motorway_junction",
+    "name": "Balin",
+    "unsigned_ref": "48"
+  }
+},
+{
+  "type": "node",
+  "id": 201855456,
+  "lat": 50.1480492,
+  "lon": 19.4281805,
+  "tags": {
+    "highway": "motorway_junction",
+    "name": "Chrzanów",
+    "unsigned_ref": "49"
+  }
+},
+{
+  "type": "node",
+  "id": 206223681,
+  "lat": 50.1006071,
+  "lon": 19.5478290,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "382",
+    "name": "Rudno",
+    "unsigned_ref": "50"
+  }
+},
+{
+  "type": "node",
+  "id": 206225788,
+  "lat": 50.0856686,
+  "lon": 19.8020216,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "401",
+    "name": "Balice I",
+    "unsigned_ref": "51"
+  }
+},
+{
+  "type": "node",
+  "id": 206226387,
+  "lat": 50.0860933,
+  "lon": 19.8028770,
+  "tags": {
+    "highway": "motorway_junction",
+    "name": "Balice I",
+    "unsigned_ref": "R1"
+  }
+},
+{
+  "type": "node",
+  "id": 206226748,
+  "lat": 50.0852851,
+  "lon": 19.8077719,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "401",
+    "name": "Balice I",
+    "unsigned_ref": "R1"
+  }
+},
+{
+  "type": "node",
+  "id": 226524762,
+  "lat": 49.9962522,
+  "lon": 19.8578349,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "413",
+    "name": "Kraków Skawina",
+    "old_name": "Sidzina",
+    "unsigned_ref": "R5"
+  }
+},
+{
+  "type": "node",
+  "id": 226529269,
+  "lat": 49.9993326,
+  "lon": 19.8532845,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "413",
+    "name": "Kraków Skawina",
+    "old_name": "Sidzina",
+    "unsigned_ref": "R5"
+  }
+},
+{
+  "type": "node",
+  "id": 242745695,
+  "lat": 50.2430511,
+  "lon": 19.0449687,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "341",
+    "name": "Murckowska",
+    "unsigned_ref": "43"
+  }
+},
+{
+  "type": "node",
+  "id": 242746804,
+  "lat": 50.2460497,
+  "lon": 19.0276812,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "338",
+    "name": "Katowice Francuska",
+    "unsigned_ref": "42"
+  }
+},
+{
+  "type": "node",
+  "id": 244397086,
+  "lat": 50.0348695,
+  "lon": 19.8148509,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "407",
+    "name": "Kraków Bielany",
+    "old_name": "Mirowski",
+    "unsigned_ref": "R3"
+  }
+},
+{
+  "type": "node",
+  "id": 244397947,
+  "lat": 50.0215983,
+  "lon": 19.8276796,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "409",
+    "name": "Kraków Tyniec",
+    "old_name": "Tyniecki",
+    "unsigned_ref": "R4"
+  }
+},
+{
+  "type": "node",
+  "id": 247093231,
+  "lat": 50.0197866,
+  "lon": 19.8307351,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "409",
+    "name": "Kraków Tyniec",
+    "old_name": "Tyniecki",
+    "unsigned_ref": "R4"
+  }
+},
+{
+  "type": "node",
+  "id": 247097469,
+  "lat": 49.9925321,
+  "lon": 19.9175100,
+  "tags": {
+    "highway": "motorway_junction",
+    "name": "Kraków Południe",
+    "old_name": "Zakopiański",
+    "unsigned_ref": "R6"
+  }
+},
+{
+  "type": "node",
+  "id": 255587754,
+  "lat": 54.0996322,
+  "lon": 18.6949180,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "SPO Stanisławie"
+  }
+},
+{
+  "type": "node",
+  "id": 257728411,
+  "lat": 52.3765200,
+  "lon": 16.5667439,
+  "tags": {
+    "destination": "Buk;Poznań",
+    "destination:ref": "307",
+    "highway": "motorway_junction",
+    "milestone": "140",
+    "name": "Buk",
+    "noref": "yes",
+    "note:ref": "Na A2 nie stosuje się numeracji węzłów. Zobacz https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf"
+  }
+},
+{
+  "type": "node",
+  "id": 258184026,
+  "lat": 54.2267871,
+  "lon": 18.6120497,
+  "tags": {
+    "barrier": "toll_booth",
+    "currency:EUR": "yes",
+    "currency:PLN": "yes",
+    "currency:USD": "yes",
+    "name": "PPO Rusocin",
+    "payment:cash": "yes",
+    "payment:credit_cards": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 258184531,
+  "lat": 54.2268374,
+  "lon": 18.6126329,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "PPO Rusocin"
+  }
+},
+{
+  "type": "node",
+  "id": 258184558,
+  "lat": 54.1009006,
+  "lon": 18.6922970,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "17",
+    "name": "Stanisławie",
+    "note:ref": "brak numerów w terenie lub na https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf",
+    "unsigned_ref": "2"
+  }
+},
+{
+  "type": "node",
+  "id": 260130052,
+  "lat": 52.3328356,
+  "lon": 14.8735891,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "20",
+    "name": "Rzepin",
+    "noref": "yes",
+    "note:ref": "Na A2 nie stosuje się numeracji węzłów. Zobacz https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf"
+  }
+},
+{
+  "type": "node",
+  "id": 265261955,
+  "lat": 52.3158641,
+  "lon": 17.5299521,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "207",
+    "name": "Września",
+    "noref": "yes",
+    "note:ref": "Na A2 nie stosuje się numeracji węzłów. Zobacz https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf"
+  }
+},
+{
+  "type": "node",
+  "id": 269378340,
+  "lat": 52.3466848,
+  "lon": 16.9906937,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "169",
+    "name": "Poznań Krzesiny",
+    "noref": "yes",
+    "note:ref": "Na A2 nie stosuje się numeracji węzłów. Zobacz https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf",
+    "old_name": "Krzesiny"
+  }
+},
+{
+  "type": "node",
+  "id": 272814278,
+  "lat": 50.0009179,
+  "lon": 19.9347798,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "419",
+    "name": "Kraków Łagiewniki",
+    "old_name": "Łagiewnicki",
+    "unsigned_ref": "R7"
+  }
+},
+{
+  "type": "node",
+  "id": 274380005,
+  "lat": 50.0595937,
+  "lon": 19.8629786,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 294991281,
+  "lat": 50.1462617,
+  "lon": 19.4348083,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "372",
+    "name": "Chrzanów",
+    "unsigned_ref": "49"
+  }
+},
+{
+  "type": "node",
+  "id": 294991319,
+  "lat": 50.1474270,
+  "lon": 19.4297970,
+  "tags": {
+    "highway": "motorway_junction",
+    "name": "Chrzanów",
+    "unsigned_ref": "49"
+  }
+},
+{
+  "type": "node",
+  "id": 294991383,
+  "lat": 50.1492053,
+  "lon": 19.4228339,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "372",
+    "name": "Chrzanów",
+    "unsigned_ref": "49"
+  }
+},
+{
+  "type": "node",
+  "id": 305609588,
+  "lat": 53.4739696,
+  "lon": 18.6177102,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "89",
+    "name": "Nowe Marzy",
+    "note:ref": "brak numerów w terenie lub na https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf",
+    "unsigned_ref": "7"
+  }
+},
+{
+  "type": "node",
+  "id": 305610714,
+  "lat": 53.4743197,
+  "lon": 18.6174447,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "89",
+    "name": "Nowe Marzy",
+    "note:ref": "brak numerów w terenie lub na https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf",
+    "unsigned_ref": "7"
+  }
+},
+{
+  "type": "node",
+  "id": 314354864,
+  "lat": 53.9329375,
+  "lon": 18.6408495,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "36",
+    "name": "Pelplin",
+    "note:ref": "brak numerów w terenie lub na https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf",
+    "unsigned_ref": "4"
+  }
+},
+{
+  "type": "node",
+  "id": 314355650,
+  "lat": 53.9302387,
+  "lon": 18.6429350,
+  "tags": {
+    "barrier": "toll_booth",
+    "foot": "no",
+    "name": "Punkt Poboru Opłat Pelplin"
+  }
+},
+{
+  "type": "node",
+  "id": 321341513,
+  "lat": 50.2473435,
+  "lon": 19.0083410,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "336",
+    "name": "Katowice Mikołowska",
+    "unsigned_ref": "41"
+  }
+},
+{
+  "type": "node",
+  "id": 321894024,
+  "lat": 50.2081526,
+  "lon": 19.1654682,
+  "tags": {
+    "highway": "motorway_junction",
+    "name": "Brzęczkowice",
+    "unsigned_ref": "45B"
+  }
+},
+{
+  "type": "node",
+  "id": 322483157,
+  "lat": 50.2467477,
+  "lon": 19.0148657,
+  "tags": {
+    "highway": "motorway_junction",
+    "name": "Katowice Francuska",
+    "unsigned_ref": "42"
+  }
+},
+{
+  "type": "node",
+  "id": 322486530,
+  "lat": 50.2517028,
+  "lon": 18.9911501,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "336",
+    "name": "Katowice Mikołowska",
+    "unsigned_ref": "41"
+  }
+},
+{
+  "type": "node",
+  "id": 356950562,
+  "lat": 50.0361542,
+  "lon": 19.8134383,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "407",
+    "name": "Kraków Bielany",
+    "old_name": "Mirowski",
+    "unsigned_ref": "R3"
+  }
+},
+{
+  "type": "node",
+  "id": 386246520,
+  "lat": 50.2547966,
+  "lon": 18.9459227,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "331",
+    "name": "Chorzów",
+    "unsigned_ref": "40"
+  }
+},
+{
+  "type": "node",
+  "id": 390493410,
+  "lat": 50.2537643,
+  "lon": 18.9383371,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "331",
+    "name": "Chorzów",
+    "unsigned_ref": "40"
+  }
+},
+{
+  "type": "node",
+  "id": 494339561,
+  "lat": 50.2171942,
+  "lon": 19.1235153,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "347",
+    "name": "Mysłowice",
+    "unsigned_ref": "44"
+  }
+},
+{
+  "type": "node",
+  "id": 504688825,
+  "lat": 52.3505099,
+  "lon": 16.7765611,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "155",
+    "name": "Poznań Zachód",
+    "noref": "yes",
+    "note:ref": "Na A2 nie stosuje się numeracji węzłów. Zobacz https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf",
+    "old_name": "Głuchowo"
+  }
+},
+{
+  "type": "node",
+  "id": 509694634,
+  "lat": 50.1499598,
+  "lon": 19.2641054,
+  "tags": {
+    "destination:colour:text": "white",
+    "highway": "motorway_junction",
+    "milestone": "361",
+    "name": "Jeleń",
+    "unsigned_ref": "46"
+  }
+},
+{
+  "type": "node",
+  "id": 528524654,
+  "lat": 52.1553055,
+  "lon": 18.2691417,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "261",
+    "name": "Konin Wschód",
+    "noref": "yes",
+    "note:ref": "Na A2 nie stosuje się numeracji węzłów. Zobacz https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf",
+    "old_name": "Żdżary"
+  }
+},
+{
+  "type": "node",
+  "id": 528524657,
+  "lat": 52.1569394,
+  "lon": 18.2625171,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "261",
+    "name": "Konin Wschód",
+    "noref": "yes",
+    "note:ref": "Na A2 nie stosuje się numeracji węzłów. Zobacz https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf",
+    "old_name": "Żdżary"
+  }
+},
+{
+  "type": "node",
+  "id": 528536483,
+  "lat": 52.1636101,
+  "lon": 18.2015777,
+  "tags": {
+    "alt_name": "Konin Zachód",
+    "highway": "motorway_junction",
+    "milestone": "256",
+    "name": "Modła",
+    "noref": "yes",
+    "note:name": "Tablica zapowiadająca węzeł nadal podaje nazwę \"Modła\"",
+    "note:ref": "Na A2 nie stosuje się numeracji węzłów. Zobacz https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf",
+    "source:name": "traffic_sign"
+  }
+},
+{
+  "type": "node",
+  "id": 538666669,
+  "lat": 50.1518868,
+  "lon": 19.3982520,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "369",
+    "name": "Balin",
+    "unsigned_ref": "48"
+  }
+},
+{
+  "type": "node",
+  "id": 552225393,
+  "lat": 50.2075665,
+  "lon": 19.1672490,
+  "tags": {
+    "highway": "motorway_junction",
+    "name": "Brzęczkowice",
+    "unsigned_ref": "45A"
+  }
+},
+{
+  "type": "node",
+  "id": 552993024,
+  "lat": 50.1517939,
+  "lon": 19.3461054,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "366",
+    "name": "Byczyna",
+    "unsigned_ref": "47"
+  }
+},
+{
+  "type": "node",
+  "id": 554113345,
+  "lat": 50.0162937,
+  "lon": 20.0696467,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "428",
+    "name": "Kraków Bieżanów",
+    "unsigned_ref": "52"
+  }
+},
+{
+  "type": "node",
+  "id": 554113392,
+  "lat": 50.0056780,
+  "lon": 20.0247627,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "425",
+    "name": "Kraków Wieliczka",
+    "old_name": "Wielicka",
+    "unsigned_ref": "R8"
+  }
+},
+{
+  "type": "node",
+  "id": 587577077,
+  "lat": 53.2852967,
+  "lon": 18.7093481,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "113",
+    "name": "Lisewo",
+    "note:ref": "brak numerów w terenie lub na https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf",
+    "unsigned_ref": "9"
+  }
+},
+{
+  "type": "node",
+  "id": 608643334,
+  "lat": 53.0322928,
+  "lon": 18.7313977,
+  "tags": {
+    "alt_name": "Toruń Wschód",
+    "highway": "motorway_junction",
+    "milestone": "142",
+    "name": "Lubicz",
+    "note:ref": "brak numerów w terenie lub na https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf",
+    "unsigned_ref": "11"
+  }
+},
+{
+  "type": "node",
+  "id": 609306235,
+  "lat": 50.2462058,
+  "lon": 19.0253366,
+  "tags": {
+    "highway": "motorway_junction",
+    "name": "Katowice Francuska",
+    "unsigned_ref": "42"
+  }
+},
+{
+  "type": "node",
+  "id": 700165405,
+  "lat": 52.3782182,
+  "lon": 16.5606143,
+  "tags": {
+    "destination": "Buk;Poznań",
+    "destination:ref": "307",
+    "highway": "motorway_junction",
+    "milestone": "139",
+    "name": "Buk",
+    "noref": "yes",
+    "note:ref": "Na A2 nie stosuje się numeracji węzłów. Zobacz https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf"
+  }
+},
+{
+  "type": "node",
+  "id": 796677172,
+  "lat": 50.2086799,
+  "lon": 19.1622937,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "350",
+    "name": "Brzęczkowice",
+    "unsigned_ref": "45A"
+  }
+},
+{
+  "type": "node",
+  "id": 888554007,
+  "lat": 50.0096144,
+  "lon": 20.0586611,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "428",
+    "name": "Kraków Bieżanów",
+    "unsigned_ref": "R9"
+  }
+},
+{
+  "type": "node",
+  "id": 920935702,
+  "lat": 53.7387373,
+  "lon": 18.6331551,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "SPO Kopytkowo"
+  }
+},
+{
+  "type": "node",
+  "id": 920935813,
+  "lat": 53.7344616,
+  "lon": 18.6291765,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "59",
+    "name": "Kopytkowo",
+    "note:ref": "brak numerów w terenie lub na https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf",
+    "unsigned_ref": "5"
+  }
+},
+{
+  "type": "node",
+  "id": 920935836,
+  "lat": 53.7351264,
+  "lon": 18.6291081,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "59",
+    "name": "Kopytkowo",
+    "note:ref": "brak numerów w terenie lub na https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf",
+    "unsigned_ref": "5"
+  }
+},
+{
+  "type": "node",
+  "id": 920936012,
+  "lat": 53.9316252,
+  "lon": 18.6409072,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "37",
+    "name": "Pelplin",
+    "note:ref": "brak numerów w terenie lub na https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf",
+    "unsigned_ref": "4"
+  }
+},
+{
+  "type": "node",
+  "id": 1018393614,
+  "lat": 52.3251539,
+  "lon": 15.0874488,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "35",
+    "name": "Torzym",
+    "noref": "yes",
+    "note:ref": "Na A2 nie stosuje się numeracji węzłów. Zobacz https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf"
+  }
+},
+{
+  "type": "node",
+  "id": 1018398482,
+  "lat": 52.3250291,
+  "lon": 15.0829575,
+  "tags": {
+    "highway": "motorway_junction",
+    "note:ref": "Na A2 nie stosuje się numeracji węzłów. Zobacz https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf"
+  }
+},
+{
+  "type": "node",
+  "id": 1018409777,
+  "lat": 52.3247476,
+  "lon": 15.0772314,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "34",
+    "name": "Torzym",
+    "noref": "yes",
+    "note:ref": "Na A2 nie stosuje się numeracji węzłów. Zobacz https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf"
+  }
+},
+{
+  "type": "node",
+  "id": 1084469715,
+  "lat": 54.3812167,
+  "lon": 18.4696361,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 1086792975,
+  "lat": 50.2356800,
+  "lon": 19.0614303,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "341",
+    "name": "Murckowska",
+    "unsigned_ref": "43"
+  }
+},
+{
+  "type": "node",
+  "id": 1465427699,
+  "lat": 53.2900058,
+  "lon": 18.7078228,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "112",
+    "name": "Lisewo",
+    "note:ref": "brak numerów w terenie lub na https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf",
+    "unsigned_ref": "9"
+  }
+},
+{
+  "type": "node",
+  "id": 1467788573,
+  "lat": 52.9595570,
+  "lon": 18.6802432,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "153",
+    "name": "Toruń Południe",
+    "ref": "12"
+  }
+},
+{
+  "type": "node",
+  "id": 1468136023,
+  "lat": 53.4263838,
+  "lon": 18.6928869,
+  "tags": {
+    "destination:ref": "95",
+    "highway": "motorway_junction",
+    "milestone": "97",
+    "name": "Grudziądz",
+    "note:ref": "brak numerów w terenie lub na https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf",
+    "unsigned_ref": "8"
+  }
+},
+{
+  "type": "node",
+  "id": 1478005864,
+  "lat": 52.9677314,
+  "lon": 18.6790103,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "152",
+    "name": "Toruń Południe",
+    "ref": "12"
+  }
+},
+{
+  "type": "node",
+  "id": 1568452388,
+  "lat": 52.3236438,
+  "lon": 15.5503879,
+  "tags": {
+    "destination": "Zielona Góra;Gorzów Wielkopolski",
+    "highway": "motorway_junction",
+    "milestone": "68",
+    "name": "Jordanowo",
+    "noref": "yes",
+    "note:ref": "Na A2 nie stosuje się numeracji węzłów. Zobacz https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf"
+  }
+},
+{
+  "type": "node",
+  "id": 1568452400,
+  "lat": 52.3240587,
+  "lon": 15.5417182,
+  "tags": {
+    "destination": "Zielona Góra;GorzówWielkopolski",
+    "highway": "motorway_junction",
+    "milestone": "68",
+    "name": "Jordanowo",
+    "noref": "yes",
+    "note:ref": "Na A2 nie stosuje się numeracji węzłów. Zobacz https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf"
+  }
+},
+{
+  "type": "node",
+  "id": 1568452404,
+  "lat": 52.3211602,
+  "lon": 15.5458939,
+  "tags": {
+    "barrier": "toll_booth",
+    "currency:PLN": "yes",
+    "name": "SPO Jordanowo",
+    "official_name": "SPO Jordanowo",
+    "official_name:pl": "SPO Jordanowo",
+    "operator": "Autostrada Wielkopolska",
+    "payment:cash": "yes",
+    "payment:coins": "yes",
+    "payment:contactless": "yes",
+    "payment:credit_cards": "yes",
+    "payment:debit_cards": "yes",
+    "payment:mastercard": "yes",
+    "payment:visa": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 1606825824,
+  "lat": 52.3449887,
+  "lon": 17.0098550,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "171",
+    "name": "Poznań Krzesiny",
+    "noref": "yes",
+    "note:ref": "Na A2 nie stosuje się numeracji węzłów. Zobacz https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf",
+    "old_name": "Krzesiny"
+  }
+},
+{
+  "type": "node",
+  "id": 1760823193,
+  "lat": 52.3228589,
+  "lon": 15.0832800,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Stacja Poboru Opłat Torzym",
+    "operator": "Autostrada Wielkopolska",
+    "payment:cash": "yes",
+    "payment:mastercard": "yes",
+    "payment:visa": "yes",
+    "short_name": "SPO Torzym"
+  }
+},
+{
+  "type": "node",
+  "id": 1760823197,
+  "lat": 52.3228782,
+  "lon": 15.0834648,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Stacja Poboru Opłat Torzym",
+    "operator": "Autostrada Wielkopolska",
+    "payment:cash": "yes",
+    "payment:mastercard": "yes",
+    "payment:visa": "yes",
+    "short_name": "SPO Torzym"
+  }
+},
+{
+  "type": "node",
+  "id": 1796565831,
+  "lat": 52.2552068,
+  "lon": 17.8138242,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "228",
+    "name": "Słupca",
+    "noref": "yes",
+    "note:ref": "Na A2 nie stosuje się numeracji węzłów. Zobacz https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf"
+  }
+},
+{
+  "type": "node",
+  "id": 1802038854,
+  "lat": 50.0738245,
+  "lon": 19.8099407,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "402",
+    "name": "Kraków Balice",
+    "old_name": "Balice II",
+    "unsigned_ref": "R2"
+  }
+},
+{
+  "type": "node",
+  "id": 1802038864,
+  "lat": 50.0763472,
+  "lon": 19.8091317,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "402",
+    "name": "Kraków Balice",
+    "old_name": "Balice II",
+    "unsigned_ref": "R2"
+  }
+},
+{
+  "type": "node",
+  "id": 1829925767,
+  "lat": 52.3537577,
+  "lon": 16.9030017,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "163",
+    "name": "Poznań Luboń",
+    "noref": "yes",
+    "note:ref": "Na A2 nie stosuje się numeracji węzłów. Zobacz https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf",
+    "old_name": "Dębina"
+  }
+},
+{
+  "type": "node",
+  "id": 1837969274,
+  "lat": 52.1621930,
+  "lon": 18.2152257,
+  "tags": {
+    "alt_name": "Konin Zachód",
+    "highway": "motorway_junction",
+    "milestone": "257",
+    "name": "Modła",
+    "noref": "yes",
+    "note:name": "Tablica zapowiadająca węzeł nadal podaje nazwę \"Modła\"",
+    "note:ref": "Na A2 nie stosuje się numeracji węzłów. Zobacz https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf",
+    "source:name": "traffic_sign"
+  }
+},
+{
+  "type": "node",
+  "id": 1838341176,
+  "lat": 54.0996290,
+  "lon": 18.6950843,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "SPO Stanisławie"
+  }
+},
+{
+  "type": "node",
+  "id": 1839425586,
+  "lat": 53.6058534,
+  "lon": 18.6234656,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "74",
+    "name": "Warlubie",
+    "note:ref": "brak numerów w terenie lub na https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf",
+    "unsigned_ref": "6"
+  }
+},
+{
+  "type": "node",
+  "id": 1839425587,
+  "lat": 53.6062099,
+  "lon": 18.6235836,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "74",
+    "name": "Warlubie",
+    "note:ref": "brak numerów w terenie lub na https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf",
+    "unsigned_ref": "6"
+  }
+},
+{
+  "type": "node",
+  "id": 1839427188,
+  "lat": 53.4250316,
+  "lon": 18.6927051,
+  "tags": {
+    "destination:ref": "95",
+    "highway": "motorway_junction",
+    "milestone": "97",
+    "name": "Grudziądz",
+    "note:ref": "brak numerów w terenie lub na https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf",
+    "unsigned_ref": "8"
+  }
+},
+{
+  "type": "node",
+  "id": 1906709560,
+  "lat": 53.0892821,
+  "lon": 18.7502794,
+  "tags": {
+    "alt_name": "Toruń Północ",
+    "highway": "motorway_junction",
+    "milestone": "135",
+    "name": "Turzno",
+    "note:ref": "brak numerów w terenie lub na https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf",
+    "unsigned_ref": "10"
+  }
+},
+{
+  "type": "node",
+  "id": 1929596200,
+  "lat": 52.3250522,
+  "lon": 15.0878970,
+  "tags": {
+    "highway": "motorway_junction",
+    "note:ref": "Na A2 nie stosuje się numeracji węzłów. Zobacz https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf"
+  }
+},
+{
+  "type": "node",
+  "id": 1979474355,
+  "lat": 53.6033610,
+  "lon": 18.6174880,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "SPO Warlubie"
+  }
+},
+{
+  "type": "node",
+  "id": 1979474360,
+  "lat": 53.6034104,
+  "lon": 18.6173778,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "SPO Warlubie"
+  }
+},
+{
+  "type": "node",
+  "id": 1996687141,
+  "lat": 52.2053911,
+  "lon": 18.0198839,
+  "tags": {
+    "alt_name": "Golina",
+    "highway": "motorway_junction",
+    "milestone": "243",
+    "name": "Sługocin",
+    "noref": "yes",
+    "note:ref": "Na A2 nie stosuje się numeracji węzłów. Zobacz https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf"
+  }
+},
+{
+  "type": "node",
+  "id": 2038583073,
+  "lat": 50.2448103,
+  "lon": 19.0359244,
+  "tags": {
+    "highway": "motorway_junction"
+  }
+},
+{
+  "type": "node",
+  "id": 2049786750,
+  "lat": 52.3588973,
+  "lon": 16.1007819,
+  "tags": {
+    "destination": "Pniewy;Nowy Tomyśl",
+    "highway": "motorway_junction",
+    "milestone": "107",
+    "name": "Nowy Tomyśl",
+    "noref": "yes",
+    "note:ref": "Na A2 nie stosuje się numeracji węzłów. Zobacz https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf"
+  }
+},
+{
+  "type": "node",
+  "id": 2049795680,
+  "lat": 52.3615250,
+  "lon": 16.0996948,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Stacja Poboru Opłat Nowy Tomyśl",
+    "operator": "Autostrada Wielkopolska",
+    "payment:cash": "yes",
+    "payment:mastercard": "yes",
+    "payment:visa": "yes",
+    "short_name": "SPO Nowy Tomyśl"
+  }
+},
+{
+  "type": "node",
+  "id": 2049795682,
+  "lat": 52.3615029,
+  "lon": 16.0995409,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Stacja Poboru Opłat Nowy Tomyśl",
+    "operator": "Autostrada Wielkopolska",
+    "payment:cash": "yes",
+    "payment:mastercard": "yes",
+    "payment:visa": "yes",
+    "short_name": "SPO Nowy Tomyśl"
+  }
+},
+{
+  "type": "node",
+  "id": 2049810703,
+  "lat": 52.3596901,
+  "lon": 16.1041800,
+  "tags": {
+    "destination": "Pniewy;Nowy Tomyśl",
+    "highway": "motorway_junction",
+    "milestone": "108",
+    "name": "Nowy Tomyśl",
+    "noref": "yes",
+    "note:ref": "Na A2 nie stosuje się numeracji węzłów. Zobacz https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf"
+  }
+},
+{
+  "type": "node",
+  "id": 2051633368,
+  "lat": 54.0296635,
+  "lon": 18.6705280,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "25",
+    "name": "Swarożyn",
+    "note:ref": "brak numerów w terenie lub na https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf",
+    "unsigned_ref": "3"
+  }
+},
+{
+  "type": "node",
+  "id": 2051635211,
+  "lat": 54.0348666,
+  "lon": 18.6745079,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "SPO Swarożyn",
+    "operator": "Gdańsk Transport Company S.A.",
+    "source:operator": "survey"
+  }
+},
+{
+  "type": "node",
+  "id": 2051635215,
+  "lat": 54.0348764,
+  "lon": 18.6743593,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "SPO Swarożyn",
+    "operator": "Gdańsk Transport Company S.A.",
+    "source:operator": "survey"
+  }
+},
+{
+  "type": "node",
+  "id": 2075685294,
+  "lat": 52.2530813,
+  "lon": 17.8251740,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "229",
+    "name": "Słupca",
+    "noref": "yes",
+    "note:ref": "Na A2 nie stosuje się numeracji węzłów. Zobacz https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf"
+  }
+},
+{
+  "type": "node",
+  "id": 2141798303,
+  "lat": 54.0306750,
+  "lon": 18.6705746,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "25",
+    "name": "Swarożyn",
+    "note:ref": "brak numerów w terenie lub na https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf",
+    "unsigned_ref": "3"
+  }
+},
+{
+  "type": "node",
+  "id": 2262097686,
+  "lat": 52.2555237,
+  "lon": 17.8231090,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Stacja Poboru Opłat Słupca",
+    "operator": "Autostrada Wielkopolska",
+    "payment:cash": "yes",
+    "payment:mastercard": "yes",
+    "payment:visa": "yes",
+    "short_name": "SPO Słupca"
+  }
+},
+{
+  "type": "node",
+  "id": 2262097701,
+  "lat": 52.2556187,
+  "lon": 17.8231553,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Stacja Poboru Opłat Słupca",
+    "operator": "Autostrada Wielkopolska",
+    "payment:cash": "yes",
+    "payment:mastercard": "yes",
+    "payment:visa": "yes",
+    "short_name": "SPO Słupca"
+  }
+},
+{
+  "type": "node",
+  "id": 2285956970,
+  "lat": 50.0329535,
+  "lon": 19.9390026,
+  "tags": {
+    "barrier": "toll_booth",
+    "operator": "Buma Square Business Park"
+  }
+},
+{
+  "type": "node",
+  "id": 2304383410,
+  "lat": 52.3782030,
+  "lon": 16.5684810,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Stacja Poboru Opłat Buk",
+    "operator": "Autostrada Wielkopolska",
+    "payment:cash": "yes",
+    "payment:mastercard": "yes",
+    "payment:visa": "yes",
+    "short_name": "SPO Buk"
+  }
+},
+{
+  "type": "node",
+  "id": 2304383421,
+  "lat": 52.3783316,
+  "lon": 16.5684817,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Stacja Poboru Opłat Buk",
+    "operator": "Autostrada Wielkopolska",
+    "payment:cash": "yes",
+    "payment:mastercard": "yes",
+    "payment:visa": "yes",
+    "short_name": "SPO Buk"
+  }
+},
+{
+  "type": "node",
+  "id": 2306355123,
+  "lat": 50.1024816,
+  "lon": 20.0135181,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2317520759,
+  "lat": 52.3506306,
+  "lon": 16.7318525,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "PPO Gołuski",
+    "operator": "Autostrada Wielkopolska",
+    "payment:cash": "yes",
+    "payment:mastercard": "yes",
+    "payment:visa": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 2317520765,
+  "lat": 52.3503681,
+  "lon": 16.7318682,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "PPO Gołuski",
+    "operator": "Autostrada Wielkopolska",
+    "payment:cash": "yes",
+    "payment:mastercard": "yes",
+    "payment:visa": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 2317537118,
+  "lat": 52.3504263,
+  "lon": 16.7626452,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "154",
+    "name": "Poznań Zachód",
+    "noref": "yes",
+    "note:ref": "Na A2 nie stosuje się numeracji węzłów. Zobacz https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf",
+    "old_name": "Głuchowo"
+  }
+},
+{
+  "type": "node",
+  "id": 2319927823,
+  "lat": 52.3502873,
+  "lon": 16.8269758,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "158",
+    "name": "Poznań Komorniki",
+    "noref": "yes",
+    "note:ref": "Na A2 nie stosuje się numeracji węzłów. Zobacz https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf",
+    "old_name": "Komorniki"
+  }
+},
+{
+  "type": "node",
+  "id": 2393054888,
+  "lat": 52.3198727,
+  "lon": 17.1212154,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "179",
+    "name": "Poznań Wschód",
+    "noref": "yes",
+    "note:ref": "Na A2 nie stosuje się numeracji węzłów. Zobacz https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf",
+    "old_name": "Kleszczewo"
+  }
+},
+{
+  "type": "node",
+  "id": 2393062525,
+  "lat": 52.3164778,
+  "lon": 17.1325071,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "180",
+    "name": "Poznań Wschód",
+    "noref": "yes",
+    "note:ref": "Na A2 nie stosuje się numeracji węzłów. Zobacz https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf",
+    "old_name": "Kleszczewo"
+  }
+},
+{
+  "type": "node",
+  "id": 2393277866,
+  "lat": 52.3105902,
+  "lon": 17.1512191,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "PPO Nagradowice",
+    "operator": "Autostrada Wielkopolska",
+    "payment:cash": "yes",
+    "payment:mastercard": "yes",
+    "payment:visa": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 2393282894,
+  "lat": 52.3107916,
+  "lon": 17.1513541,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "PPO Nagradowice",
+    "operator": "Autostrada Wielkopolska",
+    "payment:cash": "yes",
+    "payment:mastercard": "yes",
+    "payment:visa": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 2428188416,
+  "lat": 52.3211491,
+  "lon": 15.5463888,
+  "tags": {
+    "barrier": "toll_booth",
+    "currency:PLN": "yes",
+    "name": "SPO Jordanowo",
+    "official_name": "SPO Jordanowo",
+    "official_name:pl": "SPO Jordanowo",
+    "operator": "Autostrada Wielkopolska",
+    "payment:cash": "yes",
+    "payment:coins": "yes",
+    "payment:contactless": "yes",
+    "payment:credit_cards": "yes",
+    "payment:debit_cards": "yes",
+    "payment:mastercard": "yes",
+    "payment:visa": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 2453071968,
+  "lat": 53.7387248,
+  "lon": 18.6333227,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "SPO Kopytkowo"
+  }
+},
+{
+  "type": "node",
+  "id": 2453482343,
+  "lat": 52.3290638,
+  "lon": 15.8728026,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "91",
+    "name": "Trzciel",
+    "noref": "yes",
+    "note:ref": "Na A2 nie stosuje się numeracji węzłów. Zobacz https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf"
+  }
+},
+{
+  "type": "node",
+  "id": 2453482432,
+  "lat": 52.3318469,
+  "lon": 15.8711363,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Stacja Poboru Opłat Trzciel",
+    "operator": "Autostrada Wielkopolska",
+    "payment:cash": "yes",
+    "payment:mastercard": "yes",
+    "payment:visa": "yes",
+    "short_name": "SPO Trzciel"
+  }
+},
+{
+  "type": "node",
+  "id": 2453482486,
+  "lat": 52.3318860,
+  "lon": 15.8710178,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Stacja Poboru Opłat Trzciel",
+    "operator": "Autostrada Wielkopolska",
+    "payment:cash": "yes",
+    "payment:mastercard": "yes",
+    "payment:visa": "yes",
+    "short_name": "SPO Trzciel"
+  }
+},
+{
+  "type": "node",
+  "id": 2453482533,
+  "lat": 52.3288509,
+  "lon": 15.8650866,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "91",
+    "name": "Trzciel",
+    "noref": "yes",
+    "note:ref": "Na A2 nie stosuje się numeracji węzłów. Zobacz https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf"
+  }
+},
+{
+  "type": "node",
+  "id": 2480265510,
+  "lat": 53.0368936,
+  "lon": 18.7322010,
+  "tags": {
+    "alt_name": "Toruń Wschód",
+    "highway": "motorway_junction",
+    "milestone": "141",
+    "name": "Lubicz",
+    "note:ref": "brak numerów w terenie lub na https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf",
+    "unsigned_ref": "11"
+  }
+},
+{
+  "type": "node",
+  "id": 2480352781,
+  "lat": 53.0356397,
+  "lon": 18.7376308,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "SPO\tLubicz"
+  }
+},
+{
+  "type": "node",
+  "id": 2505381120,
+  "lat": 53.0874227,
+  "lon": 18.7507082,
+  "tags": {
+    "alt_name": "Toruń Północ",
+    "highway": "motorway_junction",
+    "milestone": "135",
+    "name": "Turzno",
+    "note:ref": "brak numerów w terenie lub na https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf",
+    "unsigned_ref": "10"
+  }
+},
+{
+  "type": "node",
+  "id": 2505384942,
+  "lat": 53.0926973,
+  "lon": 18.7555400,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "SPO Turzno"
+  }
+},
+{
+  "type": "node",
+  "id": 2505384952,
+  "lat": 53.0928034,
+  "lon": 18.7554314,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "SPO Turzno"
+  }
+},
+{
+  "type": "node",
+  "id": 2568795236,
+  "lat": 50.2243728,
+  "lon": 18.9515901,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2592048934,
+  "lat": 53.4284171,
+  "lon": 18.6983668,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "SPO Grudziądz"
+  }
+},
+{
+  "type": "node",
+  "id": 2592048951,
+  "lat": 53.4282946,
+  "lon": 18.6984414,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "SPO Grudziądz"
+  }
+},
+{
+  "type": "node",
+  "id": 2594714781,
+  "lat": 52.3344574,
+  "lon": 14.8841115,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "21",
+    "name": "Rzepin",
+    "noref": "yes",
+    "note:ref": "Na A2 nie stosuje się numeracji węzłów. Zobacz https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf"
+  }
+},
+{
+  "type": "node",
+  "id": 2595518387,
+  "lat": 52.2218999,
+  "lon": 17.9515201,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Punkt Poboru Opłat Lądek",
+    "operator": "Autostrada Wielkopolska",
+    "payment:cash": "yes",
+    "payment:mastercard": "yes",
+    "payment:visa": "yes",
+    "short_name": "PPO Lądek",
+    "source:start_date": "Wikipedia",
+    "start_date": "2002-12-20"
+  }
+},
+{
+  "type": "node",
+  "id": 2595532675,
+  "lat": 52.2216294,
+  "lon": 17.9513174,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Punkt Poboru Opłat Lądek",
+    "operator": "Autostrada Wielkopolska",
+    "payment:cash": "yes",
+    "payment:mastercard": "yes",
+    "payment:visa": "yes",
+    "short_name": "PPO Lądek",
+    "source:start_date": "Wikipedia",
+    "start_date": "2002-12-20"
+  }
+},
+{
+  "type": "node",
+  "id": 2598510618,
+  "lat": 53.4681262,
+  "lon": 18.6144307,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "SPO Nowe Marzy",
+    "operator": "AmberOne"
+  }
+},
+{
+  "type": "node",
+  "id": 2598510635,
+  "lat": 53.4681977,
+  "lon": 18.6146932,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "SPO Nowe Marzy",
+    "operator": "AmberOne"
+  }
+},
+{
+  "type": "node",
+  "id": 2620055479,
+  "lat": 52.3145116,
+  "lon": 17.5380585,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "208",
+    "name": "Września",
+    "noref": "yes",
+    "note:ref": "Na A2 nie stosuje się numeracji węzłów. Zobacz https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf"
+  }
+},
+{
+  "type": "node",
+  "id": 2764024328,
+  "lat": 53.0097464,
+  "lon": 18.7347809,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "PPO Nowa Wieś",
+    "operator": "Gdańsk Transport Company"
+  }
+},
+{
+  "type": "node",
+  "id": 2794640532,
+  "lat": 52.2049892,
+  "lon": 18.0219358,
+  "tags": {
+    "alt_name": "Golina",
+    "highway": "motorway_junction",
+    "milestone": "243",
+    "name": "Sługocin",
+    "noref": "yes",
+    "note:ref": "Na A2 nie stosuje się numeracji węzłów. Zobacz https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf"
+  }
+},
+{
+  "type": "node",
+  "id": 2952653463,
+  "lat": 50.2358971,
+  "lon": 18.9768884,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2952653464,
+  "lat": 50.2359608,
+  "lon": 18.9769194,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2988536215,
+  "lat": 50.0596893,
+  "lon": 19.8627365,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 3071932789,
+  "lat": 53.0354466,
+  "lon": 18.7374803,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "SPO\tLubicz"
+  }
+},
+{
+  "type": "node",
+  "id": 3149083215,
+  "lat": 50.0333085,
+  "lon": 19.9391636,
+  "tags": {
+    "barrier": "toll_booth",
+    "operator": "Buma Square Business Park"
+  }
+},
+{
+  "type": "node",
+  "id": 3179437899,
+  "lat": 50.0045546,
+  "lon": 19.8846349,
+  "tags": {
+    "barrier": "toll_booth",
+    "payment:cash": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 3680776614,
+  "lat": 50.0333191,
+  "lon": 19.9391121,
+  "tags": {
+    "barrier": "toll_booth",
+    "operator": "Buma Square Business Park"
+  }
+},
+{
+  "type": "node",
+  "id": 3712157958,
+  "lat": 50.1000684,
+  "lon": 19.5513071,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "382",
+    "name": "Rudno",
+    "unsigned_ref": "50"
+  }
+},
+{
+  "type": "node",
+  "id": 4032716824,
+  "lat": 54.2352036,
+  "lon": 18.6086550,
+  "tags": {
+    "highway": "motorway_junction",
+    "name": "Rusocin",
+    "note:ref": "brak numerów w terenie lub na https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf",
+    "unsigned_ref": "1"
+  }
+},
+{
+  "type": "node",
+  "id": 4032737988,
+  "lat": 54.2352048,
+  "lon": 18.6088795,
+  "tags": {
+    "highway": "motorway_junction",
+    "name": "Rusocin",
+    "note:ref": "brak numerów w terenie lub na https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf",
+    "unsigned_ref": "1"
+  }
+},
+{
+  "type": "node",
+  "id": 4034918680,
+  "lat": 54.1058846,
+  "lon": 18.6922869,
+  "tags": {
+    "highway": "motorway_junction",
+    "milestone": "16",
+    "name": "Stanisławie",
+    "note:ref": "brak numerów w terenie lub na https://web.archive.org/web/20181226232831/https://www.gddkia.gov.pl/frontend/web/userfiles/articles/s/sprawdz-na-mapie-przygotowanie-d_3198/mapa_pbd_13_12_2018.pdf",
+    "unsigned_ref": "2"
+  }
+},
+{
+  "type": "node",
+  "id": 4035378089,
+  "lat": 53.9302150,
+  "lon": 18.6431147,
+  "tags": {
+    "barrier": "toll_booth",
+    "foot": "no",
+    "name": "Punkt Poboru Opłat Pelplin"
+  }
+},
+{
+  "type": "node",
+  "id": 5457826732,
+  "lat": 54.3371194,
+  "lon": 18.9653650,
+  "tags": {
+    "barrier": "toll_booth",
+    "currency:PLN": "yes",
+    "description": "Punkt poboru opłat za parkowanie na parkingu leśnym położonym głebiej w lesie. ",
+    "payment:cash": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 5635279027,
+  "lat": 52.3346882,
+  "lon": 14.9034741,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Punkt Poboru Opłat Tarnawa",
+    "operator": "Autostrada Wielkopolska",
+    "payment:cash": "yes",
+    "payment:mastercard": "yes",
+    "payment:visa": "yes",
+    "short_name": "PPO Tarnawa",
+    "source": "geoportal.gov.pl:ortofoto"
+  }
+},
+{
+  "type": "node",
+  "id": 5635369949,
+  "lat": 52.3350052,
+  "lon": 14.9035178,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Punkt Poboru Opłat Tarnawa",
+    "operator": "Autostrada Wielkopolska",
+    "payment:cash": "yes",
+    "payment:mastercard": "yes",
+    "payment:visa": "yes",
+    "short_name": "PPO Tarnawa",
+    "source": "geoportal.gov.pl:ortofoto"
+  }
+},
+{
+  "type": "node",
+  "id": 5978082224,
+  "lat": 50.1967685,
+  "lon": 19.1859509,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "PPOBrzęczkowice"
+  }
+},
+{
+  "type": "node",
+  "id": 5978082225,
+  "lat": 50.1967037,
+  "lon": 19.1857014,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "PPOBrzęczkowice"
+  }
+},
+{
+  "type": "node",
+  "id": 5978083462,
+  "lat": 50.0833043,
+  "lon": 19.7913131,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "PPO Balice",
+    "payment:cash": "yes",
+    "payment:contactless": "yes",
+    "payment:credit_cards": "yes",
+    "payment:ipko": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 5978083463,
+  "lat": 50.0830749,
+  "lon": 19.7913918,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "PPO Balice"
+  }
+},
+{
+  "type": "node",
+  "id": 6163397384,
+  "lat": 52.5366471,
+  "lon": 15.7051472,
+  "tags": {
+    "access": "permissive",
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 6347788962,
+  "lat": 50.0500349,
+  "lon": 19.7829002,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 6349113095,
+  "lat": 49.9984817,
+  "lon": 19.4189367,
+  "tags": {
+    "access": "private",
+    "barrier": "toll_booth",
+    "fixme": "does the booth still exist?"
+  }
+},
+{
+  "type": "node",
+  "id": 6508699269,
+  "lat": 53.0098097,
+  "lon": 18.7342698,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "PPO Nowa Wieś",
+    "operator": "Gdańsk Transport Company"
+  }
+},
+{
+  "type": "node",
+  "id": 6538158496,
+  "lat": 49.9978173,
+  "lon": 19.4137983,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 7114428655,
+  "lat": 53.2757242,
+  "lon": 18.9468449,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 7141100122,
+  "lat": 52.5331651,
+  "lon": 17.5945204,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 7658506552,
+  "lat": 50.1626486,
+  "lon": 19.4609828,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 7702557356,
+  "lat": 49.9949370,
+  "lon": 19.4052281,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 7707620564,
+  "lat": 52.4137772,
+  "lon": 16.8268422,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 7707620565,
+  "lat": 52.4137766,
+  "lon": 16.8269038,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 7707620568,
+  "lat": 52.4137740,
+  "lon": 16.8269629,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 7827879621,
+  "lat": 50.1622487,
+  "lon": 19.4604823,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 7831745626,
+  "lat": 50.1642427,
+  "lon": 19.4587666,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 8572289314,
+  "lat": 53.2906915,
+  "lon": 18.7049190,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "SPO Lisewo"
+  }
+},
+{
+  "type": "node",
+  "id": 8572289315,
+  "lat": 53.2906756,
+  "lon": 18.7047643,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "SPO Lisewo"
+  }
+},
+{
+  "type": "node",
+  "id": 12114490733,
+  "lat": 50.0596926,
+  "lon": 19.8627762,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 12114490739,
+  "lat": 50.0596272,
+  "lon": 19.8629383,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 14142293307,
+  "lat": 49.9996731,
+  "lon": 19.4188806,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 14142293328,
+  "lat": 50.0000761,
+  "lon": 19.4190529,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+}
+
+  ]
+}

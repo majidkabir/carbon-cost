@@ -1,0 +1,214 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/al/2026-11-13",
+  "scheme": {
+   "id": "al",
+   "name": "A1 Rruga e Kombit toll (Milot–Morinë) and Thumanë–Kashar",
+   "country": "AL"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-11-13",
+  "currency": "EUR",
+  "timezone": "Europe/Tirane",
+  "license": "MIT",
+  "method": "The Milot–Morinë motorway concession contract (clauses 11.4.3 and 11.4.4), as ATRAKO, the state concessions agency, publishes it: EUR 5 with VAT per passage times the class's coefficient, class 4 (G: three axles, or commercial vehicles over 2.70 m) EUR 16.25, class 5 (H: four axles or more) EUR 22.5; trucks over 3.5 t with two or three axles are taken to be over 2.70 m. Excluding 20% VAT. Charged at the toll plaza by the Thirrë tunnel, either way. The page gives no date: valid_from is the day it was first read. G2 Infra's price list for the Thumanë–Vorë–Kashar motorway (Ministria e Infrastrukturës dhe Energjisë's concession): a price per trip between Kashar, Rinas (the airport junction) and Thumanë, either way, for a vehicle with 2 or 3 axles and for one with 4 or more, over 2.20 m (here trucks over 3.5 t): Kashar–Thumanë EUR 6.3/8.8, Kashar–Rinas EUR 2.0/2.8, Rinas–Thumanë EUR 4.3/6.1, with 20% VAT, which is divided out. Its plazas lie at the Rinas junction, on each carriageway beyond the junction and on its ramps, so the trip is priced by the stations it passes. The page gives no date.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "al-2026-11-13.json"
+  },
+  "required_features": ["type.od", "type.point"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "ATRAKO (Agjencia e Trajtimit të Koncesioneve): Rruga e Kombit",
+   "url": "https://atrako.gov.al/?p=1076"
+  },
+  {
+   "id": "s2",
+   "title": "G2 Infra: Services, vehicle class prices in the toll system (Thumanë–Vorë–Kashar)",
+   "url": "https://g2infra.al/en/sherbimet/"
+  },
+  {
+   "id": "s3",
+   "title": "G2 Infra's base fare 'EUR 2.5 with VAT' (its statement to Monitor, as A2 CNN reports it)",
+   "url": "https://a2news.com/shqiperia/ekonomi/thumane-kashar-nga-tarifa-te-garancia-e-buxhetit-dhe-mirembajt-i1137091"
+  },
+  {
+   "id": "s4",
+   "title": "OpenStreetMap (Overpass API): toll booths on the A1, and the motorway and G2 Infra's booths by Tirana airport",
+   "url": "https://www.openstreetmap.org/"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Classes 4 and 5 (here trucks over 3.5 t)",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "sys1-1",
+   "classes": [
+    {
+     "id": "sys1-1.III",
+     "label": "III",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "max": 3
+      }
+     }
+    },
+    {
+     "id": "sys1-1.IV",
+     "label": "IV",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 4
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "pt-1",
+   "classes": [
+    {
+     "id": "pt-1.1",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "max": 3
+      }
+     }
+    },
+    {
+     "id": "pt-1.2",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 4
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "st1:Kashar",
+   "type": "station",
+   "name": "Kashar",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[19.6966, 41.405]]
+    },
+    "point_names": [""],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:Rinas",
+   "type": "station",
+   "name": "Rinas",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[19.7069, 41.41942]]
+    },
+    "point_names": [""],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:Thumanë",
+   "type": "station",
+   "name": "Thumanë",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[19.70505, 41.435]]
+    },
+    "point_names": [""],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt1",
+   "type": "point",
+   "name": "Rruga e Kombit: Kalimash toll plaza",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [20.314347, 42.048682]
+    },
+    "match_m": 200
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "system1",
+   "name": "A1 Thumanë–Kashar",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "G2 Infra's price list for the Thumanë–Vorë–Kashar motorway (Ministria e Infrastrukturës dhe Energjisë's concession): a price per trip between Kashar, Rinas (the airport junction) and Thumanë, either way, for a vehicle with 2 or 3 axles and for one with 4 or more, over 2.20 m (here trucks over 3.5 t): Kashar–Thumanë EUR 6.3/8.8, Kashar–Rinas EUR 2.0/2.8, Rinas–Thumanë EUR 4.3/6.1, with 20% VAT, which is divided out. Its plazas lie at the Rinas junction, on each carriageway beyond the junction and on its ramps, so the trip is priced by the stations it passes. The page gives no date.",
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st1:Kashar", "st1:Rinas", "sys1-1.III", "1.6667"],
+    ["st1:Kashar", "st1:Rinas", "sys1-1.IV", "2.3333"],
+    ["st1:Kashar", "st1:Thumanë", "sys1-1.III", "5.25"],
+    ["st1:Kashar", "st1:Thumanë", "sys1-1.IV", "7.3333"],
+    ["st1:Rinas", "st1:Thumanë", "sys1-1.III", "3.5833"],
+    ["st1:Rinas", "st1:Thumanë", "sys1-1.IV", "5.0833"]
+   ],
+   "sources": ["s1", "s2", "s3", "s4"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "points",
+   "type": "point",
+   "component": "unspecified",
+   "unit": "passage",
+   "columns": ["object", "vehicle_class", "amount"],
+   "rows": [["pt1", "pt-1.1", "13.5417"], ["pt1", "pt-1.2", "18.75"]],
+   "sources": ["s1", "s2", "s3", "s4"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "crossings": true,
+   "osm_extract": "2026-11-28"
+  }
+ }
+}

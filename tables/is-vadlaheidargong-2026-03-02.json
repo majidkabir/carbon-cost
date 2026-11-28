@@ -1,0 +1,39 @@
+{
+ "country": "IS",
+ "currency": "ISK",
+ "valid_from": "2026-03-02",
+ "crossings": true,
+ "osm_extract": "2026-11-28",
+ "name": "Vaðlaheiðargöng tunnel",
+ "law": "Vaðlaheiðargöng hf.'s price list in force from 2026-03-02, single trips: vehicles of 3.5-7.5 t ISK 3087, of 7.5 t and over ISK 6505, each direction (11% VAT included). Free-flow (number plates); placed at the middle of the tunnel's way in OpenStreetMap. Prepaid trips and subscriptions (for vehicles under 3.5 t) aren't modelled.",
+ "sources": [
+  {
+   "title": "Vaðlaheiðargöng: Verð & greiðsluleiðir",
+   "url": "https://www.veggjald.is/verd-greidsluleidir"
+  }
+ ],
+ "vehicles": "Vehicles over 3.5 t",
+ "min_kg": 3501,
+ "tolled_roads": "Vaðlaheiðargöng, Ring Road (1) east of Akureyri.",
+ "point_match_km": 0.15,
+ "toll_points": [
+  {
+   "name": "Vaðlaheiðargöng",
+   "lat": 65.711112,
+   "lon": -17.986043,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_kg": 7499,
+     "rate": 3087
+    },
+    {
+     "min_kg": 7500,
+     "rate": 6505
+    }
+   ]
+  }
+ ],
+ "rows": []
+}

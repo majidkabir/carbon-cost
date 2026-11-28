@@ -1,0 +1,334 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/dk-aeroefaergerne/2026-01-03",
+  "scheme": {
+   "id": "dk-aeroefaergerne",
+   "name": "Ærøfærgerne's ferries Svendborg–Ærøskøbing, Faaborg–Søby, Søby–Fynshav, trucks",
+   "country": "DK"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-01-03",
+  "valid_to": "2027-01-04",
+  "currency": "DKK",
+  "timezone": "Europe/Copenhagen",
+  "license": "MIT",
+  "method": "Ærøfærgerne's prices from 2026-01-03 to 2027-01-04 per single trip for a truck with driver on Svendborg–Ærøskøbing, Faaborg–Søby, Søby–Fynshav: up to 12 m DKK 588.00 including VAT of 104.00; 12-19 m DKK 905.00 including VAT of 167.40; per metre over 19 m DKK 35.00 including VAT of 7.00; taken without the VAT, each started metre over 19 m added: DKK up to 12 m 484, 12-19 m 737.6, 19-20 m 765.6, 20-21 m 793.6, 21-22 m 821.6, 22-23 m 849.6, 23-24 m 877.6, 24-25 m 905.6, 25-26 m 933.6. Each crossing is priced on its own. Ports at OpenStreetMap's ferry terminals, priced where the line goes out on its car ferry line.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "dk-aeroefaergerne-2026-01-03.json"
+  },
+  "required_features": ["type.od"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Ærøfærgerne: freight prices",
+   "url": "https://www.aeroe-ferry.dk/da/priser"
+  },
+  {
+   "id": "s2",
+   "title": "OpenStreetMap (Overpass API): Denmark's ferry lines and terminals",
+   "url": "https://www.openstreetmap.org/"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Trucks over 3.5 t, by length (truck.length_m)",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "sys1-1",
+   "classes": [
+    {
+     "id": "sys1-1.up-to-12-m",
+     "label": "up to 12 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "max": 12
+      }
+     }
+    },
+    {
+     "id": "sys1-1.12-19-m",
+     "label": "12-19 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 12,
+       "max": 19
+      }
+     }
+    },
+    {
+     "id": "sys1-1.19-20-m",
+     "label": "19-20 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 19,
+       "max": 20
+      }
+     }
+    },
+    {
+     "id": "sys1-1.20-21-m",
+     "label": "20-21 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 20,
+       "max": 21
+      }
+     }
+    },
+    {
+     "id": "sys1-1.21-22-m",
+     "label": "21-22 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 21,
+       "max": 22
+      }
+     }
+    },
+    {
+     "id": "sys1-1.22-23-m",
+     "label": "22-23 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 22,
+       "max": 23
+      }
+     }
+    },
+    {
+     "id": "sys1-1.23-24-m",
+     "label": "23-24 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 23,
+       "max": 24
+      }
+     }
+    },
+    {
+     "id": "sys1-1.24-25-m",
+     "label": "24-25 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 24,
+       "max": 25
+      }
+     }
+    },
+    {
+     "id": "sys1-1.25-26-m",
+     "label": "25-26 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 25,
+       "max": 26
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "st1:Svendborg",
+   "type": "station",
+   "name": "Svendborg",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[10.615322, 55.053579]]
+    },
+    "point_names": ["Svendborg port, 0.5 km out on the line to Ærøskøbing (OSM way 33847154)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st1:Ærøskøbing",
+   "type": "station",
+   "name": "Ærøskøbing",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[10.417527, 54.894893]]
+    },
+    "point_names": ["Ærøskøbing port, 0.5 km out on the line to Svendborg (OSM way 33847154)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st2:Faaborg",
+   "type": "station",
+   "name": "Faaborg",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[10.232745, 55.051317]]
+    },
+    "point_names": ["Faaborg port, 5.1 km out on the line to Søby (OSM way 172009892)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st2:Søby",
+   "type": "station",
+   "name": "Søby",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[10.255098, 54.954831]]
+    },
+    "point_names": ["Søby port, 1.5 km out on the line to Faaborg (OSM way 172009892)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st3:Fynshav",
+   "type": "station",
+   "name": "Fynshav",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[9.992822, 54.99676]]
+    },
+    "point_names": ["Fynshav port, 0.6 km out on the line to Søby (OSM way 171896489)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st3:Søby",
+   "type": "station",
+   "name": "Søby",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[10.250415, 54.953796]]
+    },
+    "point_names": ["Søby port, 1.5 km out on the line to Fynshav (OSM way 171896489)"],
+    "match_m": 150
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "system1",
+   "name": "Ærøfærgerne: Svendborg–Ærøskøbing",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "Ærøfærgerne's freight prices: Svendborg–Ærøskøbing",
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st1:Svendborg", "st1:Ærøskøbing", "sys1-1.12-19-m", "737.6"],
+    ["st1:Svendborg", "st1:Ærøskøbing", "sys1-1.19-20-m", "765.6"],
+    ["st1:Svendborg", "st1:Ærøskøbing", "sys1-1.20-21-m", "793.6"],
+    ["st1:Svendborg", "st1:Ærøskøbing", "sys1-1.21-22-m", "821.6"],
+    ["st1:Svendborg", "st1:Ærøskøbing", "sys1-1.22-23-m", "849.6"],
+    ["st1:Svendborg", "st1:Ærøskøbing", "sys1-1.23-24-m", "877.6"],
+    ["st1:Svendborg", "st1:Ærøskøbing", "sys1-1.24-25-m", "905.6"],
+    ["st1:Svendborg", "st1:Ærøskøbing", "sys1-1.25-26-m", "933.6"],
+    ["st1:Svendborg", "st1:Ærøskøbing", "sys1-1.up-to-12-m", "484"]
+   ],
+   "sources": ["s1", "s2"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system2",
+   "name": "Ærøfærgerne: Faaborg–Søby",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "Ærøfærgerne's freight prices: Faaborg–Søby",
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st2:Faaborg", "st2:Søby", "sys1-1.12-19-m", "737.6"],
+    ["st2:Faaborg", "st2:Søby", "sys1-1.19-20-m", "765.6"],
+    ["st2:Faaborg", "st2:Søby", "sys1-1.20-21-m", "793.6"],
+    ["st2:Faaborg", "st2:Søby", "sys1-1.21-22-m", "821.6"],
+    ["st2:Faaborg", "st2:Søby", "sys1-1.22-23-m", "849.6"],
+    ["st2:Faaborg", "st2:Søby", "sys1-1.23-24-m", "877.6"],
+    ["st2:Faaborg", "st2:Søby", "sys1-1.24-25-m", "905.6"],
+    ["st2:Faaborg", "st2:Søby", "sys1-1.25-26-m", "933.6"],
+    ["st2:Faaborg", "st2:Søby", "sys1-1.up-to-12-m", "484"]
+   ],
+   "sources": ["s1", "s2"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system3",
+   "name": "Ærøfærgerne: Søby–Fynshav",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "Ærøfærgerne's freight prices: Søby–Fynshav",
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st3:Søby", "st3:Fynshav", "sys1-1.12-19-m", "737.6"],
+    ["st3:Søby", "st3:Fynshav", "sys1-1.19-20-m", "765.6"],
+    ["st3:Søby", "st3:Fynshav", "sys1-1.20-21-m", "793.6"],
+    ["st3:Søby", "st3:Fynshav", "sys1-1.21-22-m", "821.6"],
+    ["st3:Søby", "st3:Fynshav", "sys1-1.22-23-m", "849.6"],
+    ["st3:Søby", "st3:Fynshav", "sys1-1.23-24-m", "877.6"],
+    ["st3:Søby", "st3:Fynshav", "sys1-1.24-25-m", "905.6"],
+    ["st3:Søby", "st3:Fynshav", "sys1-1.25-26-m", "933.6"],
+    ["st3:Søby", "st3:Fynshav", "sys1-1.up-to-12-m", "484"]
+   ],
+   "sources": ["s1", "s2"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "crossings": true,
+   "ferry": true
+  }
+ }
+}

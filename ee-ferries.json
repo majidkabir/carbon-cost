@@ -1,0 +1,40 @@
+{
+  "kuvaDigitempliNupp" : true,
+  "kuvaSeotudKohtulahendidNupp" : false,
+  "kuvaKohtulahendid" : null,
+  "kehtivId" : 115092026002,
+  "grupiId" : 1030861,
+  "tekstiliik" : "terviktekst",
+  "dokumentliik" : "määrus",
+  "aktiParameetrid" : {
+    "aktideAadress" : "https://www.riigiteataja.ee/akt/",
+    "lisaAadress" : "https://www.riigiteataja.ee/aktilisa/1150/9202/6002/",
+    "pildiAadress" : "https://www.riigiteataja.ee/aktilisa/1150/9202/6002/",
+    "kohtulahendiUrlPrefix" : "https://www.riigiteataja.ee/akt_seosed_kohtulahenditega.html?id=115092026002&kuvakohtulahendid=true",
+    "htmlLisaAadress" : "https://www.riigiteataja.ee/akt/115092026002/htmllisa/",
+    "kehtivKehtetus" : false,
+    "mitteJoustunud" : false,
+    "onHetkelKehtivKuvada" : true,
+    "tavatekstAlgus" : null,
+    "tavatekstLopp" : null,
+    "kehtivuseAlgus" : "2026-09-21T21:00:00Z",
+    "kehtivuseLopp" : null,
+    "kuupaev" : null,
+    "staatus" : "KEHTIVAD_KEHTETUTETA",
+    "pealkiri" : "Avaliku teenindamise lepingu alusel teostataval liiniveol sõitja kõrgeim piletihind, sõiduki ja selle haagise piletihinnad ning sõidusoodustused Kuivastu-Virtsu, Rohuküla-Heltermaa ja Sõru-Triigi parvlaevaliinidel",
+    "lyhend" : null,
+    "avaldamiseKuupaev" : "2026-09-14T21:00:00Z"
+  },
+  "viited" : [ {
+    "vaartus" : "METE",
+    "kirjeldus" : "Menetlusteave"
+  }, {
+    "vaartus" : "OKS",
+    "kirjeldus" : "Õiguskantsleri seisukohad"
+  } ],
+  "liigitused" : [ "VASTMIN¤REGPLM" ],
+  "kuvaRakendusakte" : false,
+  "aktiStaatus" : "KEHTIV",
+  "tolkeSeosId" : null,
+  "tolkeSeosTekst" : null
+}

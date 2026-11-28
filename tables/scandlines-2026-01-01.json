@@ -1,0 +1,335 @@
+{
+ "country": "DK",
+ "currency": "EUR",
+ "valid_from": "2026-01-01",
+ "valid_to": "2026-01-31",
+ "crossings": true,
+ "ferry": true,
+ "name": "Scandlines' ferries Puttgarden–Rødby and Rostock–Gedser and Øresundslinjen's Helsingør–Helsingborg, trucks",
+ "law": "Scandlines' gross freight tariffs per single crossing, excluding VAT, loaded (Germany–Denmark from 10 m, valid from 2026-01-01; small units to 9 m, valid from 2026-01-01; transit Germany–Sweden North, valid from 2026-01-01), and Øresundslinjen's freight tariff Helsingør–Helsingborg (2026-01-01 to 2026-12-31: trucks to 8 m EUR 91.4, to 13 m EUR 145.9, to 16 m EUR 157.9, to 26 m EUR 169.3); by the truck's length in whole metres up. With the surcharges per commencing metre (at least 7) as from 2026-01-01: Puttgarden–Rødby BAF 0.79 and GIR 0.88, Rostock–Gedser BAF 2.11 and GIR 1.66, Helsingør–Helsingborg energy 0.88 and green 0.3 EUR. Scandlines' ETS surcharge (0.14 and 0.43 EUR per metre) isn't in the fare: carbon-cost prices it as the crossing's EU ETS (ferries/data/ets-surcharges.json). A trip over Puttgarden–Rødby or Rostock–Gedser and Helsingør–Helsingborg pays the transit ticket. Over-length (over 26 m), over-width and over-weight surcharges aren't applied. Ports at OpenStreetMap's ferry terminals, priced where the line goes out on its car ferry line.",
+ "sources": [
+  {
+   "title": "Scandlines Freight: freight tariffs",
+   "url": "https://freight.scandlines.com/freight-conditions/freight-tariffs/"
+  },
+  {
+   "title": "Scandlines Freight: surcharges",
+   "url": "https://freight.scandlines.com/freight-conditions/fuel-surcharges/"
+  },
+  {
+   "title": "OpenStreetMap (Overpass API): ferry lines and terminals",
+   "url": "https://www.openstreetmap.org/"
+  }
+ ],
+ "vehicles": "Trucks over 3.5 t, by length (truck.length_m)",
+ "min_kg": 3501,
+ "tolled_roads": "The ferries Puttgarden–Rødby, Rostock–Gedser and Helsingør–Helsingborg.",
+ "closed_systems": [
+  {
+   "name": "Scandlines and Øresundslinjen: Puttgarden–Rødby / Rostock–Gedser / Helsingør–Helsingborg",
+   "law": "Scandlines' and Øresundslinjen's freight tariffs and surcharges, loaded",
+   "groups": [
+    {
+     "name": "up to 7 m",
+     "min_kg": 3501,
+     "max_length_m": 7
+    },
+    {
+     "name": "7-8 m",
+     "min_kg": 3501,
+     "max_length_m": 8,
+     "min_length_m": 7
+    },
+    {
+     "name": "8-9 m",
+     "min_kg": 3501,
+     "max_length_m": 9,
+     "min_length_m": 8
+    },
+    {
+     "name": "9-10 m",
+     "min_kg": 3501,
+     "max_length_m": 10,
+     "min_length_m": 9
+    },
+    {
+     "name": "10-11 m",
+     "min_kg": 3501,
+     "max_length_m": 11,
+     "min_length_m": 10
+    },
+    {
+     "name": "11-12 m",
+     "min_kg": 3501,
+     "max_length_m": 12,
+     "min_length_m": 11
+    },
+    {
+     "name": "12-13 m",
+     "min_kg": 3501,
+     "max_length_m": 13,
+     "min_length_m": 12
+    },
+    {
+     "name": "13-14 m",
+     "min_kg": 3501,
+     "max_length_m": 14,
+     "min_length_m": 13
+    },
+    {
+     "name": "14-15 m",
+     "min_kg": 3501,
+     "max_length_m": 15,
+     "min_length_m": 14
+    },
+    {
+     "name": "15-16 m",
+     "min_kg": 3501,
+     "max_length_m": 16,
+     "min_length_m": 15
+    },
+    {
+     "name": "16-17 m",
+     "min_kg": 3501,
+     "max_length_m": 17,
+     "min_length_m": 16
+    },
+    {
+     "name": "17-18 m",
+     "min_kg": 3501,
+     "max_length_m": 18,
+     "min_length_m": 17
+    },
+    {
+     "name": "18-19 m",
+     "min_kg": 3501,
+     "max_length_m": 19,
+     "min_length_m": 18
+    },
+    {
+     "name": "19-20 m",
+     "min_kg": 3501,
+     "max_length_m": 20,
+     "min_length_m": 19
+    },
+    {
+     "name": "20-21 m",
+     "min_kg": 3501,
+     "max_length_m": 21,
+     "min_length_m": 20
+    },
+    {
+     "name": "21-22 m",
+     "min_kg": 3501,
+     "max_length_m": 22,
+     "min_length_m": 21
+    },
+    {
+     "name": "22-23 m",
+     "min_kg": 3501,
+     "max_length_m": 23,
+     "min_length_m": 22
+    },
+    {
+     "name": "23-24 m",
+     "min_kg": 3501,
+     "max_length_m": 24,
+     "min_length_m": 23
+    },
+    {
+     "name": "24-25 m",
+     "min_kg": 3501,
+     "max_length_m": 25,
+     "min_length_m": 24
+    },
+    {
+     "name": "25-26 m",
+     "min_kg": 3501,
+     "max_length_m": 26,
+     "min_length_m": 25
+    }
+   ],
+   "stations": [
+    {
+     "name": "Gedser",
+     "points": [
+      {
+       "name": "Gedser port, 0.5 km out on the line to Rostock (OSM way 1349018822)",
+       "lat": 54.569509,
+       "lon": 11.927163
+      }
+     ]
+    },
+    {
+     "name": "Helsingborg",
+     "points": [
+      {
+       "name": "Helsingborg port, 0.5 km out on the line to Helsingør (OSM way 4066778)",
+       "lat": 56.040775,
+       "lon": 12.685027
+      }
+     ]
+    },
+    {
+     "name": "Helsingør",
+     "points": [
+      {
+       "name": "Helsingør port, 0.5 km out on the line to Helsingborg (OSM way 4066778)",
+       "lat": 56.034108,
+       "lon": 12.623761
+      },
+      {
+       "name": "Helsingør port, 0.5 km out on the line to Helsingborg (OSM way 1476699074)",
+       "lat": 56.033558,
+       "lon": 12.624016
+      }
+     ]
+    },
+    {
+     "name": "Puttgarden",
+     "points": [
+      {
+       "name": "Puttgarden port, 0.5 km out on the line to Rødby (OSM way 47681503)",
+       "lat": 54.506517,
+       "lon": 11.231603
+      }
+     ]
+    },
+    {
+     "name": "Rostock",
+     "points": [
+      {
+       "name": "Rostock port, 16.5 km out on the line to Gedser (OSM way 1349018822)",
+       "lat": 54.293513,
+       "lon": 12.026699
+      }
+     ]
+    },
+    {
+     "name": "Rødby",
+     "points": [
+      {
+       "name": "Rødby port, 0.5 km out on the line to Puttgarden (OSM way 47681503)",
+       "lat": 54.650674,
+       "lon": 11.34562
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Puttgarden|Rødby": {
+     "up to 7 m": 118.99,
+     "7-8 m": 120.66,
+     "8-9 m": 122.33,
+     "9-10 m": 172.8,
+     "10-11 m": 191.07,
+     "11-12 m": 207.24,
+     "12-13 m": 225.61,
+     "13-14 m": 242.88,
+     "14-15 m": 259.15,
+     "15-16 m": 277.42,
+     "16-17 m": 293.69,
+     "17-18 m": 312.06,
+     "18-19 m": 329.33,
+     "19-20 m": 346.5,
+     "20-21 m": 363.87,
+     "21-22 m": 381.14,
+     "22-23 m": 398.31,
+     "23-24 m": 415.68,
+     "24-25 m": 432.95,
+     "25-26 m": 450.22
+    },
+    "Rostock|Gedser": {
+     "up to 7 m": 130.59,
+     "7-8 m": 134.36,
+     "8-9 m": 138.13,
+     "9-10 m": 177.1,
+     "10-11 m": 193.37,
+     "11-12 m": 211.74,
+     "12-13 m": 229.01,
+     "13-14 m": 246.38,
+     "14-15 m": 264.65,
+     "15-16 m": 281.92,
+     "16-17 m": 300.29,
+     "17-18 m": 317.56,
+     "18-19 m": 334.93,
+     "19-20 m": 353.2,
+     "20-21 m": 370.47,
+     "21-22 m": 387.84,
+     "22-23 m": 406.11,
+     "23-24 m": 422.28,
+     "24-25 m": 440.75,
+     "25-26 m": 459.12
+    },
+    "Helsingør|Helsingborg": {
+     "up to 7 m": 99.66,
+     "7-8 m": 100.84,
+     "8-9 m": 156.52,
+     "9-10 m": 157.7,
+     "10-11 m": 158.88,
+     "11-12 m": 160.06,
+     "12-13 m": 161.24,
+     "13-14 m": 174.42,
+     "14-15 m": 175.6,
+     "15-16 m": 176.78,
+     "16-17 m": 189.36,
+     "17-18 m": 190.54,
+     "18-19 m": 191.72,
+     "19-20 m": 192.9,
+     "20-21 m": 194.08,
+     "21-22 m": 195.26,
+     "22-23 m": 196.44,
+     "23-24 m": 197.62,
+     "24-25 m": 198.8,
+     "25-26 m": 199.98
+    },
+    "Puttgarden|Helsingborg": {
+     "up to 7 m": 163.05,
+     "7-8 m": 165.9,
+     "8-9 m": 168.75,
+     "9-10 m": 280.3,
+     "10-11 m": 300.85,
+     "11-12 m": 324.4,
+     "12-13 m": 346.15,
+     "13-14 m": 366.6,
+     "14-15 m": 394.45,
+     "15-16 m": 421.2,
+     "16-17 m": 452.15,
+     "17-18 m": 475.7,
+     "18-19 m": 499.45,
+     "19-20 m": 520.0,
+     "20-21 m": 538.45,
+     "21-22 m": 556.9,
+     "22-23 m": 575.35,
+     "23-24 m": 593.8,
+     "24-25 m": 614.35,
+     "25-26 m": 630.7
+    },
+    "Rostock|Helsingborg": {
+     "up to 7 m": 172.65,
+     "7-8 m": 177.6,
+     "8-9 m": 182.55,
+     "9-10 m": 290.9,
+     "10-11 m": 313.55,
+     "11-12 m": 337.2,
+     "12-13 m": 359.85,
+     "13-14 m": 383.5,
+     "14-15 m": 410.25,
+     "15-16 m": 439.1,
+     "16-17 m": 472.25,
+     "17-18 m": 495.9,
+     "18-19 m": 521.65,
+     "19-20 m": 543.3,
+     "20-21 m": 561.75,
+     "21-22 m": 583.3,
+     "22-23 m": 601.75,
+     "23-24 m": 621.3,
+     "24-25 m": 643.95,
+     "25-26 m": 660.3
+    }
+   }
+  }
+ ],
+ "rows": []
+}

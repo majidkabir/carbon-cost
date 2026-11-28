@@ -1,0 +1,236 @@
+{
+ "country": "DE",
+ "currency": "EUR",
+ "valid_from": "2026-11-23",
+ "valid_to": "2026-11-24",
+ "crossings": true,
+ "ferry": true,
+ "name": "Elbe ferry Glückstadt–Wischhafen (FRS Elbfähre), trucks and their load",
+ "law": "FRS Elbfähre's fares for trucks and cargo, valid 1 January to 31 December 2026 (the page as read on 2026-11-23, recorded): a truck, unloaded and without its driver, net of 19% VAT, by its length over all: to 5 m EUR 15.88, to 6 m EUR 18.40, to 7 m EUR 21.76, to 8 m EUR 24.79, to 9 m EUR 26.39, to 10 m EUR 27.65, to 11 m EUR 29.75, to 12 m EUR 31.01, to 13 m EUR 32.27, to 14 m EUR 34.37, to 15 m EUR 36.05, to 16 m EUR 36.89, to 17 m EUR 38.15, to 18.35 m EUR 39.41, each further metre (overhanging ones too) EUR 4.20, at most 23 m; the load by weight, EUR 1.26 per started 1,000 kg. The page's net prices up to 8, 17, 18.35 m don't match its gross ones; those are taken as gross / 1.19. The fares include the fuel surcharge (January's plus a surcharge state's net, to the cent), so it isn't added. The driver's own fare (adults \"from\" EUR 3.40) isn't added, nor the surcharges for over 2.50 m wide (30%) or dangerous goods, nor the frequent travellers' discounts. Ports at OpenStreetMap's ferry terminals, priced where the line goes out on its car ferry line.",
+ "sources": [
+  {
+   "title": "FRS Elbfähre: LKW und Fracht (fares for trucks and cargo)",
+   "url": "https://www.frs-elbfaehre.de/fahrpreise/lkw-und-fracht"
+  },
+  {
+   "title": "FRS Elbfähre: Treibstoffzuschlag (fuel surcharge)",
+   "url": "https://www.frs-elbfaehre.de/treibstoffzuschlag"
+  },
+  {
+   "title": "OpenStreetMap (Overpass API): the ferry line and its terminals",
+   "url": "https://www.openstreetmap.org/"
+  }
+ ],
+ "vehicles": "Trucks over 3.5 t, by length (truck.length_m), and their load (cargo_kg)",
+ "min_kg": 3501,
+ "tolled_roads": "The Elbe ferry Glückstadt–Wischhafen.",
+ "closed_systems": [
+  {
+   "name": "Elbfähre Glückstadt–Wischhafen: the truck",
+   "law": "FRS Elbfähre's fares for trucks (unloaded, without the driver), net, by length",
+   "groups": [
+    {
+     "name": "up to 5 m",
+     "min_kg": 3501,
+     "max_length_m": 5
+    },
+    {
+     "name": "5-6 m",
+     "min_kg": 3501,
+     "max_length_m": 6,
+     "min_length_m": 5
+    },
+    {
+     "name": "6-7 m",
+     "min_kg": 3501,
+     "max_length_m": 7,
+     "min_length_m": 6
+    },
+    {
+     "name": "7-8 m",
+     "min_kg": 3501,
+     "max_length_m": 8,
+     "min_length_m": 7
+    },
+    {
+     "name": "8-9 m",
+     "min_kg": 3501,
+     "max_length_m": 9,
+     "min_length_m": 8
+    },
+    {
+     "name": "9-10 m",
+     "min_kg": 3501,
+     "max_length_m": 10,
+     "min_length_m": 9
+    },
+    {
+     "name": "10-11 m",
+     "min_kg": 3501,
+     "max_length_m": 11,
+     "min_length_m": 10
+    },
+    {
+     "name": "11-12 m",
+     "min_kg": 3501,
+     "max_length_m": 12,
+     "min_length_m": 11
+    },
+    {
+     "name": "12-13 m",
+     "min_kg": 3501,
+     "max_length_m": 13,
+     "min_length_m": 12
+    },
+    {
+     "name": "13-14 m",
+     "min_kg": 3501,
+     "max_length_m": 14,
+     "min_length_m": 13
+    },
+    {
+     "name": "14-15 m",
+     "min_kg": 3501,
+     "max_length_m": 15,
+     "min_length_m": 14
+    },
+    {
+     "name": "15-16 m",
+     "min_kg": 3501,
+     "max_length_m": 16,
+     "min_length_m": 15
+    },
+    {
+     "name": "16-17 m",
+     "min_kg": 3501,
+     "max_length_m": 17,
+     "min_length_m": 16
+    },
+    {
+     "name": "17-18.35 m",
+     "min_kg": 3501,
+     "max_length_m": 18.35,
+     "min_length_m": 17
+    },
+    {
+     "name": "18.35-19.35 m",
+     "min_kg": 3501,
+     "max_length_m": 19.35,
+     "min_length_m": 18.35
+    },
+    {
+     "name": "19.35-20.35 m",
+     "min_kg": 3501,
+     "max_length_m": 20.35,
+     "min_length_m": 19.35
+    },
+    {
+     "name": "20.35-21.35 m",
+     "min_kg": 3501,
+     "max_length_m": 21.35,
+     "min_length_m": 20.35
+    },
+    {
+     "name": "21.35-22.35 m",
+     "min_kg": 3501,
+     "max_length_m": 22.35,
+     "min_length_m": 21.35
+    },
+    {
+     "name": "22.35-23 m",
+     "min_kg": 3501,
+     "max_length_m": 23.0,
+     "min_length_m": 22.35
+    }
+   ],
+   "stations": [
+    {
+     "name": "Glückstadt",
+     "points": [
+      {
+       "name": "Glückstadt port, 0.5 km out on the line to Wischhafen (OSM way 50897526)",
+       "lat": 53.793962,
+       "lon": 9.398622
+      }
+     ]
+    },
+    {
+     "name": "Wischhafen",
+     "points": [
+      {
+       "name": "Wischhafen port, 0.5 km out on the line to Glückstadt (OSM way 50897526)",
+       "lat": 53.78884,
+       "lon": 9.352505
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Glückstadt|Wischhafen": {
+     "up to 5 m": 15.88,
+     "5-6 m": 18.4,
+     "6-7 m": 21.76,
+     "7-8 m": 24.79,
+     "8-9 m": 26.39,
+     "9-10 m": 27.65,
+     "10-11 m": 29.75,
+     "11-12 m": 31.01,
+     "12-13 m": 32.27,
+     "13-14 m": 34.37,
+     "14-15 m": 36.05,
+     "15-16 m": 36.89,
+     "16-17 m": 38.15,
+     "17-18.35 m": 39.41,
+     "18.35-19.35 m": 43.61,
+     "19.35-20.35 m": 47.81,
+     "20.35-21.35 m": 52.01,
+     "21.35-22.35 m": 56.21,
+     "22.35-23 m": 60.41
+    }
+   }
+  },
+  {
+   "name": "Elbfähre Glückstadt–Wischhafen: the load",
+   "law": "FRS Elbfähre's fare for loads by weight, net, per started 1,000 kg",
+   "groups": [
+    {
+     "name": "per started 1,000 kg of load",
+     "min_kg": 3501
+    }
+   ],
+   "stations": [
+    {
+     "name": "Glückstadt",
+     "points": [
+      {
+       "name": "Glückstadt port, 0.5 km out on the line to Wischhafen (OSM way 50897526)",
+       "lat": 53.793962,
+       "lon": 9.398622
+      }
+     ]
+    },
+    {
+     "name": "Wischhafen",
+     "points": [
+      {
+       "name": "Wischhafen port, 0.5 km out on the line to Glückstadt (OSM way 50897526)",
+       "lat": 53.78884,
+       "lon": 9.352505
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Glückstadt|Wischhafen": {
+     "per started 1,000 kg of load": 1.26
+    }
+   },
+   "unit": "t",
+   "mass_basis": "load_kg",
+   "mass_step_kg": 1000
+  }
+ ],
+ "rows": []
+}

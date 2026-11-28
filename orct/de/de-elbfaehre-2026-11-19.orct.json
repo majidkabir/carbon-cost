@@ -1,0 +1,437 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/de-elbfaehre/2026-11-19",
+  "scheme": {
+   "id": "de-elbfaehre",
+   "name": "Elbe ferry Glückstadt–Wischhafen (FRS Elbfähre), trucks and their load",
+   "country": "DE"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-11-19",
+  "valid_to": "2026-11-22",
+  "currency": "EUR",
+  "timezone": "Europe/Berlin",
+  "license": "MIT",
+  "method": "FRS Elbfähre's fares for trucks and cargo, valid 1 January to 31 December 2026 (the page as read on 2026-11-19, recorded): a truck, unloaded and without its driver, net of 19% VAT, by its length over all: to 5 m EUR 15.55, to 6 m EUR 18.07, to 7 m EUR 21.43, to 8 m EUR 24.79, to 9 m EUR 26.05, to 10 m EUR 27.31, to 11 m EUR 29.41, to 12 m EUR 30.67, to 13 m EUR 31.93, to 14 m EUR 34.03, to 15 m EUR 35.71, to 16 m EUR 36.55, to 17 m EUR 37.82, to 18.35 m EUR 39.08, each further metre (overhanging ones too) EUR 4.20, at most 23 m; the load by weight, EUR 1.26 per started 1,000 kg. The fares include the fuel surcharge (January's plus a surcharge state's net, to the cent), so it isn't added. The driver's own fare (adults \"from\" EUR 3.40) isn't added, nor the surcharges for over 2.50 m wide (30%) or dangerous goods, nor the frequent travellers' discounts. Ports at OpenStreetMap's ferry terminals, priced where the line goes out on its car ferry line.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "de-elbfaehre-2026-11-19.json"
+  },
+  "required_features": ["type.od"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "FRS Elbfähre: LKW und Fracht (fares for trucks and cargo)",
+   "url": "https://www.frs-elbfaehre.de/fahrpreise/lkw-und-fracht"
+  },
+  {
+   "id": "s2",
+   "title": "FRS Elbfähre: Treibstoffzuschlag (fuel surcharge)",
+   "url": "https://www.frs-elbfaehre.de/treibstoffzuschlag"
+  },
+  {
+   "id": "s3",
+   "title": "OpenStreetMap (Overpass API): the ferry line and its terminals",
+   "url": "https://www.openstreetmap.org/"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Trucks over 3.5 t, by length (truck.length_m), and their load (cargo_kg)",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "sys1-1",
+   "classes": [
+    {
+     "id": "sys1-1.up-to-5-m",
+     "label": "up to 5 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "max": 5
+      }
+     }
+    },
+    {
+     "id": "sys1-1.5-6-m",
+     "label": "5-6 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 5,
+       "max": 6
+      }
+     }
+    },
+    {
+     "id": "sys1-1.6-7-m",
+     "label": "6-7 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 6,
+       "max": 7
+      }
+     }
+    },
+    {
+     "id": "sys1-1.7-8-m",
+     "label": "7-8 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 7,
+       "max": 8
+      }
+     }
+    },
+    {
+     "id": "sys1-1.8-9-m",
+     "label": "8-9 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 8,
+       "max": 9
+      }
+     }
+    },
+    {
+     "id": "sys1-1.9-10-m",
+     "label": "9-10 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 9,
+       "max": 10
+      }
+     }
+    },
+    {
+     "id": "sys1-1.10-11-m",
+     "label": "10-11 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 10,
+       "max": 11
+      }
+     }
+    },
+    {
+     "id": "sys1-1.11-12-m",
+     "label": "11-12 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 11,
+       "max": 12
+      }
+     }
+    },
+    {
+     "id": "sys1-1.12-13-m",
+     "label": "12-13 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 12,
+       "max": 13
+      }
+     }
+    },
+    {
+     "id": "sys1-1.13-14-m",
+     "label": "13-14 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 13,
+       "max": 14
+      }
+     }
+    },
+    {
+     "id": "sys1-1.14-15-m",
+     "label": "14-15 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 14,
+       "max": 15
+      }
+     }
+    },
+    {
+     "id": "sys1-1.15-16-m",
+     "label": "15-16 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 15,
+       "max": 16
+      }
+     }
+    },
+    {
+     "id": "sys1-1.16-17-m",
+     "label": "16-17 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 16,
+       "max": 17
+      }
+     }
+    },
+    {
+     "id": "sys1-1.17-18-35-m",
+     "label": "17-18.35 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 17,
+       "max": 18.35
+      }
+     }
+    },
+    {
+     "id": "sys1-1.18-35-19-35-m",
+     "label": "18.35-19.35 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 18.35,
+       "max": 19.35
+      }
+     }
+    },
+    {
+     "id": "sys1-1.19-35-20-35-m",
+     "label": "19.35-20.35 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 19.35,
+       "max": 20.35
+      }
+     }
+    },
+    {
+     "id": "sys1-1.20-35-21-35-m",
+     "label": "20.35-21.35 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 20.35,
+       "max": 21.35
+      }
+     }
+    },
+    {
+     "id": "sys1-1.21-35-22-35-m",
+     "label": "21.35-22.35 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 21.35,
+       "max": 22.35
+      }
+     }
+    },
+    {
+     "id": "sys1-1.22-35-23-m",
+     "label": "22.35-23 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 22.35,
+       "max": 23.0
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "sys2-1",
+   "classes": [
+    {
+     "id": "sys2-1.per-started-1-000-kg-of-load",
+     "label": "per started 1,000 kg of load",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "st1:Glückstadt",
+   "type": "station",
+   "name": "Glückstadt",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[9.398622, 53.793962]]
+    },
+    "point_names": ["Glückstadt port, 0.5 km out on the line to Wischhafen (OSM way 50897526)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st1:Wischhafen",
+   "type": "station",
+   "name": "Wischhafen",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[9.352505, 53.78884]]
+    },
+    "point_names": ["Wischhafen port, 0.5 km out on the line to Glückstadt (OSM way 50897526)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st2:Glückstadt",
+   "type": "station",
+   "name": "Glückstadt",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[9.398622, 53.793962]]
+    },
+    "point_names": ["Glückstadt port, 0.5 km out on the line to Wischhafen (OSM way 50897526)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st2:Wischhafen",
+   "type": "station",
+   "name": "Wischhafen",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[9.352505, 53.78884]]
+    },
+    "point_names": ["Wischhafen port, 0.5 km out on the line to Glückstadt (OSM way 50897526)"],
+    "match_m": 150
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "system1",
+   "name": "Elbfähre Glückstadt–Wischhafen: the truck",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "FRS Elbfähre's fares for trucks (unloaded, without the driver), net, by length",
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st1:Glückstadt", "st1:Wischhafen", "sys1-1.10-11-m", "29.41"],
+    ["st1:Glückstadt", "st1:Wischhafen", "sys1-1.11-12-m", "30.67"],
+    ["st1:Glückstadt", "st1:Wischhafen", "sys1-1.12-13-m", "31.93"],
+    ["st1:Glückstadt", "st1:Wischhafen", "sys1-1.13-14-m", "34.03"],
+    ["st1:Glückstadt", "st1:Wischhafen", "sys1-1.14-15-m", "35.71"],
+    ["st1:Glückstadt", "st1:Wischhafen", "sys1-1.15-16-m", "36.55"],
+    ["st1:Glückstadt", "st1:Wischhafen", "sys1-1.16-17-m", "37.82"],
+    ["st1:Glückstadt", "st1:Wischhafen", "sys1-1.17-18-35-m", "39.08"],
+    ["st1:Glückstadt", "st1:Wischhafen", "sys1-1.18-35-19-35-m", "43.28"],
+    ["st1:Glückstadt", "st1:Wischhafen", "sys1-1.19-35-20-35-m", "47.48"],
+    ["st1:Glückstadt", "st1:Wischhafen", "sys1-1.20-35-21-35-m", "51.68"],
+    ["st1:Glückstadt", "st1:Wischhafen", "sys1-1.21-35-22-35-m", "55.88"],
+    ["st1:Glückstadt", "st1:Wischhafen", "sys1-1.22-35-23-m", "60.08"],
+    ["st1:Glückstadt", "st1:Wischhafen", "sys1-1.5-6-m", "18.07"],
+    ["st1:Glückstadt", "st1:Wischhafen", "sys1-1.6-7-m", "21.43"],
+    ["st1:Glückstadt", "st1:Wischhafen", "sys1-1.7-8-m", "24.79"],
+    ["st1:Glückstadt", "st1:Wischhafen", "sys1-1.8-9-m", "26.05"],
+    ["st1:Glückstadt", "st1:Wischhafen", "sys1-1.9-10-m", "27.31"],
+    ["st1:Glückstadt", "st1:Wischhafen", "sys1-1.up-to-5-m", "15.55"]
+   ],
+   "sources": ["s1", "s2", "s3"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system2",
+   "name": "Elbfähre Glückstadt–Wischhafen: the load",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "t",
+   "mass_basis": "load_kg",
+   "mass_step_kg": 1000,
+   "method": "FRS Elbfähre's fare for loads by weight, net, per started 1,000 kg",
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [["st2:Glückstadt", "st2:Wischhafen", "sys2-1.per-started-1-000-kg-of-load", "1.26"]],
+   "sources": ["s1", "s2", "s3"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "crossings": true,
+   "ferry": true
+  }
+ }
+}

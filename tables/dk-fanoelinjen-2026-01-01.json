@@ -1,0 +1,93 @@
+{
+ "country": "DK",
+ "currency": "DKK",
+ "valid_from": "2026-01-01",
+ "valid_to": "2026-12-31",
+ "crossings": true,
+ "ferry": true,
+ "name": "FANØLINJEN's ferries Esbjerg–Nordby, trucks",
+ "law": "FANØLINJEN's freight prices for 2026 per single trip (including 25% VAT, taken out) on Esbjerg–Nordby: Lastbil maks. 8 m DKK 845; Lastbil maks. 10 m DKK 1015; Lastbil/sættevogn maks. 15 m DKK 1370; Sættevogn maks. 17 m DKK 1625; Vogntog over 17 m DKK 1805. By length, without VAT: DKK up to 8 m 676, 8-10 m 812, 10-15 m 1096, 15-17 m 1300, 17-26 m 1444. Ports at OpenStreetMap's ferry terminals, priced where the line goes out on its car ferry line.",
+ "sources": [
+  {
+   "title": "FANØLINJEN: freight prices",
+   "url": "https://www.fanoelinjen.dk/alt-det-praktiske/fragt"
+  },
+  {
+   "title": "OpenStreetMap (Overpass API): Denmark's ferry lines and terminals",
+   "url": "https://www.openstreetmap.org/"
+  }
+ ],
+ "vehicles": "Trucks over 3.5 t, by length (truck.length_m)",
+ "min_kg": 3501,
+ "tolled_roads": "FANØLINJEN's ferries Esbjerg–Nordby.",
+ "closed_systems": [
+  {
+   "name": "FANØLINJEN: Esbjerg–Nordby",
+   "law": "FANØLINJEN's freight prices: Esbjerg–Nordby",
+   "groups": [
+    {
+     "name": "up to 8 m",
+     "min_kg": 3501,
+     "max_length_m": 8
+    },
+    {
+     "name": "8-10 m",
+     "min_kg": 3501,
+     "max_length_m": 10,
+     "min_length_m": 8
+    },
+    {
+     "name": "10-15 m",
+     "min_kg": 3501,
+     "max_length_m": 15,
+     "min_length_m": 10
+    },
+    {
+     "name": "15-17 m",
+     "min_kg": 3501,
+     "max_length_m": 17,
+     "min_length_m": 15
+    },
+    {
+     "name": "17-26 m",
+     "min_kg": 3501,
+     "max_length_m": 26,
+     "min_length_m": 17
+    }
+   ],
+   "stations": [
+    {
+     "name": "Esbjerg",
+     "points": [
+      {
+       "name": "Esbjerg port, 0.5 km out on the line to Nordby (OSM way 112654387)",
+       "lat": 55.457539,
+       "lon": 8.434987
+      }
+     ]
+    },
+    {
+     "name": "Nordby",
+     "points": [
+      {
+       "name": "Nordby port, 0.5 km out on the line to Esbjerg (OSM way 112654387)",
+       "lat": 55.453699,
+       "lon": 8.413289
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Esbjerg|Nordby": {
+     "up to 8 m": 676.0,
+     "8-10 m": 812.0,
+     "10-15 m": 1096.0,
+     "15-17 m": 1300.0,
+     "17-26 m": 1444.0
+    }
+   }
+  }
+ ],
+ "rows": []
+}

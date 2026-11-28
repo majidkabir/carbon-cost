@@ -1,0 +1,558 @@
+::warning title=ad/ad-envalira-2026-11-16.orct.json::differs from tariffs/data/ad/ad-envalira-2026-11-16.orct.json
+109c109
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=al/al-2026-11-13.orct.json::differs from tariffs/data/al/al-2026-11-13.orct.json
+211c211
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=al/al-llogara-2025-10-02.orct.json::differs from tariffs/data/al/al-llogara-2025-10-02.orct.json
+121c121
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+al/fuelco2-al-2024-01-01.orct.json: same as committed
+::warning title=at/at-felbertauern-2026-01-01.orct.json::differs from tariffs/data/at/at-felbertauern-2026-01-01.orct.json
+131c131
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+at/fuelco2-at-2024-01-01.orct.json: same as committed
+at/fuelco2-at-2025-01-01.orct.json: same as committed
+at/fuelco2-at-2026-01-01.orct.json: same as committed
+at/fuelco2-at-2027-01-01.orct.json: same as committed
+::warning title=ba/ba-2020-11-26.orct.json::differs from tariffs/data/ba/ba-2020-11-26.orct.json
+483c483
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=ba/ba-2024-08-22.orct.json::differs from tariffs/data/ba/ba-2024-08-22.orct.json
+536c536
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=ba/ba-2026-11-01.orct.json::differs from tariffs/data/ba/ba-2026-11-01.orct.json
+535c535
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=ba/ba-rs-2024-10-02.orct.json::differs from tariffs/data/ba/ba-rs-2024-10-02.orct.json
+297c297
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=be/be-liefkenshoek-2026-01-01.orct.json::differs from tariffs/data/be/be-liefkenshoek-2026-01-01.orct.json
+115c115
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=be/be-liefkenshoek-2027-01-01.orct.json::differs from tariffs/data/be/be-liefkenshoek-2027-01-01.orct.json
+115c115
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+by/by-2026-09-01.orct.json: same as committed
+::warning title=ch/ch-great-st-bernard-2026-02-01.orct.json::differs from tariffs/data/ch/ch-great-st-bernard-2026-02-01.orct.json
+122c122
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+de/de-elbfaehre-2025-01-01.orct.json: same as committed
+de/de-elbfaehre-2026-01-01.orct.json: same as committed
+de/de-elbfaehre-2026-03-23.orct.json: same as committed
+::warning title=de/de-elbfaehre-2026-05-06.orct.json::differs from tariffs/data/de/de-elbfaehre-2026-05-06.orct.json
+16c16
+<   "valid_to": "2026-09-16",
+---
+>   "valid_to": "2026-11-16",
+::warning title=de/de-elbfaehre-2026-11-17.orct.json::new dataset (none in tariffs/data)
+de/de-elbfaehre-2026-11-19.orct.json: same as committed
+de/de-elbfaehre-2026-11-23.orct.json: same as committed
+::warning title=de/de-elbfaehre-2026-11-25.orct.json::differs from tariffs/data/de/de-elbfaehre-2026-11-25.orct.json
+20c20
+<   "method": "FRS Elbfähre's fares for trucks and cargo, valid until 31 December 2026 (the page as read on 2026-11-25, recorded): a truck, unloaded and without its driver, net of 19% VAT, by its length over all: to 5 m EUR 13.87, to 6 m EUR 16.39, to 7 m EUR 19.75, to 8 m EUR 23.11, to 9 m EUR 24.37, to 10 m EUR 25.63, to 11 m EUR 27.73, to 12 m EUR 28.99, to 13 m EUR 30.25, to 14 m EUR 32.35, to 15 m EUR 34.03, to 16 m EUR 34.87, to 17 m EUR 36.13, to 18.35 m EUR 37.39, each further metre (overhanging ones too) EUR 4.20, at most 23 m; the load by weight, EUR 1.26 per started 1,000 kg. The page's net prices up to 12 m don't match its gross ones; those are taken as gross / 1.19. Plus the fuel surcharge per truck, EUR 2.40 gross (as of 2026-09-17), EUR 2.02 net. The driver's own fare (adults \"from\" EUR 3.40) isn't added, nor the surcharges for over 2.50 m wide (30%) or dangerous goods, nor the frequent travellers' discounts. Ports at OpenStreetMap's ferry terminals, priced where the line goes out on its car ferry line.",
+---
+>   "method": "FRS Elbfähre's fares for trucks and cargo, valid until 31 December 2026 (the page as read on 2026-11-25, recorded): a truck, unloaded and without its driver, net of 19% VAT, by its length over all: to 5 m EUR 13.87, to 6 m EUR 16.39, to 7 m EUR 19.75, to 8 m EUR 23.11, to 9 m EUR 24.37, to 10 m EUR 25.63, to 11 m EUR 27.73, to 12 m EUR 28.99, to 13 m EUR 30.25, to 14 m EUR 32.35, to 15 m EUR 34.03, to 16 m EUR 34.87, to 17 m EUR 36.13, to 18.35 m EUR 37.39, each further metre (overhanging ones too) EUR 4.20, at most 23 m; the load by weight, EUR 1.26 per started 1,000 kg. The page's net prices up to 12 m don't match its gross ones; those are taken as gross / 1.19. Plus the fuel surcharge per truck, EUR 2.40 gross (as of 2026-11-17), EUR 2.02 net. The driver's own fare (adults \"from\" EUR 3.40) isn't added, nor the surcharges for over 2.50 m wide (30%) or dangerous goods, nor the frequent travellers' discounts. Ports at OpenStreetMap's ferry terminals, priced where the line goes out on its car ferry line.",
+de/de-elbfaehre-2026-11-26.orct.json: same as committed
+::warning title=de/de-herrentunnel-2025-03-01.orct.json::differs from tariffs/data/de/de-herrentunnel-2025-03-01.orct.json
+140c140
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=de/de-warnowtunnel-2026-11-01.orct.json::differs from tariffs/data/de/de-warnowtunnel-2026-11-01.orct.json
+149c149
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+de/fuelco2-de-2024-01-01.orct.json: same as committed
+de/fuelco2-de-2025-01-01.orct.json: same as committed
+de/fuelco2-de-2026-01-01.orct.json: same as committed
+dk/dk-aeroefaergerne-2026-01-03.orct.json: same as committed
+dk/dk-aeroexpressen-2026-01-01.orct.json: same as committed
+dk/dk-aeroexpressen-2026-06-15.orct.json: same as committed
+dk/dk-alslinjen-2026-01-01.orct.json: same as committed
+dk/dk-alslinjen-2027-01-01.orct.json: same as committed
+dk/dk-bornholm-2026-01-01.orct.json: same as committed
+dk/dk-bornholm-2027-01-01.orct.json: same as committed
+dk/dk-bridges-2026-01-01.orct.json: same as committed
+dk/dk-fanoelinjen-2026-01-01.orct.json: same as committed
+dk/dk-langelandslinjen-2026-01-01.orct.json: same as committed
+dk/dk-molslinjen-2026-11-19.orct.json: same as committed
+dk/dk-samsoe-rederi-2026-11-19.orct.json: same as committed
+dk/dk-samsoelinjen-2026-01-01.orct.json: same as committed
+dk/dk-samsoelinjen-2027-01-01.orct.json: same as committed
+dk/fuelco2-dk-2024-01-01.orct.json: same as committed
+dk/fuelco2-dk-2025-01-01.orct.json: same as committed
+dk/fuelco2-dk-2026-01-01.orct.json: same as committed
+dk/fuelco2-dk-2027-01-01.orct.json: same as committed
+dk/scandlines-2026-01-01.orct.json: same as committed
+dk/scandlines-2026-02-01.orct.json: same as committed
+dk/scandlines-2026-03-01.orct.json: same as committed
+dk/scandlines-2026-04-01.orct.json: same as committed
+::warning title=dk/scandlines-2026-05-01.orct.json::differs from tariffs/data/dk/scandlines-2026-05-01.orct.json
+16c16
+<   "valid_to": "2026-05-31",
+---
+>   "valid_to": "2026-06-30",
+dk/scandlines-2026-07-01.orct.json: same as committed
+dk/scandlines-2026-08-01.orct.json: same as committed
+dk/scandlines-2026-09-01.orct.json: same as committed
+dk/scandlines-2026-10-01.orct.json: same as committed
+dk/scandlines-2026-11-01.orct.json: same as committed
+dk/scandlines-2026-12-01.orct.json: same as committed
+ee/ee-2024-01-01.orct.json: same as committed
+ee/ee-2026-01-01.orct.json: same as committed
+ee/ee-ferries-2025-02-01.orct.json: same as committed
+::warning title=es/es-ap15-2026-01-01.orct.json::differs from tariffs/data/es/es-ap15-2026-01-01.orct.json
+127c127
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=es/es-ap46-2025-01-01.orct.json::differs from tariffs/data/es/es-ap46-2025-01-01.orct.json
+143c143
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=es/es-ap46-2026-01-01.orct.json::differs from tariffs/data/es/es-ap46-2026-01-01.orct.json
+143c143
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=es/es-ap53-2026-01-01.orct.json::differs from tariffs/data/es/es-ap53-2026-01-01.orct.json
+390c390
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+es/es-ap66-2025-01-01.orct.json: same as committed
+es/es-ap66-2026-01-01.orct.json: same as committed
+::warning title=es/es-ap7ac-2025-01-01.orct.json::differs from tariffs/data/es/es-ap7ac-2025-01-01.orct.json
+166c166
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=es/es-ap7ac-2026-01-01.orct.json::differs from tariffs/data/es/es-ap7ac-2026-01-01.orct.json
+166c166
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=es/es-aulesa-2025-01-01.orct.json::differs from tariffs/data/es/es-aulesa-2025-01-01.orct.json
+212c212
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=es/es-aulesa-2026-01-01.orct.json::differs from tariffs/data/es/es-aulesa-2026-01-01.orct.json
+212c212
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=es/es-ausol-2026-01-01.orct.json::differs from tariffs/data/es/es-ausol-2026-01-01.orct.json
+141c141
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=es/es-ausol-2026-03-27.orct.json::differs from tariffs/data/es/es-ausol-2026-03-27.orct.json
+141c141
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=es/es-ausol-2026-04-13.orct.json::differs from tariffs/data/es/es-ausol-2026-04-13.orct.json
+141c141
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=es/es-ausol-2026-06-01.orct.json::differs from tariffs/data/es/es-ausol-2026-06-01.orct.json
+141c141
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=es/es-ausol-2026-10-01.orct.json::differs from tariffs/data/es/es-ausol-2026-10-01.orct.json
+141c141
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=es/es-basque-2026-01-01.orct.json::differs from tariffs/data/es/es-basque-2026-01-01.orct.json
+2437c2437
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=es/es-basque-ap8-2026-01-01.orct.json::differs from tariffs/data/es/es-basque-ap8-2026-01-01.orct.json
+1209c1209
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=es/es-castellana-2025-01-01.orct.json::differs from tariffs/data/es/es-castellana-2025-01-01.orct.json
+409c409
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=es/es-castellana-2026-01-01.orct.json::differs from tariffs/data/es/es-castellana-2026-01-01.orct.json
+409c409
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=es/es-catalonia-c16-2026-01-01.orct.json::differs from tariffs/data/es/es-catalonia-c16-2026-01-01.orct.json
+164c164
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=es/es-radials-2026-01-01.orct.json::differs from tariffs/data/es/es-radials-2026-01-01.orct.json
+1860c1860
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=es/es-seitt-2026-01-01.orct.json::differs from tariffs/data/es/es-seitt-2026-01-01.orct.json
+20c20
+<   "method": "Acuerdo del Consejo de Ministros de 9 de diciembre de 2025 (BOE 18/12/2025) and the Secretaría General de Transporte Terrestre's resolution of 10 December 2025: SEITT's 2026 tariffs by entry and exit, Pesados 1 (two or three axles) and Pesados 2 (four or more), cash prices, tag prices for trucks paying by Vía-T (etc), excluding 21% IVA; free from 00:00 to 06:00. Stations placed at OpenStreetMap's toll booths of their name (extract of 2026-11-26); 6 stations without one aren't priced. Only SEITT's AP-36, AP-41 and AP-7 Cartagena–Vera (not the Madrid radials or M-12); the concessions are separate tables (AP-6, AP-51 and AP-61; AP-71; AP-7 Málaga–Guadiaro; AP-66; AP-46; AP-7 Alicante–Cartagena) or not included (AP-9, AP-53, AP-68).",
+---
+>   "method": "Acuerdo del Consejo de Ministros de 9 de diciembre de 2025 (BOE 18/12/2025) and the Secretaría General de Transporte Terrestre's resolution of 10 December 2025: SEITT's 2026 tariffs by entry and exit, Pesados 1 (two or three axles) and Pesados 2 (four or more), cash prices, tag prices for trucks paying by Vía-T (etc), excluding 21% IVA; free from 00:00 to 06:00. Stations placed at OpenStreetMap's toll booths of their name (extract of 2026-11-27); 6 stations without one aren't priced. Only SEITT's AP-36, AP-41 and AP-7 Cartagena–Vera (not the Madrid radials or M-12); the concessions are separate tables (AP-6, AP-51 and AP-61; AP-71; AP-7 Málaga–Guadiaro; AP-66; AP-46; AP-7 Alicante–Cartagena) or not included (AP-9, AP-53, AP-68).",
+703c703
+<    "osm_extract": "2026-11-26"
+---
+>    "osm_extract": "2026-11-27"
+fi/fuelco2-fi-2024-01-01.orct.json: same as committed
+fi/fuelco2-fi-2026-01-01.orct.json: same as committed
+fi/fuelco2-fi-2027-01-01.orct.json: same as committed
+fi/nocharge-fi-2026-11-20.orct.json: same as committed
+::warning title=fo/fo-tunnels-2026-11-16.orct.json::differs from tariffs/data/fo/fo-tunnels-2026-11-16.orct.json
+169c169
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+fr/frejus-2026-01-01.orct.json: same as committed
+fr/mont-blanc-2026-01-01.orct.json: same as committed
+gb/gb-2026-04-01.orct.json: same as committed
+gb/gb-calmac-2026-03-27.orct.json: same as committed
+::warning title=gb/gb-dartford-2024-01-01.orct.json::differs from tariffs/data/gb/gb-dartford-2024-01-01.orct.json
+159c159
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=gb/gb-dartford-2025-09-01.orct.json::differs from tariffs/data/gb/gb-dartford-2025-09-01.orct.json
+176c176
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=gb/gb-humber-bridge-2026-11-13.orct.json::differs from tariffs/data/gb/gb-humber-bridge-2026-11-13.orct.json
+116c116
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=gb/gb-m6toll-2026-11-13.orct.json::differs from tariffs/data/gb/gb-m6toll-2026-11-13.orct.json
+736c736
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=gb/gb-mersey-bridges-2025-04-01.orct.json::differs from tariffs/data/gb/gb-mersey-bridges-2025-04-01.orct.json
+137c137
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=gb/gb-tamar-bridge-2026-11-13.orct.json::differs from tariffs/data/gb/gb-tamar-bridge-2026-11-13.orct.json
+136c136
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=gb/gb-thames-tunnels-2025-04-07.orct.json::differs from tariffs/data/gb/gb-thames-tunnels-2025-04-07.orct.json
+182c182
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=gb/gb-thames-tunnels-2026-09-21.orct.json::differs from tariffs/data/gb/gb-thames-tunnels-2026-09-21.orct.json
+181c181
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=gb/gb-tyne-tunnels-2024-01-01.orct.json::differs from tariffs/data/gb/gb-tyne-tunnels-2024-01-01.orct.json
+117c117
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=gb/gb-tyne-tunnels-2024-05-01.orct.json::differs from tariffs/data/gb/gb-tyne-tunnels-2024-05-01.orct.json
+117c117
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=gb/gb-tyne-tunnels-2025-05-01.orct.json::differs from tariffs/data/gb/gb-tyne-tunnels-2025-05-01.orct.json
+116c116
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=gb/zone-gb-congestion-charge-2024-01-01.orct.json::differs from tariffs/data/gb/zone-gb-congestion-charge-2024-01-01.orct.json
+946c946
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=gb/zone-gb-congestion-charge-2026-01-02.orct.json::differs from tariffs/data/gb/zone-gb-congestion-charge-2026-01-02.orct.json
+963c963
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=gb/zone-gb-congestion-charge-2030-03-04.orct.json::differs from tariffs/data/gb/zone-gb-congestion-charge-2030-03-04.orct.json
+1024c1024
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=gb/zone-gb-low-emission-zone-2024-01-01.orct.json::differs from tariffs/data/gb/zone-gb-low-emission-zone-2024-01-01.orct.json
+13849c13849
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=gr/gr-2026-01-01.orct.json::differs from tariffs/data/gr/gr-2026-01-01.orct.json
+3518c3518
+<    "osm_extract": "2026-11-26"
+---
+>    "osm_extract": "2026-11-27"
+hr/hr-jadrolinija-2026-01-01.orct.json: same as committed
+hu/hu-2026-07-01.orct.json: same as committed
+ie/fuelco2-ie-2024-01-01.orct.json: same as committed
+ie/fuelco2-ie-2024-10-09.orct.json: same as committed
+ie/fuelco2-ie-2025-10-08.orct.json: same as committed
+::warning title=ie/ie-2026-01-01.orct.json::differs from tariffs/data/ie/ie-2026-01-01.orct.json
+20c20
+<   "method": "Roads Act 1993 (Part V) and the toll bye-laws of each scheme, maximum tolls for 2026 as published by Transport Infrastructure Ireland per toll road: goods vehicles over 3,500 kg by axles (2 or 3, 4 or more) on the PPP roads, excluding 23% VAT; on the M50 (no VAT) by weight, at the unregistered price, or the tag price for trucks paying by tag. Heavy goods vehicles use the Dublin Port Tunnel free. Each toll is charged at its plaza (M50: its gantry), placed with OpenStreetMap's toll booths (2026-11-26T21:21:01Z).",
+---
+>   "method": "Roads Act 1993 (Part V) and the toll bye-laws of each scheme, maximum tolls for 2026 as published by Transport Infrastructure Ireland per toll road: goods vehicles over 3,500 kg by axles (2 or 3, 4 or more) on the PPP roads, excluding 23% VAT; on the M50 (no VAT) by weight, at the unregistered price, or the tag price for trucks paying by tag. Heavy goods vehicles use the Dublin Port Tunnel free. Each toll is charged at its plaza (M50: its gantry), placed with OpenStreetMap's toll booths (2026-11-27T21:21:21Z).",
+274c274
+<    "osm_extract": "2026-11-26"
+---
+>    "osm_extract": "2026-11-27"
+is/fuelco2-is-2024-01-01.orct.json: same as committed
+is/fuelco2-is-2025-01-01.orct.json: same as committed
+is/fuelco2-is-2026-01-01.orct.json: same as committed
+is/is-2026-01-01.orct.json: same as committed
+is/is-2027-01-01.orct.json: same as committed
+is/is-2028-01-01.orct.json: same as committed
+is/is-2030-01-01.orct.json: same as committed
+::warning title=is/is-hornafjordur-2026-09-01.orct.json::differs from tariffs/data/is/is-hornafjordur-2026-09-01.orct.json
+110c110
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=is/is-vadlaheidargong-2026-03-02.orct.json::differs from tariffs/data/is/is-vadlaheidargong-2026-03-02.orct.json
+104c104
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+it/it-2026-01-01.orct.json: same as committed
+it/it-barriers-2026-01-01.orct.json: same as committed
+::warning title=it/it-cas-2026-01-01.orct.json::differs from tariffs/data/it/it-cas-2026-01-01.orct.json
+1661c1661
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=it/it-great-st-bernard-2026-02-01.orct.json::differs from tariffs/data/it/it-great-st-bernard-2026-02-01.orct.json
+122c122
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+it/it-messina-2026-11-01.orct.json: same as committed
+lt/fuelco2-lt-2025-01-01.orct.json: same as committed
+lt/fuelco2-lt-2026-01-01.orct.json: same as committed
+lt/lt-2026-08-25.orct.json: same as committed
+lu/fuelco2-lu-2024-01-01.orct.json: same as committed
+lu/fuelco2-lu-2025-01-01.orct.json: same as committed
+lu/fuelco2-lu-2026-01-01.orct.json: same as committed
+lu/lu-2025-03-25.orct.json: same as committed
+lu/lu-2027-03-26.orct.json: same as committed
+lv/lv-2026-03-01.orct.json: same as committed
+md/md-2026-11-13.orct.json: same as committed
+::warning title=me/me-2022-07-21.orct.json::differs from tariffs/data/me/me-2022-07-21.orct.json
+232c232
+<    "osm_extract": "2026-11-26"
+---
+>    "osm_extract": "2026-11-27"
+::warning title=mk/mk-2025-05-01.orct.json::differs from tariffs/data/mk/mk-2025-05-01.orct.json
+497c497
+<    "osm_extract": "2026-11-26"
+---
+>    "osm_extract": "2026-11-27"
+::warning title=nl/nl-kiltunnel-2026-11-13.orct.json::differs from tariffs/data/nl/nl-kiltunnel-2026-11-13.orct.json
+102c102
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=nl/nl-westerscheldetunnel-2026-01-01.orct.json::differs from tariffs/data/nl/nl-westerscheldetunnel-2026-01-01.orct.json
+116c116
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+no/fuelco2-no-2024-01-01.orct.json: same as committed
+no/fuelco2-no-2025-01-01.orct.json: same as committed
+no/fuelco2-no-2026-01-01.orct.json: same as committed
+no/fuelco2-no-2026-05-01.orct.json: same as committed
+no/fuelco2-no-2026-09-01.orct.json: same as committed
+no/no-2026-11-18.orct.json: same as committed
+no/no-ferries-2026-01-01.orct.json: same as committed
+pl/fuelco2-pl-2024-01-01.orct.json: same as committed
+::warning title=pl/pl-a1-2012-02-11.orct.json::differs from tariffs/data/pl/pl-a1-2012-02-11.orct.json
+368c368
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=pl/pl-a2-2026-09-11.orct.json::differs from tariffs/data/pl/pl-a2-2026-09-11.orct.json
+1394c1394
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=pl/pl-a4-2026-04-01.orct.json::differs from tariffs/data/pl/pl-a4-2026-04-01.orct.json
+161c161
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+pl/polsca-2026-03-30.orct.json: same as committed
+pl/polsca-2026-04-01.orct.json: same as committed
+pl/polsca-2026-06-22.orct.json: same as committed
+pl/polsca-2026-07-06.orct.json: same as committed
+pl/polsca-2026-08-01.orct.json: same as committed
+pl/polsca-2026-09-01.orct.json: same as committed
+pl/polsca-2026-09-18.orct.json: same as committed
+pl/polsca-2026-10-01.orct.json: same as committed
+pl/polsca-2026-11-01.orct.json: same as committed
+pl/polsca-2026-12-01.orct.json: same as committed
+pt/fuelco2-pt-2024-01-01.orct.json: same as committed
+pt/fuelco2-pt-2024-08-26.orct.json: same as committed
+pt/fuelco2-pt-2024-09-09.orct.json: same as committed
+pt/fuelco2-pt-2024-09-16.orct.json: same as committed
+pt/fuelco2-pt-2025-01-01.orct.json: same as committed
+pt/fuelco2-pt-2026-01-01.orct.json: same as committed
+::warning title=pt/pt-2026-01-01.orct.json::differs from tariffs/data/pt/pt-2026-01-01.orct.json
+20c20
+<   "method": "IMT, Taxas de Portagem de 2026: the toll of each lanço by class, set by the concession contracts and validated by IMT; class 2 (two axles, 1.1 m or higher at the front axle), 3 (three axles), 4 (more than three), excluding IVA (23%; 6% on the Lusoponte Tejo crossings, which charge northbound only). A trip pays each lanço it drives: each is a toll point in its middle, placed along the motorway by IMT's lengths at OpenStreetMap's junctions (extract of 2026-11-26). 19 lanços that couldn't be placed (branches, short runs, misfits) aren't charged. Only the concessions IMT's page lists (Brisa, Oeste, Brisal, Douro Litoral, Lusoponte, IP's A21).",
+---
+>   "method": "IMT, Taxas de Portagem de 2026: the toll of each lanço by class, set by the concession contracts and validated by IMT; class 2 (two axles, 1.1 m or higher at the front axle), 3 (three axles), 4 (more than three), excluding IVA (23%; 6% on the Lusoponte Tejo crossings, which charge northbound only). A trip pays each lanço it drives: each is a toll point in its middle, placed along the motorway by IMT's lengths at OpenStreetMap's junctions (extract of 2026-11-27). 19 lanços that couldn't be placed (branches, short runs, misfits) aren't charged. Only the concessions IMT's page lists (Brisa, Oeste, Brisal, Douro Litoral, Lusoponte, IP's A21).",
+4030c4030
+<    "osm_extract": "2026-11-26"
+---
+>    "osm_extract": "2026-11-27"
+ro/ro-2026-10-08.orct.json: same as committed
+::warning title=ro/ro-danube-bridges-2025-09-08.orct.json::differs from tariffs/data/ro/ro-danube-bridges-2025-09-08.orct.json
+138c138
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+ro/ro-danube-bridges-2026-10-01.orct.json: same as committed
+::warning title=rs/rs-2026-07-01.orct.json::differs from tariffs/data/rs/rs-2026-07-01.orct.json
+3334c3334
+<    "osm_extract": "2026-11-26"
+---
+>    "osm_extract": "2026-11-27"
+::warning title=rs/rs-bypass-2026-04-01.orct.json::differs from tariffs/data/rs/rs-bypass-2026-04-01.orct.json
+293c293
+<    "osm_extract": "2026-11-26"
+---
+>    "osm_extract": "2026-11-27"
+se/fuelco2-se-2024-01-01.orct.json: same as committed
+se/fuelco2-se-2025-01-01.orct.json: same as committed
+se/fuelco2-se-2026-07-01.orct.json: same as committed
+se/fuelco2-se-2026-12-01.orct.json: same as committed
+se/fuelco2-se-2027-01-01.orct.json: same as committed
+se/se-2026-01-01.orct.json: same as committed
+se/se-2027-01-01.orct.json: same as committed
+se/se-2027-03-26.orct.json: same as committed
+::warning title=se/se-bridges-2024-05-01.orct.json::differs from tariffs/data/se/se-bridges-2024-05-01.orct.json
+130c130
+<    "osm_extract": "2026-11-26"
+---
+>    "osm_extract": "2026-11-27"
+::warning title=se/se-congestion-goteborg-2020-01-01.orct.json::differs from tariffs/data/se/se-congestion-goteborg-2020-01-01.orct.json
+2197c2197
+<    "osm_extract": "2026-11-26"
+---
+>    "osm_extract": "2026-11-27"
+::warning title=se/se-congestion-stockholm-2020-01-01.orct.json::differs from tariffs/data/se/se-congestion-stockholm-2020-01-01.orct.json
+3251c3251
+<    "osm_extract": "2026-11-26"
+---
+>    "osm_extract": "2026-11-27"
+si/fuelco2-si-2024-01-01.orct.json: same as committed
+si/fuelco2-si-2024-09-10.orct.json: same as committed
+si/fuelco2-si-2026-03-24.orct.json: same as committed
+si/fuelco2-si-2026-05-12.orct.json: same as committed
+si/fuelco2-si-2026-06-02.orct.json: same as committed
+si/fuelco2-si-2026-07-28.orct.json: same as committed
+si/fuelco2-si-2026-12-15.orct.json: same as committed
+::warning title=tr/tr-2026-07-01.orct.json::differs from tariffs/data/tr/tr-2026-07-01.orct.json
+20c20
+<   "method": "Karayollarında Geçiş Ücretlerinin Belirlenmesi ve Uygulanmasına Dair Yönetmelik; KGM's 2026 tariffs. Bridges (15 Temmuz Şehitler, Fatih Sultan Mehmet, Osmangazi, Yavuz Sultan Selim) per passage either way; motorways by entry and exit station. By KGM class: 2 (two axles of 3.20 m or more wheelbase), 3 (three axles), 4 (four and five axles), 5 (six or more), excluding 20% KDV (VAT). Trucks may not use 15 Temmuz Şehitler or FSM (UKOME decision) but pay their tariff if they do. Bridges placed at their main span, stations at their toll booths (else the motorway junction of their name) in OpenStreetMap (extract of 2026-11-26); 28 stations OSM doesn't name aren't placed, a trip from or to one priced from the next placed station. The Osmangazi bridge is charged at its own tariff, Gebze–Bursa's prices taken without it; Kuzey Çevre's tickets include the Yavuz Sultan Selim bridge, which isn't charged again on them. Not yet charged: Çeşmeli – Erdemli – Kızkalesi (its own tariff starts later).",
+---
+>   "method": "Karayollarında Geçiş Ücretlerinin Belirlenmesi ve Uygulanmasına Dair Yönetmelik; KGM's 2026 tariffs. Bridges (15 Temmuz Şehitler, Fatih Sultan Mehmet, Osmangazi, Yavuz Sultan Selim) per passage either way; motorways by entry and exit station. By KGM class: 2 (two axles of 3.20 m or more wheelbase), 3 (three axles), 4 (four and five axles), 5 (six or more), excluding 20% KDV (VAT). Trucks may not use 15 Temmuz Şehitler or FSM (UKOME decision) but pay their tariff if they do. Bridges placed at their main span, stations at their toll booths (else the motorway junction of their name) in OpenStreetMap (extract of 2026-11-27); 28 stations OSM doesn't name aren't placed, a trip from or to one priced from the next placed station. The Osmangazi bridge is charged at its own tariff, Gebze–Bursa's prices taken without it; Kuzey Çevre's tickets include the Yavuz Sultan Selim bridge, which isn't charged again on them. Not yet charged: Çeşmeli – Erdemli – Kızkalesi (its own tariff starts later).",
+8225c8225
+<    "osm_extract": "2026-11-26"
+---
+>    "osm_extract": "2026-11-27"
+::warning title=tr/tr-2026-10-19.orct.json::differs from tariffs/data/tr/tr-2026-10-19.orct.json
+19c19
+<   "method": "Karayollarında Geçiş Ücretlerinin Belirlenmesi ve Uygulanmasına Dair Yönetmelik; KGM's 2026 tariffs. Bridges (15 Temmuz Şehitler, Fatih Sultan Mehmet, Osmangazi, Yavuz Sultan Selim) per passage either way; motorways by entry and exit station. By KGM class: 2 (two axles of 3.20 m or more wheelbase), 3 (three axles), 4 (four and five axles), 5 (six or more), excluding 20% KDV (VAT). Trucks may not use 15 Temmuz Şehitler or FSM (UKOME decision) but pay their tariff if they do. Bridges placed at their main span, stations at their toll booths (else the motorway junction of their name) in OpenStreetMap (extract of 2026-11-26); 29 stations OSM doesn't name aren't placed, a trip from or to one priced from the next placed station. The Osmangazi bridge is charged at its own tariff, Gebze–Bursa's prices taken without it; Kuzey Çevre's tickets include the Yavuz Sultan Selim bridge, which isn't charged again on them.",
+---
+>   "method": "Karayollarında Geçiş Ücretlerinin Belirlenmesi ve Uygulanmasına Dair Yönetmelik; KGM's 2026 tariffs. Bridges (15 Temmuz Şehitler, Fatih Sultan Mehmet, Osmangazi, Yavuz Sultan Selim) per passage either way; motorways by entry and exit station. By KGM class: 2 (two axles of 3.20 m or more wheelbase), 3 (three axles), 4 (four and five axles), 5 (six or more), excluding 20% KDV (VAT). Trucks may not use 15 Temmuz Şehitler or FSM (UKOME decision) but pay their tariff if they do. Bridges placed at their main span, stations at their toll booths (else the motorway junction of their name) in OpenStreetMap (extract of 2026-11-27); 29 stations OSM doesn't name aren't placed, a trip from or to one priced from the next placed station. The Osmangazi bridge is charged at its own tariff, Gebze–Bursa's prices taken without it; Kuzey Çevre's tickets include the Yavuz Sultan Selim bridge, which isn't charged again on them.",
+8383c8383
+<    "osm_extract": "2026-11-26"
+---
+>    "osm_extract": "2026-11-27"
+albea-2026.json: image unchanged
+atlandes-2026.json: image unchanged
+ba-rs-aleksandrovac.json: image unchanged
+ba-rs-catrnja.json: image unchanged
+ba-rs-drugovici.json: image unchanged
+ba-rs-jakupovci.json: image unchanged
+ba-rs-kladari.json: image unchanged
+ba-rs-kostajnica.json: image unchanged
+ba-rs-laktasi.json: image unchanged
+ba-rs-nova-topola.json: image unchanged
+ba-rs-prnjavor.json: image unchanged
+de-herrentunnel-2025.json: image unchanged
+gb-merseyflow-2025.json: image unchanged
+it-a4bspd-2026.json: image unchanged
+it-cav-2026.json: image unchanged
+it-mit-a22-brennero.json: image unchanged
+it-mit-aspi.json: image unchanged
+it-mit-asti-cuneo.json: image unchanged
+it-mit-autostrada-dei-fiori-a6.json: image unchanged
+it-mit-autostrade-alto-adriatico.json: image unchanged
+it-mit-autovia-padana.json: image unchanged
+it-mit-brebe-mi.json: image unchanged
+it-mit-brescia-padova.json: image unchanged
+it-mit-cav.json: image unchanged
+it-mit-cdt-a10.json: image unchanged
+it-mit-mi-serravalle-mi-tangenziali.json: image unchanged
+it-mit-pedemontana-lombarda.json: image unchanged
+it-mit-rav.json: image unchanged
+it-mit-salt-a15.json: image unchanged
+it-mit-sat.json: image unchanged
+it-mit-satap-a4.json: image unchanged
+it-mit-sav.json: image unchanged
+it-mit-sitaf.json: image unchanged
+it-mit-strada-dei-parchi.json: image unchanged
+it-mit-tangenziale-esterna.json: image unchanged
+it-rav-2026.json: image unchanged
+mk-2019.json: image unchanged
+mk-2025.json: image unchanged
+::warning title=at-2026-a10.json::nor40279329.txt not fetched (https://www.ris.bka.gv.at/Dokumente/Bundesnormen/NOR40279329/NOR40279329.pdf)
+::warning title=at-2026-kalender.json::nor40276924.txt not fetched (https://www.ris.bka.gv.at/Dokumente/Bundesnormen/NOR40276924/NOR40276924.pdf)
+::warning title=at-2026-luegbruecke.json::nor40276795.txt not fetched (https://ris.bka.gv.at/Dokumente/Bundesnormen/NOR40276795/NOR40276795.pdf)
+es-2026.json: 601 of 601 days found in the resolution's tables, 0 of them missing
+fr-2026.json: 10 of 10 days found in the decree's text
+gr-2026.json: 348 of 348 days found in the decision's text
+it-2026.json: 79 of 79 days found in the decree's text

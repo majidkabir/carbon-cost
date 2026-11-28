@@ -1,0 +1,1204 @@
+{
+ "country": "IS",
+ "currency": "ISK",
+ "valid_from": "2027-01-01",
+ "name": "Kílómetragjald (km fee on vehicles)",
+ "law": "Lög um kílómetragjald á ökutæki nr. 100/2025, in Alþingi's lagasafn útgáfa 157b (20. apríl 2026): 6. gr., ISK per km by the vehicle's gjaldþyngd, its permissible total weight on registration; from 10,000 kg at most the annex's maximum by axles (motor vehicle 18,000, 26,000, 32,000 kg with 2, 3, 4 or more axles; trailer 10,000, 18,000, 24,000 kg with 1, 2, 3 or more). The motor vehicle and the trailer each pay on their own (give motor_mass_kg, trailer_mass_kg and motor_axles); the annex's maxima for road trains are not applied. Temporary provisions VI and VII for 2027: the trailer at 80 % of its band; trucks of 10,000 kg or more running on methane, methanol, electricity or hydrogen, and their trailers, at 20 %. Buses' discounts are left out. Foreign vehicles in Iceland pay it too (3. gr.).",
+ "sources": [
+  {
+   "title": "Lög um kílómetragjald á ökutæki nr. 100/2025 (Alþingi, lagasafn)",
+   "url": "https://www.althingi.is/lagas/nuna/2025100.html"
+  }
+ ],
+ "vehicles": "All vehicles; trailers over 3,500 kg",
+ "min_kg": 0,
+ "tolled_roads": "All roads (by odometer).",
+ "rows": [
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 18001,
+   "min_axles": 2,
+   "max_axles": 2,
+   "rate": 5.25,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ]
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 26001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "rate": 7.35,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ]
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 32001,
+   "min_axles": 4,
+   "rate": 9.034,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ]
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 10000,
+   "rate": 2.636,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ],
+   "max_kg": 10000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 10001,
+   "rate": 2.796,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ],
+   "max_kg": 11000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 11001,
+   "rate": 2.962,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ],
+   "max_kg": 12000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 12001,
+   "rate": 3.258,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ],
+   "max_kg": 13000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 13001,
+   "rate": 3.584,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ],
+   "max_kg": 14000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 14001,
+   "rate": 3.942,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ],
+   "max_kg": 15000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 15001,
+   "rate": 4.336,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ],
+   "max_kg": 16000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 16001,
+   "rate": 4.772,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ],
+   "max_kg": 17000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 17001,
+   "rate": 5.25,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ],
+   "max_kg": 18000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 18001,
+   "rate": 5.474,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ],
+   "max_kg": 19000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 19001,
+   "rate": 5.71,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ],
+   "max_kg": 20000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 20001,
+   "rate": 5.954,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ],
+   "max_kg": 21000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 21001,
+   "rate": 6.212,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ],
+   "max_kg": 22000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 22001,
+   "rate": 6.48,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ],
+   "max_kg": 23000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 23001,
+   "rate": 6.758,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ],
+   "max_kg": 24000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 24001,
+   "rate": 7.048,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ],
+   "max_kg": 25000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 25001,
+   "rate": 7.35,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ],
+   "max_kg": 26000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 26001,
+   "rate": 7.608,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ],
+   "max_kg": 27000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 27001,
+   "rate": 7.872,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ],
+   "max_kg": 28000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 28001,
+   "rate": 8.148,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ],
+   "max_kg": 29000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 29001,
+   "rate": 8.434,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ],
+   "max_kg": 30000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 30001,
+   "rate": 8.73,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ],
+   "max_kg": 31000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 31001,
+   "rate": 9.034,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ]
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 10001,
+   "min_axles": 1,
+   "max_axles": 1,
+   "rate": 2.636,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ]
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 18001,
+   "min_axles": 2,
+   "max_axles": 2,
+   "rate": 5.25,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ]
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 24001,
+   "min_axles": 3,
+   "rate": 6.758,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ]
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 3501,
+   "rate": 1.97,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ],
+   "max_kg": 5000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 5001,
+   "rate": 2.088,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ],
+   "max_kg": 6000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 6001,
+   "rate": 2.212,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ],
+   "max_kg": 7000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 7001,
+   "rate": 2.346,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ],
+   "max_kg": 8000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 8001,
+   "rate": 2.486,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ],
+   "max_kg": 9000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 9001,
+   "rate": 2.636,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ],
+   "max_kg": 10000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 10001,
+   "rate": 2.796,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ],
+   "max_kg": 11000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 11001,
+   "rate": 2.962,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ],
+   "max_kg": 12000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 12001,
+   "rate": 3.258,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ],
+   "max_kg": 13000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 13001,
+   "rate": 3.584,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ],
+   "max_kg": 14000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 14001,
+   "rate": 3.942,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ],
+   "max_kg": 15000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 15001,
+   "rate": 4.336,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ],
+   "max_kg": 16000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 16001,
+   "rate": 4.772,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ],
+   "max_kg": 17000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 17001,
+   "rate": 5.25,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ],
+   "max_kg": 18000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 18001,
+   "rate": 5.474,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ],
+   "max_kg": 19000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 19001,
+   "rate": 5.71,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ],
+   "max_kg": 20000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 20001,
+   "rate": 5.954,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ],
+   "max_kg": 21000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 21001,
+   "rate": 6.212,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ],
+   "max_kg": 22000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 22001,
+   "rate": 6.48,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ],
+   "max_kg": 23000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 23001,
+   "rate": 6.758,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ],
+   "max_kg": 24000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 24001,
+   "rate": 7.048,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ],
+   "max_kg": 25000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 25001,
+   "rate": 7.35,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ],
+   "max_kg": 26000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 26001,
+   "rate": 7.608,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ],
+   "max_kg": 27000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 27001,
+   "rate": 7.872,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ],
+   "max_kg": 28000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 28001,
+   "rate": 8.148,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ],
+   "max_kg": 29000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 29001,
+   "rate": 8.434,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ],
+   "max_kg": 30000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 30001,
+   "rate": 8.73,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ],
+   "max_kg": 31000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 31001,
+   "rate": 9.034,
+   "energy": [
+    "cng",
+    "lng",
+    "electric",
+    "hydrogen"
+   ]
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 18001,
+   "min_axles": 2,
+   "max_axles": 2,
+   "rate": 26.25
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 26001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "rate": 36.75
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 32001,
+   "min_axles": 4,
+   "rate": 45.17
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "rate": 6.95,
+   "max_kg": 3500
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 3501,
+   "rate": 9.85,
+   "max_kg": 5000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 5001,
+   "rate": 10.44,
+   "max_kg": 6000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 6001,
+   "rate": 11.06,
+   "max_kg": 7000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 7001,
+   "rate": 11.73,
+   "max_kg": 8000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 8001,
+   "rate": 12.43,
+   "max_kg": 9000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 9001,
+   "rate": 13.18,
+   "max_kg": 10000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 10001,
+   "rate": 13.98,
+   "max_kg": 11000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 11001,
+   "rate": 14.81,
+   "max_kg": 12000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 12001,
+   "rate": 16.29,
+   "max_kg": 13000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 13001,
+   "rate": 17.92,
+   "max_kg": 14000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 14001,
+   "rate": 19.71,
+   "max_kg": 15000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 15001,
+   "rate": 21.68,
+   "max_kg": 16000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 16001,
+   "rate": 23.86,
+   "max_kg": 17000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 17001,
+   "rate": 26.25,
+   "max_kg": 18000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 18001,
+   "rate": 27.37,
+   "max_kg": 19000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 19001,
+   "rate": 28.55,
+   "max_kg": 20000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 20001,
+   "rate": 29.77,
+   "max_kg": 21000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 21001,
+   "rate": 31.06,
+   "max_kg": 22000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 22001,
+   "rate": 32.4,
+   "max_kg": 23000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 23001,
+   "rate": 33.79,
+   "max_kg": 24000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 24001,
+   "rate": 35.24,
+   "max_kg": 25000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 25001,
+   "rate": 36.75,
+   "max_kg": 26000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 26001,
+   "rate": 38.04,
+   "max_kg": 27000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 27001,
+   "rate": 39.36,
+   "max_kg": 28000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 28001,
+   "rate": 40.74,
+   "max_kg": 29000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 29001,
+   "rate": 42.17,
+   "max_kg": 30000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 30001,
+   "rate": 43.65,
+   "max_kg": 31000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 31001,
+   "rate": 45.17
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 10001,
+   "min_axles": 1,
+   "max_axles": 1,
+   "rate": 10.544
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 18001,
+   "min_axles": 2,
+   "max_axles": 2,
+   "rate": 21.0
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 24001,
+   "min_axles": 3,
+   "rate": 27.032
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 3501,
+   "rate": 7.88,
+   "max_kg": 5000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 5001,
+   "rate": 8.352,
+   "max_kg": 6000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 6001,
+   "rate": 8.848,
+   "max_kg": 7000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 7001,
+   "rate": 9.384,
+   "max_kg": 8000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 8001,
+   "rate": 9.944,
+   "max_kg": 9000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 9001,
+   "rate": 10.544,
+   "max_kg": 10000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 10001,
+   "rate": 11.184,
+   "max_kg": 11000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 11001,
+   "rate": 11.848,
+   "max_kg": 12000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 12001,
+   "rate": 13.032,
+   "max_kg": 13000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 13001,
+   "rate": 14.336,
+   "max_kg": 14000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 14001,
+   "rate": 15.768,
+   "max_kg": 15000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 15001,
+   "rate": 17.344,
+   "max_kg": 16000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 16001,
+   "rate": 19.088,
+   "max_kg": 17000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 17001,
+   "rate": 21.0,
+   "max_kg": 18000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 18001,
+   "rate": 21.896,
+   "max_kg": 19000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 19001,
+   "rate": 22.84,
+   "max_kg": 20000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 20001,
+   "rate": 23.816,
+   "max_kg": 21000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 21001,
+   "rate": 24.848,
+   "max_kg": 22000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 22001,
+   "rate": 25.92,
+   "max_kg": 23000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 23001,
+   "rate": 27.032,
+   "max_kg": 24000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 24001,
+   "rate": 28.192,
+   "max_kg": 25000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 25001,
+   "rate": 29.4,
+   "max_kg": 26000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 26001,
+   "rate": 30.432,
+   "max_kg": 27000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 27001,
+   "rate": 31.488,
+   "max_kg": 28000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 28001,
+   "rate": 32.592,
+   "max_kg": 29000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 29001,
+   "rate": 33.736,
+   "max_kg": 30000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 30001,
+   "rate": 34.92,
+   "max_kg": 31000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 31001,
+   "rate": 36.136
+  }
+ ],
+ "valid_to": "2027-12-31"
+}

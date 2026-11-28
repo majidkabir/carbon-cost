@@ -1,0 +1,54 @@
+{
+ "country": "AT",
+ "currency": "EUR",
+ "valid_from": "2026-01-01",
+ "crossings": true,
+ "osm_extract": "2026-11-28",
+ "name": "Felbertauerntunnel toll (Felbertauernstraße)",
+ "law": "Felbertauernstraße AG's Mauttarife from 2026-01-01, under its Mautordnung (the company, owned by the Republic of Austria, the Land Tyrol and municipalities, charges for the tunnel section of the P1 Felbertauernstraße): the normal price per passage, either way, VAT included: over 3.5 t with 2 axles EUR 36.00, 3 axles EUR 54.00, 4 or more axles EUR 72.00. The Mautordnung's categories count the axles of the vehicle or combination (its pictures of category C4 are a tractor with semi-trailer and a truck with trailer). Discount cards (Rabattkarten) aren't modelled. The plaza is placed at its toll booths in OpenStreetMap, before the tunnel's south portal (Matrei in Osttirol).",
+ "sources": [
+  {
+   "title": "Felbertauernstraße AG: Mauttarife, gültig ab 1. Jänner 2026",
+   "url": "https://www.felbertauernstrasse.at/wp-content/uploads/2025/12/Mauttarife-per-01.01.2026.pdf"
+  },
+  {
+   "title": "Felbertauernstraße AG: Mautordnung (2.4 Fahrzeugkategorien)",
+   "url": "https://www.felbertauernstrasse.at/wp-content/uploads/2026/10/Mautordnung-per-01.11.2026.pdf"
+  },
+  {
+   "title": "OpenStreetMap (Overpass API): the Felbertauerntunnel and its toll booths",
+   "url": "https://www.openstreetmap.org/"
+  }
+ ],
+ "vehicles": "Vehicles over 3.5 t, by the axles of the vehicle or combination",
+ "min_kg": 3501,
+ "tolled_roads": "The Felbertauerntunnel (B 108 / P1 Felbertauernstraße, Mittersill - Matrei in Osttirol), charged at the toll plaza before its south portal either way.",
+ "point_match_km": 0.15,
+ "toll_points": [
+  {
+   "name": "Felbertauerntunnel",
+   "lat": 47.11759,
+   "lon": 12.504675,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 2,
+     "rate": 36.0
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 54.0
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 72.0
+    }
+   ]
+  }
+ ],
+ "rows": []
+}

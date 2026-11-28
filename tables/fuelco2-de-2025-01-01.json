@@ -1,0 +1,15 @@
+{
+ "country": "DE",
+ "currency": "EUR",
+ "valid_from": "2025-01-01",
+ "valid_to": "2025-12-31",
+ "name": "Brennstoffemissionshandel (nEHS) certificate price",
+ "rate_per_t": 55.0,
+ "law": "BEHG § 10 (2): fixed price of 55 euro per certificate (one tonne of CO2) in 2025. Fuel suppliers buy a certificate for each tonne of CO2 their fuel emits and pass the cost on in the fuel price.",
+ "sources": [
+  {
+   "title": "BEHG § 10 (gesetze-im-internet.de, as the Internet Archive last kept it; the site times out to the workflow): fixed certificate prices to 2025 and the 2026 price corridor",
+   "url": "https://web.archive.org/web/20261231id_/https://www.gesetze-im-internet.de/behg/__10.html"
+  }
+ ]
+}

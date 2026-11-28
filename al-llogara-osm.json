@@ -1,0 +1,61 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-11-28T09:06:20Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "way",
+  "id": 1051370322,
+  "bounds": {
+    "minlat": 40.1838153,
+    "minlon": 19.5583080,
+    "maxlat": 40.2324010,
+    "maxlon": 19.5863560
+  },
+  "geometry": [
+    { "lat": 40.2324010, "lon": 19.5583080 },
+    { "lat": 40.2272948, "lon": 19.5604725 },
+    { "lat": 40.2255910, "lon": 19.5612487 },
+    { "lat": 40.1909363, "lon": 19.5776600 },
+    { "lat": 40.1901973, "lon": 19.5780586 },
+    { "lat": 40.1895799, "lon": 19.5784905 },
+    { "lat": 40.1888930, "lon": 19.5790155 },
+    { "lat": 40.1881476, "lon": 19.5797044 },
+    { "lat": 40.1876229, "lon": 19.5802177 },
+    { "lat": 40.1871419, "lon": 19.5807724 },
+    { "lat": 40.1866280, "lon": 19.5814379 },
+    { "lat": 40.1861351, "lon": 19.5821350 },
+    { "lat": 40.1858807, "lon": 19.5825223 },
+    { "lat": 40.1855486, "lon": 19.5831080 },
+    { "lat": 40.1851796, "lon": 19.5838307 },
+    { "lat": 40.1838153, "lon": 19.5863560 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "foot": "no",
+    "highway": "trunk",
+    "horse": "no",
+    "lanes": "2",
+    "layer": "-1",
+    "length": "6000",
+    "lit": "yes",
+    "maxheight": "4.8",
+    "maxspeed": "60",
+    "name": "Tuneli i Llogarasë",
+    "parking:left": "no",
+    "parking:right": "no",
+    "ref": "SH8",
+    "smoothness": "excellent",
+    "surface": "asphalt",
+    "tunnel": "yes",
+    "tunnel:name": "Tuneli i Llogarasë",
+    "wikidata": "Q116546035"
+  }
+}
+
+  ]
+}

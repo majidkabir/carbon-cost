@@ -1,0 +1,3132 @@
+{
+ "country": "NO",
+ "currency": "NOK",
+ "valid_from": "2026-01-01",
+ "crossings": true,
+ "ferry": true,
+ "name": "Norwegian national road ferries (riksvegferjer)",
+ "law": "AutoPASS-regulativ for ferjetakster from 2026-01-01 (Statens vegvesen, set by the Ministry of Transport): the full price per crossing by zone and the vehicle's total length with trailer and load (AP1 up to 6 m ... AP6 14.51-17.5 m, AP7 17.51-19.5 m, AP8 19.51-22 m, AP9 over 22 m); the table includes 12% VAT, the prices here exclude it. Paying by AutoPASS tag with a prepaid business ferry account (`etc`) takes 40% off (a central AutoPASS agreement alone, 10%). Zero-emission trucks (CO2 class 5; the regulativ: registered with fuel code 5, electric, or 6, hydrogen, in the Norwegian register, or for a foreign one in AutoPASS's own routine, else full price) pay 70% (AP1) or 50% (AP2-AP9) of their group's price, to the krone, and the discounts apply on that. Each national road ferry route's zone by stretch from the Minister of Transport's answer to the Storting of 11 December 2025 (written question 699), checked against the table; the quays from NVDB, matched where a route goes out on OpenStreetMap's car ferry line from them. Moss-Horten has a regulativ of its own: the operator's price list from 2026-01-01 to 2026-12-31, by length (AP4 10.01-12 m, AP5 12.01-14 m, AP6 14.01-17.5 m), 30% off with a prepaid Moss-Horten agreement (`etc`), its electric and hydrogen prices for zero-emission trucks, double for vehicles wider than 2.6 m (not applied). Mortavika–Arsvågen: the toll (bompenger) charged on board isn't included. Skipavik–Hjelmeland is free (priced 0 in the Minister's table). Skipavik–Nesvik is free (priced 0 in the Minister's table). Balestrand–Dragsvik: OpenStreetMap has no car ferry line from Balestrand, so it isn't priced. Balestrand–Hella: OpenStreetMap has no car ferry line from Balestrand, so it isn't priced. Balestrand–Vangsnes: OpenStreetMap has no car ferry line from Balestrand, so it isn't priced. Bodø–Røst is free (priced 0 in the Minister's table). Bodø–Værøy is free (priced 0 in the Minister's table). Moskenes–Røst is free (priced 0 in the Minister's table). Moskenes–Værøy is free (priced 0 in the Minister's table). Værøy–Røst is free (priced 0 in the Minister's table).",
+ "sources": [
+  {
+   "title": "Statens vegvesen: AutoPASS-regulativ for ferjetakster, takster (fullpris) fra 1. januar 2026",
+   "url": "https://www.vegvesen.no/globalassets/fag/trafikk/ferje/pris---autopass-regulativ---fullpris---01.01.2026.pdf"
+  },
+  {
+   "title": "Statens vegvesen: AutoPASS-regulativ for ferjetakster fra 1. januar 2026",
+   "url": "https://www.vegvesen.no/globalassets/fag/trafikk/ferje/autopass-reg.-for-ferje-fra-01.01.2026.pdf"
+  },
+  {
+   "title": "Samferdselsministeren: svar på skriftleg spørsmål nr. 699 (2025-2026), billettpris og takstsone for riksvegferjesambanda",
+   "url": "https://www.stortinget.no/globalassets/pdf/dokumentserien/2025-2026/dok15-202526-0699-vedlegg.pdf"
+  },
+  {
+   "title": "NVDB (Statens vegvesen): Ferjesamband (770) and Ferjekai (64)",
+   "url": "https://nvdbapiles.atlas.vegvesen.no/vegobjekter/api/v4/vegobjekter/770"
+  },
+  {
+   "title": "Rv. 19 Moss-Horten: fares 2026-01-01 to 2026-12-31 (Torghatten / Bastø Fosen)",
+   "url": "https://cdn.sanity.io/files/ufla9djl/production/5620c5955d8c702afa5cb2b98fae987d75981e97.pdf"
+  },
+  {
+   "title": "OpenStreetMap (Overpass API): car ferry lines (route=ferry) by the quays",
+   "url": "https://www.openstreetmap.org/"
+  }
+ ],
+ "vehicles": "Vehicles over 3.5 t, by total length with trailer and load (give truck.length_m; 16.5 m assumed)",
+ "min_kg": 3501,
+ "tolled_roads": "Norway's national road ferry routes (riksvegferjesamband), from quay to quay: those priced by the AutoPASS-regulativ and Moss-Horten.",
+ "closed_systems": [
+  {
+   "name": "Mortavika–Arsvågen ferry",
+   "law": "AutoPASS-regulativ for ferjetakster: Mortavika–Arsvågen, by stretch (zone)",
+   "groups": [
+    {
+     "name": "AP1 zero-emission",
+     "max_length_m": 6.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP2 zero-emission",
+     "min_length_m": 6.0,
+     "max_length_m": 8.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP3 zero-emission",
+     "min_length_m": 8.0,
+     "max_length_m": 10.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP4 zero-emission",
+     "min_length_m": 10.0,
+     "max_length_m": 12.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP5 zero-emission",
+     "min_length_m": 12.5,
+     "max_length_m": 14.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP6 zero-emission",
+     "min_length_m": 14.5,
+     "max_length_m": 17.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP7 zero-emission",
+     "min_length_m": 17.5,
+     "max_length_m": 19.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP8 zero-emission",
+     "min_length_m": 19.5,
+     "max_length_m": 22.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP9 zero-emission",
+     "min_length_m": 22.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP1",
+     "max_length_m": 6.0
+    },
+    {
+     "name": "AP2",
+     "min_length_m": 6.0,
+     "max_length_m": 8.0
+    },
+    {
+     "name": "AP3",
+     "min_length_m": 8.0,
+     "max_length_m": 10.0
+    },
+    {
+     "name": "AP4",
+     "min_length_m": 10.0,
+     "max_length_m": 12.5
+    },
+    {
+     "name": "AP5",
+     "min_length_m": 12.5,
+     "max_length_m": 14.5
+    },
+    {
+     "name": "AP6",
+     "min_length_m": 14.5,
+     "max_length_m": 17.5
+    },
+    {
+     "name": "AP7",
+     "min_length_m": 17.5,
+     "max_length_m": 19.5
+    },
+    {
+     "name": "AP8",
+     "min_length_m": 19.5,
+     "max_length_m": 22.0
+    },
+    {
+     "name": "AP9",
+     "min_length_m": 22.0
+    }
+   ],
+   "stations": [
+    {
+     "name": "Arsvågen",
+     "points": [
+      {
+       "name": "Arsvågen ferry quay, 0.5 km out on the line to Mortavika (OSM way 4762432)",
+       "lat": 59.171673,
+       "lon": 5.462171
+      },
+      {
+       "name": "Arsvågen ferry quay, 0.5 km out on the line to Mortavika (OSM way 1238872247)",
+       "lat": 59.171623,
+       "lon": 5.46221
+      },
+      {
+       "name": "Arsvågen ferry quay, 0.5 km out on the line to Mortavika (OSM way 1238872248)",
+       "lat": 59.171829,
+       "lon": 5.461456
+      }
+     ]
+    },
+    {
+     "name": "Mortavika",
+     "points": [
+      {
+       "name": "Mortavika ferry quay, 0.5 km out on the line to Arsvågen (OSM way 4762432)",
+       "lat": 59.141796,
+       "lon": 5.590686
+      },
+      {
+       "name": "Mortavika ferry quay, 0.5 km out on the line to Arsvågen (OSM way 1238872247)",
+       "lat": 59.141718,
+       "lon": 5.590676
+      },
+      {
+       "name": "Mortavika ferry quay, 0.5 km out on the line to Arsvågen (OSM way 1238872248)",
+       "lat": 59.141728,
+       "lon": 5.591303
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Mortavika|Arsvågen": {
+     "AP1": 92.86,
+     "AP1 zero-emission": 65.18,
+     "AP2": 206.25,
+     "AP2 zero-emission": 103.57,
+     "AP3": 283.93,
+     "AP3 zero-emission": 141.96,
+     "AP4": 342.86,
+     "AP4 zero-emission": 171.43,
+     "AP5": 399.11,
+     "AP5 zero-emission": 200.0,
+     "AP6": 467.86,
+     "AP6 zero-emission": 233.93,
+     "AP7": 494.64,
+     "AP7 zero-emission": 247.32,
+     "AP8": 543.75,
+     "AP8 zero-emission": 272.32,
+     "AP9": 597.32,
+     "AP9 zero-emission": 299.11
+    }
+   },
+   "discounts": [
+    {
+     "name": "AutoPASS ferry account, business, prepaid (40%)",
+     "etc": true,
+     "percent": 40
+    }
+   ]
+  },
+  {
+   "name": "Hjelmeland–Skipavik–Nesvik ferry",
+   "law": "AutoPASS-regulativ for ferjetakster: Hjelmeland–Skipavik–Nesvik, by stretch (zone)",
+   "groups": [
+    {
+     "name": "AP1 zero-emission",
+     "max_length_m": 6.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP2 zero-emission",
+     "min_length_m": 6.0,
+     "max_length_m": 8.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP3 zero-emission",
+     "min_length_m": 8.0,
+     "max_length_m": 10.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP4 zero-emission",
+     "min_length_m": 10.0,
+     "max_length_m": 12.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP5 zero-emission",
+     "min_length_m": 12.5,
+     "max_length_m": 14.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP6 zero-emission",
+     "min_length_m": 14.5,
+     "max_length_m": 17.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP7 zero-emission",
+     "min_length_m": 17.5,
+     "max_length_m": 19.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP8 zero-emission",
+     "min_length_m": 19.5,
+     "max_length_m": 22.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP9 zero-emission",
+     "min_length_m": 22.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP1",
+     "max_length_m": 6.0
+    },
+    {
+     "name": "AP2",
+     "min_length_m": 6.0,
+     "max_length_m": 8.0
+    },
+    {
+     "name": "AP3",
+     "min_length_m": 8.0,
+     "max_length_m": 10.0
+    },
+    {
+     "name": "AP4",
+     "min_length_m": 10.0,
+     "max_length_m": 12.5
+    },
+    {
+     "name": "AP5",
+     "min_length_m": 12.5,
+     "max_length_m": 14.5
+    },
+    {
+     "name": "AP6",
+     "min_length_m": 14.5,
+     "max_length_m": 17.5
+    },
+    {
+     "name": "AP7",
+     "min_length_m": 17.5,
+     "max_length_m": 19.5
+    },
+    {
+     "name": "AP8",
+     "min_length_m": 19.5,
+     "max_length_m": 22.0
+    },
+    {
+     "name": "AP9",
+     "min_length_m": 22.0
+    }
+   ],
+   "stations": [
+    {
+     "name": "Hjelmeland",
+     "points": [
+      {
+       "name": "Hjelmeland ferry quay, 0.5 km out on the line to Nesvik (OSM way 23294306)",
+       "lat": 59.238928,
+       "lon": 6.165658
+      },
+      {
+       "name": "Hjelmeland ferry quay, 0.5 km out on the line to Nesvik (OSM way 1351532019)",
+       "lat": 59.238928,
+       "lon": 6.165561
+      },
+      {
+       "name": "Hjelmeland ferry quay, 0.5 km out on the line to Skipavik (OSM way 43767532)",
+       "lat": 59.237762,
+       "lon": 6.160271
+      }
+     ]
+    },
+    {
+     "name": "Nesvik",
+     "points": [
+      {
+       "name": "Nesvik ferry quay, 0.5 km out on the line to Hjelmeland (OSM way 23294306)",
+       "lat": 59.257421,
+       "lon": 6.162637
+      },
+      {
+       "name": "Nesvik ferry quay, 0.5 km out on the line to Hjelmeland (OSM way 1351532019)",
+       "lat": 59.257206,
+       "lon": 6.162635
+      },
+      {
+       "name": "Nesvik ferry quay, 0.5 km out on the line to Skipavik (OSM way 43767530)",
+       "lat": 59.258461,
+       "lon": 6.156285
+      },
+      {
+       "name": "Nesvik ferry quay, 0.5 km out on the line to Skipavik (OSM way 1351532020)",
+       "lat": 59.258345,
+       "lon": 6.155419
+      }
+     ]
+    },
+    {
+     "name": "Skipavik",
+     "points": [
+      {
+       "name": "Skipavik ferry quay, 0.5 km out on the line to Nesvik (OSM way 43767530)",
+       "lat": 59.252681,
+       "lon": 6.104039
+      },
+      {
+       "name": "Skipavik ferry quay, 0.5 km out on the line to Nesvik (OSM way 1351532020)",
+       "lat": 59.252725,
+       "lon": 6.104054
+      },
+      {
+       "name": "Skipavik ferry quay, 0.5 km out on the line to Hjelmeland (OSM way 43767532)",
+       "lat": 59.251727,
+       "lon": 6.103553
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Hjelmeland|Nesvik": {
+     "AP1": 56.25,
+     "AP1 zero-emission": 39.29,
+     "AP2": 127.68,
+     "AP2 zero-emission": 64.29,
+     "AP3": 184.82,
+     "AP3 zero-emission": 92.86,
+     "AP4": 233.04,
+     "AP4 zero-emission": 116.96,
+     "AP5": 280.36,
+     "AP5 zero-emission": 140.18,
+     "AP6": 338.39,
+     "AP6 zero-emission": 169.64,
+     "AP7": 366.07,
+     "AP7 zero-emission": 183.04,
+     "AP8": 414.29,
+     "AP8 zero-emission": 207.14,
+     "AP9": 455.36,
+     "AP9 zero-emission": 227.68
+    },
+    "Skipavik|Hjelmeland": {
+     "AP1": 0,
+     "AP1 zero-emission": 0,
+     "AP2": 0,
+     "AP2 zero-emission": 0,
+     "AP3": 0,
+     "AP3 zero-emission": 0,
+     "AP4": 0,
+     "AP4 zero-emission": 0,
+     "AP5": 0,
+     "AP5 zero-emission": 0,
+     "AP6": 0,
+     "AP6 zero-emission": 0,
+     "AP7": 0,
+     "AP7 zero-emission": 0,
+     "AP8": 0,
+     "AP8 zero-emission": 0,
+     "AP9": 0,
+     "AP9 zero-emission": 0
+    },
+    "Skipavik|Nesvik": {
+     "AP1": 0,
+     "AP1 zero-emission": 0,
+     "AP2": 0,
+     "AP2 zero-emission": 0,
+     "AP3": 0,
+     "AP3 zero-emission": 0,
+     "AP4": 0,
+     "AP4 zero-emission": 0,
+     "AP5": 0,
+     "AP5 zero-emission": 0,
+     "AP6": 0,
+     "AP6 zero-emission": 0,
+     "AP7": 0,
+     "AP7 zero-emission": 0,
+     "AP8": 0,
+     "AP8 zero-emission": 0,
+     "AP9": 0,
+     "AP9 zero-emission": 0
+    }
+   },
+   "discounts": [
+    {
+     "name": "AutoPASS ferry account, business, prepaid (40%)",
+     "etc": true,
+     "percent": 40
+    }
+   ]
+  },
+  {
+   "name": "Halhjem–Sandvikvåg ferry",
+   "law": "AutoPASS-regulativ for ferjetakster: Halhjem–Sandvikvåg, by stretch (zone)",
+   "groups": [
+    {
+     "name": "AP1 zero-emission",
+     "max_length_m": 6.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP2 zero-emission",
+     "min_length_m": 6.0,
+     "max_length_m": 8.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP3 zero-emission",
+     "min_length_m": 8.0,
+     "max_length_m": 10.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP4 zero-emission",
+     "min_length_m": 10.0,
+     "max_length_m": 12.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP5 zero-emission",
+     "min_length_m": 12.5,
+     "max_length_m": 14.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP6 zero-emission",
+     "min_length_m": 14.5,
+     "max_length_m": 17.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP7 zero-emission",
+     "min_length_m": 17.5,
+     "max_length_m": 19.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP8 zero-emission",
+     "min_length_m": 19.5,
+     "max_length_m": 22.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP9 zero-emission",
+     "min_length_m": 22.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP1",
+     "max_length_m": 6.0
+    },
+    {
+     "name": "AP2",
+     "min_length_m": 6.0,
+     "max_length_m": 8.0
+    },
+    {
+     "name": "AP3",
+     "min_length_m": 8.0,
+     "max_length_m": 10.0
+    },
+    {
+     "name": "AP4",
+     "min_length_m": 10.0,
+     "max_length_m": 12.5
+    },
+    {
+     "name": "AP5",
+     "min_length_m": 12.5,
+     "max_length_m": 14.5
+    },
+    {
+     "name": "AP6",
+     "min_length_m": 14.5,
+     "max_length_m": 17.5
+    },
+    {
+     "name": "AP7",
+     "min_length_m": 17.5,
+     "max_length_m": 19.5
+    },
+    {
+     "name": "AP8",
+     "min_length_m": 19.5,
+     "max_length_m": 22.0
+    },
+    {
+     "name": "AP9",
+     "min_length_m": 22.0
+    }
+   ],
+   "stations": [
+    {
+     "name": "Halhjem",
+     "points": [
+      {
+       "name": "Halhjem ferry quay, 1.7 km out on the line to Sandvikvåg (OSM way 781847955)",
+       "lat": 60.130535,
+       "lon": 5.426593
+      }
+     ]
+    },
+    {
+     "name": "Sandvikvåg",
+     "points": [
+      {
+       "name": "Sandvikvåg ferry quay, 1.0 km out on the line to Halhjem (OSM way 781847955)",
+       "lat": 59.977416,
+       "lon": 5.33536
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Halhjem|Sandvikvåg": {
+     "AP1": 157.14,
+     "AP1 zero-emission": 109.82,
+     "AP2": 341.07,
+     "AP2 zero-emission": 170.54,
+     "AP3": 452.68,
+     "AP3 zero-emission": 226.79,
+     "AP4": 535.71,
+     "AP4 zero-emission": 267.86,
+     "AP5": 604.46,
+     "AP5 zero-emission": 302.68,
+     "AP6": 683.04,
+     "AP6 zero-emission": 341.96,
+     "AP7": 721.43,
+     "AP7 zero-emission": 360.71,
+     "AP8": 766.96,
+     "AP8 zero-emission": 383.93,
+     "AP9": 843.75,
+     "AP9 zero-emission": 422.32
+    }
+   },
+   "discounts": [
+    {
+     "name": "AutoPASS ferry account, business, prepaid (40%)",
+     "etc": true,
+     "percent": 40
+    }
+   ]
+  },
+  {
+   "name": "Anda–Lote ferry",
+   "law": "AutoPASS-regulativ for ferjetakster: Anda–Lote, by stretch (zone)",
+   "groups": [
+    {
+     "name": "AP1 zero-emission",
+     "max_length_m": 6.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP2 zero-emission",
+     "min_length_m": 6.0,
+     "max_length_m": 8.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP3 zero-emission",
+     "min_length_m": 8.0,
+     "max_length_m": 10.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP4 zero-emission",
+     "min_length_m": 10.0,
+     "max_length_m": 12.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP5 zero-emission",
+     "min_length_m": 12.5,
+     "max_length_m": 14.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP6 zero-emission",
+     "min_length_m": 14.5,
+     "max_length_m": 17.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP7 zero-emission",
+     "min_length_m": 17.5,
+     "max_length_m": 19.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP8 zero-emission",
+     "min_length_m": 19.5,
+     "max_length_m": 22.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP9 zero-emission",
+     "min_length_m": 22.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP1",
+     "max_length_m": 6.0
+    },
+    {
+     "name": "AP2",
+     "min_length_m": 6.0,
+     "max_length_m": 8.0
+    },
+    {
+     "name": "AP3",
+     "min_length_m": 8.0,
+     "max_length_m": 10.0
+    },
+    {
+     "name": "AP4",
+     "min_length_m": 10.0,
+     "max_length_m": 12.5
+    },
+    {
+     "name": "AP5",
+     "min_length_m": 12.5,
+     "max_length_m": 14.5
+    },
+    {
+     "name": "AP6",
+     "min_length_m": 14.5,
+     "max_length_m": 17.5
+    },
+    {
+     "name": "AP7",
+     "min_length_m": 17.5,
+     "max_length_m": 19.5
+    },
+    {
+     "name": "AP8",
+     "min_length_m": 19.5,
+     "max_length_m": 22.0
+    },
+    {
+     "name": "AP9",
+     "min_length_m": 22.0
+    }
+   ],
+   "stations": [
+    {
+     "name": "Anda",
+     "points": [
+      {
+       "name": "Anda ferry quay, 0.5 km out on the line to Lote (OSM way 8117881)",
+       "lat": 61.850945,
+       "lon": 6.081818
+      }
+     ]
+    },
+    {
+     "name": "Lote",
+     "points": [
+      {
+       "name": "Lote ferry quay, 0.5 km out on the line to Anda (OSM way 8117881)",
+       "lat": 61.860314,
+       "lon": 6.083494
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Anda|Lote": {
+     "AP1": 56.25,
+     "AP1 zero-emission": 39.29,
+     "AP2": 127.68,
+     "AP2 zero-emission": 64.29,
+     "AP3": 184.82,
+     "AP3 zero-emission": 92.86,
+     "AP4": 233.04,
+     "AP4 zero-emission": 116.96,
+     "AP5": 280.36,
+     "AP5 zero-emission": 140.18,
+     "AP6": 338.39,
+     "AP6 zero-emission": 169.64,
+     "AP7": 366.07,
+     "AP7 zero-emission": 183.04,
+     "AP8": 414.29,
+     "AP8 zero-emission": 207.14,
+     "AP9": 455.36,
+     "AP9 zero-emission": 227.68
+    }
+   },
+   "discounts": [
+    {
+     "name": "AutoPASS ferry account, business, prepaid (40%)",
+     "etc": true,
+     "percent": 40
+    }
+   ]
+  },
+  {
+   "name": "Lavik–Oppedal ferry",
+   "law": "AutoPASS-regulativ for ferjetakster: Lavik–Oppedal, by stretch (zone)",
+   "groups": [
+    {
+     "name": "AP1 zero-emission",
+     "max_length_m": 6.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP2 zero-emission",
+     "min_length_m": 6.0,
+     "max_length_m": 8.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP3 zero-emission",
+     "min_length_m": 8.0,
+     "max_length_m": 10.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP4 zero-emission",
+     "min_length_m": 10.0,
+     "max_length_m": 12.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP5 zero-emission",
+     "min_length_m": 12.5,
+     "max_length_m": 14.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP6 zero-emission",
+     "min_length_m": 14.5,
+     "max_length_m": 17.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP7 zero-emission",
+     "min_length_m": 17.5,
+     "max_length_m": 19.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP8 zero-emission",
+     "min_length_m": 19.5,
+     "max_length_m": 22.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP9 zero-emission",
+     "min_length_m": 22.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP1",
+     "max_length_m": 6.0
+    },
+    {
+     "name": "AP2",
+     "min_length_m": 6.0,
+     "max_length_m": 8.0
+    },
+    {
+     "name": "AP3",
+     "min_length_m": 8.0,
+     "max_length_m": 10.0
+    },
+    {
+     "name": "AP4",
+     "min_length_m": 10.0,
+     "max_length_m": 12.5
+    },
+    {
+     "name": "AP5",
+     "min_length_m": 12.5,
+     "max_length_m": 14.5
+    },
+    {
+     "name": "AP6",
+     "min_length_m": 14.5,
+     "max_length_m": 17.5
+    },
+    {
+     "name": "AP7",
+     "min_length_m": 17.5,
+     "max_length_m": 19.5
+    },
+    {
+     "name": "AP8",
+     "min_length_m": 19.5,
+     "max_length_m": 22.0
+    },
+    {
+     "name": "AP9",
+     "min_length_m": 22.0
+    }
+   ],
+   "stations": [
+    {
+     "name": "Lavik",
+     "points": [
+      {
+       "name": "Lavik ferry quay, 0.5 km out on the line to Oppedal (OSM way 4689332)",
+       "lat": 61.100684,
+       "lon": 5.503677
+      },
+      {
+       "name": "Lavik ferry quay, 0.5 km out on the line to Oppedal (OSM way 1018197298)",
+       "lat": 61.100586,
+       "lon": 5.503743
+      }
+     ]
+    },
+    {
+     "name": "Oppedal",
+     "points": [
+      {
+       "name": "Oppedal ferry quay, 0.5 km out on the line to Lavik (OSM way 4689332)",
+       "lat": 61.058881,
+       "lon": 5.500738
+      },
+      {
+       "name": "Oppedal ferry quay, 0.5 km out on the line to Lavik (OSM way 1018197298)",
+       "lat": 61.058938,
+       "lon": 5.500878
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Lavik|Oppedal": {
+     "AP1": 72.32,
+     "AP1 zero-emission": 50.89,
+     "AP2": 160.71,
+     "AP2 zero-emission": 80.36,
+     "AP3": 226.79,
+     "AP3 zero-emission": 113.39,
+     "AP4": 280.36,
+     "AP4 zero-emission": 140.18,
+     "AP5": 330.36,
+     "AP5 zero-emission": 165.18,
+     "AP6": 393.75,
+     "AP6 zero-emission": 197.32,
+     "AP7": 425.0,
+     "AP7 zero-emission": 212.5,
+     "AP8": 470.54,
+     "AP8 zero-emission": 235.71,
+     "AP9": 516.96,
+     "AP9 zero-emission": 258.93
+    }
+   },
+   "discounts": [
+    {
+     "name": "AutoPASS ferry account, business, prepaid (40%)",
+     "etc": true,
+     "percent": 40
+    }
+   ]
+  },
+  {
+   "name": "Vangsnes–Hella–Dragsvik ferry",
+   "law": "AutoPASS-regulativ for ferjetakster: Vangsnes–Hella–Dragsvik, by stretch (zone)",
+   "groups": [
+    {
+     "name": "AP1 zero-emission",
+     "max_length_m": 6.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP2 zero-emission",
+     "min_length_m": 6.0,
+     "max_length_m": 8.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP3 zero-emission",
+     "min_length_m": 8.0,
+     "max_length_m": 10.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP4 zero-emission",
+     "min_length_m": 10.0,
+     "max_length_m": 12.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP5 zero-emission",
+     "min_length_m": 12.5,
+     "max_length_m": 14.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP6 zero-emission",
+     "min_length_m": 14.5,
+     "max_length_m": 17.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP7 zero-emission",
+     "min_length_m": 17.5,
+     "max_length_m": 19.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP8 zero-emission",
+     "min_length_m": 19.5,
+     "max_length_m": 22.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP9 zero-emission",
+     "min_length_m": 22.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP1",
+     "max_length_m": 6.0
+    },
+    {
+     "name": "AP2",
+     "min_length_m": 6.0,
+     "max_length_m": 8.0
+    },
+    {
+     "name": "AP3",
+     "min_length_m": 8.0,
+     "max_length_m": 10.0
+    },
+    {
+     "name": "AP4",
+     "min_length_m": 10.0,
+     "max_length_m": 12.5
+    },
+    {
+     "name": "AP5",
+     "min_length_m": 12.5,
+     "max_length_m": 14.5
+    },
+    {
+     "name": "AP6",
+     "min_length_m": 14.5,
+     "max_length_m": 17.5
+    },
+    {
+     "name": "AP7",
+     "min_length_m": 17.5,
+     "max_length_m": 19.5
+    },
+    {
+     "name": "AP8",
+     "min_length_m": 19.5,
+     "max_length_m": 22.0
+    },
+    {
+     "name": "AP9",
+     "min_length_m": 22.0
+    }
+   ],
+   "stations": [
+    {
+     "name": "Dragsvik",
+     "points": [
+      {
+       "name": "Dragsvik ferry quay, 0.5 km out on the line to Hella (OSM way 38086827)",
+       "lat": 61.212366,
+       "lon": 6.575107
+      },
+      {
+       "name": "Dragsvik ferry quay, 0.5 km out on the line to Hella (OSM way 1375717924)",
+       "lat": 61.212553,
+       "lon": 6.575309
+      }
+     ]
+    },
+    {
+     "name": "Hella",
+     "points": [
+      {
+       "name": "Hella ferry quay, 0.5 km out on the line to Vangsnes (OSM way 10120194)",
+       "lat": 61.204435,
+       "lon": 6.594277
+      },
+      {
+       "name": "Hella ferry quay, 0.5 km out on the line to Vangsnes (OSM way 14329891)",
+       "lat": 61.206186,
+       "lon": 6.590019
+      },
+      {
+       "name": "Hella ferry quay, 0.5 km out on the line to Dragsvik (OSM way 38086827)",
+       "lat": 61.208938,
+       "lon": 6.588818
+      },
+      {
+       "name": "Hella ferry quay, 0.5 km out on the line to Dragsvik (OSM way 1375717924)",
+       "lat": 61.209141,
+       "lon": 6.588811
+      }
+     ]
+    },
+    {
+     "name": "Vangsnes",
+     "points": [
+      {
+       "name": "Vangsnes ferry quay, 0.5 km out on the line to Hella (OSM way 10120194)",
+       "lat": 61.178981,
+       "lon": 6.635542
+      },
+      {
+       "name": "Vangsnes ferry quay, 0.5 km out on the line to Hella (OSM way 14329891)",
+       "lat": 61.178697,
+       "lon": 6.633634
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Hella|Dragsvik": {
+     "AP1": 50.89,
+     "AP1 zero-emission": 35.71,
+     "AP2": 116.07,
+     "AP2 zero-emission": 58.04,
+     "AP3": 170.54,
+     "AP3 zero-emission": 85.71,
+     "AP4": 216.96,
+     "AP4 zero-emission": 108.93,
+     "AP5": 261.61,
+     "AP5 zero-emission": 131.25,
+     "AP6": 319.64,
+     "AP6 zero-emission": 159.82,
+     "AP7": 349.11,
+     "AP7 zero-emission": 175.0,
+     "AP8": 397.32,
+     "AP8 zero-emission": 199.11,
+     "AP9": 437.5,
+     "AP9 zero-emission": 218.75
+    },
+    "Hella|Vangsnes": {
+     "AP1": 66.96,
+     "AP1 zero-emission": 47.32,
+     "AP2": 149.11,
+     "AP2 zero-emission": 75.0,
+     "AP3": 213.39,
+     "AP3 zero-emission": 107.14,
+     "AP4": 267.86,
+     "AP4 zero-emission": 133.93,
+     "AP5": 311.61,
+     "AP5 zero-emission": 156.25,
+     "AP6": 375.0,
+     "AP6 zero-emission": 187.5,
+     "AP7": 407.14,
+     "AP7 zero-emission": 203.57,
+     "AP8": 453.57,
+     "AP8 zero-emission": 226.79,
+     "AP9": 499.11,
+     "AP9 zero-emission": 250.0
+    },
+    "Vangsnes|Dragsvik": {
+     "AP1": 72.32,
+     "AP1 zero-emission": 50.89,
+     "AP2": 160.71,
+     "AP2 zero-emission": 80.36,
+     "AP3": 226.79,
+     "AP3 zero-emission": 113.39,
+     "AP4": 280.36,
+     "AP4 zero-emission": 140.18,
+     "AP5": 330.36,
+     "AP5 zero-emission": 165.18,
+     "AP6": 393.75,
+     "AP6 zero-emission": 197.32,
+     "AP7": 425.0,
+     "AP7 zero-emission": 212.5,
+     "AP8": 470.54,
+     "AP8 zero-emission": 235.71,
+     "AP9": 516.96,
+     "AP9 zero-emission": 258.93
+    }
+   },
+   "discounts": [
+    {
+     "name": "AutoPASS ferry account, business, prepaid (40%)",
+     "etc": true,
+     "percent": 40
+    }
+   ]
+  },
+  {
+   "name": "Mannheller–Fodnes ferry",
+   "law": "AutoPASS-regulativ for ferjetakster: Mannheller–Fodnes, by stretch (zone)",
+   "groups": [
+    {
+     "name": "AP1 zero-emission",
+     "max_length_m": 6.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP2 zero-emission",
+     "min_length_m": 6.0,
+     "max_length_m": 8.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP3 zero-emission",
+     "min_length_m": 8.0,
+     "max_length_m": 10.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP4 zero-emission",
+     "min_length_m": 10.0,
+     "max_length_m": 12.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP5 zero-emission",
+     "min_length_m": 12.5,
+     "max_length_m": 14.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP6 zero-emission",
+     "min_length_m": 14.5,
+     "max_length_m": 17.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP7 zero-emission",
+     "min_length_m": 17.5,
+     "max_length_m": 19.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP8 zero-emission",
+     "min_length_m": 19.5,
+     "max_length_m": 22.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP9 zero-emission",
+     "min_length_m": 22.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP1",
+     "max_length_m": 6.0
+    },
+    {
+     "name": "AP2",
+     "min_length_m": 6.0,
+     "max_length_m": 8.0
+    },
+    {
+     "name": "AP3",
+     "min_length_m": 8.0,
+     "max_length_m": 10.0
+    },
+    {
+     "name": "AP4",
+     "min_length_m": 10.0,
+     "max_length_m": 12.5
+    },
+    {
+     "name": "AP5",
+     "min_length_m": 12.5,
+     "max_length_m": 14.5
+    },
+    {
+     "name": "AP6",
+     "min_length_m": 14.5,
+     "max_length_m": 17.5
+    },
+    {
+     "name": "AP7",
+     "min_length_m": 17.5,
+     "max_length_m": 19.5
+    },
+    {
+     "name": "AP8",
+     "min_length_m": 19.5,
+     "max_length_m": 22.0
+    },
+    {
+     "name": "AP9",
+     "min_length_m": 22.0
+    }
+   ],
+   "stations": [
+    {
+     "name": "Fodnes",
+     "points": [
+      {
+       "name": "Fodnes ferry quay, 0.5 km out on the line to Mannheller (OSM way 5081186)",
+       "lat": 61.148813,
+       "lon": 7.373906
+      }
+     ]
+    },
+    {
+     "name": "Mannheller",
+     "points": [
+      {
+       "name": "Mannheller ferry quay, 0.5 km out on the line to Fodnes (OSM way 5081186)",
+       "lat": 61.155833,
+       "lon": 7.337458
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Mannheller|Fodnes": {
+     "AP1": 61.61,
+     "AP1 zero-emission": 42.86,
+     "AP2": 138.39,
+     "AP2 zero-emission": 69.64,
+     "AP3": 199.11,
+     "AP3 zero-emission": 100.0,
+     "AP4": 249.11,
+     "AP4 zero-emission": 125.0,
+     "AP5": 292.86,
+     "AP5 zero-emission": 146.43,
+     "AP6": 357.14,
+     "AP6 zero-emission": 178.57,
+     "AP7": 383.93,
+     "AP7 zero-emission": 191.96,
+     "AP8": 431.25,
+     "AP8 zero-emission": 216.07,
+     "AP9": 474.11,
+     "AP9 zero-emission": 237.5
+    }
+   },
+   "discounts": [
+    {
+     "name": "AutoPASS ferry account, business, prepaid (40%)",
+     "etc": true,
+     "percent": 40
+    }
+   ]
+  },
+  {
+   "name": "Festøya–Solavågen ferry",
+   "law": "AutoPASS-regulativ for ferjetakster: Festøya–Solavågen, by stretch (zone)",
+   "groups": [
+    {
+     "name": "AP1 zero-emission",
+     "max_length_m": 6.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP2 zero-emission",
+     "min_length_m": 6.0,
+     "max_length_m": 8.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP3 zero-emission",
+     "min_length_m": 8.0,
+     "max_length_m": 10.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP4 zero-emission",
+     "min_length_m": 10.0,
+     "max_length_m": 12.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP5 zero-emission",
+     "min_length_m": 12.5,
+     "max_length_m": 14.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP6 zero-emission",
+     "min_length_m": 14.5,
+     "max_length_m": 17.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP7 zero-emission",
+     "min_length_m": 17.5,
+     "max_length_m": 19.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP8 zero-emission",
+     "min_length_m": 19.5,
+     "max_length_m": 22.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP9 zero-emission",
+     "min_length_m": 22.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP1",
+     "max_length_m": 6.0
+    },
+    {
+     "name": "AP2",
+     "min_length_m": 6.0,
+     "max_length_m": 8.0
+    },
+    {
+     "name": "AP3",
+     "min_length_m": 8.0,
+     "max_length_m": 10.0
+    },
+    {
+     "name": "AP4",
+     "min_length_m": 10.0,
+     "max_length_m": 12.5
+    },
+    {
+     "name": "AP5",
+     "min_length_m": 12.5,
+     "max_length_m": 14.5
+    },
+    {
+     "name": "AP6",
+     "min_length_m": 14.5,
+     "max_length_m": 17.5
+    },
+    {
+     "name": "AP7",
+     "min_length_m": 17.5,
+     "max_length_m": 19.5
+    },
+    {
+     "name": "AP8",
+     "min_length_m": 19.5,
+     "max_length_m": 22.0
+    },
+    {
+     "name": "AP9",
+     "min_length_m": 22.0
+    }
+   ],
+   "stations": [
+    {
+     "name": "Festøya",
+     "points": [
+      {
+       "name": "Festøya ferry quay, 0.9 km out on the line to Solavågen (OSM way 23101179)",
+       "lat": 62.381225,
+       "lon": 6.339157
+      }
+     ]
+    },
+    {
+     "name": "Solavågen",
+     "points": [
+      {
+       "name": "Solavågen ferry quay, 0.5 km out on the line to Festøya (OSM way 23101179)",
+       "lat": 62.409353,
+       "lon": 6.330575
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Festøya|Solavågen": {
+     "AP1": 66.96,
+     "AP1 zero-emission": 47.32,
+     "AP2": 149.11,
+     "AP2 zero-emission": 75.0,
+     "AP3": 213.39,
+     "AP3 zero-emission": 107.14,
+     "AP4": 267.86,
+     "AP4 zero-emission": 133.93,
+     "AP5": 311.61,
+     "AP5 zero-emission": 156.25,
+     "AP6": 375.0,
+     "AP6 zero-emission": 187.5,
+     "AP7": 407.14,
+     "AP7 zero-emission": 203.57,
+     "AP8": 453.57,
+     "AP8 zero-emission": 226.79,
+     "AP9": 499.11,
+     "AP9 zero-emission": 250.0
+    }
+   },
+   "discounts": [
+    {
+     "name": "AutoPASS ferry account, business, prepaid (40%)",
+     "etc": true,
+     "percent": 40
+    }
+   ]
+  },
+  {
+   "name": "Molde–Vestnes ferry",
+   "law": "AutoPASS-regulativ for ferjetakster: Molde–Vestnes, by stretch (zone)",
+   "groups": [
+    {
+     "name": "AP1 zero-emission",
+     "max_length_m": 6.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP2 zero-emission",
+     "min_length_m": 6.0,
+     "max_length_m": 8.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP3 zero-emission",
+     "min_length_m": 8.0,
+     "max_length_m": 10.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP4 zero-emission",
+     "min_length_m": 10.0,
+     "max_length_m": 12.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP5 zero-emission",
+     "min_length_m": 12.5,
+     "max_length_m": 14.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP6 zero-emission",
+     "min_length_m": 14.5,
+     "max_length_m": 17.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP7 zero-emission",
+     "min_length_m": 17.5,
+     "max_length_m": 19.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP8 zero-emission",
+     "min_length_m": 19.5,
+     "max_length_m": 22.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP9 zero-emission",
+     "min_length_m": 22.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP1",
+     "max_length_m": 6.0
+    },
+    {
+     "name": "AP2",
+     "min_length_m": 6.0,
+     "max_length_m": 8.0
+    },
+    {
+     "name": "AP3",
+     "min_length_m": 8.0,
+     "max_length_m": 10.0
+    },
+    {
+     "name": "AP4",
+     "min_length_m": 10.0,
+     "max_length_m": 12.5
+    },
+    {
+     "name": "AP5",
+     "min_length_m": 12.5,
+     "max_length_m": 14.5
+    },
+    {
+     "name": "AP6",
+     "min_length_m": 14.5,
+     "max_length_m": 17.5
+    },
+    {
+     "name": "AP7",
+     "min_length_m": 17.5,
+     "max_length_m": 19.5
+    },
+    {
+     "name": "AP8",
+     "min_length_m": 19.5,
+     "max_length_m": 22.0
+    },
+    {
+     "name": "AP9",
+     "min_length_m": 22.0
+    }
+   ],
+   "stations": [
+    {
+     "name": "Furneset",
+     "points": [
+      {
+       "name": "Furneset ferry quay, 0.5 km out on the line to Molde (OSM way 16797483)",
+       "lat": 62.656269,
+       "lon": 7.086223
+      }
+     ]
+    },
+    {
+     "name": "Molde",
+     "points": [
+      {
+       "name": "Molde ferry quay, 2.7 km out on the line to Furneset (OSM way 16797483)",
+       "lat": 62.725794,
+       "lon": 7.123759
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Molde|Furneset": {
+     "AP1": 103.57,
+     "AP1 zero-emission": 72.32,
+     "AP2": 229.46,
+     "AP2 zero-emission": 115.18,
+     "AP3": 314.29,
+     "AP3 zero-emission": 157.14,
+     "AP4": 379.46,
+     "AP4 zero-emission": 190.18,
+     "AP5": 430.36,
+     "AP5 zero-emission": 215.18,
+     "AP6": 504.46,
+     "AP6 zero-emission": 252.68,
+     "AP7": 535.71,
+     "AP7 zero-emission": 267.86,
+     "AP8": 582.14,
+     "AP8 zero-emission": 291.07,
+     "AP9": 641.07,
+     "AP9 zero-emission": 320.54
+    }
+   },
+   "discounts": [
+    {
+     "name": "AutoPASS ferry account, business, prepaid (40%)",
+     "etc": true,
+     "percent": 40
+    }
+   ]
+  },
+  {
+   "name": "Volda–Folkestad ferry",
+   "law": "AutoPASS-regulativ for ferjetakster: Volda–Folkestad, by stretch (zone)",
+   "groups": [
+    {
+     "name": "AP1 zero-emission",
+     "max_length_m": 6.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP2 zero-emission",
+     "min_length_m": 6.0,
+     "max_length_m": 8.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP3 zero-emission",
+     "min_length_m": 8.0,
+     "max_length_m": 10.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP4 zero-emission",
+     "min_length_m": 10.0,
+     "max_length_m": 12.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP5 zero-emission",
+     "min_length_m": 12.5,
+     "max_length_m": 14.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP6 zero-emission",
+     "min_length_m": 14.5,
+     "max_length_m": 17.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP7 zero-emission",
+     "min_length_m": 17.5,
+     "max_length_m": 19.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP8 zero-emission",
+     "min_length_m": 19.5,
+     "max_length_m": 22.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP9 zero-emission",
+     "min_length_m": 22.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP1",
+     "max_length_m": 6.0
+    },
+    {
+     "name": "AP2",
+     "min_length_m": 6.0,
+     "max_length_m": 8.0
+    },
+    {
+     "name": "AP3",
+     "min_length_m": 8.0,
+     "max_length_m": 10.0
+    },
+    {
+     "name": "AP4",
+     "min_length_m": 10.0,
+     "max_length_m": 12.5
+    },
+    {
+     "name": "AP5",
+     "min_length_m": 12.5,
+     "max_length_m": 14.5
+    },
+    {
+     "name": "AP6",
+     "min_length_m": 14.5,
+     "max_length_m": 17.5
+    },
+    {
+     "name": "AP7",
+     "min_length_m": 17.5,
+     "max_length_m": 19.5
+    },
+    {
+     "name": "AP8",
+     "min_length_m": 19.5,
+     "max_length_m": 22.0
+    },
+    {
+     "name": "AP9",
+     "min_length_m": 22.0
+    }
+   ],
+   "stations": [
+    {
+     "name": "Folkestad",
+     "points": [
+      {
+       "name": "Folkestad ferry quay, 0.5 km out on the line to Volda (OSM way 270302770)",
+       "lat": 62.123987,
+       "lon": 6.036698
+      }
+     ]
+    },
+    {
+     "name": "Volda",
+     "points": [
+      {
+       "name": "Volda ferry quay, 1.0 km out on the line to Folkestad (OSM way 270302770)",
+       "lat": 62.137073,
+       "lon": 6.057246
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Volda|Folkestad": {
+     "AP1": 61.61,
+     "AP1 zero-emission": 42.86,
+     "AP2": 138.39,
+     "AP2 zero-emission": 69.64,
+     "AP3": 199.11,
+     "AP3 zero-emission": 100.0,
+     "AP4": 249.11,
+     "AP4 zero-emission": 125.0,
+     "AP5": 292.86,
+     "AP5 zero-emission": 146.43,
+     "AP6": 357.14,
+     "AP6 zero-emission": 178.57,
+     "AP7": 383.93,
+     "AP7 zero-emission": 191.96,
+     "AP8": 431.25,
+     "AP8 zero-emission": 216.07,
+     "AP9": 474.11,
+     "AP9 zero-emission": 237.5
+    }
+   },
+   "discounts": [
+    {
+     "name": "AutoPASS ferry account, business, prepaid (40%)",
+     "etc": true,
+     "percent": 40
+    }
+   ]
+  },
+  {
+   "name": "Halsa–Kanestraum ferry",
+   "law": "AutoPASS-regulativ for ferjetakster: Halsa–Kanestraum, by stretch (zone)",
+   "groups": [
+    {
+     "name": "AP1 zero-emission",
+     "max_length_m": 6.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP2 zero-emission",
+     "min_length_m": 6.0,
+     "max_length_m": 8.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP3 zero-emission",
+     "min_length_m": 8.0,
+     "max_length_m": 10.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP4 zero-emission",
+     "min_length_m": 10.0,
+     "max_length_m": 12.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP5 zero-emission",
+     "min_length_m": 12.5,
+     "max_length_m": 14.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP6 zero-emission",
+     "min_length_m": 14.5,
+     "max_length_m": 17.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP7 zero-emission",
+     "min_length_m": 17.5,
+     "max_length_m": 19.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP8 zero-emission",
+     "min_length_m": 19.5,
+     "max_length_m": 22.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP9 zero-emission",
+     "min_length_m": 22.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP1",
+     "max_length_m": 6.0
+    },
+    {
+     "name": "AP2",
+     "min_length_m": 6.0,
+     "max_length_m": 8.0
+    },
+    {
+     "name": "AP3",
+     "min_length_m": 8.0,
+     "max_length_m": 10.0
+    },
+    {
+     "name": "AP4",
+     "min_length_m": 10.0,
+     "max_length_m": 12.5
+    },
+    {
+     "name": "AP5",
+     "min_length_m": 12.5,
+     "max_length_m": 14.5
+    },
+    {
+     "name": "AP6",
+     "min_length_m": 14.5,
+     "max_length_m": 17.5
+    },
+    {
+     "name": "AP7",
+     "min_length_m": 17.5,
+     "max_length_m": 19.5
+    },
+    {
+     "name": "AP8",
+     "min_length_m": 19.5,
+     "max_length_m": 22.0
+    },
+    {
+     "name": "AP9",
+     "min_length_m": 22.0
+    }
+   ],
+   "stations": [
+    {
+     "name": "Halsa",
+     "points": [
+      {
+       "name": "Halsa ferry quay, 0.5 km out on the line to Kanestraum (OSM way 23112418)",
+       "lat": 63.066962,
+       "lon": 8.217532
+      }
+     ]
+    },
+    {
+     "name": "Kanestraum",
+     "points": [
+      {
+       "name": "Kanestraum ferry quay, 0.5 km out on the line to Halsa (OSM way 23112418)",
+       "lat": 63.054794,
+       "lon": 8.134546
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Halsa|Kanestraum": {
+     "AP1": 72.32,
+     "AP1 zero-emission": 50.89,
+     "AP2": 160.71,
+     "AP2 zero-emission": 80.36,
+     "AP3": 226.79,
+     "AP3 zero-emission": 113.39,
+     "AP4": 280.36,
+     "AP4 zero-emission": 140.18,
+     "AP5": 330.36,
+     "AP5 zero-emission": 165.18,
+     "AP6": 393.75,
+     "AP6 zero-emission": 197.32,
+     "AP7": 425.0,
+     "AP7 zero-emission": 212.5,
+     "AP8": 470.54,
+     "AP8 zero-emission": 235.71,
+     "AP9": 516.96,
+     "AP9 zero-emission": 258.93
+    }
+   },
+   "discounts": [
+    {
+     "name": "AutoPASS ferry account, business, prepaid (40%)",
+     "etc": true,
+     "percent": 40
+    }
+   ]
+  },
+  {
+   "name": "Bodø–Værøy–Røst–Moskenes ferry",
+   "law": "AutoPASS-regulativ for ferjetakster: Bodø–Værøy–Røst–Moskenes, by stretch (zone)",
+   "groups": [
+    {
+     "name": "AP1 zero-emission",
+     "max_length_m": 6.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP2 zero-emission",
+     "min_length_m": 6.0,
+     "max_length_m": 8.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP3 zero-emission",
+     "min_length_m": 8.0,
+     "max_length_m": 10.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP4 zero-emission",
+     "min_length_m": 10.0,
+     "max_length_m": 12.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP5 zero-emission",
+     "min_length_m": 12.5,
+     "max_length_m": 14.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP6 zero-emission",
+     "min_length_m": 14.5,
+     "max_length_m": 17.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP7 zero-emission",
+     "min_length_m": 17.5,
+     "max_length_m": 19.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP8 zero-emission",
+     "min_length_m": 19.5,
+     "max_length_m": 22.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP9 zero-emission",
+     "min_length_m": 22.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP1",
+     "max_length_m": 6.0
+    },
+    {
+     "name": "AP2",
+     "min_length_m": 6.0,
+     "max_length_m": 8.0
+    },
+    {
+     "name": "AP3",
+     "min_length_m": 8.0,
+     "max_length_m": 10.0
+    },
+    {
+     "name": "AP4",
+     "min_length_m": 10.0,
+     "max_length_m": 12.5
+    },
+    {
+     "name": "AP5",
+     "min_length_m": 12.5,
+     "max_length_m": 14.5
+    },
+    {
+     "name": "AP6",
+     "min_length_m": 14.5,
+     "max_length_m": 17.5
+    },
+    {
+     "name": "AP7",
+     "min_length_m": 17.5,
+     "max_length_m": 19.5
+    },
+    {
+     "name": "AP8",
+     "min_length_m": 19.5,
+     "max_length_m": 22.0
+    },
+    {
+     "name": "AP9",
+     "min_length_m": 22.0
+    }
+   ],
+   "stations": [
+    {
+     "name": "Bodø",
+     "points": [
+      {
+       "name": "Bodø ferry quay, 2.5 km out on the line to Moskenes (OSM way 23212730)",
+       "lat": 67.281185,
+       "lon": 14.339777
+      },
+      {
+       "name": "Bodø ferry quay, 2.7 km out on the line to Røst (OSM way 38285558)",
+       "lat": 67.279812,
+       "lon": 14.335878
+      },
+      {
+       "name": "Bodø ferry quay, 2.6 km out on the line to Værøy (OSM way 550211397)",
+       "lat": 67.280503,
+       "lon": 14.3378
+      }
+     ]
+    },
+    {
+     "name": "Moskenes",
+     "points": [
+      {
+       "name": "Moskenes ferry quay, 0.5 km out on the line to Bodø (OSM way 23212730)",
+       "lat": 67.896322,
+       "lon": 13.040182
+      },
+      {
+       "name": "Moskenes ferry quay, 0.5 km out on the line to Værøy (OSM way 37454739)",
+       "lat": 67.896654,
+       "lon": 13.039447
+      }
+     ]
+    },
+    {
+     "name": "Røst",
+     "points": [
+      {
+       "name": "Røst ferry quay, 0.5 km out on the line to Værøy (OSM way 37454740)",
+       "lat": 67.502768,
+       "lon": 12.060855
+      },
+      {
+       "name": "Røst ferry quay, 0.5 km out on the line to Bodø (OSM way 38285558)",
+       "lat": 67.503123,
+       "lon": 12.060411
+      }
+     ]
+    },
+    {
+     "name": "Værøy",
+     "points": [
+      {
+       "name": "Værøy ferry quay, 0.5 km out on the line to Moskenes (OSM way 37454739)",
+       "lat": 67.650179,
+       "lon": 12.718585
+      },
+      {
+       "name": "Værøy ferry quay, 0.5 km out on the line to Røst (OSM way 37454740)",
+       "lat": 67.649738,
+       "lon": 12.717925
+      },
+      {
+       "name": "Værøy ferry quay, 0.5 km out on the line to Bodø (OSM way 550211397)",
+       "lat": 67.649942,
+       "lon": 12.718248
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Bodø|Moskenes": {
+     "AP1": 540.18,
+     "AP1 zero-emission": 378.57,
+     "AP2": 1162.5,
+     "AP2 zero-emission": 581.25,
+     "AP3": 1497.32,
+     "AP3 zero-emission": 749.11,
+     "AP4": 1700.89,
+     "AP4 zero-emission": 850.89,
+     "AP5": 1862.5,
+     "AP5 zero-emission": 931.25,
+     "AP6": 2010.71,
+     "AP6 zero-emission": 1005.36,
+     "AP7": 2077.68,
+     "AP7 zero-emission": 1039.29,
+     "AP8": 2133.04,
+     "AP8 zero-emission": 1066.96,
+     "AP9": 2346.43,
+     "AP9 zero-emission": 1173.21
+    },
+    "Bodø|Røst": {
+     "AP1": 0,
+     "AP1 zero-emission": 0,
+     "AP2": 0,
+     "AP2 zero-emission": 0,
+     "AP3": 0,
+     "AP3 zero-emission": 0,
+     "AP4": 0,
+     "AP4 zero-emission": 0,
+     "AP5": 0,
+     "AP5 zero-emission": 0,
+     "AP6": 0,
+     "AP6 zero-emission": 0,
+     "AP7": 0,
+     "AP7 zero-emission": 0,
+     "AP8": 0,
+     "AP8 zero-emission": 0,
+     "AP9": 0,
+     "AP9 zero-emission": 0
+    },
+    "Bodø|Værøy": {
+     "AP1": 0,
+     "AP1 zero-emission": 0,
+     "AP2": 0,
+     "AP2 zero-emission": 0,
+     "AP3": 0,
+     "AP3 zero-emission": 0,
+     "AP4": 0,
+     "AP4 zero-emission": 0,
+     "AP5": 0,
+     "AP5 zero-emission": 0,
+     "AP6": 0,
+     "AP6 zero-emission": 0,
+     "AP7": 0,
+     "AP7 zero-emission": 0,
+     "AP8": 0,
+     "AP8 zero-emission": 0,
+     "AP9": 0,
+     "AP9 zero-emission": 0
+    },
+    "Moskenes|Røst": {
+     "AP1": 0,
+     "AP1 zero-emission": 0,
+     "AP2": 0,
+     "AP2 zero-emission": 0,
+     "AP3": 0,
+     "AP3 zero-emission": 0,
+     "AP4": 0,
+     "AP4 zero-emission": 0,
+     "AP5": 0,
+     "AP5 zero-emission": 0,
+     "AP6": 0,
+     "AP6 zero-emission": 0,
+     "AP7": 0,
+     "AP7 zero-emission": 0,
+     "AP8": 0,
+     "AP8 zero-emission": 0,
+     "AP9": 0,
+     "AP9 zero-emission": 0
+    },
+    "Moskenes|Værøy": {
+     "AP1": 0,
+     "AP1 zero-emission": 0,
+     "AP2": 0,
+     "AP2 zero-emission": 0,
+     "AP3": 0,
+     "AP3 zero-emission": 0,
+     "AP4": 0,
+     "AP4 zero-emission": 0,
+     "AP5": 0,
+     "AP5 zero-emission": 0,
+     "AP6": 0,
+     "AP6 zero-emission": 0,
+     "AP7": 0,
+     "AP7 zero-emission": 0,
+     "AP8": 0,
+     "AP8 zero-emission": 0,
+     "AP9": 0,
+     "AP9 zero-emission": 0
+    },
+    "Værøy|Røst": {
+     "AP1": 0,
+     "AP1 zero-emission": 0,
+     "AP2": 0,
+     "AP2 zero-emission": 0,
+     "AP3": 0,
+     "AP3 zero-emission": 0,
+     "AP4": 0,
+     "AP4 zero-emission": 0,
+     "AP5": 0,
+     "AP5 zero-emission": 0,
+     "AP6": 0,
+     "AP6 zero-emission": 0,
+     "AP7": 0,
+     "AP7 zero-emission": 0,
+     "AP8": 0,
+     "AP8 zero-emission": 0,
+     "AP9": 0,
+     "AP9 zero-emission": 0
+    }
+   },
+   "discounts": [
+    {
+     "name": "AutoPASS ferry account, business, prepaid (40%)",
+     "etc": true,
+     "percent": 40
+    }
+   ]
+  },
+  {
+   "name": "Bognes–Lødingen ferry",
+   "law": "AutoPASS-regulativ for ferjetakster: Bognes–Lødingen, by stretch (zone)",
+   "groups": [
+    {
+     "name": "AP1 zero-emission",
+     "max_length_m": 6.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP2 zero-emission",
+     "min_length_m": 6.0,
+     "max_length_m": 8.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP3 zero-emission",
+     "min_length_m": 8.0,
+     "max_length_m": 10.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP4 zero-emission",
+     "min_length_m": 10.0,
+     "max_length_m": 12.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP5 zero-emission",
+     "min_length_m": 12.5,
+     "max_length_m": 14.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP6 zero-emission",
+     "min_length_m": 14.5,
+     "max_length_m": 17.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP7 zero-emission",
+     "min_length_m": 17.5,
+     "max_length_m": 19.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP8 zero-emission",
+     "min_length_m": 19.5,
+     "max_length_m": 22.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP9 zero-emission",
+     "min_length_m": 22.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP1",
+     "max_length_m": 6.0
+    },
+    {
+     "name": "AP2",
+     "min_length_m": 6.0,
+     "max_length_m": 8.0
+    },
+    {
+     "name": "AP3",
+     "min_length_m": 8.0,
+     "max_length_m": 10.0
+    },
+    {
+     "name": "AP4",
+     "min_length_m": 10.0,
+     "max_length_m": 12.5
+    },
+    {
+     "name": "AP5",
+     "min_length_m": 12.5,
+     "max_length_m": 14.5
+    },
+    {
+     "name": "AP6",
+     "min_length_m": 14.5,
+     "max_length_m": 17.5
+    },
+    {
+     "name": "AP7",
+     "min_length_m": 17.5,
+     "max_length_m": 19.5
+    },
+    {
+     "name": "AP8",
+     "min_length_m": 19.5,
+     "max_length_m": 22.0
+    },
+    {
+     "name": "AP9",
+     "min_length_m": 22.0
+    }
+   ],
+   "stations": [
+    {
+     "name": "Bognes",
+     "points": [
+      {
+       "name": "Bognes ferry quay, 0.9 km out on the line to Lødingen (OSM way 19095068)",
+       "lat": 68.230622,
+       "lon": 16.084427
+      }
+     ]
+    },
+    {
+     "name": "Lødingen",
+     "points": [
+      {
+       "name": "Lødingen ferry quay, 0.5 km out on the line to Bognes (OSM way 19095068)",
+       "lat": 68.419539,
+       "lon": 16.005417
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Bognes|Lødingen": {
+     "AP1": 166.96,
+     "AP1 zero-emission": 116.96,
+     "AP2": 365.18,
+     "AP2 zero-emission": 183.04,
+     "AP3": 483.04,
+     "AP3 zero-emission": 241.96,
+     "AP4": 566.96,
+     "AP4 zero-emission": 283.93,
+     "AP5": 641.07,
+     "AP5 zero-emission": 320.54,
+     "AP6": 719.64,
+     "AP6 zero-emission": 359.82,
+     "AP7": 756.25,
+     "AP7 zero-emission": 378.57,
+     "AP8": 806.25,
+     "AP8 zero-emission": 403.57,
+     "AP9": 886.61,
+     "AP9 zero-emission": 443.75
+    }
+   },
+   "discounts": [
+    {
+     "name": "AutoPASS ferry account, business, prepaid (40%)",
+     "etc": true,
+     "percent": 40
+    }
+   ]
+  },
+  {
+   "name": "Drag–Kjøpsvik ferry",
+   "law": "AutoPASS-regulativ for ferjetakster: Drag–Kjøpsvik, by stretch (zone)",
+   "groups": [
+    {
+     "name": "AP1 zero-emission",
+     "max_length_m": 6.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP2 zero-emission",
+     "min_length_m": 6.0,
+     "max_length_m": 8.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP3 zero-emission",
+     "min_length_m": 8.0,
+     "max_length_m": 10.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP4 zero-emission",
+     "min_length_m": 10.0,
+     "max_length_m": 12.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP5 zero-emission",
+     "min_length_m": 12.5,
+     "max_length_m": 14.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP6 zero-emission",
+     "min_length_m": 14.5,
+     "max_length_m": 17.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP7 zero-emission",
+     "min_length_m": 17.5,
+     "max_length_m": 19.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP8 zero-emission",
+     "min_length_m": 19.5,
+     "max_length_m": 22.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP9 zero-emission",
+     "min_length_m": 22.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP1",
+     "max_length_m": 6.0
+    },
+    {
+     "name": "AP2",
+     "min_length_m": 6.0,
+     "max_length_m": 8.0
+    },
+    {
+     "name": "AP3",
+     "min_length_m": 8.0,
+     "max_length_m": 10.0
+    },
+    {
+     "name": "AP4",
+     "min_length_m": 10.0,
+     "max_length_m": 12.5
+    },
+    {
+     "name": "AP5",
+     "min_length_m": 12.5,
+     "max_length_m": 14.5
+    },
+    {
+     "name": "AP6",
+     "min_length_m": 14.5,
+     "max_length_m": 17.5
+    },
+    {
+     "name": "AP7",
+     "min_length_m": 17.5,
+     "max_length_m": 19.5
+    },
+    {
+     "name": "AP8",
+     "min_length_m": 19.5,
+     "max_length_m": 22.0
+    },
+    {
+     "name": "AP9",
+     "min_length_m": 22.0
+    }
+   ],
+   "stations": [
+    {
+     "name": "Drag",
+     "points": [
+      {
+       "name": "Drag ferry quay, 0.5 km out on the line to Kjøpsvik (OSM way 37041651)",
+       "lat": 68.051925,
+       "lon": 16.085049
+      }
+     ]
+    },
+    {
+     "name": "Kjøpsvik",
+     "points": [
+      {
+       "name": "Kjøpsvik ferry quay, 0.5 km out on the line to Drag (OSM way 37041651)",
+       "lat": 68.092036,
+       "lon": 16.34564
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Drag|Kjøpsvik": {
+     "AP1": 129.46,
+     "AP1 zero-emission": 91.07,
+     "AP2": 286.61,
+     "AP2 zero-emission": 143.75,
+     "AP3": 386.61,
+     "AP3 zero-emission": 193.75,
+     "AP4": 454.46,
+     "AP4 zero-emission": 227.68,
+     "AP5": 516.96,
+     "AP5 zero-emission": 258.93,
+     "AP6": 590.18,
+     "AP6 zero-emission": 295.54,
+     "AP7": 628.57,
+     "AP7 zero-emission": 314.29,
+     "AP8": 677.68,
+     "AP8 zero-emission": 339.29,
+     "AP9": 744.64,
+     "AP9 zero-emission": 372.32
+    }
+   },
+   "discounts": [
+    {
+     "name": "AutoPASS ferry account, business, prepaid (40%)",
+     "etc": true,
+     "percent": 40
+    }
+   ]
+  },
+  {
+   "name": "Bognes–Skarberget ferry",
+   "law": "AutoPASS-regulativ for ferjetakster: Bognes–Skarberget, by stretch (zone)",
+   "groups": [
+    {
+     "name": "AP1 zero-emission",
+     "max_length_m": 6.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP2 zero-emission",
+     "min_length_m": 6.0,
+     "max_length_m": 8.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP3 zero-emission",
+     "min_length_m": 8.0,
+     "max_length_m": 10.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP4 zero-emission",
+     "min_length_m": 10.0,
+     "max_length_m": 12.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP5 zero-emission",
+     "min_length_m": 12.5,
+     "max_length_m": 14.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP6 zero-emission",
+     "min_length_m": 14.5,
+     "max_length_m": 17.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP7 zero-emission",
+     "min_length_m": 17.5,
+     "max_length_m": 19.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP8 zero-emission",
+     "min_length_m": 19.5,
+     "max_length_m": 22.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP9 zero-emission",
+     "min_length_m": 22.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP1",
+     "max_length_m": 6.0
+    },
+    {
+     "name": "AP2",
+     "min_length_m": 6.0,
+     "max_length_m": 8.0
+    },
+    {
+     "name": "AP3",
+     "min_length_m": 8.0,
+     "max_length_m": 10.0
+    },
+    {
+     "name": "AP4",
+     "min_length_m": 10.0,
+     "max_length_m": 12.5
+    },
+    {
+     "name": "AP5",
+     "min_length_m": 12.5,
+     "max_length_m": 14.5
+    },
+    {
+     "name": "AP6",
+     "min_length_m": 14.5,
+     "max_length_m": 17.5
+    },
+    {
+     "name": "AP7",
+     "min_length_m": 17.5,
+     "max_length_m": 19.5
+    },
+    {
+     "name": "AP8",
+     "min_length_m": 19.5,
+     "max_length_m": 22.0
+    },
+    {
+     "name": "AP9",
+     "min_length_m": 22.0
+    }
+   ],
+   "stations": [
+    {
+     "name": "Bognes",
+     "points": [
+      {
+       "name": "Bognes ferry quay, 0.7 km out on the line to Skarberget (OSM way 5070108)",
+       "lat": 68.228243,
+       "lon": 16.089761
+      }
+     ]
+    },
+    {
+     "name": "Skarberget",
+     "points": [
+      {
+       "name": "Skarberget ferry quay, 0.5 km out on the line to Bognes (OSM way 5070108)",
+       "lat": 68.236658,
+       "lon": 16.239808
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Bognes|Skarberget": {
+     "AP1": 92.86,
+     "AP1 zero-emission": 65.18,
+     "AP2": 206.25,
+     "AP2 zero-emission": 103.57,
+     "AP3": 283.93,
+     "AP3 zero-emission": 141.96,
+     "AP4": 342.86,
+     "AP4 zero-emission": 171.43,
+     "AP5": 399.11,
+     "AP5 zero-emission": 200.0,
+     "AP6": 467.86,
+     "AP6 zero-emission": 233.93,
+     "AP7": 494.64,
+     "AP7 zero-emission": 247.32,
+     "AP8": 543.75,
+     "AP8 zero-emission": 272.32,
+     "AP9": 597.32,
+     "AP9 zero-emission": 299.11
+    }
+   },
+   "discounts": [
+    {
+     "name": "AutoPASS ferry account, business, prepaid (40%)",
+     "etc": true,
+     "percent": 40
+    }
+   ]
+  },
+  {
+   "name": "Moss–Horten ferry",
+   "law": "Rv. 19 Moss-Horten's price list 2026-01-01 to 2026-12-31 (its own AutoPASS-regulativ): the full price by length; `etc` with an AutoPASS tag and a prepaid Moss-Horten agreement (30% off)",
+   "groups": [
+    {
+     "name": "AP1 zero-emission",
+     "max_length_m": 6.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP2 zero-emission",
+     "min_length_m": 6.0,
+     "max_length_m": 8.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP3 zero-emission",
+     "min_length_m": 8.0,
+     "max_length_m": 10.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP4 zero-emission",
+     "min_length_m": 10.0,
+     "max_length_m": 12.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP5 zero-emission",
+     "min_length_m": 12.0,
+     "max_length_m": 14.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP6 zero-emission",
+     "min_length_m": 14.0,
+     "max_length_m": 17.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP7 zero-emission",
+     "min_length_m": 17.5,
+     "max_length_m": 19.5,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP8 zero-emission",
+     "min_length_m": 19.5,
+     "max_length_m": 22.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP9 zero-emission",
+     "min_length_m": 22.0,
+     "co2_class": [
+      5
+     ]
+    },
+    {
+     "name": "AP1",
+     "max_length_m": 6.0
+    },
+    {
+     "name": "AP2",
+     "min_length_m": 6.0,
+     "max_length_m": 8.0
+    },
+    {
+     "name": "AP3",
+     "min_length_m": 8.0,
+     "max_length_m": 10.0
+    },
+    {
+     "name": "AP4",
+     "min_length_m": 10.0,
+     "max_length_m": 12.0
+    },
+    {
+     "name": "AP5",
+     "min_length_m": 12.0,
+     "max_length_m": 14.0
+    },
+    {
+     "name": "AP6",
+     "min_length_m": 14.0,
+     "max_length_m": 17.5
+    },
+    {
+     "name": "AP7",
+     "min_length_m": 17.5,
+     "max_length_m": 19.5
+    },
+    {
+     "name": "AP8",
+     "min_length_m": 19.5,
+     "max_length_m": 22.0
+    },
+    {
+     "name": "AP9",
+     "min_length_m": 22.0
+    }
+   ],
+   "stations": [
+    {
+     "name": "Horten",
+     "points": [
+      {
+       "name": "Horten ferry quay, 0.5 km out on the line to Moss (OSM way 228431771)",
+       "lat": 59.41116,
+       "lon": 10.497964
+      }
+     ]
+    },
+    {
+     "name": "Moss",
+     "points": [
+      {
+       "name": "Moss ferry quay, 0.5 km out on the line to Horten (OSM way 228431771)",
+       "lat": 59.425061,
+       "lon": 10.652453
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Moss|Horten": {
+     "AP1": 271.43,
+     "AP1 zero-emission": 190.18,
+     "AP2": 602.68,
+     "AP2 zero-emission": 301.79,
+     "AP3": 818.75,
+     "AP3 zero-emission": 409.82,
+     "AP4": 970.54,
+     "AP4 zero-emission": 485.71,
+     "AP5": 1120.54,
+     "AP5 zero-emission": 560.71,
+     "AP6": 1224.11,
+     "AP6 zero-emission": 612.5,
+     "AP7": 1379.46,
+     "AP7 zero-emission": 690.18,
+     "AP8": 1566.07,
+     "AP8 zero-emission": 783.04,
+     "AP9": 1722.32,
+     "AP9 zero-emission": 861.61
+    }
+   },
+   "etc_prices": {
+    "Moss|Horten": {
+     "AP1": 190.0,
+     "AP1 zero-emission": 133.12,
+     "AP2": 421.87,
+     "AP2 zero-emission": 211.25,
+     "AP3": 573.12,
+     "AP3 zero-emission": 286.88,
+     "AP4": 679.37,
+     "AP4 zero-emission": 340.0,
+     "AP5": 784.37,
+     "AP5 zero-emission": 392.5,
+     "AP6": 856.88,
+     "AP6 zero-emission": 428.75,
+     "AP7": 965.62,
+     "AP7 zero-emission": 483.12,
+     "AP8": 1096.25,
+     "AP8 zero-emission": 548.12,
+     "AP9": 1205.62,
+     "AP9 zero-emission": 603.12
+    }
+   }
+  }
+ ],
+ "rows": []
+}

@@ -1,0 +1,264 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/ee-ferries/2025-02-01",
+  "scheme": {
+   "id": "ee-ferries",
+   "name": "Estonia's state ferries to Muhu, Saaremaa and Hiiumaa, trucks",
+   "country": "EE"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2025-02-01",
+  "currency": "EUR",
+  "timezone": "Europe/Tallinn",
+  "license": "MIT",
+  "method": "Regulation nr 120 of 25.09.2015 of the minister on the ferry prices on the Kuivastu–Virtsu, Rohuküla–Heltermaa and Sõru–Triigi lines, version in force (2026-09-14 publication), annex in the wording of 21.12.2023: the ticket of a truck over 3,500 kg Kuivastu–Virtsu 16.00 EUR, Rohuküla–Heltermaa 18.00 EUR, Sõru–Triigi 22.00 EUR; of a trailer over 750 kg (semi-trailers included) Kuivastu–Virtsu 10.80 EUR, Rohuküla–Heltermaa 12.00 EUR, Sõru–Triigi 13.20 EUR, added for a truck over 12 m (taken as with a trailer); § 6: × 1.2 on the vehicle's ticket (not its trailer's) for departures towards the islands (Virtsu–Kuivastu, Rohuküla–Heltermaa) on Fridays from 13:00 and back on Sundays from 13:00, rounded to 5 cents; × 1.5 over 2.6 m wide and × 2.0 over 4 m high (not applied: a truck within 2.55 m and 4 m). The regulation doesn't say whether VAT is in the prices; they are taken as it sets them. Residents' prices aren't used. Ports at OpenStreetMap's ferry terminals (else the place), priced where the line goes out on OpenStreetMap's car ferry line. ",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "ee-ferries-2025-02-01.json"
+  },
+  "required_features": ["time_classes", "type.od"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Riigi Teataja: määrus nr 120 (25.09.2015), version in force",
+   "url": "https://www.riigiteataja.ee/akt/115092026002"
+  },
+  {
+   "id": "s2",
+   "title": "Riigi Teataja: määrus nr 120, annex (ticket prices)",
+   "url": "https://www.riigiteataja.ee/aktilisa/1150/9202/6002/MM_m109_lisa.pdf"
+  },
+  {
+   "id": "s3",
+   "title": "OpenStreetMap (Overpass API): ferry lines, ferry terminals and places on Estonia's west coast",
+   "url": "https://www.openstreetmap.org/"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Trucks over 3.5 t",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "sys1-1",
+   "classes": [
+    {
+     "id": "sys1-1.trucks-over-3-5-t-up-to-12-m",
+     "label": "trucks over 3.5 t, up to 12 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "max": 12
+      }
+     }
+    },
+    {
+     "id": "sys1-1.trucks-over-3-5-t-with-a-trailer-over-12-m",
+     "label": "trucks over 3.5 t with a trailer (over 12 m)",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 12
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "time_classes": [
+  {
+   "id": "sys1-t1",
+   "label": "Friday from 13:00 towards the islands (× 1.2)",
+   "days": [
+    {
+     "weekdays": [5]
+    }
+   ],
+   "times": [["13:00", "24:00"]]
+  },
+  {
+   "id": "sys1-t2",
+   "label": "Sunday from 13:00 back (× 1.2)",
+   "days": [
+    {
+     "weekdays": [7]
+    }
+   ],
+   "times": [["13:00", "24:00"]]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "st1:Kuivastu",
+   "type": "station",
+   "name": "Kuivastu",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[23.409212, 58.573992]]
+    },
+    "point_names": ["Kuivastu port, 0.5 km out on the line to Virtsu (OSM way 1567536771)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st1:Virtsu",
+   "type": "station",
+   "name": "Virtsu",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[23.494629, 58.576471]]
+    },
+    "point_names": ["Virtsu port, 0.5 km out on the line to Kuivastu (OSM way 1567536771)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st2:Heltermaa",
+   "type": "station",
+   "name": "Heltermaa",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[23.056169, 58.867514]]
+    },
+    "point_names": ["Heltermaa port, 0.5 km out on the line to Rohuküla (OSM way 26206863)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st2:Rohuküla",
+   "type": "station",
+   "name": "Rohuküla",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[23.401957, 58.907899]]
+    },
+    "point_names": ["Rohuküla port, 1.3 km out on the line to Heltermaa (OSM way 26206863)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st3:Sõru",
+   "type": "station",
+   "name": "Sõru",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[22.523353, 58.687367]]
+    },
+    "point_names": ["Sõru port, 0.5 km out on the line to Triigi (OSM way 38742332)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st3:Triigi",
+   "type": "station",
+   "name": "Triigi",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[22.723359, 58.595062]]
+    },
+    "point_names": ["Triigi port, 0.5 km out on the line to Sõru (OSM way 38742332)"],
+    "match_m": 150
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "system1",
+   "name": "Estonia's state ferries: Kuivastu–Virtsu",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "Regulation nr 120 of 25.09.2015, annex and § 6: Kuivastu–Virtsu",
+   "directed": true,
+   "columns": ["entry", "exit", "vehicle_class", "time_class", "priority", "amount"],
+   "rows": [
+    ["st1:Kuivastu", "st1:Virtsu", "sys1-1.trucks-over-3-5-t-with-a-trailer-over-12-m", null, null, "26.8"],
+    ["st1:Kuivastu", "st1:Virtsu", "sys1-1.trucks-over-3-5-t-up-to-12-m", null, null, "16"],
+    ["st1:Virtsu", "st1:Kuivastu", "sys1-1.trucks-over-3-5-t-with-a-trailer-over-12-m", null, null, "26.8"],
+    ["st1:Virtsu", "st1:Kuivastu", "sys1-1.trucks-over-3-5-t-up-to-12-m", null, null, "16"],
+    ["st1:Virtsu", "st1:Kuivastu", "sys1-1.trucks-over-3-5-t-with-a-trailer-over-12-m", "sys1-t1", 1, "30"],
+    ["st1:Virtsu", "st1:Kuivastu", "sys1-1.trucks-over-3-5-t-up-to-12-m", "sys1-t1", 1, "19.2"],
+    ["st1:Kuivastu", "st1:Virtsu", "sys1-1.trucks-over-3-5-t-with-a-trailer-over-12-m", "sys1-t2", 1, "30"],
+    ["st1:Kuivastu", "st1:Virtsu", "sys1-1.trucks-over-3-5-t-up-to-12-m", "sys1-t2", 1, "19.2"]
+   ],
+   "sources": ["s1", "s2", "s3"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system2",
+   "name": "Estonia's state ferries: Rohuküla–Heltermaa",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "Regulation nr 120 of 25.09.2015, annex and § 6: Rohuküla–Heltermaa",
+   "directed": true,
+   "columns": ["entry", "exit", "vehicle_class", "time_class", "priority", "amount"],
+   "rows": [
+    ["st2:Heltermaa", "st2:Rohuküla", "sys1-1.trucks-over-3-5-t-with-a-trailer-over-12-m", null, null, "30"],
+    ["st2:Heltermaa", "st2:Rohuküla", "sys1-1.trucks-over-3-5-t-up-to-12-m", null, null, "18"],
+    ["st2:Rohuküla", "st2:Heltermaa", "sys1-1.trucks-over-3-5-t-with-a-trailer-over-12-m", null, null, "30"],
+    ["st2:Rohuküla", "st2:Heltermaa", "sys1-1.trucks-over-3-5-t-up-to-12-m", null, null, "18"],
+    ["st2:Rohuküla", "st2:Heltermaa", "sys1-1.trucks-over-3-5-t-with-a-trailer-over-12-m", "sys1-t1", 1, "33.6"],
+    ["st2:Rohuküla", "st2:Heltermaa", "sys1-1.trucks-over-3-5-t-up-to-12-m", "sys1-t1", 1, "21.6"],
+    ["st2:Heltermaa", "st2:Rohuküla", "sys1-1.trucks-over-3-5-t-with-a-trailer-over-12-m", "sys1-t2", 1, "33.6"],
+    ["st2:Heltermaa", "st2:Rohuküla", "sys1-1.trucks-over-3-5-t-up-to-12-m", "sys1-t2", 1, "21.6"]
+   ],
+   "sources": ["s1", "s2", "s3"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system3",
+   "name": "Estonia's state ferries: Sõru–Triigi",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "Regulation nr 120 of 25.09.2015, annex and § 6: Sõru–Triigi",
+   "directed": true,
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st3:Sõru", "st3:Triigi", "sys1-1.trucks-over-3-5-t-with-a-trailer-over-12-m", "35.2"],
+    ["st3:Sõru", "st3:Triigi", "sys1-1.trucks-over-3-5-t-up-to-12-m", "22"],
+    ["st3:Triigi", "st3:Sõru", "sys1-1.trucks-over-3-5-t-with-a-trailer-over-12-m", "35.2"],
+    ["st3:Triigi", "st3:Sõru", "sys1-1.trucks-over-3-5-t-up-to-12-m", "22"]
+   ],
+   "sources": ["s1", "s2", "s3"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "crossings": true,
+   "ferry": true
+  }
+ }
+}

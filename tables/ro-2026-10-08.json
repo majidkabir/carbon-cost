@@ -1,0 +1,284 @@
+{
+ "country": "RO",
+ "currency": "RON",
+ "valid_from": "2026-10-08",
+ "valid_to": "2026-12-31",
+ "name": "Romanian distance toll (TollRo)",
+ "law": "Legea nr. 226/2023: TollRo is the unit rate times the km driven on the SETRE România network. Unit rates in lei/km including 21% VAT from Ordinul MTI nr. 1.925/2025 (Monitorul Oficial nr. 940/2025) as replaced by Ordinul MTI nr. 959/2026 of 8 October 2026: by maximum authorised mass (I over 3.5 to 7.5 t, II over 7.5 to under 12 t, III 12 t and over), road category (motorways and expressways, or national roads) and EURO class, with electric trucks at 25% of the EURO VI rate. One rate including the infrastructure and air-pollution parts. Rates here exclude VAT (divided by 1.21). Updated each 1 January by consumer prices.",
+ "sources": [
+  {
+   "title": "CNAIR eToll: TollRo rates in force (OMTI 959/2026)",
+   "url": "https://portal.etoll.ro/web/guest/tollro"
+  },
+  {
+   "title": "Ordinul MTI nr. 1.925/2025 (Portal Legislativ)",
+   "url": "https://legislatie.just.ro/Public/DetaliiDocument/302972"
+  },
+  {
+   "title": "Legea nr. 226/2023 (CNAIR eToll, acte normative)",
+   "url": "https://portal.etoll.ro/web/guest/acte-normative"
+  }
+ ],
+ "vehicles": "Goods vehicles over 3.5 t maximum authorised mass",
+ "min_kg": 3501,
+ "tolled_roads": "National roads, expressways and motorways run by CNAIR, except national roads inside municipalities (between the town entry and exit signs). County and local roads aren't tolled.",
+ "motorway_share": 1,
+ "rows": [
+  {
+   "component": "toll",
+   "road": "motorway",
+   "min_kg": 3501,
+   "max_kg": 7500,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.0331
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "min_kg": 3501,
+   "max_kg": 7500,
+   "euro": [
+    6
+   ],
+   "rate": 0.1405
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "min_kg": 3501,
+   "max_kg": 7500,
+   "euro": [
+    4,
+    5
+   ],
+   "rate": 0.157
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "min_kg": 3501,
+   "max_kg": 7500,
+   "euro": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "rate": 0.1818
+  },
+  {
+   "component": "toll",
+   "road": "other",
+   "min_kg": 3501,
+   "max_kg": 7500,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.0165
+  },
+  {
+   "component": "toll",
+   "road": "other",
+   "min_kg": 3501,
+   "max_kg": 7500,
+   "euro": [
+    6
+   ],
+   "rate": 0.0661
+  },
+  {
+   "component": "toll",
+   "road": "other",
+   "min_kg": 3501,
+   "max_kg": 7500,
+   "euro": [
+    4,
+    5
+   ],
+   "rate": 0.0826
+  },
+  {
+   "component": "toll",
+   "road": "other",
+   "min_kg": 3501,
+   "max_kg": 7500,
+   "euro": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "rate": 0.0909
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "min_kg": 7501,
+   "max_kg": 11999,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.0579
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "min_kg": 7501,
+   "max_kg": 11999,
+   "euro": [
+    6
+   ],
+   "rate": 0.2397
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "min_kg": 7501,
+   "max_kg": 11999,
+   "euro": [
+    4,
+    5
+   ],
+   "rate": 0.2727
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "min_kg": 7501,
+   "max_kg": 11999,
+   "euro": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "rate": 0.3058
+  },
+  {
+   "component": "toll",
+   "road": "other",
+   "min_kg": 7501,
+   "max_kg": 11999,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.0248
+  },
+  {
+   "component": "toll",
+   "road": "other",
+   "min_kg": 7501,
+   "max_kg": 11999,
+   "euro": [
+    6
+   ],
+   "rate": 0.1157
+  },
+  {
+   "component": "toll",
+   "road": "other",
+   "min_kg": 7501,
+   "max_kg": 11999,
+   "euro": [
+    4,
+    5
+   ],
+   "rate": 0.1322
+  },
+  {
+   "component": "toll",
+   "road": "other",
+   "min_kg": 7501,
+   "max_kg": 11999,
+   "euro": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "rate": 0.157
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "min_kg": 12000,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.0992
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "min_kg": 12000,
+   "euro": [
+    6
+   ],
+   "rate": 0.3967
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "min_kg": 12000,
+   "euro": [
+    4,
+    5
+   ],
+   "rate": 0.4545
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "min_kg": 12000,
+   "euro": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "rate": 0.5124
+  },
+  {
+   "component": "toll",
+   "road": "other",
+   "min_kg": 12000,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.0496
+  },
+  {
+   "component": "toll",
+   "road": "other",
+   "min_kg": 12000,
+   "euro": [
+    6
+   ],
+   "rate": 0.1983
+  },
+  {
+   "component": "toll",
+   "road": "other",
+   "min_kg": 12000,
+   "euro": [
+    4,
+    5
+   ],
+   "rate": 0.2314
+  },
+  {
+   "component": "toll",
+   "road": "other",
+   "min_kg": 12000,
+   "euro": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "rate": 0.2562
+  }
+ ]
+}

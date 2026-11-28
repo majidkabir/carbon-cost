@@ -1,0 +1,181 @@
+{
+ "country": "IT",
+ "currency": "EUR",
+ "valid_from": "2026-11-01",
+ "crossings": true,
+ "ferry": true,
+ "ets_in_fare": true,
+ "name": "Strait of Messina ferry (Caronte & Tourist), trucks",
+ "law": "Caronte & Tourist's commercial vehicle fares, Messina Tremestieri–Villa San Giovanni, valid 2026-11-01 to 2026-11-30: one way each direction by the vehicle's length in linear metres (to 20.50 m), plus the 4.30 EUR per trip every commercial vehicle pays for the port company's services. The fares include the fuel, ETS and FuelEU Maritime surcharges, updated monthly; a newer month's fares replace these when published. In November 2026 the fares hold a fuel surcharge of 9,10 EUR and ETS and FuelEU Maritime of 1,90 EUR per trip for heavy vehicles. The page doesn't say whether VAT is in the fares; they are taken as published. Round trips and vouchers aren't used; longer vehicles are exceptional transport, not priced. The ports at OpenStreetMap's ferry terminals, priced where the line goes out on its car ferry line.",
+ "sources": [
+  {
+   "title": "Caronte & Tourist: Strait of Messina, commercial vehicle fares",
+   "url": "https://www.carontetourist.it/en/strait-messina/freight/rates-commercial-vehicle"
+  },
+  {
+   "title": "OpenStreetMap (Overpass API): the Strait of Messina's ferry lines and terminals",
+   "url": "https://www.openstreetmap.org/"
+  }
+ ],
+ "vehicles": "Trucks over 3.5 t, by length (truck.length_m)",
+ "min_kg": 3501,
+ "tolled_roads": "The Strait of Messina's ferry for commercial vehicles, Messina Tremestieri–Villa San Giovanni.",
+ "closed_systems": [
+  {
+   "name": "Strait of Messina: Caronte & Tourist, Messina Tremestieri–Villa San Giovanni",
+   "law": "Caronte & Tourist's commercial vehicle fares, Messina Tremestieri–Villa San Giovanni, valid 2026-11-01 to 2026-11-30: one way each direction by the vehicle's length in linear metres (to 20.50 m), plus the 4.30 EUR per trip every commercial vehicle pays for the port company's services. The fares include the fuel, ETS and FuelEU Maritime surcharges, updated monthly; a newer month's fares replace these when published. In November 2026 the fares hold a fuel surcharge of 9,10 EUR and ETS and FuelEU Maritime of 1,90 EUR per trip for heavy vehicles. The page doesn't say whether VAT is in the fares; they are taken as published. Round trips and vouchers aren't used; longer vehicles are exceptional transport, not priced. The ports at OpenStreetMap's ferry terminals, priced where the line goes out on its car ferry line.",
+   "groups": [
+    {
+     "name": "up to 6 m",
+     "min_kg": 3501,
+     "max_length_m": 6.0
+    },
+    {
+     "name": "6.01-6.50 m",
+     "min_kg": 3501,
+     "max_length_m": 6.5,
+     "min_length_m": 6.0
+    },
+    {
+     "name": "6.51-7.50 m",
+     "min_kg": 3501,
+     "max_length_m": 7.5,
+     "min_length_m": 6.5
+    },
+    {
+     "name": "7.51-8.50 m",
+     "min_kg": 3501,
+     "max_length_m": 8.5,
+     "min_length_m": 7.5
+    },
+    {
+     "name": "8.51-9.50 m",
+     "min_kg": 3501,
+     "max_length_m": 9.5,
+     "min_length_m": 8.5
+    },
+    {
+     "name": "9.51-10.50 m",
+     "min_kg": 3501,
+     "max_length_m": 10.5,
+     "min_length_m": 9.5
+    },
+    {
+     "name": "10.51-11.50 m",
+     "min_kg": 3501,
+     "max_length_m": 11.5,
+     "min_length_m": 10.5
+    },
+    {
+     "name": "11.51-12.50 m",
+     "min_kg": 3501,
+     "max_length_m": 12.5,
+     "min_length_m": 11.5
+    },
+    {
+     "name": "12.51-13.50 m",
+     "min_kg": 3501,
+     "max_length_m": 13.5,
+     "min_length_m": 12.5
+    },
+    {
+     "name": "13.51-14.50 m",
+     "min_kg": 3501,
+     "max_length_m": 14.5,
+     "min_length_m": 13.5
+    },
+    {
+     "name": "14.51-15.50 m",
+     "min_kg": 3501,
+     "max_length_m": 15.5,
+     "min_length_m": 14.5
+    },
+    {
+     "name": "15.51-16.50 m",
+     "min_kg": 3501,
+     "max_length_m": 16.5,
+     "min_length_m": 15.5
+    },
+    {
+     "name": "16.51-17.50 m",
+     "min_kg": 3501,
+     "max_length_m": 17.5,
+     "min_length_m": 16.5
+    },
+    {
+     "name": "17.51-18.50 m",
+     "min_kg": 3501,
+     "max_length_m": 18.5,
+     "min_length_m": 17.5
+    },
+    {
+     "name": "18.51-20.50 m",
+     "min_kg": 3501,
+     "max_length_m": 20.5,
+     "min_length_m": 18.5
+    }
+   ],
+   "stations": [
+    {
+     "name": "Messina Tremestieri",
+     "points": [
+      {
+       "name": "Messina Tremestieri port, 0.8 km out on the line to Villa San Giovanni (OSM way 190394346)",
+       "lat": 38.136352,
+       "lon": 15.529591
+      }
+     ]
+    },
+    {
+     "name": "Villa San Giovanni",
+     "points": [
+      {
+       "name": "Villa San Giovanni port, 2.1 km out on the line to Messina Tremestieri (OSM way 190394346)",
+       "lat": 38.213285,
+       "lon": 15.615476
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Messina Tremestieri|Villa San Giovanni": {
+     "up to 6 m": 65.3,
+     "6.01-6.50 m": 75.3,
+     "6.51-7.50 m": 86.3,
+     "7.51-8.50 m": 102.9,
+     "8.51-9.50 m": 113.9,
+     "9.51-10.50 m": 123.9,
+     "10.51-11.50 m": 141.9,
+     "11.51-12.50 m": 145.9,
+     "12.51-13.50 m": 150.9,
+     "13.51-14.50 m": 153.9,
+     "14.51-15.50 m": 169.9,
+     "15.51-16.50 m": 169.9,
+     "16.51-17.50 m": 187.9,
+     "17.51-18.50 m": 187.9,
+     "18.51-20.50 m": 196.9
+    },
+    "Villa San Giovanni|Messina Tremestieri": {
+     "up to 6 m": 69.0,
+     "6.01-6.50 m": 102.6,
+     "6.51-7.50 m": 117.1,
+     "7.51-8.50 m": 141.7,
+     "8.51-9.50 m": 161.4,
+     "9.51-10.50 m": 174.3,
+     "10.51-11.50 m": 187.8,
+     "11.51-12.50 m": 201.7,
+     "12.51-13.50 m": 209.5,
+     "13.51-14.50 m": 209.5,
+     "14.51-15.50 m": 228.6,
+     "15.51-16.50 m": 228.6,
+     "16.51-17.50 m": 257.1,
+     "17.51-18.50 m": 257.1,
+     "18.51-20.50 m": 269.0
+    }
+   },
+   "directed": true
+  }
+ ],
+ "rows": []
+}

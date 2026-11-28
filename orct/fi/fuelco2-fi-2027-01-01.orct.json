@@ -1,0 +1,82 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/fuelco2-fi/2027-01-01",
+  "scheme": {
+   "id": "fuelco2-fi",
+   "name": "Hiilidioksidivero on diesel oil",
+   "country": "FI"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2027-01-01",
+  "valid_to": "2027-12-31",
+  "currency": "EUR",
+  "timezone": "Europe/Helsinki",
+  "license": "MIT",
+  "method": "Laki nestemäisten polttoaineiden valmisteverosta (1472/1994), liite (tax table): the hiilidioksidivero (carbon dioxide tax) on diesel oil, product group 50, 16.36 cents per litre from 2027-01-01 to 2027-12-31, as Verohallinto's tax tables give it. The excise warehouse keeper pays it on the fuel it releases and passes it on in the pump price, so a trip pays it where its fuel is bought. This is the rate for fossil diesel oil; blends with renewable diesel pay less. Litres are the trip's road fuel as given (diesel_l), or its tank-to-wheel CO2 at 2.67 kg per litre of diesel (EN 16258:2012).",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "fuelco2-fi-2027-01-01.json"
+  },
+  "required_features": ["type.quantity"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Verohallinto: Nestemäisten polttoaineiden verotaulukot, the liquid fuel excise tax tables by period (energy content tax, carbon dioxide tax and security of supply fee per product group)",
+   "url": "https://www.vero.fi/yritykset-ja-yhteisot/verot-ja-maksut/valmisteverotus/nestemaiset-polttoaineet/verotaulukot"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "CO2 from fuel bought in the country",
+  "criteria": {}
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "all",
+   "classes": [
+    {
+     "id": "any",
+     "criteria": {}
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "country",
+   "type": "jurisdiction",
+   "jurisdiction": {
+    "country": "FI"
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "fuel-co2",
+   "name": "Hiilidioksidivero on diesel oil",
+   "type": "quantity",
+   "component": "carbon_price",
+   "unit": "litre",
+   "objects": ["country"],
+   "columns": ["amount"],
+   "rows": [["0.1636"]],
+   "sources": ["s1"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ]
+}

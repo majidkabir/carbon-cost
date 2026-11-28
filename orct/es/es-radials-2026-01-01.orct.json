@@ -1,0 +1,1863 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/es-radials/2026-01-01",
+  "scheme": {
+   "id": "es-radials",
+   "name": "Madrid radials R-2, R-3, R-4 and R-5 (SEITT)",
+   "country": "ES"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-01-01",
+  "valid_to": "2026-12-31",
+  "currency": "EUR",
+  "timezone": "Europe/Madrid",
+  "license": "MIT",
+  "method": "Acuerdo del Consejo de Ministros de 9 de diciembre de 2025 (BOE 18/12/2025) and the Secretaría General de Transporte Terrestre's resolution of 10 December 2025: SEITT's 2026 tariffs by entry and exit, Pesados 1 (two or three axles) and Pesados 2 (four or more), cash prices, tag prices for trucks paying by Vía-T (etc), excluding 21% IVA; free from 00:00 to 06:00. Stations: each carriageway's stretch between two consecutive entries/exits, the entries/exits placed at the OpenStreetMap junctions whose exits are signposted to the places and roads they're named after, in the tariff's order; not placed (a trip from or to one priced from the next placed station): R-4 Madrid – Ocaña: Pinto-Parla; R-4 Madrid – Ocaña: Villaseca Sagra (CM 4001); R-4 Madrid – Ocaña: Ontígola; open plazas not built: R-2 Madrid – Guadalajara: Aeropuerto; R-2 Madrid – Guadalajara: Alcobendas.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "es-radials-2026-01-01.json"
+  },
+  "required_features": ["time_classes", "type.od", "user_classes"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Spain: SEITT 2026 tariffs of the R-2 Madrid – Guadalajara toll motorway",
+   "url": "https://cdn.transportes.gob.es/portal-web-seitt/media/document/tarifas_r2_2026.pdf"
+  },
+  {
+   "id": "s2",
+   "title": "Spain: SEITT 2026 tariffs of the R-3 Madrid – Arganda toll motorway",
+   "url": "https://cdn.transportes.gob.es/portal-web-seitt/media/document/precios_web_r3_2026.pdf"
+  },
+  {
+   "id": "s3",
+   "title": "Spain: SEITT 2026 tariffs of the R-4 Madrid – Ocaña toll motorway",
+   "url": "https://cdn.transportes.gob.es/portal-web-seitt/media/document/tarifas_r4_2026_1.pdf"
+  },
+  {
+   "id": "s4",
+   "title": "Spain: SEITT 2026 tariffs of the R-5 Madrid – Navalcarnero toll motorway",
+   "url": "https://cdn.transportes.gob.es/portal-web-seitt/media/document/precios_web_r5_2026.pdf"
+  },
+  {
+   "id": "s5",
+   "title": "OpenStreetMap (Overpass API): the radials' carriageways, junctions and signposted links",
+   "url": "https://www.openstreetmap.org/"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Trucks over 3.5 t (Pesados 1 and 2)",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "sys1-1",
+   "classes": [
+    {
+     "id": "sys1-1.Pesados-1",
+     "label": "Pesados 1",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "max": 3
+      }
+     }
+    },
+    {
+     "id": "sys1-1.Pesados-2",
+     "label": "Pesados 2",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 4
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "time_classes": [
+  {
+   "id": "sys1-free",
+   "label": "No charge",
+   "times": [["00:00", "06:00"]]
+  }
+ ],
+ "user_classes": [
+  {
+   "id": "electronic",
+   "label": "Electronic toll device or contract",
+   "payment": ["electronic"]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "st1:Ajalvir > Alcala",
+   "type": "station",
+   "name": "Ajalvir > Alcala",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-3.418861, 40.519956]]
+    },
+    "point_names": ["between Ajalvir and Alcala"],
+    "headings": [56.6],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:Alcala > Ajalvir",
+   "type": "station",
+   "name": "Alcala > Ajalvir",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-3.418983, 40.520092]]
+    },
+    "point_names": ["between Alcala and Ajalvir"],
+    "headings": [237.4],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:Alcala > Meco",
+   "type": "station",
+   "name": "Alcala > Meco",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-3.367706, 40.525115]]
+    },
+    "point_names": ["between Alcala and Meco"],
+    "headings": [78.3],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:Cabanillas > Guadalajara Norte",
+   "type": "station",
+   "name": "Cabanillas > Guadalajara Norte",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-3.226027, 40.656313]]
+    },
+    "point_names": ["between Cabanillas and Guadalajara Norte"],
+    "headings": [42.4],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:Cabanillas > Meco",
+   "type": "station",
+   "name": "Cabanillas > Meco",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-3.285155, 40.576099]]
+    },
+    "point_names": ["between Cabanillas and Meco"],
+    "headings": [210.6],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:Guadalajara Norte > Cabanillas",
+   "type": "station",
+   "name": "Guadalajara Norte > Cabanillas",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-3.226182, 40.656438]]
+    },
+    "point_names": ["between Guadalajara Norte and Cabanillas"],
+    "headings": [223.2],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:Guadalajara Norte > NII-Taracena",
+   "type": "station",
+   "name": "Guadalajara Norte > NII-Taracena",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-3.153515, 40.664155]]
+    },
+    "point_names": ["between Guadalajara Norte and NII-Taracena"],
+    "headings": [112.1],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:Meco > Alcala",
+   "type": "station",
+   "name": "Meco > Alcala",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-3.36782, 40.525275]]
+    },
+    "point_names": ["between Meco and Alcala"],
+    "headings": [258.4],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:Meco > Cabanillas",
+   "type": "station",
+   "name": "Meco > Cabanillas",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-3.284967, 40.575999]]
+    },
+    "point_names": ["between Meco and Cabanillas"],
+    "headings": [31.1],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:NII-Taracena > Guadalajara Norte",
+   "type": "station",
+   "name": "NII-Taracena > Guadalajara Norte",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-3.153509, 40.664271]]
+    },
+    "point_names": ["between NII-Taracena and Guadalajara Norte"],
+    "headings": [292.1],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st2:Conexión A-3 > M-300 Arganda/Loeches",
+   "type": "station",
+   "name": "Conexión A-3 > M-300 Arganda/Loeches",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-3.414224, 40.300904]]
+    },
+    "point_names": ["between Conexión A-3 and M-300 Arganda/Loeches"],
+    "headings": [323.3],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st2:M-208 Mejorada/Velilla > M-300 Arganda/Loeches",
+   "type": "station",
+   "name": "M-208 Mejorada/Velilla > M-300 Arganda/Loeches",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-3.454187, 40.3667]]
+    },
+    "point_names": ["between M-208 Mejorada/Velilla and M-300 Arganda/Loeches"],
+    "headings": [159.1],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st2:M-208 Mejorada/Velilla > M-50",
+   "type": "station",
+   "name": "M-208 Mejorada/Velilla > M-50",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-3.507372, 40.395479]]
+    },
+    "point_names": ["between M-208 Mejorada/Velilla and M-50"],
+    "headings": [290.4],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st2:M-300 Arganda/Loeches > Conexión A-3",
+   "type": "station",
+   "name": "M-300 Arganda/Loeches > Conexión A-3",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-3.413827, 40.300211]]
+    },
+    "point_names": ["between M-300 Arganda/Loeches and Conexión A-3"],
+    "headings": [143.3],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st2:M-300 Arganda/Loeches > M-208 Mejorada/Velilla",
+   "type": "station",
+   "name": "M-300 Arganda/Loeches > M-208 Mejorada/Velilla",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-3.453928, 40.366857]]
+    },
+    "point_names": ["between M-300 Arganda/Loeches and M-208 Mejorada/Velilla"],
+    "headings": [337.9],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st2:M-45 > M-50",
+   "type": "station",
+   "name": "M-45 > M-50",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-3.559129, 40.394859]]
+    },
+    "point_names": ["between M-45 and M-50"],
+    "headings": [121.6],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st2:M-45 > Madrid / M-40 / M-602",
+   "type": "station",
+   "name": "M-45 > Madrid / M-40 / M-602",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-3.59613, 40.410721]]
+    },
+    "point_names": ["between M-45 and Madrid / M-40 / M-602"],
+    "headings": [286.7],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st2:M-50 > M-208 Mejorada/Velilla",
+   "type": "station",
+   "name": "M-50 > M-208 Mejorada/Velilla",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-3.507412, 40.395232]]
+    },
+    "point_names": ["between M-50 and M-208 Mejorada/Velilla"],
+    "headings": [112.5],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st2:M-50 > M-45",
+   "type": "station",
+   "name": "M-50 > M-45",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-3.559095, 40.395076]]
+    },
+    "point_names": ["between M-50 and M-45"],
+    "headings": [301.5],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st2:Madrid / M-40 / M-602 > M-45",
+   "type": "station",
+   "name": "Madrid / M-40 / M-602 > M-45",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-3.596233, 40.410537]]
+    },
+    "point_names": ["between Madrid / M-40 / M-602 and M-45"],
+    "headings": [106.5],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st3:Aranjuez > Ocaña / A-40",
+   "type": "station",
+   "name": "Aranjuez > Ocaña / A-40",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-3.605763, 39.994807]]
+    },
+    "point_names": ["between Aranjuez and Ocaña / A-40"],
+    "headings": [161.4],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st3:Aranjuez > Seseña",
+   "type": "station",
+   "name": "Aranjuez > Seseña",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-3.671269, 40.066388]]
+    },
+    "point_names": ["between Aranjuez and Seseña"],
+    "headings": [352.3],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st3:M-50 > Valdemoro",
+   "type": "station",
+   "name": "M-50 > Valdemoro",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-3.746694, 40.219809]]
+    },
+    "point_names": ["between M-50 and Valdemoro"],
+    "headings": [189.8],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st3:Ocaña / A-40 > Aranjuez",
+   "type": "station",
+   "name": "Ocaña / A-40 > Aranjuez",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-3.605629, 39.994933]]
+    },
+    "point_names": ["between Ocaña / A-40 and Aranjuez"],
+    "headings": [341.9],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st3:Seseña > Aranjuez",
+   "type": "station",
+   "name": "Seseña > Aranjuez",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-3.671551, 40.066275]]
+    },
+    "point_names": ["between Seseña and Aranjuez"],
+    "headings": [171.7],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st3:Seseña > Valdemoro",
+   "type": "station",
+   "name": "Seseña > Valdemoro",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-3.670571, 40.151159]]
+    },
+    "point_names": ["between Seseña and Valdemoro"],
+    "headings": [345.7],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st3:Valdemoro > M-50",
+   "type": "station",
+   "name": "Valdemoro > M-50",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-3.746289, 40.220177]]
+    },
+    "point_names": ["between Valdemoro and M-50"],
+    "headings": [10.2],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st3:Valdemoro > Seseña",
+   "type": "station",
+   "name": "Valdemoro > Seseña",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-3.670821, 40.150955]]
+    },
+    "point_names": ["between Valdemoro and Seseña"],
+    "headings": [165.7],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st4:AP-41 Madrid-Toledo > M-413 Arroyomolinos/Moraleja",
+   "type": "station",
+   "name": "AP-41 Madrid-Toledo > M-413 Arroyomolinos/Moraleja",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-3.903563, 40.262693]]
+    },
+    "point_names": ["between AP-41 Madrid-Toledo and M-413 Arroyomolinos/Moraleja"],
+    "headings": [222.9],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st4:AP-41 Madrid-Toledo > M-50 / M-506 Móstoles/Fuenlabrada",
+   "type": "station",
+   "name": "AP-41 Madrid-Toledo > M-50 / M-506 Móstoles/Fuenlabrada",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-3.857525, 40.289595]]
+    },
+    "point_names": ["between AP-41 Madrid-Toledo and M-50 / M-506 Móstoles/Fuenlabrada"],
+    "headings": [27.2],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st4:Conexión A-5 > M-404 El Álamo/Navalcarnero",
+   "type": "station",
+   "name": "Conexión A-5 > M-404 El Álamo/Navalcarnero",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-4.02377, 40.265374]]
+    },
+    "point_names": ["between Conexión A-5 and M-404 El Álamo/Navalcarnero"],
+    "headings": [97.8],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st4:M-40 / M-45 > M-50 / M-506 Móstoles/Fuenlabrada",
+   "type": "station",
+   "name": "M-40 / M-45 > M-50 / M-506 Móstoles/Fuenlabrada",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-3.80227, 40.337064]]
+    },
+    "point_names": ["between M-40 / M-45 and M-50 / M-506 Móstoles/Fuenlabrada"],
+    "headings": [250.5],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st4:M-404 El Álamo/Navalcarnero > Conexión A-5",
+   "type": "station",
+   "name": "M-404 El Álamo/Navalcarnero > Conexión A-5",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-4.023775, 40.265613]]
+    },
+    "point_names": ["between M-404 El Álamo/Navalcarnero and Conexión A-5"],
+    "headings": [278.2],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st4:M-404 El Álamo/Navalcarnero > M-413 Arroyomolinos/Moraleja",
+   "type": "station",
+   "name": "M-404 El Álamo/Navalcarnero > M-413 Arroyomolinos/Moraleja",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-3.957437, 40.260236]]
+    },
+    "point_names": ["between M-404 El Álamo/Navalcarnero and M-413 Arroyomolinos/Moraleja"],
+    "headings": [98.0],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st4:M-413 Arroyomolinos/Moraleja > AP-41 Madrid-Toledo",
+   "type": "station",
+   "name": "M-413 Arroyomolinos/Moraleja > AP-41 Madrid-Toledo",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-3.910601, 40.257029]]
+    },
+    "point_names": ["between M-413 Arroyomolinos/Moraleja and AP-41 Madrid-Toledo"],
+    "headings": [56.7],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st4:M-413 Arroyomolinos/Moraleja > M-404 El Álamo/Navalcarnero",
+   "type": "station",
+   "name": "M-413 Arroyomolinos/Moraleja > M-404 El Álamo/Navalcarnero",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-3.957149, 40.260431]]
+    },
+    "point_names": ["between M-413 Arroyomolinos/Moraleja and M-404 El Álamo/Navalcarnero"],
+    "headings": [275.5],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st4:M-50 / M-506 Móstoles/Fuenlabrada > AP-41 Madrid-Toledo",
+   "type": "station",
+   "name": "M-50 / M-506 Móstoles/Fuenlabrada > AP-41 Madrid-Toledo",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-3.857752, 40.289776]]
+    },
+    "point_names": ["between M-50 / M-506 Móstoles/Fuenlabrada and AP-41 Madrid-Toledo"],
+    "headings": [206.9],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st4:M-50 / M-506 Móstoles/Fuenlabrada > M-40 / M-45",
+   "type": "station",
+   "name": "M-50 / M-506 Móstoles/Fuenlabrada > M-40 / M-45",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-3.804067, 40.336367]]
+    },
+    "point_names": ["between M-50 / M-506 Móstoles/Fuenlabrada and M-40 / M-45"],
+    "headings": [70.6],
+    "match_m": 100
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "system1",
+   "name": "R-2 Madrid – Guadalajara",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "SEITT tariff 2026 (r2), cash prices (tag prices with etc) including 21% IVA, here excluding it; free 00:00–06:00; open plazas not built: Aeropuerto, Alcobendas",
+   "directed": true,
+   "columns": ["entry", "exit", "vehicle_class", "user_class", "time_class", "priority", "amount"],
+   "rows": [
+    ["st1:Ajalvir > Alcala", "st1:Ajalvir > Alcala", "sys1-1.Pesados-1", null, null, null, "1.0744"],
+    ["st1:Ajalvir > Alcala", "st1:Ajalvir > Alcala", "sys1-1.Pesados-2", null, null, null, "1.5702"],
+    ["st1:Ajalvir > Alcala", "st1:Alcala > Meco", "sys1-1.Pesados-1", null, null, null, "2.2727"],
+    ["st1:Ajalvir > Alcala", "st1:Alcala > Meco", "sys1-1.Pesados-2", null, null, null, "3.2645"],
+    ["st1:Ajalvir > Alcala", "st1:Cabanillas > Guadalajara Norte", "sys1-1.Pesados-1", null, null, null, "5.0413"],
+    ["st1:Ajalvir > Alcala", "st1:Cabanillas > Guadalajara Norte", "sys1-1.Pesados-2", null, null, null, "7.1901"],
+    ["st1:Ajalvir > Alcala", "st1:Guadalajara Norte > NII-Taracena", "sys1-1.Pesados-1", null, null, null, "5.9917"],
+    ["st1:Ajalvir > Alcala", "st1:Guadalajara Norte > NII-Taracena", "sys1-1.Pesados-2", null, null, null, "8.5124"],
+    ["st1:Ajalvir > Alcala", "st1:Meco > Cabanillas", "sys1-1.Pesados-1", null, null, null, "3.6777"],
+    ["st1:Ajalvir > Alcala", "st1:Meco > Cabanillas", "sys1-1.Pesados-2", null, null, null, "5.2479"],
+    ["st1:Alcala > Ajalvir", "st1:Alcala > Ajalvir", "sys1-1.Pesados-1", null, null, null, "1.0744"],
+    ["st1:Alcala > Ajalvir", "st1:Alcala > Ajalvir", "sys1-1.Pesados-2", null, null, null, "1.5702"],
+    ["st1:Alcala > Meco", "st1:Alcala > Meco", "sys1-1.Pesados-1", null, null, null, "1.1983"],
+    ["st1:Alcala > Meco", "st1:Alcala > Meco", "sys1-1.Pesados-2", null, null, null, "1.6942"],
+    ["st1:Alcala > Meco", "st1:Cabanillas > Guadalajara Norte", "sys1-1.Pesados-1", null, null, null, "3.9669"],
+    ["st1:Alcala > Meco", "st1:Cabanillas > Guadalajara Norte", "sys1-1.Pesados-2", null, null, null, "5.6612"],
+    ["st1:Alcala > Meco", "st1:Guadalajara Norte > NII-Taracena", "sys1-1.Pesados-1", null, null, null, "4.9174"],
+    ["st1:Alcala > Meco", "st1:Guadalajara Norte > NII-Taracena", "sys1-1.Pesados-2", null, null, null, "6.9835"],
+    ["st1:Alcala > Meco", "st1:Meco > Cabanillas", "sys1-1.Pesados-1", null, null, null, "2.6033"],
+    ["st1:Alcala > Meco", "st1:Meco > Cabanillas", "sys1-1.Pesados-2", null, null, null, "3.719"],
+    ["st1:Cabanillas > Guadalajara Norte", "st1:Cabanillas > Guadalajara Norte", "sys1-1.Pesados-1", null, null, null, "1.405"],
+    ["st1:Cabanillas > Guadalajara Norte", "st1:Cabanillas > Guadalajara Norte", "sys1-1.Pesados-2", null, null, null, "1.9835"],
+    ["st1:Cabanillas > Guadalajara Norte", "st1:Guadalajara Norte > NII-Taracena", "sys1-1.Pesados-1", null, null, null, "2.314"],
+    ["st1:Cabanillas > Guadalajara Norte", "st1:Guadalajara Norte > NII-Taracena", "sys1-1.Pesados-2", null, null, null, "3.3058"],
+    ["st1:Cabanillas > Meco", "st1:Alcala > Ajalvir", "sys1-1.Pesados-1", null, null, null, "3.6777"],
+    ["st1:Cabanillas > Meco", "st1:Alcala > Ajalvir", "sys1-1.Pesados-2", null, null, null, "5.2479"],
+    ["st1:Cabanillas > Meco", "st1:Cabanillas > Meco", "sys1-1.Pesados-1", null, null, null, "1.405"],
+    ["st1:Cabanillas > Meco", "st1:Cabanillas > Meco", "sys1-1.Pesados-2", null, null, null, "2.0248"],
+    ["st1:Cabanillas > Meco", "st1:Meco > Alcala", "sys1-1.Pesados-1", null, null, null, "2.6033"],
+    ["st1:Cabanillas > Meco", "st1:Meco > Alcala", "sys1-1.Pesados-2", null, null, null, "3.719"],
+    ["st1:Guadalajara Norte > Cabanillas", "st1:Alcala > Ajalvir", "sys1-1.Pesados-1", null, null, null, "5.0413"],
+    ["st1:Guadalajara Norte > Cabanillas", "st1:Alcala > Ajalvir", "sys1-1.Pesados-2", null, null, null, "7.1901"],
+    ["st1:Guadalajara Norte > Cabanillas", "st1:Cabanillas > Meco", "sys1-1.Pesados-1", null, null, null, "2.8099"],
+    ["st1:Guadalajara Norte > Cabanillas", "st1:Cabanillas > Meco", "sys1-1.Pesados-2", null, null, null, "4.0083"],
+    ["st1:Guadalajara Norte > Cabanillas", "st1:Guadalajara Norte > Cabanillas", "sys1-1.Pesados-1", null, null, null, "1.405"],
+    ["st1:Guadalajara Norte > Cabanillas", "st1:Guadalajara Norte > Cabanillas", "sys1-1.Pesados-2", null, null, null, "1.9835"],
+    ["st1:Guadalajara Norte > Cabanillas", "st1:Meco > Alcala", "sys1-1.Pesados-1", null, null, null, "3.9669"],
+    ["st1:Guadalajara Norte > Cabanillas", "st1:Meco > Alcala", "sys1-1.Pesados-2", null, null, null, "5.6612"],
+    ["st1:Guadalajara Norte > NII-Taracena", "st1:Guadalajara Norte > NII-Taracena", "sys1-1.Pesados-1", null, null, null, "0"],
+    ["st1:Guadalajara Norte > NII-Taracena", "st1:Guadalajara Norte > NII-Taracena", "sys1-1.Pesados-2", null, null, null, "0"],
+    ["st1:Meco > Alcala", "st1:Alcala > Ajalvir", "sys1-1.Pesados-1", null, null, null, "2.2727"],
+    ["st1:Meco > Alcala", "st1:Alcala > Ajalvir", "sys1-1.Pesados-2", null, null, null, "3.2645"],
+    ["st1:Meco > Alcala", "st1:Meco > Alcala", "sys1-1.Pesados-1", null, null, null, "1.1983"],
+    ["st1:Meco > Alcala", "st1:Meco > Alcala", "sys1-1.Pesados-2", null, null, null, "1.6942"],
+    ["st1:Meco > Cabanillas", "st1:Cabanillas > Guadalajara Norte", "sys1-1.Pesados-1", null, null, null, "2.8099"],
+    ["st1:Meco > Cabanillas", "st1:Cabanillas > Guadalajara Norte", "sys1-1.Pesados-2", null, null, null, "4.0083"],
+    ["st1:Meco > Cabanillas", "st1:Guadalajara Norte > NII-Taracena", "sys1-1.Pesados-1", null, null, null, "3.719"],
+    ["st1:Meco > Cabanillas", "st1:Guadalajara Norte > NII-Taracena", "sys1-1.Pesados-2", null, null, null, "5.2893"],
+    ["st1:Meco > Cabanillas", "st1:Meco > Cabanillas", "sys1-1.Pesados-1", null, null, null, "1.405"],
+    ["st1:Meco > Cabanillas", "st1:Meco > Cabanillas", "sys1-1.Pesados-2", null, null, null, "2.0248"],
+    ["st1:NII-Taracena > Guadalajara Norte", "st1:Alcala > Ajalvir", "sys1-1.Pesados-1", null, null, null, "5.9917"],
+    ["st1:NII-Taracena > Guadalajara Norte", "st1:Alcala > Ajalvir", "sys1-1.Pesados-2", null, null, null, "8.5124"],
+    ["st1:NII-Taracena > Guadalajara Norte", "st1:Cabanillas > Meco", "sys1-1.Pesados-1", null, null, null, "3.719"],
+    ["st1:NII-Taracena > Guadalajara Norte", "st1:Cabanillas > Meco", "sys1-1.Pesados-2", null, null, null, "5.2893"],
+    ["st1:NII-Taracena > Guadalajara Norte", "st1:Guadalajara Norte > Cabanillas", "sys1-1.Pesados-1", null, null, null, "2.314"],
+    ["st1:NII-Taracena > Guadalajara Norte", "st1:Guadalajara Norte > Cabanillas", "sys1-1.Pesados-2", null, null, null, "3.3058"],
+    ["st1:NII-Taracena > Guadalajara Norte", "st1:Meco > Alcala", "sys1-1.Pesados-1", null, null, null, "4.9174"],
+    ["st1:NII-Taracena > Guadalajara Norte", "st1:Meco > Alcala", "sys1-1.Pesados-2", null, null, null, "6.9835"],
+    ["st1:NII-Taracena > Guadalajara Norte", "st1:NII-Taracena > Guadalajara Norte", "sys1-1.Pesados-1", null, null, null, "0"],
+    ["st1:NII-Taracena > Guadalajara Norte", "st1:NII-Taracena > Guadalajara Norte", "sys1-1.Pesados-2", null, null, null, "0"],
+    ["st1:Ajalvir > Alcala", "st1:Ajalvir > Alcala", "sys1-1.Pesados-1", "electronic", null, null, "0.9917"],
+    ["st1:Ajalvir > Alcala", "st1:Ajalvir > Alcala", "sys1-1.Pesados-2", "electronic", null, null, "1.405"],
+    ["st1:Ajalvir > Alcala", "st1:Alcala > Meco", "sys1-1.Pesados-1", "electronic", null, null, "2.1074"],
+    ["st1:Ajalvir > Alcala", "st1:Alcala > Meco", "sys1-1.Pesados-2", "electronic", null, null, "2.9339"],
+    ["st1:Ajalvir > Alcala", "st1:Cabanillas > Guadalajara Norte", "sys1-1.Pesados-1", "electronic", null, null, "4.6694"],
+    ["st1:Ajalvir > Alcala", "st1:Cabanillas > Guadalajara Norte", "sys1-1.Pesados-2", "electronic", null, null, "6.4876"],
+    ["st1:Ajalvir > Alcala", "st1:Guadalajara Norte > NII-Taracena", "sys1-1.Pesados-1", "electronic", null, null, "5.4959"],
+    ["st1:Ajalvir > Alcala", "st1:Guadalajara Norte > NII-Taracena", "sys1-1.Pesados-2", "electronic", null, null, "7.686"],
+    ["st1:Ajalvir > Alcala", "st1:Meco > Cabanillas", "sys1-1.Pesados-1", "electronic", null, null, "3.3884"],
+    ["st1:Ajalvir > Alcala", "st1:Meco > Cabanillas", "sys1-1.Pesados-2", "electronic", null, null, "4.7521"],
+    ["st1:Alcala > Ajalvir", "st1:Alcala > Ajalvir", "sys1-1.Pesados-1", "electronic", null, null, "0.9917"],
+    ["st1:Alcala > Ajalvir", "st1:Alcala > Ajalvir", "sys1-1.Pesados-2", "electronic", null, null, "1.405"],
+    ["st1:Alcala > Meco", "st1:Alcala > Meco", "sys1-1.Pesados-1", "electronic", null, null, "1.1157"],
+    ["st1:Alcala > Meco", "st1:Alcala > Meco", "sys1-1.Pesados-2", "electronic", null, null, "1.5289"],
+    ["st1:Alcala > Meco", "st1:Cabanillas > Guadalajara Norte", "sys1-1.Pesados-1", "electronic", null, null, "3.6777"],
+    ["st1:Alcala > Meco", "st1:Cabanillas > Guadalajara Norte", "sys1-1.Pesados-2", "electronic", null, null, "5.124"],
+    ["st1:Alcala > Meco", "st1:Guadalajara Norte > NII-Taracena", "sys1-1.Pesados-1", "electronic", null, null, "4.5041"],
+    ["st1:Alcala > Meco", "st1:Guadalajara Norte > NII-Taracena", "sys1-1.Pesados-2", "electronic", null, null, "6.3223"],
+    ["st1:Alcala > Meco", "st1:Meco > Cabanillas", "sys1-1.Pesados-1", "electronic", null, null, "2.3967"],
+    ["st1:Alcala > Meco", "st1:Meco > Cabanillas", "sys1-1.Pesados-2", "electronic", null, null, "3.3471"],
+    ["st1:Cabanillas > Guadalajara Norte", "st1:Cabanillas > Guadalajara Norte", "sys1-1.Pesados-1", "electronic", null, null, "1.281"],
+    ["st1:Cabanillas > Guadalajara Norte", "st1:Cabanillas > Guadalajara Norte", "sys1-1.Pesados-2", "electronic", null, null, "1.7769"],
+    ["st1:Cabanillas > Guadalajara Norte", "st1:Guadalajara Norte > NII-Taracena", "sys1-1.Pesados-1", "electronic", null, null, "2.1074"],
+    ["st1:Cabanillas > Guadalajara Norte", "st1:Guadalajara Norte > NII-Taracena", "sys1-1.Pesados-2", "electronic", null, null, "2.9752"],
+    ["st1:Cabanillas > Meco", "st1:Alcala > Ajalvir", "sys1-1.Pesados-1", "electronic", null, null, "3.3884"],
+    ["st1:Cabanillas > Meco", "st1:Alcala > Ajalvir", "sys1-1.Pesados-2", "electronic", null, null, "4.7521"],
+    ["st1:Cabanillas > Meco", "st1:Cabanillas > Meco", "sys1-1.Pesados-1", "electronic", null, null, "1.3223"],
+    ["st1:Cabanillas > Meco", "st1:Cabanillas > Meco", "sys1-1.Pesados-2", "electronic", null, null, "1.8182"],
+    ["st1:Cabanillas > Meco", "st1:Meco > Alcala", "sys1-1.Pesados-1", "electronic", null, null, "2.3967"],
+    ["st1:Cabanillas > Meco", "st1:Meco > Alcala", "sys1-1.Pesados-2", "electronic", null, null, "3.3471"],
+    ["st1:Guadalajara Norte > Cabanillas", "st1:Alcala > Ajalvir", "sys1-1.Pesados-1", "electronic", null, null, "4.6694"],
+    ["st1:Guadalajara Norte > Cabanillas", "st1:Alcala > Ajalvir", "sys1-1.Pesados-2", "electronic", null, null, "6.4876"],
+    ["st1:Guadalajara Norte > Cabanillas", "st1:Cabanillas > Meco", "sys1-1.Pesados-1", "electronic", null, null, "2.562"],
+    ["st1:Guadalajara Norte > Cabanillas", "st1:Cabanillas > Meco", "sys1-1.Pesados-2", "electronic", null, null, "3.595"],
+    ["st1:Guadalajara Norte > Cabanillas", "st1:Guadalajara Norte > Cabanillas", "sys1-1.Pesados-1", "electronic", null, null, "1.281"],
+    ["st1:Guadalajara Norte > Cabanillas", "st1:Guadalajara Norte > Cabanillas", "sys1-1.Pesados-2", "electronic", null, null, "1.7769"],
+    ["st1:Guadalajara Norte > Cabanillas", "st1:Meco > Alcala", "sys1-1.Pesados-1", "electronic", null, null, "3.6777"],
+    ["st1:Guadalajara Norte > Cabanillas", "st1:Meco > Alcala", "sys1-1.Pesados-2", "electronic", null, null, "5.124"],
+    ["st1:Guadalajara Norte > NII-Taracena", "st1:Guadalajara Norte > NII-Taracena", "sys1-1.Pesados-1", "electronic", null, null, "0"],
+    ["st1:Guadalajara Norte > NII-Taracena", "st1:Guadalajara Norte > NII-Taracena", "sys1-1.Pesados-2", "electronic", null, null, "0"],
+    ["st1:Meco > Alcala", "st1:Alcala > Ajalvir", "sys1-1.Pesados-1", "electronic", null, null, "2.1074"],
+    ["st1:Meco > Alcala", "st1:Alcala > Ajalvir", "sys1-1.Pesados-2", "electronic", null, null, "2.9339"],
+    ["st1:Meco > Alcala", "st1:Meco > Alcala", "sys1-1.Pesados-1", "electronic", null, null, "1.1157"],
+    ["st1:Meco > Alcala", "st1:Meco > Alcala", "sys1-1.Pesados-2", "electronic", null, null, "1.5289"],
+    ["st1:Meco > Cabanillas", "st1:Cabanillas > Guadalajara Norte", "sys1-1.Pesados-1", "electronic", null, null, "2.562"],
+    ["st1:Meco > Cabanillas", "st1:Cabanillas > Guadalajara Norte", "sys1-1.Pesados-2", "electronic", null, null, "3.595"],
+    ["st1:Meco > Cabanillas", "st1:Guadalajara Norte > NII-Taracena", "sys1-1.Pesados-1", "electronic", null, null, "3.4298"],
+    ["st1:Meco > Cabanillas", "st1:Guadalajara Norte > NII-Taracena", "sys1-1.Pesados-2", "electronic", null, null, "4.7934"],
+    ["st1:Meco > Cabanillas", "st1:Meco > Cabanillas", "sys1-1.Pesados-1", "electronic", null, null, "1.3223"],
+    ["st1:Meco > Cabanillas", "st1:Meco > Cabanillas", "sys1-1.Pesados-2", "electronic", null, null, "1.8182"],
+    ["st1:NII-Taracena > Guadalajara Norte", "st1:Alcala > Ajalvir", "sys1-1.Pesados-1", "electronic", null, null, "5.4959"],
+    ["st1:NII-Taracena > Guadalajara Norte", "st1:Alcala > Ajalvir", "sys1-1.Pesados-2", "electronic", null, null, "7.686"],
+    ["st1:NII-Taracena > Guadalajara Norte", "st1:Cabanillas > Meco", "sys1-1.Pesados-1", "electronic", null, null, "3.4298"],
+    ["st1:NII-Taracena > Guadalajara Norte", "st1:Cabanillas > Meco", "sys1-1.Pesados-2", "electronic", null, null, "4.7934"],
+    ["st1:NII-Taracena > Guadalajara Norte", "st1:Guadalajara Norte > Cabanillas", "sys1-1.Pesados-1", "electronic", null, null, "2.1074"],
+    ["st1:NII-Taracena > Guadalajara Norte", "st1:Guadalajara Norte > Cabanillas", "sys1-1.Pesados-2", "electronic", null, null, "2.9752"],
+    ["st1:NII-Taracena > Guadalajara Norte", "st1:Meco > Alcala", "sys1-1.Pesados-1", "electronic", null, null, "4.5041"],
+    ["st1:NII-Taracena > Guadalajara Norte", "st1:Meco > Alcala", "sys1-1.Pesados-2", "electronic", null, null, "6.3223"],
+    ["st1:NII-Taracena > Guadalajara Norte", "st1:NII-Taracena > Guadalajara Norte", "sys1-1.Pesados-1", "electronic", null, null, "0"],
+    ["st1:NII-Taracena > Guadalajara Norte", "st1:NII-Taracena > Guadalajara Norte", "sys1-1.Pesados-2", "electronic", null, null, "0"],
+    [null, null, null, null, "sys1-free", 2, "0"]
+   ],
+   "sources": ["s1", "s2", "s3", "s4", "s5"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system2",
+   "name": "R-3 Madrid – Arganda",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "SEITT tariff 2026 (r3), cash prices (tag prices with etc) including 21% IVA, here excluding it; free 00:00–06:00",
+   "directed": true,
+   "columns": ["entry", "exit", "vehicle_class", "user_class", "time_class", "priority", "amount"],
+   "rows": [
+    ["st2:Conexión A-3 > M-300 Arganda/Loeches", "st2:M-208 Mejorada/Velilla > M-50", "sys1-1.Pesados-1", null, null, null, "2.8099"],
+    ["st2:Conexión A-3 > M-300 Arganda/Loeches", "st2:M-208 Mejorada/Velilla > M-50", "sys1-1.Pesados-2", null, null, null, "4.0083"],
+    ["st2:Conexión A-3 > M-300 Arganda/Loeches", "st2:M-300 Arganda/Loeches > M-208 Mejorada/Velilla", "sys1-1.Pesados-1", null, null, null, "2.8099"],
+    ["st2:Conexión A-3 > M-300 Arganda/Loeches", "st2:M-300 Arganda/Loeches > M-208 Mejorada/Velilla", "sys1-1.Pesados-2", null, null, null, "4.0083"],
+    ["st2:Conexión A-3 > M-300 Arganda/Loeches", "st2:M-45 > Madrid / M-40 / M-602", "sys1-1.Pesados-1", null, null, null, "3.9256"],
+    ["st2:Conexión A-3 > M-300 Arganda/Loeches", "st2:M-45 > Madrid / M-40 / M-602", "sys1-1.Pesados-2", null, null, null, "5.5785"],
+    ["st2:Conexión A-3 > M-300 Arganda/Loeches", "st2:M-50 > M-45", "sys1-1.Pesados-1", null, null, null, "3.3471"],
+    ["st2:Conexión A-3 > M-300 Arganda/Loeches", "st2:M-50 > M-45", "sys1-1.Pesados-2", null, null, null, "4.7934"],
+    ["st2:M-208 Mejorada/Velilla > M-300 Arganda/Loeches", "st2:M-208 Mejorada/Velilla > M-300 Arganda/Loeches", "sys1-1.Pesados-1", null, null, null, "1.6529"],
+    ["st2:M-208 Mejorada/Velilla > M-300 Arganda/Loeches", "st2:M-208 Mejorada/Velilla > M-300 Arganda/Loeches", "sys1-1.Pesados-2", null, null, null, "2.3554"],
+    ["st2:M-208 Mejorada/Velilla > M-300 Arganda/Loeches", "st2:M-300 Arganda/Loeches > Conexión A-3", "sys1-1.Pesados-1", null, null, null, "2.8099"],
+    ["st2:M-208 Mejorada/Velilla > M-300 Arganda/Loeches", "st2:M-300 Arganda/Loeches > Conexión A-3", "sys1-1.Pesados-2", null, null, null, "4.0083"],
+    ["st2:M-208 Mejorada/Velilla > M-50", "st2:M-45 > Madrid / M-40 / M-602", "sys1-1.Pesados-1", null, null, null, "1.1157"],
+    ["st2:M-208 Mejorada/Velilla > M-50", "st2:M-45 > Madrid / M-40 / M-602", "sys1-1.Pesados-2", null, null, null, "1.5702"],
+    ["st2:M-208 Mejorada/Velilla > M-50", "st2:M-50 > M-45", "sys1-1.Pesados-1", null, null, null, "0.5372"],
+    ["st2:M-208 Mejorada/Velilla > M-50", "st2:M-50 > M-45", "sys1-1.Pesados-2", null, null, null, "0.7851"],
+    ["st2:M-300 Arganda/Loeches > M-208 Mejorada/Velilla", "st2:M-208 Mejorada/Velilla > M-50", "sys1-1.Pesados-1", null, null, null, "1.6529"],
+    ["st2:M-300 Arganda/Loeches > M-208 Mejorada/Velilla", "st2:M-208 Mejorada/Velilla > M-50", "sys1-1.Pesados-2", null, null, null, "2.3554"],
+    ["st2:M-300 Arganda/Loeches > M-208 Mejorada/Velilla", "st2:M-300 Arganda/Loeches > M-208 Mejorada/Velilla", "sys1-1.Pesados-1", null, null, null, "1.6529"],
+    ["st2:M-300 Arganda/Loeches > M-208 Mejorada/Velilla", "st2:M-300 Arganda/Loeches > M-208 Mejorada/Velilla", "sys1-1.Pesados-2", null, null, null, "2.3554"],
+    ["st2:M-300 Arganda/Loeches > M-208 Mejorada/Velilla", "st2:M-45 > Madrid / M-40 / M-602", "sys1-1.Pesados-1", null, null, null, "2.7686"],
+    ["st2:M-300 Arganda/Loeches > M-208 Mejorada/Velilla", "st2:M-45 > Madrid / M-40 / M-602", "sys1-1.Pesados-2", null, null, null, "3.9256"],
+    ["st2:M-300 Arganda/Loeches > M-208 Mejorada/Velilla", "st2:M-50 > M-45", "sys1-1.Pesados-1", null, null, null, "2.1901"],
+    ["st2:M-300 Arganda/Loeches > M-208 Mejorada/Velilla", "st2:M-50 > M-45", "sys1-1.Pesados-2", null, null, null, "3.1405"],
+    ["st2:M-45 > M-50", "st2:M-208 Mejorada/Velilla > M-300 Arganda/Loeches", "sys1-1.Pesados-1", null, null, null, "2.1901"],
+    ["st2:M-45 > M-50", "st2:M-208 Mejorada/Velilla > M-300 Arganda/Loeches", "sys1-1.Pesados-2", null, null, null, "3.1405"],
+    ["st2:M-45 > M-50", "st2:M-300 Arganda/Loeches > Conexión A-3", "sys1-1.Pesados-1", null, null, null, "3.3471"],
+    ["st2:M-45 > M-50", "st2:M-300 Arganda/Loeches > Conexión A-3", "sys1-1.Pesados-2", null, null, null, "4.7934"],
+    ["st2:M-45 > M-50", "st2:M-45 > M-50", "sys1-1.Pesados-1", null, null, null, "0.5372"],
+    ["st2:M-45 > M-50", "st2:M-45 > M-50", "sys1-1.Pesados-2", null, null, null, "0.7851"],
+    ["st2:M-45 > M-50", "st2:M-50 > M-208 Mejorada/Velilla", "sys1-1.Pesados-1", null, null, null, "0.5372"],
+    ["st2:M-45 > M-50", "st2:M-50 > M-208 Mejorada/Velilla", "sys1-1.Pesados-2", null, null, null, "0.7851"],
+    ["st2:M-45 > Madrid / M-40 / M-602", "st2:M-45 > Madrid / M-40 / M-602", "sys1-1.Pesados-1", null, null, null, "0.5785"],
+    ["st2:M-45 > Madrid / M-40 / M-602", "st2:M-45 > Madrid / M-40 / M-602", "sys1-1.Pesados-2", null, null, null, "0.8264"],
+    ["st2:M-50 > M-208 Mejorada/Velilla", "st2:M-208 Mejorada/Velilla > M-300 Arganda/Loeches", "sys1-1.Pesados-1", null, null, null, "1.6529"],
+    ["st2:M-50 > M-208 Mejorada/Velilla", "st2:M-208 Mejorada/Velilla > M-300 Arganda/Loeches", "sys1-1.Pesados-2", null, null, null, "2.3554"],
+    ["st2:M-50 > M-208 Mejorada/Velilla", "st2:M-300 Arganda/Loeches > Conexión A-3", "sys1-1.Pesados-1", null, null, null, "2.8099"],
+    ["st2:M-50 > M-208 Mejorada/Velilla", "st2:M-300 Arganda/Loeches > Conexión A-3", "sys1-1.Pesados-2", null, null, null, "4.0083"],
+    ["st2:M-50 > M-45", "st2:M-45 > Madrid / M-40 / M-602", "sys1-1.Pesados-1", null, null, null, "1.1157"],
+    ["st2:M-50 > M-45", "st2:M-45 > Madrid / M-40 / M-602", "sys1-1.Pesados-2", null, null, null, "1.5702"],
+    ["st2:M-50 > M-45", "st2:M-50 > M-45", "sys1-1.Pesados-1", null, null, null, "0.5372"],
+    ["st2:M-50 > M-45", "st2:M-50 > M-45", "sys1-1.Pesados-2", null, null, null, "0.7851"],
+    ["st2:Madrid / M-40 / M-602 > M-45", "st2:M-208 Mejorada/Velilla > M-300 Arganda/Loeches", "sys1-1.Pesados-1", null, null, null, "2.7686"],
+    ["st2:Madrid / M-40 / M-602 > M-45", "st2:M-208 Mejorada/Velilla > M-300 Arganda/Loeches", "sys1-1.Pesados-2", null, null, null, "3.9256"],
+    ["st2:Madrid / M-40 / M-602 > M-45", "st2:M-300 Arganda/Loeches > Conexión A-3", "sys1-1.Pesados-1", null, null, null, "3.9256"],
+    ["st2:Madrid / M-40 / M-602 > M-45", "st2:M-300 Arganda/Loeches > Conexión A-3", "sys1-1.Pesados-2", null, null, null, "5.5785"],
+    ["st2:Madrid / M-40 / M-602 > M-45", "st2:M-45 > M-50", "sys1-1.Pesados-1", null, null, null, "1.1157"],
+    ["st2:Madrid / M-40 / M-602 > M-45", "st2:M-45 > M-50", "sys1-1.Pesados-2", null, null, null, "1.5702"],
+    ["st2:Madrid / M-40 / M-602 > M-45", "st2:M-50 > M-208 Mejorada/Velilla", "sys1-1.Pesados-1", null, null, null, "1.1157"],
+    ["st2:Madrid / M-40 / M-602 > M-45", "st2:M-50 > M-208 Mejorada/Velilla", "sys1-1.Pesados-2", null, null, null, "1.5702"],
+    ["st2:Madrid / M-40 / M-602 > M-45", "st2:Madrid / M-40 / M-602 > M-45", "sys1-1.Pesados-1", null, null, null, "0.5785"],
+    ["st2:Madrid / M-40 / M-602 > M-45", "st2:Madrid / M-40 / M-602 > M-45", "sys1-1.Pesados-2", null, null, null, "0.8264"],
+    ["st2:Conexión A-3 > M-300 Arganda/Loeches", "st2:M-208 Mejorada/Velilla > M-50", "sys1-1.Pesados-1", "electronic", null, null, "2.6033"],
+    ["st2:Conexión A-3 > M-300 Arganda/Loeches", "st2:M-208 Mejorada/Velilla > M-50", "sys1-1.Pesados-2", "electronic", null, null, "3.6364"],
+    ["st2:Conexión A-3 > M-300 Arganda/Loeches", "st2:M-300 Arganda/Loeches > M-208 Mejorada/Velilla", "sys1-1.Pesados-1", "electronic", null, null, "2.6033"],
+    ["st2:Conexión A-3 > M-300 Arganda/Loeches", "st2:M-300 Arganda/Loeches > M-208 Mejorada/Velilla", "sys1-1.Pesados-2", "electronic", null, null, "3.6364"],
+    ["st2:Conexión A-3 > M-300 Arganda/Loeches", "st2:M-45 > Madrid / M-40 / M-602", "sys1-1.Pesados-1", "electronic", null, null, "3.6364"],
+    ["st2:Conexión A-3 > M-300 Arganda/Loeches", "st2:M-45 > Madrid / M-40 / M-602", "sys1-1.Pesados-2", "electronic", null, null, "5.0413"],
+    ["st2:Conexión A-3 > M-300 Arganda/Loeches", "st2:M-50 > M-45", "sys1-1.Pesados-1", "electronic", null, null, "3.0992"],
+    ["st2:Conexión A-3 > M-300 Arganda/Loeches", "st2:M-50 > M-45", "sys1-1.Pesados-2", "electronic", null, null, "4.3388"],
+    [
+     "st2:M-208 Mejorada/Velilla > M-300 Arganda/Loeches",
+     "st2:M-208 Mejorada/Velilla > M-300 Arganda/Loeches",
+     "sys1-1.Pesados-1",
+     "electronic",
+     null,
+     null,
+     "1.5289"
+    ],
+    [
+     "st2:M-208 Mejorada/Velilla > M-300 Arganda/Loeches",
+     "st2:M-208 Mejorada/Velilla > M-300 Arganda/Loeches",
+     "sys1-1.Pesados-2",
+     "electronic",
+     null,
+     null,
+     "2.1074"
+    ],
+    ["st2:M-208 Mejorada/Velilla > M-300 Arganda/Loeches", "st2:M-300 Arganda/Loeches > Conexión A-3", "sys1-1.Pesados-1", "electronic", null, null, "2.6033"],
+    ["st2:M-208 Mejorada/Velilla > M-300 Arganda/Loeches", "st2:M-300 Arganda/Loeches > Conexión A-3", "sys1-1.Pesados-2", "electronic", null, null, "3.6364"],
+    ["st2:M-208 Mejorada/Velilla > M-50", "st2:M-45 > Madrid / M-40 / M-602", "sys1-1.Pesados-1", "electronic", null, null, "1.0331"],
+    ["st2:M-208 Mejorada/Velilla > M-50", "st2:M-45 > Madrid / M-40 / M-602", "sys1-1.Pesados-2", "electronic", null, null, "1.405"],
+    ["st2:M-208 Mejorada/Velilla > M-50", "st2:M-50 > M-45", "sys1-1.Pesados-1", "electronic", null, null, "0.4959"],
+    ["st2:M-208 Mejorada/Velilla > M-50", "st2:M-50 > M-45", "sys1-1.Pesados-2", "electronic", null, null, "0.7025"],
+    ["st2:M-300 Arganda/Loeches > M-208 Mejorada/Velilla", "st2:M-208 Mejorada/Velilla > M-50", "sys1-1.Pesados-1", "electronic", null, null, "1.5289"],
+    ["st2:M-300 Arganda/Loeches > M-208 Mejorada/Velilla", "st2:M-208 Mejorada/Velilla > M-50", "sys1-1.Pesados-2", "electronic", null, null, "2.1074"],
+    [
+     "st2:M-300 Arganda/Loeches > M-208 Mejorada/Velilla",
+     "st2:M-300 Arganda/Loeches > M-208 Mejorada/Velilla",
+     "sys1-1.Pesados-1",
+     "electronic",
+     null,
+     null,
+     "1.5289"
+    ],
+    [
+     "st2:M-300 Arganda/Loeches > M-208 Mejorada/Velilla",
+     "st2:M-300 Arganda/Loeches > M-208 Mejorada/Velilla",
+     "sys1-1.Pesados-2",
+     "electronic",
+     null,
+     null,
+     "2.1074"
+    ],
+    ["st2:M-300 Arganda/Loeches > M-208 Mejorada/Velilla", "st2:M-45 > Madrid / M-40 / M-602", "sys1-1.Pesados-1", "electronic", null, null, "2.562"],
+    ["st2:M-300 Arganda/Loeches > M-208 Mejorada/Velilla", "st2:M-45 > Madrid / M-40 / M-602", "sys1-1.Pesados-2", "electronic", null, null, "3.5124"],
+    ["st2:M-300 Arganda/Loeches > M-208 Mejorada/Velilla", "st2:M-50 > M-45", "sys1-1.Pesados-1", "electronic", null, null, "2.0248"],
+    ["st2:M-300 Arganda/Loeches > M-208 Mejorada/Velilla", "st2:M-50 > M-45", "sys1-1.Pesados-2", "electronic", null, null, "2.8099"],
+    ["st2:M-45 > M-50", "st2:M-208 Mejorada/Velilla > M-300 Arganda/Loeches", "sys1-1.Pesados-1", "electronic", null, null, "2.0248"],
+    ["st2:M-45 > M-50", "st2:M-208 Mejorada/Velilla > M-300 Arganda/Loeches", "sys1-1.Pesados-2", "electronic", null, null, "2.8099"],
+    ["st2:M-45 > M-50", "st2:M-300 Arganda/Loeches > Conexión A-3", "sys1-1.Pesados-1", "electronic", null, null, "3.0992"],
+    ["st2:M-45 > M-50", "st2:M-300 Arganda/Loeches > Conexión A-3", "sys1-1.Pesados-2", "electronic", null, null, "4.3388"],
+    ["st2:M-45 > M-50", "st2:M-45 > M-50", "sys1-1.Pesados-1", "electronic", null, null, "0.4959"],
+    ["st2:M-45 > M-50", "st2:M-45 > M-50", "sys1-1.Pesados-2", "electronic", null, null, "0.7025"],
+    ["st2:M-45 > M-50", "st2:M-50 > M-208 Mejorada/Velilla", "sys1-1.Pesados-1", "electronic", null, null, "0.4959"],
+    ["st2:M-45 > M-50", "st2:M-50 > M-208 Mejorada/Velilla", "sys1-1.Pesados-2", "electronic", null, null, "0.7025"],
+    ["st2:M-45 > Madrid / M-40 / M-602", "st2:M-45 > Madrid / M-40 / M-602", "sys1-1.Pesados-1", "electronic", null, null, "0.5372"],
+    ["st2:M-45 > Madrid / M-40 / M-602", "st2:M-45 > Madrid / M-40 / M-602", "sys1-1.Pesados-2", "electronic", null, null, "0.7438"],
+    ["st2:M-50 > M-208 Mejorada/Velilla", "st2:M-208 Mejorada/Velilla > M-300 Arganda/Loeches", "sys1-1.Pesados-1", "electronic", null, null, "1.5289"],
+    ["st2:M-50 > M-208 Mejorada/Velilla", "st2:M-208 Mejorada/Velilla > M-300 Arganda/Loeches", "sys1-1.Pesados-2", "electronic", null, null, "2.1074"],
+    ["st2:M-50 > M-208 Mejorada/Velilla", "st2:M-300 Arganda/Loeches > Conexión A-3", "sys1-1.Pesados-1", "electronic", null, null, "2.6033"],
+    ["st2:M-50 > M-208 Mejorada/Velilla", "st2:M-300 Arganda/Loeches > Conexión A-3", "sys1-1.Pesados-2", "electronic", null, null, "3.6364"],
+    ["st2:M-50 > M-45", "st2:M-45 > Madrid / M-40 / M-602", "sys1-1.Pesados-1", "electronic", null, null, "1.0331"],
+    ["st2:M-50 > M-45", "st2:M-45 > Madrid / M-40 / M-602", "sys1-1.Pesados-2", "electronic", null, null, "1.405"],
+    ["st2:M-50 > M-45", "st2:M-50 > M-45", "sys1-1.Pesados-1", "electronic", null, null, "0.4959"],
+    ["st2:M-50 > M-45", "st2:M-50 > M-45", "sys1-1.Pesados-2", "electronic", null, null, "0.7025"],
+    ["st2:Madrid / M-40 / M-602 > M-45", "st2:M-208 Mejorada/Velilla > M-300 Arganda/Loeches", "sys1-1.Pesados-1", "electronic", null, null, "2.562"],
+    ["st2:Madrid / M-40 / M-602 > M-45", "st2:M-208 Mejorada/Velilla > M-300 Arganda/Loeches", "sys1-1.Pesados-2", "electronic", null, null, "3.5124"],
+    ["st2:Madrid / M-40 / M-602 > M-45", "st2:M-300 Arganda/Loeches > Conexión A-3", "sys1-1.Pesados-1", "electronic", null, null, "3.6364"],
+    ["st2:Madrid / M-40 / M-602 > M-45", "st2:M-300 Arganda/Loeches > Conexión A-3", "sys1-1.Pesados-2", "electronic", null, null, "5.0413"],
+    ["st2:Madrid / M-40 / M-602 > M-45", "st2:M-45 > M-50", "sys1-1.Pesados-1", "electronic", null, null, "1.0331"],
+    ["st2:Madrid / M-40 / M-602 > M-45", "st2:M-45 > M-50", "sys1-1.Pesados-2", "electronic", null, null, "1.405"],
+    ["st2:Madrid / M-40 / M-602 > M-45", "st2:M-50 > M-208 Mejorada/Velilla", "sys1-1.Pesados-1", "electronic", null, null, "1.0331"],
+    ["st2:Madrid / M-40 / M-602 > M-45", "st2:M-50 > M-208 Mejorada/Velilla", "sys1-1.Pesados-2", "electronic", null, null, "1.405"],
+    ["st2:Madrid / M-40 / M-602 > M-45", "st2:Madrid / M-40 / M-602 > M-45", "sys1-1.Pesados-1", "electronic", null, null, "0.5372"],
+    ["st2:Madrid / M-40 / M-602 > M-45", "st2:Madrid / M-40 / M-602 > M-45", "sys1-1.Pesados-2", "electronic", null, null, "0.7438"],
+    [null, null, null, null, "sys1-free", 2, "0"]
+   ],
+   "sources": ["s1", "s2", "s3", "s4", "s5"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system3",
+   "name": "R-4 Madrid – Ocaña",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "SEITT tariff 2026 (r4), cash prices (tag prices with etc) including 21% IVA, here excluding it; free 00:00–06:00; stations not placed (priced from the next one placed): Pinto-Parla, Villaseca Sagra (CM 4001), Ontígola",
+   "directed": true,
+   "columns": ["entry", "exit", "vehicle_class", "user_class", "time_class", "priority", "amount"],
+   "rows": [
+    ["st3:Aranjuez > Ocaña / A-40", "st3:Aranjuez > Ocaña / A-40", "sys1-1.Pesados-1", null, null, null, "2.686"],
+    ["st3:Aranjuez > Ocaña / A-40", "st3:Aranjuez > Ocaña / A-40", "sys1-1.Pesados-2", null, null, null, "3.8017"],
+    ["st3:Aranjuez > Seseña", "st3:Seseña > Valdemoro", "sys1-1.Pesados-1", null, null, null, "2.686"],
+    ["st3:Aranjuez > Seseña", "st3:Seseña > Valdemoro", "sys1-1.Pesados-2", null, null, null, "3.8017"],
+    ["st3:Aranjuez > Seseña", "st3:Valdemoro > M-50", "sys1-1.Pesados-1", null, null, null, "4.2149"],
+    ["st3:Aranjuez > Seseña", "st3:Valdemoro > M-50", "sys1-1.Pesados-2", null, null, null, "6.1157"],
+    ["st3:M-50 > Valdemoro", "st3:Aranjuez > Ocaña / A-40", "sys1-1.Pesados-1", null, null, null, "7.0661"],
+    ["st3:M-50 > Valdemoro", "st3:Aranjuez > Ocaña / A-40", "sys1-1.Pesados-2", null, null, null, "10.2893"],
+    ["st3:M-50 > Valdemoro", "st3:M-50 > Valdemoro", "sys1-1.Pesados-1", null, null, null, "1.6116"],
+    ["st3:M-50 > Valdemoro", "st3:M-50 > Valdemoro", "sys1-1.Pesados-2", null, null, null, "2.314"],
+    ["st3:M-50 > Valdemoro", "st3:Seseña > Aranjuez", "sys1-1.Pesados-1", null, null, null, "4.2149"],
+    ["st3:M-50 > Valdemoro", "st3:Seseña > Aranjuez", "sys1-1.Pesados-2", null, null, null, "6.1157"],
+    ["st3:M-50 > Valdemoro", "st3:Valdemoro > Seseña", "sys1-1.Pesados-1", null, null, null, "2.9339"],
+    ["st3:M-50 > Valdemoro", "st3:Valdemoro > Seseña", "sys1-1.Pesados-2", null, null, null, "4.2149"],
+    ["st3:Ocaña / A-40 > Aranjuez", "st3:Ocaña / A-40 > Aranjuez", "sys1-1.Pesados-1", null, null, null, "2.686"],
+    ["st3:Ocaña / A-40 > Aranjuez", "st3:Ocaña / A-40 > Aranjuez", "sys1-1.Pesados-2", null, null, null, "3.8017"],
+    ["st3:Ocaña / A-40 > Aranjuez", "st3:Seseña > Valdemoro", "sys1-1.Pesados-1", null, null, null, "5.5785"],
+    ["st3:Ocaña / A-40 > Aranjuez", "st3:Seseña > Valdemoro", "sys1-1.Pesados-2", null, null, null, "7.9752"],
+    ["st3:Ocaña / A-40 > Aranjuez", "st3:Valdemoro > M-50", "sys1-1.Pesados-1", null, null, null, "7.0661"],
+    ["st3:Ocaña / A-40 > Aranjuez", "st3:Valdemoro > M-50", "sys1-1.Pesados-2", null, null, null, "10.2893"],
+    ["st3:Seseña > Valdemoro", "st3:Seseña > Valdemoro", "sys1-1.Pesados-1", null, null, null, "1.3636"],
+    ["st3:Seseña > Valdemoro", "st3:Seseña > Valdemoro", "sys1-1.Pesados-2", null, null, null, "1.9008"],
+    ["st3:Seseña > Valdemoro", "st3:Valdemoro > M-50", "sys1-1.Pesados-1", null, null, null, "2.9339"],
+    ["st3:Seseña > Valdemoro", "st3:Valdemoro > M-50", "sys1-1.Pesados-2", null, null, null, "4.2149"],
+    ["st3:Valdemoro > M-50", "st3:Valdemoro > M-50", "sys1-1.Pesados-1", null, null, null, "1.6116"],
+    ["st3:Valdemoro > M-50", "st3:Valdemoro > M-50", "sys1-1.Pesados-2", null, null, null, "2.314"],
+    ["st3:Valdemoro > Seseña", "st3:Aranjuez > Ocaña / A-40", "sys1-1.Pesados-1", null, null, null, "5.4545"],
+    ["st3:Valdemoro > Seseña", "st3:Aranjuez > Ocaña / A-40", "sys1-1.Pesados-2", null, null, null, "7.9752"],
+    ["st3:Valdemoro > Seseña", "st3:Seseña > Aranjuez", "sys1-1.Pesados-1", null, null, null, "2.686"],
+    ["st3:Valdemoro > Seseña", "st3:Seseña > Aranjuez", "sys1-1.Pesados-2", null, null, null, "3.8017"],
+    ["st3:Valdemoro > Seseña", "st3:Valdemoro > Seseña", "sys1-1.Pesados-1", null, null, null, "1.3636"],
+    ["st3:Valdemoro > Seseña", "st3:Valdemoro > Seseña", "sys1-1.Pesados-2", null, null, null, "1.9008"],
+    ["st3:Aranjuez > Ocaña / A-40", "st3:Aranjuez > Ocaña / A-40", "sys1-1.Pesados-1", "electronic", null, null, "2.3967"],
+    ["st3:Aranjuez > Ocaña / A-40", "st3:Aranjuez > Ocaña / A-40", "sys1-1.Pesados-2", "electronic", null, null, "3.4298"],
+    ["st3:Aranjuez > Seseña", "st3:Seseña > Valdemoro", "sys1-1.Pesados-1", "electronic", null, null, "2.438"],
+    ["st3:Aranjuez > Seseña", "st3:Seseña > Valdemoro", "sys1-1.Pesados-2", "electronic", null, null, "3.4298"],
+    ["st3:Aranjuez > Seseña", "st3:Valdemoro > M-50", "sys1-1.Pesados-1", "electronic", null, null, "3.9256"],
+    ["st3:Aranjuez > Seseña", "st3:Valdemoro > M-50", "sys1-1.Pesados-2", "electronic", null, null, "5.4959"],
+    ["st3:M-50 > Valdemoro", "st3:Aranjuez > Ocaña / A-40", "sys1-1.Pesados-1", "electronic", null, null, "6.6116"],
+    ["st3:M-50 > Valdemoro", "st3:Aranjuez > Ocaña / A-40", "sys1-1.Pesados-2", "electronic", null, null, "9.2562"],
+    ["st3:M-50 > Valdemoro", "st3:M-50 > Valdemoro", "sys1-1.Pesados-1", "electronic", null, null, "1.4876"],
+    ["st3:M-50 > Valdemoro", "st3:M-50 > Valdemoro", "sys1-1.Pesados-2", "electronic", null, null, "2.0661"],
+    ["st3:M-50 > Valdemoro", "st3:Seseña > Aranjuez", "sys1-1.Pesados-1", "electronic", null, null, "3.9256"],
+    ["st3:M-50 > Valdemoro", "st3:Seseña > Aranjuez", "sys1-1.Pesados-2", "electronic", null, null, "5.4959"],
+    ["st3:M-50 > Valdemoro", "st3:Valdemoro > Seseña", "sys1-1.Pesados-1", "electronic", null, null, "2.7273"],
+    ["st3:M-50 > Valdemoro", "st3:Valdemoro > Seseña", "sys1-1.Pesados-2", "electronic", null, null, "3.8017"],
+    ["st3:Ocaña / A-40 > Aranjuez", "st3:Ocaña / A-40 > Aranjuez", "sys1-1.Pesados-1", "electronic", null, null, "2.438"],
+    ["st3:Ocaña / A-40 > Aranjuez", "st3:Ocaña / A-40 > Aranjuez", "sys1-1.Pesados-2", "electronic", null, null, "3.4298"],
+    ["st3:Ocaña / A-40 > Aranjuez", "st3:Seseña > Valdemoro", "sys1-1.Pesados-1", "electronic", null, null, "5.124"],
+    ["st3:Ocaña / A-40 > Aranjuez", "st3:Seseña > Valdemoro", "sys1-1.Pesados-2", "electronic", null, null, "7.1901"],
+    ["st3:Ocaña / A-40 > Aranjuez", "st3:Valdemoro > M-50", "sys1-1.Pesados-1", "electronic", null, null, "6.6116"],
+    ["st3:Ocaña / A-40 > Aranjuez", "st3:Valdemoro > M-50", "sys1-1.Pesados-2", "electronic", null, null, "9.2562"],
+    ["st3:Seseña > Valdemoro", "st3:Seseña > Valdemoro", "sys1-1.Pesados-1", "electronic", null, null, "1.2397"],
+    ["st3:Seseña > Valdemoro", "st3:Seseña > Valdemoro", "sys1-1.Pesados-2", "electronic", null, null, "1.7355"],
+    ["st3:Seseña > Valdemoro", "st3:Valdemoro > M-50", "sys1-1.Pesados-1", "electronic", null, null, "2.7273"],
+    ["st3:Seseña > Valdemoro", "st3:Valdemoro > M-50", "sys1-1.Pesados-2", "electronic", null, null, "3.8017"],
+    ["st3:Valdemoro > M-50", "st3:Valdemoro > M-50", "sys1-1.Pesados-1", "electronic", null, null, "1.4876"],
+    ["st3:Valdemoro > M-50", "st3:Valdemoro > M-50", "sys1-1.Pesados-2", "electronic", null, null, "2.0661"],
+    ["st3:Valdemoro > Seseña", "st3:Aranjuez > Ocaña / A-40", "sys1-1.Pesados-1", "electronic", null, null, "5.124"],
+    ["st3:Valdemoro > Seseña", "st3:Aranjuez > Ocaña / A-40", "sys1-1.Pesados-2", "electronic", null, null, "7.1901"],
+    ["st3:Valdemoro > Seseña", "st3:Seseña > Aranjuez", "sys1-1.Pesados-1", "electronic", null, null, "2.438"],
+    ["st3:Valdemoro > Seseña", "st3:Seseña > Aranjuez", "sys1-1.Pesados-2", "electronic", null, null, "3.4298"],
+    ["st3:Valdemoro > Seseña", "st3:Valdemoro > Seseña", "sys1-1.Pesados-1", "electronic", null, null, "1.2397"],
+    ["st3:Valdemoro > Seseña", "st3:Valdemoro > Seseña", "sys1-1.Pesados-2", "electronic", null, null, "1.7355"],
+    [null, null, null, null, "sys1-free", 2, "0"]
+   ],
+   "sources": ["s1", "s2", "s3", "s4", "s5"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system4",
+   "name": "R-5 Madrid – Navalcarnero",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "SEITT tariff 2026 (r5), cash prices (tag prices with etc) including 21% IVA, here excluding it; free 00:00–06:00",
+   "directed": true,
+   "columns": ["entry", "exit", "vehicle_class", "user_class", "time_class", "priority", "amount"],
+   "rows": [
+    [
+     "st4:AP-41 Madrid-Toledo > M-413 Arroyomolinos/Moraleja",
+     "st4:AP-41 Madrid-Toledo > M-413 Arroyomolinos/Moraleja",
+     "sys1-1.Pesados-1",
+     null,
+     null,
+     null,
+     "1.4463"
+    ],
+    [
+     "st4:AP-41 Madrid-Toledo > M-413 Arroyomolinos/Moraleja",
+     "st4:AP-41 Madrid-Toledo > M-413 Arroyomolinos/Moraleja",
+     "sys1-1.Pesados-2",
+     null,
+     null,
+     null,
+     "2.0248"
+    ],
+    ["st4:AP-41 Madrid-Toledo > M-413 Arroyomolinos/Moraleja", "st4:M-404 El Álamo/Navalcarnero > Conexión A-5", "sys1-1.Pesados-1", null, null, null, "2.9752"],
+    ["st4:AP-41 Madrid-Toledo > M-413 Arroyomolinos/Moraleja", "st4:M-404 El Álamo/Navalcarnero > Conexión A-5", "sys1-1.Pesados-2", null, null, null, "4.2562"],
+    [
+     "st4:AP-41 Madrid-Toledo > M-413 Arroyomolinos/Moraleja",
+     "st4:M-413 Arroyomolinos/Moraleja > M-404 El Álamo/Navalcarnero",
+     "sys1-1.Pesados-1",
+     null,
+     null,
+     null,
+     "2.9752"
+    ],
+    [
+     "st4:AP-41 Madrid-Toledo > M-413 Arroyomolinos/Moraleja",
+     "st4:M-413 Arroyomolinos/Moraleja > M-404 El Álamo/Navalcarnero",
+     "sys1-1.Pesados-2",
+     null,
+     null,
+     null,
+     "4.2562"
+    ],
+    [
+     "st4:AP-41 Madrid-Toledo > M-50 / M-506 Móstoles/Fuenlabrada",
+     "st4:M-50 / M-506 Móstoles/Fuenlabrada > M-40 / M-45",
+     "sys1-1.Pesados-1",
+     null,
+     null,
+     null,
+     "1.2397"
+    ],
+    [
+     "st4:AP-41 Madrid-Toledo > M-50 / M-506 Móstoles/Fuenlabrada",
+     "st4:M-50 / M-506 Móstoles/Fuenlabrada > M-40 / M-45",
+     "sys1-1.Pesados-2",
+     null,
+     null,
+     null,
+     "1.7355"
+    ],
+    [
+     "st4:Conexión A-5 > M-404 El Álamo/Navalcarnero",
+     "st4:AP-41 Madrid-Toledo > M-50 / M-506 Móstoles/Fuenlabrada",
+     "sys1-1.Pesados-1",
+     null,
+     null,
+     null,
+     "2.9752"
+    ],
+    [
+     "st4:Conexión A-5 > M-404 El Álamo/Navalcarnero",
+     "st4:AP-41 Madrid-Toledo > M-50 / M-506 Móstoles/Fuenlabrada",
+     "sys1-1.Pesados-2",
+     null,
+     null,
+     null,
+     "4.2562"
+    ],
+    [
+     "st4:Conexión A-5 > M-404 El Álamo/Navalcarnero",
+     "st4:M-404 El Álamo/Navalcarnero > M-413 Arroyomolinos/Moraleja",
+     "sys1-1.Pesados-1",
+     null,
+     null,
+     null,
+     "1.4463"
+    ],
+    [
+     "st4:Conexión A-5 > M-404 El Álamo/Navalcarnero",
+     "st4:M-404 El Álamo/Navalcarnero > M-413 Arroyomolinos/Moraleja",
+     "sys1-1.Pesados-2",
+     null,
+     null,
+     null,
+     "2.0248"
+    ],
+    ["st4:Conexión A-5 > M-404 El Álamo/Navalcarnero", "st4:M-413 Arroyomolinos/Moraleja > AP-41 Madrid-Toledo", "sys1-1.Pesados-1", null, null, null, "2.9752"],
+    ["st4:Conexión A-5 > M-404 El Álamo/Navalcarnero", "st4:M-413 Arroyomolinos/Moraleja > AP-41 Madrid-Toledo", "sys1-1.Pesados-2", null, null, null, "4.2562"],
+    ["st4:Conexión A-5 > M-404 El Álamo/Navalcarnero", "st4:M-50 / M-506 Móstoles/Fuenlabrada > M-40 / M-45", "sys1-1.Pesados-1", null, null, null, "4.2149"],
+    ["st4:Conexión A-5 > M-404 El Álamo/Navalcarnero", "st4:M-50 / M-506 Móstoles/Fuenlabrada > M-40 / M-45", "sys1-1.Pesados-2", null, null, null, "5.9917"],
+    ["st4:M-40 / M-45 > M-50 / M-506 Móstoles/Fuenlabrada", "st4:AP-41 Madrid-Toledo > M-413 Arroyomolinos/Moraleja", "sys1-1.Pesados-1", null, null, null, "2.686"],
+    [
+     "st4:M-40 / M-45 > M-50 / M-506 Móstoles/Fuenlabrada",
+     "st4:AP-41 Madrid-Toledo > M-413 Arroyomolinos/Moraleja",
+     "sys1-1.Pesados-2",
+     null,
+     null,
+     null,
+     "3.7603"
+    ],
+    ["st4:M-40 / M-45 > M-50 / M-506 Móstoles/Fuenlabrada", "st4:M-40 / M-45 > M-50 / M-506 Móstoles/Fuenlabrada", "sys1-1.Pesados-1", null, null, null, "1.2397"],
+    ["st4:M-40 / M-45 > M-50 / M-506 Móstoles/Fuenlabrada", "st4:M-40 / M-45 > M-50 / M-506 Móstoles/Fuenlabrada", "sys1-1.Pesados-2", null, null, null, "1.7355"],
+    ["st4:M-40 / M-45 > M-50 / M-506 Móstoles/Fuenlabrada", "st4:M-404 El Álamo/Navalcarnero > Conexión A-5", "sys1-1.Pesados-1", null, null, null, "4.2149"],
+    ["st4:M-40 / M-45 > M-50 / M-506 Móstoles/Fuenlabrada", "st4:M-404 El Álamo/Navalcarnero > Conexión A-5", "sys1-1.Pesados-2", null, null, null, "5.9917"],
+    [
+     "st4:M-40 / M-45 > M-50 / M-506 Móstoles/Fuenlabrada",
+     "st4:M-413 Arroyomolinos/Moraleja > M-404 El Álamo/Navalcarnero",
+     "sys1-1.Pesados-1",
+     null,
+     null,
+     null,
+     "4.2149"
+    ],
+    [
+     "st4:M-40 / M-45 > M-50 / M-506 Móstoles/Fuenlabrada",
+     "st4:M-413 Arroyomolinos/Moraleja > M-404 El Álamo/Navalcarnero",
+     "sys1-1.Pesados-2",
+     null,
+     null,
+     null,
+     "5.9917"
+    ],
+    [
+     "st4:M-40 / M-45 > M-50 / M-506 Móstoles/Fuenlabrada",
+     "st4:M-50 / M-506 Móstoles/Fuenlabrada > AP-41 Madrid-Toledo",
+     "sys1-1.Pesados-1",
+     null,
+     null,
+     null,
+     "1.2397"
+    ],
+    [
+     "st4:M-40 / M-45 > M-50 / M-506 Móstoles/Fuenlabrada",
+     "st4:M-50 / M-506 Móstoles/Fuenlabrada > AP-41 Madrid-Toledo",
+     "sys1-1.Pesados-2",
+     null,
+     null,
+     null,
+     "1.7355"
+    ],
+    [
+     "st4:M-404 El Álamo/Navalcarnero > M-413 Arroyomolinos/Moraleja",
+     "st4:AP-41 Madrid-Toledo > M-50 / M-506 Móstoles/Fuenlabrada",
+     "sys1-1.Pesados-1",
+     null,
+     null,
+     null,
+     "2.9752"
+    ],
+    [
+     "st4:M-404 El Álamo/Navalcarnero > M-413 Arroyomolinos/Moraleja",
+     "st4:AP-41 Madrid-Toledo > M-50 / M-506 Móstoles/Fuenlabrada",
+     "sys1-1.Pesados-2",
+     null,
+     null,
+     null,
+     "4.2562"
+    ],
+    [
+     "st4:M-404 El Álamo/Navalcarnero > M-413 Arroyomolinos/Moraleja",
+     "st4:M-404 El Álamo/Navalcarnero > M-413 Arroyomolinos/Moraleja",
+     "sys1-1.Pesados-1",
+     null,
+     null,
+     null,
+     "1.4463"
+    ],
+    [
+     "st4:M-404 El Álamo/Navalcarnero > M-413 Arroyomolinos/Moraleja",
+     "st4:M-404 El Álamo/Navalcarnero > M-413 Arroyomolinos/Moraleja",
+     "sys1-1.Pesados-2",
+     null,
+     null,
+     null,
+     "2.0248"
+    ],
+    [
+     "st4:M-404 El Álamo/Navalcarnero > M-413 Arroyomolinos/Moraleja",
+     "st4:M-413 Arroyomolinos/Moraleja > AP-41 Madrid-Toledo",
+     "sys1-1.Pesados-1",
+     null,
+     null,
+     null,
+     "2.9752"
+    ],
+    [
+     "st4:M-404 El Álamo/Navalcarnero > M-413 Arroyomolinos/Moraleja",
+     "st4:M-413 Arroyomolinos/Moraleja > AP-41 Madrid-Toledo",
+     "sys1-1.Pesados-2",
+     null,
+     null,
+     null,
+     "4.2562"
+    ],
+    [
+     "st4:M-404 El Álamo/Navalcarnero > M-413 Arroyomolinos/Moraleja",
+     "st4:M-50 / M-506 Móstoles/Fuenlabrada > M-40 / M-45",
+     "sys1-1.Pesados-1",
+     null,
+     null,
+     null,
+     "4.2149"
+    ],
+    [
+     "st4:M-404 El Álamo/Navalcarnero > M-413 Arroyomolinos/Moraleja",
+     "st4:M-50 / M-506 Móstoles/Fuenlabrada > M-40 / M-45",
+     "sys1-1.Pesados-2",
+     null,
+     null,
+     null,
+     "5.9917"
+    ],
+    [
+     "st4:M-413 Arroyomolinos/Moraleja > AP-41 Madrid-Toledo",
+     "st4:AP-41 Madrid-Toledo > M-50 / M-506 Móstoles/Fuenlabrada",
+     "sys1-1.Pesados-1",
+     null,
+     null,
+     null,
+     "1.4463"
+    ],
+    [
+     "st4:M-413 Arroyomolinos/Moraleja > AP-41 Madrid-Toledo",
+     "st4:AP-41 Madrid-Toledo > M-50 / M-506 Móstoles/Fuenlabrada",
+     "sys1-1.Pesados-2",
+     null,
+     null,
+     null,
+     "2.0248"
+    ],
+    [
+     "st4:M-413 Arroyomolinos/Moraleja > AP-41 Madrid-Toledo",
+     "st4:M-413 Arroyomolinos/Moraleja > AP-41 Madrid-Toledo",
+     "sys1-1.Pesados-1",
+     null,
+     null,
+     null,
+     "1.4463"
+    ],
+    [
+     "st4:M-413 Arroyomolinos/Moraleja > AP-41 Madrid-Toledo",
+     "st4:M-413 Arroyomolinos/Moraleja > AP-41 Madrid-Toledo",
+     "sys1-1.Pesados-2",
+     null,
+     null,
+     null,
+     "2.0248"
+    ],
+    ["st4:M-413 Arroyomolinos/Moraleja > AP-41 Madrid-Toledo", "st4:M-50 / M-506 Móstoles/Fuenlabrada > M-40 / M-45", "sys1-1.Pesados-1", null, null, null, "2.686"],
+    [
+     "st4:M-413 Arroyomolinos/Moraleja > AP-41 Madrid-Toledo",
+     "st4:M-50 / M-506 Móstoles/Fuenlabrada > M-40 / M-45",
+     "sys1-1.Pesados-2",
+     null,
+     null,
+     null,
+     "3.7603"
+    ],
+    [
+     "st4:M-413 Arroyomolinos/Moraleja > M-404 El Álamo/Navalcarnero",
+     "st4:M-404 El Álamo/Navalcarnero > Conexión A-5",
+     "sys1-1.Pesados-1",
+     null,
+     null,
+     null,
+     "1.4463"
+    ],
+    [
+     "st4:M-413 Arroyomolinos/Moraleja > M-404 El Álamo/Navalcarnero",
+     "st4:M-404 El Álamo/Navalcarnero > Conexión A-5",
+     "sys1-1.Pesados-2",
+     null,
+     null,
+     null,
+     "2.0248"
+    ],
+    [
+     "st4:M-413 Arroyomolinos/Moraleja > M-404 El Álamo/Navalcarnero",
+     "st4:M-413 Arroyomolinos/Moraleja > M-404 El Álamo/Navalcarnero",
+     "sys1-1.Pesados-1",
+     null,
+     null,
+     null,
+     "1.4463"
+    ],
+    [
+     "st4:M-413 Arroyomolinos/Moraleja > M-404 El Álamo/Navalcarnero",
+     "st4:M-413 Arroyomolinos/Moraleja > M-404 El Álamo/Navalcarnero",
+     "sys1-1.Pesados-2",
+     null,
+     null,
+     null,
+     "2.0248"
+    ],
+    [
+     "st4:M-50 / M-506 Móstoles/Fuenlabrada > AP-41 Madrid-Toledo",
+     "st4:AP-41 Madrid-Toledo > M-413 Arroyomolinos/Moraleja",
+     "sys1-1.Pesados-1",
+     null,
+     null,
+     null,
+     "1.4463"
+    ],
+    [
+     "st4:M-50 / M-506 Móstoles/Fuenlabrada > AP-41 Madrid-Toledo",
+     "st4:AP-41 Madrid-Toledo > M-413 Arroyomolinos/Moraleja",
+     "sys1-1.Pesados-2",
+     null,
+     null,
+     null,
+     "2.0248"
+    ],
+    [
+     "st4:M-50 / M-506 Móstoles/Fuenlabrada > AP-41 Madrid-Toledo",
+     "st4:M-404 El Álamo/Navalcarnero > Conexión A-5",
+     "sys1-1.Pesados-1",
+     null,
+     null,
+     null,
+     "2.9752"
+    ],
+    [
+     "st4:M-50 / M-506 Móstoles/Fuenlabrada > AP-41 Madrid-Toledo",
+     "st4:M-404 El Álamo/Navalcarnero > Conexión A-5",
+     "sys1-1.Pesados-2",
+     null,
+     null,
+     null,
+     "4.2562"
+    ],
+    [
+     "st4:M-50 / M-506 Móstoles/Fuenlabrada > AP-41 Madrid-Toledo",
+     "st4:M-413 Arroyomolinos/Moraleja > M-404 El Álamo/Navalcarnero",
+     "sys1-1.Pesados-1",
+     null,
+     null,
+     null,
+     "2.9752"
+    ],
+    [
+     "st4:M-50 / M-506 Móstoles/Fuenlabrada > AP-41 Madrid-Toledo",
+     "st4:M-413 Arroyomolinos/Moraleja > M-404 El Álamo/Navalcarnero",
+     "sys1-1.Pesados-2",
+     null,
+     null,
+     null,
+     "4.2562"
+    ],
+    ["st4:M-50 / M-506 Móstoles/Fuenlabrada > M-40 / M-45", "st4:M-50 / M-506 Móstoles/Fuenlabrada > M-40 / M-45", "sys1-1.Pesados-1", null, null, null, "1.2397"],
+    ["st4:M-50 / M-506 Móstoles/Fuenlabrada > M-40 / M-45", "st4:M-50 / M-506 Móstoles/Fuenlabrada > M-40 / M-45", "sys1-1.Pesados-2", null, null, null, "1.7355"],
+    [
+     "st4:AP-41 Madrid-Toledo > M-413 Arroyomolinos/Moraleja",
+     "st4:AP-41 Madrid-Toledo > M-413 Arroyomolinos/Moraleja",
+     "sys1-1.Pesados-1",
+     "electronic",
+     null,
+     null,
+     "1.3223"
+    ],
+    [
+     "st4:AP-41 Madrid-Toledo > M-413 Arroyomolinos/Moraleja",
+     "st4:AP-41 Madrid-Toledo > M-413 Arroyomolinos/Moraleja",
+     "sys1-1.Pesados-2",
+     "electronic",
+     null,
+     null,
+     "1.8595"
+    ],
+    [
+     "st4:AP-41 Madrid-Toledo > M-413 Arroyomolinos/Moraleja",
+     "st4:M-404 El Álamo/Navalcarnero > Conexión A-5",
+     "sys1-1.Pesados-1",
+     "electronic",
+     null,
+     null,
+     "2.7686"
+    ],
+    [
+     "st4:AP-41 Madrid-Toledo > M-413 Arroyomolinos/Moraleja",
+     "st4:M-404 El Álamo/Navalcarnero > Conexión A-5",
+     "sys1-1.Pesados-2",
+     "electronic",
+     null,
+     null,
+     "3.843"
+    ],
+    [
+     "st4:AP-41 Madrid-Toledo > M-413 Arroyomolinos/Moraleja",
+     "st4:M-413 Arroyomolinos/Moraleja > M-404 El Álamo/Navalcarnero",
+     "sys1-1.Pesados-1",
+     "electronic",
+     null,
+     null,
+     "2.7686"
+    ],
+    [
+     "st4:AP-41 Madrid-Toledo > M-413 Arroyomolinos/Moraleja",
+     "st4:M-413 Arroyomolinos/Moraleja > M-404 El Álamo/Navalcarnero",
+     "sys1-1.Pesados-2",
+     "electronic",
+     null,
+     null,
+     "3.843"
+    ],
+    [
+     "st4:AP-41 Madrid-Toledo > M-50 / M-506 Móstoles/Fuenlabrada",
+     "st4:M-50 / M-506 Móstoles/Fuenlabrada > M-40 / M-45",
+     "sys1-1.Pesados-1",
+     "electronic",
+     null,
+     null,
+     "1.1157"
+    ],
+    [
+     "st4:AP-41 Madrid-Toledo > M-50 / M-506 Móstoles/Fuenlabrada",
+     "st4:M-50 / M-506 Móstoles/Fuenlabrada > M-40 / M-45",
+     "sys1-1.Pesados-2",
+     "electronic",
+     null,
+     null,
+     "1.5702"
+    ],
+    [
+     "st4:Conexión A-5 > M-404 El Álamo/Navalcarnero",
+     "st4:AP-41 Madrid-Toledo > M-50 / M-506 Móstoles/Fuenlabrada",
+     "sys1-1.Pesados-1",
+     "electronic",
+     null,
+     null,
+     "2.7686"
+    ],
+    [
+     "st4:Conexión A-5 > M-404 El Álamo/Navalcarnero",
+     "st4:AP-41 Madrid-Toledo > M-50 / M-506 Móstoles/Fuenlabrada",
+     "sys1-1.Pesados-2",
+     "electronic",
+     null,
+     null,
+     "3.843"
+    ],
+    [
+     "st4:Conexión A-5 > M-404 El Álamo/Navalcarnero",
+     "st4:M-404 El Álamo/Navalcarnero > M-413 Arroyomolinos/Moraleja",
+     "sys1-1.Pesados-1",
+     "electronic",
+     null,
+     null,
+     "1.3223"
+    ],
+    [
+     "st4:Conexión A-5 > M-404 El Álamo/Navalcarnero",
+     "st4:M-404 El Álamo/Navalcarnero > M-413 Arroyomolinos/Moraleja",
+     "sys1-1.Pesados-2",
+     "electronic",
+     null,
+     null,
+     "1.8595"
+    ],
+    [
+     "st4:Conexión A-5 > M-404 El Álamo/Navalcarnero",
+     "st4:M-413 Arroyomolinos/Moraleja > AP-41 Madrid-Toledo",
+     "sys1-1.Pesados-1",
+     "electronic",
+     null,
+     null,
+     "2.7686"
+    ],
+    [
+     "st4:Conexión A-5 > M-404 El Álamo/Navalcarnero",
+     "st4:M-413 Arroyomolinos/Moraleja > AP-41 Madrid-Toledo",
+     "sys1-1.Pesados-2",
+     "electronic",
+     null,
+     null,
+     "3.843"
+    ],
+    [
+     "st4:Conexión A-5 > M-404 El Álamo/Navalcarnero",
+     "st4:M-50 / M-506 Móstoles/Fuenlabrada > M-40 / M-45",
+     "sys1-1.Pesados-1",
+     "electronic",
+     null,
+     null,
+     "3.8843"
+    ],
+    [
+     "st4:Conexión A-5 > M-404 El Álamo/Navalcarnero",
+     "st4:M-50 / M-506 Móstoles/Fuenlabrada > M-40 / M-45",
+     "sys1-1.Pesados-2",
+     "electronic",
+     null,
+     null,
+     "5.4132"
+    ],
+    [
+     "st4:M-40 / M-45 > M-50 / M-506 Móstoles/Fuenlabrada",
+     "st4:AP-41 Madrid-Toledo > M-413 Arroyomolinos/Moraleja",
+     "sys1-1.Pesados-1",
+     "electronic",
+     null,
+     null,
+     "2.438"
+    ],
+    [
+     "st4:M-40 / M-45 > M-50 / M-506 Móstoles/Fuenlabrada",
+     "st4:AP-41 Madrid-Toledo > M-413 Arroyomolinos/Moraleja",
+     "sys1-1.Pesados-2",
+     "electronic",
+     null,
+     null,
+     "3.4298"
+    ],
+    [
+     "st4:M-40 / M-45 > M-50 / M-506 Móstoles/Fuenlabrada",
+     "st4:M-40 / M-45 > M-50 / M-506 Móstoles/Fuenlabrada",
+     "sys1-1.Pesados-1",
+     "electronic",
+     null,
+     null,
+     "1.1157"
+    ],
+    [
+     "st4:M-40 / M-45 > M-50 / M-506 Móstoles/Fuenlabrada",
+     "st4:M-40 / M-45 > M-50 / M-506 Móstoles/Fuenlabrada",
+     "sys1-1.Pesados-2",
+     "electronic",
+     null,
+     null,
+     "1.5702"
+    ],
+    [
+     "st4:M-40 / M-45 > M-50 / M-506 Móstoles/Fuenlabrada",
+     "st4:M-404 El Álamo/Navalcarnero > Conexión A-5",
+     "sys1-1.Pesados-1",
+     "electronic",
+     null,
+     null,
+     "3.8843"
+    ],
+    [
+     "st4:M-40 / M-45 > M-50 / M-506 Móstoles/Fuenlabrada",
+     "st4:M-404 El Álamo/Navalcarnero > Conexión A-5",
+     "sys1-1.Pesados-2",
+     "electronic",
+     null,
+     null,
+     "5.4132"
+    ],
+    [
+     "st4:M-40 / M-45 > M-50 / M-506 Móstoles/Fuenlabrada",
+     "st4:M-413 Arroyomolinos/Moraleja > M-404 El Álamo/Navalcarnero",
+     "sys1-1.Pesados-1",
+     "electronic",
+     null,
+     null,
+     "3.8843"
+    ],
+    [
+     "st4:M-40 / M-45 > M-50 / M-506 Móstoles/Fuenlabrada",
+     "st4:M-413 Arroyomolinos/Moraleja > M-404 El Álamo/Navalcarnero",
+     "sys1-1.Pesados-2",
+     "electronic",
+     null,
+     null,
+     "5.4132"
+    ],
+    [
+     "st4:M-40 / M-45 > M-50 / M-506 Móstoles/Fuenlabrada",
+     "st4:M-50 / M-506 Móstoles/Fuenlabrada > AP-41 Madrid-Toledo",
+     "sys1-1.Pesados-1",
+     "electronic",
+     null,
+     null,
+     "1.1157"
+    ],
+    [
+     "st4:M-40 / M-45 > M-50 / M-506 Móstoles/Fuenlabrada",
+     "st4:M-50 / M-506 Móstoles/Fuenlabrada > AP-41 Madrid-Toledo",
+     "sys1-1.Pesados-2",
+     "electronic",
+     null,
+     null,
+     "1.5702"
+    ],
+    [
+     "st4:M-404 El Álamo/Navalcarnero > M-413 Arroyomolinos/Moraleja",
+     "st4:AP-41 Madrid-Toledo > M-50 / M-506 Móstoles/Fuenlabrada",
+     "sys1-1.Pesados-1",
+     "electronic",
+     null,
+     null,
+     "2.7686"
+    ],
+    [
+     "st4:M-404 El Álamo/Navalcarnero > M-413 Arroyomolinos/Moraleja",
+     "st4:AP-41 Madrid-Toledo > M-50 / M-506 Móstoles/Fuenlabrada",
+     "sys1-1.Pesados-2",
+     "electronic",
+     null,
+     null,
+     "3.843"
+    ],
+    [
+     "st4:M-404 El Álamo/Navalcarnero > M-413 Arroyomolinos/Moraleja",
+     "st4:M-404 El Álamo/Navalcarnero > M-413 Arroyomolinos/Moraleja",
+     "sys1-1.Pesados-1",
+     "electronic",
+     null,
+     null,
+     "1.3223"
+    ],
+    [
+     "st4:M-404 El Álamo/Navalcarnero > M-413 Arroyomolinos/Moraleja",
+     "st4:M-404 El Álamo/Navalcarnero > M-413 Arroyomolinos/Moraleja",
+     "sys1-1.Pesados-2",
+     "electronic",
+     null,
+     null,
+     "1.8595"
+    ],
+    [
+     "st4:M-404 El Álamo/Navalcarnero > M-413 Arroyomolinos/Moraleja",
+     "st4:M-413 Arroyomolinos/Moraleja > AP-41 Madrid-Toledo",
+     "sys1-1.Pesados-1",
+     "electronic",
+     null,
+     null,
+     "2.7686"
+    ],
+    [
+     "st4:M-404 El Álamo/Navalcarnero > M-413 Arroyomolinos/Moraleja",
+     "st4:M-413 Arroyomolinos/Moraleja > AP-41 Madrid-Toledo",
+     "sys1-1.Pesados-2",
+     "electronic",
+     null,
+     null,
+     "3.843"
+    ],
+    [
+     "st4:M-404 El Álamo/Navalcarnero > M-413 Arroyomolinos/Moraleja",
+     "st4:M-50 / M-506 Móstoles/Fuenlabrada > M-40 / M-45",
+     "sys1-1.Pesados-1",
+     "electronic",
+     null,
+     null,
+     "3.8843"
+    ],
+    [
+     "st4:M-404 El Álamo/Navalcarnero > M-413 Arroyomolinos/Moraleja",
+     "st4:M-50 / M-506 Móstoles/Fuenlabrada > M-40 / M-45",
+     "sys1-1.Pesados-2",
+     "electronic",
+     null,
+     null,
+     "5.4132"
+    ],
+    [
+     "st4:M-413 Arroyomolinos/Moraleja > AP-41 Madrid-Toledo",
+     "st4:AP-41 Madrid-Toledo > M-50 / M-506 Móstoles/Fuenlabrada",
+     "sys1-1.Pesados-1",
+     "electronic",
+     null,
+     null,
+     "1.3223"
+    ],
+    [
+     "st4:M-413 Arroyomolinos/Moraleja > AP-41 Madrid-Toledo",
+     "st4:AP-41 Madrid-Toledo > M-50 / M-506 Móstoles/Fuenlabrada",
+     "sys1-1.Pesados-2",
+     "electronic",
+     null,
+     null,
+     "1.8595"
+    ],
+    [
+     "st4:M-413 Arroyomolinos/Moraleja > AP-41 Madrid-Toledo",
+     "st4:M-413 Arroyomolinos/Moraleja > AP-41 Madrid-Toledo",
+     "sys1-1.Pesados-1",
+     "electronic",
+     null,
+     null,
+     "1.3223"
+    ],
+    [
+     "st4:M-413 Arroyomolinos/Moraleja > AP-41 Madrid-Toledo",
+     "st4:M-413 Arroyomolinos/Moraleja > AP-41 Madrid-Toledo",
+     "sys1-1.Pesados-2",
+     "electronic",
+     null,
+     null,
+     "1.8595"
+    ],
+    [
+     "st4:M-413 Arroyomolinos/Moraleja > AP-41 Madrid-Toledo",
+     "st4:M-50 / M-506 Móstoles/Fuenlabrada > M-40 / M-45",
+     "sys1-1.Pesados-1",
+     "electronic",
+     null,
+     null,
+     "2.438"
+    ],
+    [
+     "st4:M-413 Arroyomolinos/Moraleja > AP-41 Madrid-Toledo",
+     "st4:M-50 / M-506 Móstoles/Fuenlabrada > M-40 / M-45",
+     "sys1-1.Pesados-2",
+     "electronic",
+     null,
+     null,
+     "3.4298"
+    ],
+    [
+     "st4:M-413 Arroyomolinos/Moraleja > M-404 El Álamo/Navalcarnero",
+     "st4:M-404 El Álamo/Navalcarnero > Conexión A-5",
+     "sys1-1.Pesados-1",
+     "electronic",
+     null,
+     null,
+     "1.3223"
+    ],
+    [
+     "st4:M-413 Arroyomolinos/Moraleja > M-404 El Álamo/Navalcarnero",
+     "st4:M-404 El Álamo/Navalcarnero > Conexión A-5",
+     "sys1-1.Pesados-2",
+     "electronic",
+     null,
+     null,
+     "1.8595"
+    ],
+    [
+     "st4:M-413 Arroyomolinos/Moraleja > M-404 El Álamo/Navalcarnero",
+     "st4:M-413 Arroyomolinos/Moraleja > M-404 El Álamo/Navalcarnero",
+     "sys1-1.Pesados-1",
+     "electronic",
+     null,
+     null,
+     "1.3223"
+    ],
+    [
+     "st4:M-413 Arroyomolinos/Moraleja > M-404 El Álamo/Navalcarnero",
+     "st4:M-413 Arroyomolinos/Moraleja > M-404 El Álamo/Navalcarnero",
+     "sys1-1.Pesados-2",
+     "electronic",
+     null,
+     null,
+     "1.8595"
+    ],
+    [
+     "st4:M-50 / M-506 Móstoles/Fuenlabrada > AP-41 Madrid-Toledo",
+     "st4:AP-41 Madrid-Toledo > M-413 Arroyomolinos/Moraleja",
+     "sys1-1.Pesados-1",
+     "electronic",
+     null,
+     null,
+     "1.3223"
+    ],
+    [
+     "st4:M-50 / M-506 Móstoles/Fuenlabrada > AP-41 Madrid-Toledo",
+     "st4:AP-41 Madrid-Toledo > M-413 Arroyomolinos/Moraleja",
+     "sys1-1.Pesados-2",
+     "electronic",
+     null,
+     null,
+     "1.8595"
+    ],
+    [
+     "st4:M-50 / M-506 Móstoles/Fuenlabrada > AP-41 Madrid-Toledo",
+     "st4:M-404 El Álamo/Navalcarnero > Conexión A-5",
+     "sys1-1.Pesados-1",
+     "electronic",
+     null,
+     null,
+     "2.7686"
+    ],
+    [
+     "st4:M-50 / M-506 Móstoles/Fuenlabrada > AP-41 Madrid-Toledo",
+     "st4:M-404 El Álamo/Navalcarnero > Conexión A-5",
+     "sys1-1.Pesados-2",
+     "electronic",
+     null,
+     null,
+     "3.843"
+    ],
+    [
+     "st4:M-50 / M-506 Móstoles/Fuenlabrada > AP-41 Madrid-Toledo",
+     "st4:M-413 Arroyomolinos/Moraleja > M-404 El Álamo/Navalcarnero",
+     "sys1-1.Pesados-1",
+     "electronic",
+     null,
+     null,
+     "2.7686"
+    ],
+    [
+     "st4:M-50 / M-506 Móstoles/Fuenlabrada > AP-41 Madrid-Toledo",
+     "st4:M-413 Arroyomolinos/Moraleja > M-404 El Álamo/Navalcarnero",
+     "sys1-1.Pesados-2",
+     "electronic",
+     null,
+     null,
+     "3.843"
+    ],
+    [
+     "st4:M-50 / M-506 Móstoles/Fuenlabrada > M-40 / M-45",
+     "st4:M-50 / M-506 Móstoles/Fuenlabrada > M-40 / M-45",
+     "sys1-1.Pesados-1",
+     "electronic",
+     null,
+     null,
+     "1.1157"
+    ],
+    [
+     "st4:M-50 / M-506 Móstoles/Fuenlabrada > M-40 / M-45",
+     "st4:M-50 / M-506 Móstoles/Fuenlabrada > M-40 / M-45",
+     "sys1-1.Pesados-2",
+     "electronic",
+     null,
+     null,
+     "1.5702"
+    ],
+    [null, null, null, null, "sys1-free", 2, "0"]
+   ],
+   "sources": ["s1", "s2", "s3", "s4", "s5"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "crossings": true,
+   "osm_extract": "2026-11-28"
+  }
+ }
+}

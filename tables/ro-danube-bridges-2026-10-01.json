@@ -1,0 +1,16 @@
+{
+ "country": "RO",
+ "currency": "RON",
+ "valid_from": "2026-10-01",
+ "crossings": true,
+ "name": "Romania's Danube bridge tolls (tarif de trecere)",
+ "law": "Legea nr. 226/2023 privind aplicarea unor tarife rutiere pe rețeaua de drumuri naționale din România, art. 24 (1): Ordonanța Guvernului nr. 15/2002, which set the tolls on the Danube bridges at Fetești–Cernavodă and Giurgeni–Vadu Oii, is repealed from 1 October 2026, and (3) the tolls issued under it lapse. Trucks over 3.5 t pay TollRo per km instead (Romania's table).",
+ "no_charge": "no toll on the Danube bridges at Fetești–Cernavodă and Giurgeni–Vadu Oii (Legea nr. 226/2023, art. 24: OG 15/2002, which set it, is repealed from 1 October 2026); trucks pay TollRo per km instead.",
+ "sources": [
+  {
+   "title": "Legea nr. 226/2023 (CNAIR eToll, acte normative), art. 24",
+   "url": "https://portal.etoll.ro/documents/d/guest/legea-nr-226-2023-privind-aplicarea-unor-tarife-rutiere-pe-reteaua-de-drumuri-nationale-din-romania"
+  }
+ ],
+ "vehicles": "All vehicles"
+}

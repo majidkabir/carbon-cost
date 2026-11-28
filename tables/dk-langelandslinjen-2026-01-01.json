@@ -1,0 +1,79 @@
+{
+ "country": "DK",
+ "currency": "DKK",
+ "valid_from": "2026-01-01",
+ "valid_to": "2026-12-31",
+ "crossings": true,
+ "ferry": true,
+ "name": "LANGELANDSLINJEN's ferries Spodsbjerg–Tårs, trucks",
+ "law": "LANGELANDSLINJEN's freight prices for 2026 per single trip (including 25% VAT, taken out) on Spodsbjerg–Tårs: Lastbil maks. 10 m DKK 841; Lastbil maks. 12 m DKK 1330; Sættevogn maks. 17 m DKK 1330; Vogntog maks. 19 m DKK 1330; Vogntog maks. 26 m DKK 1993; Tillæg pr. ekstra påbegyndt meter: DKK 66. By length, without VAT: DKK up to 10 m 672.8, 10-19 m 1064, 19-26 m 1594.4. Ports at OpenStreetMap's ferry terminals, priced where the line goes out on its car ferry line.",
+ "sources": [
+  {
+   "title": "LANGELANDSLINJEN: freight prices",
+   "url": "https://www.langelandslinjen.dk/alt-det-praktiske/fragt"
+  },
+  {
+   "title": "OpenStreetMap (Overpass API): Denmark's ferry lines and terminals",
+   "url": "https://www.openstreetmap.org/"
+  }
+ ],
+ "vehicles": "Trucks over 3.5 t, by length (truck.length_m)",
+ "min_kg": 3501,
+ "tolled_roads": "LANGELANDSLINJEN's ferries Spodsbjerg–Tårs.",
+ "closed_systems": [
+  {
+   "name": "LANGELANDSLINJEN: Spodsbjerg–Tårs",
+   "law": "LANGELANDSLINJEN's freight prices: Spodsbjerg–Tårs",
+   "groups": [
+    {
+     "name": "up to 10 m",
+     "min_kg": 3501,
+     "max_length_m": 10
+    },
+    {
+     "name": "10-19 m",
+     "min_kg": 3501,
+     "max_length_m": 19,
+     "min_length_m": 10
+    },
+    {
+     "name": "19-26 m",
+     "min_kg": 3501,
+     "max_length_m": 26,
+     "min_length_m": 19
+    }
+   ],
+   "stations": [
+    {
+     "name": "Spodsbjerg",
+     "points": [
+      {
+       "name": "Spodsbjerg port, 0.5 km out on the line to Tårs (OSM way 26204104)",
+       "lat": 54.934061,
+       "lon": 10.840707
+      }
+     ]
+    },
+    {
+     "name": "Tårs",
+     "points": [
+      {
+       "name": "Tårs port, 0.5 km out on the line to Spodsbjerg (OSM way 26204104)",
+       "lat": 54.875419,
+       "lon": 11.021733
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Spodsbjerg|Tårs": {
+     "up to 10 m": 672.8,
+     "10-19 m": 1064.0,
+     "19-26 m": 1594.4
+    }
+   }
+  }
+ ],
+ "rows": []
+}

@@ -1,0 +1,79 @@
+{
+ "country": "DK",
+ "currency": "DKK",
+ "valid_from": "2026-01-01",
+ "valid_to": "2026-06-14",
+ "crossings": true,
+ "ferry": true,
+ "name": "ÆrøXpressen's ferries Marstal–Rudkøbing, trucks",
+ "law": "ÆrøXpressen's (a private company's) prices for 2026 per single trip for a lorry with driver on Marstal–Rudkøbing, including VAT, fuel and service charges: to 8 m DKK 575; to 12 m DKK 725; to 19 m DKK 1025; taken without the VAT (25%): DKK up to 8 m 460, 8-12 m 580, 12-19 m 820. Lorries over 19 m aren't priced. Ports at OpenStreetMap's ferry terminals, priced where the line goes out on its car ferry line.",
+ "sources": [
+  {
+   "title": "ÆrøXpressen: freight prices",
+   "url": "https://aeroexpressen.dk/en/priser/"
+  },
+  {
+   "title": "OpenStreetMap (Overpass API): Denmark's ferry lines and terminals",
+   "url": "https://www.openstreetmap.org/"
+  }
+ ],
+ "vehicles": "Trucks over 3.5 t, by length (truck.length_m)",
+ "min_kg": 3501,
+ "tolled_roads": "ÆrøXpressen's ferries Marstal–Rudkøbing.",
+ "closed_systems": [
+  {
+   "name": "ÆrøXpressen: Marstal–Rudkøbing",
+   "law": "ÆrøXpressen's freight prices: Marstal–Rudkøbing",
+   "groups": [
+    {
+     "name": "up to 8 m",
+     "min_kg": 3501,
+     "max_length_m": 8
+    },
+    {
+     "name": "8-12 m",
+     "min_kg": 3501,
+     "max_length_m": 12,
+     "min_length_m": 8
+    },
+    {
+     "name": "12-19 m",
+     "min_kg": 3501,
+     "max_length_m": 19,
+     "min_length_m": 12
+    }
+   ],
+   "stations": [
+    {
+     "name": "Marstal",
+     "points": [
+      {
+       "name": "Marstal port, 0.5 km out on the line to Rudkøbing (OSM way 766352393)",
+       "lat": 54.860785,
+       "lon": 10.521825
+      }
+     ]
+    },
+    {
+     "name": "Rudkøbing",
+     "points": [
+      {
+       "name": "Rudkøbing port, 4.2 km out on the line to Marstal (OSM way 766352393)",
+       "lat": 54.912043,
+       "lon": 10.660906
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Marstal|Rudkøbing": {
+     "up to 8 m": 460.0,
+     "8-12 m": 580.0,
+     "12-19 m": 820.0
+    }
+   }
+  }
+ ],
+ "rows": []
+}

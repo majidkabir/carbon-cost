@@ -1,0 +1,154 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/dk-aeroexpressen/2026-01-01",
+  "scheme": {
+   "id": "dk-aeroexpressen",
+   "name": "ÆrøXpressen's ferries Marstal–Rudkøbing, trucks",
+   "country": "DK"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-01-01",
+  "valid_to": "2026-06-14",
+  "currency": "DKK",
+  "timezone": "Europe/Copenhagen",
+  "license": "MIT",
+  "method": "ÆrøXpressen's (a private company's) prices for 2026 per single trip for a lorry with driver on Marstal–Rudkøbing, including VAT, fuel and service charges: to 8 m DKK 575; to 12 m DKK 725; to 19 m DKK 1025; taken without the VAT (25%): DKK up to 8 m 460, 8-12 m 580, 12-19 m 820. Lorries over 19 m aren't priced. Ports at OpenStreetMap's ferry terminals, priced where the line goes out on its car ferry line.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "dk-aeroexpressen-2026-01-01.json"
+  },
+  "required_features": ["type.od"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "ÆrøXpressen: freight prices",
+   "url": "https://aeroexpressen.dk/en/priser/"
+  },
+  {
+   "id": "s2",
+   "title": "OpenStreetMap (Overpass API): Denmark's ferry lines and terminals",
+   "url": "https://www.openstreetmap.org/"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Trucks over 3.5 t, by length (truck.length_m)",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "sys1-1",
+   "classes": [
+    {
+     "id": "sys1-1.up-to-8-m",
+     "label": "up to 8 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "max": 8
+      }
+     }
+    },
+    {
+     "id": "sys1-1.8-12-m",
+     "label": "8-12 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 8,
+       "max": 12
+      }
+     }
+    },
+    {
+     "id": "sys1-1.12-19-m",
+     "label": "12-19 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 12,
+       "max": 19
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "st1:Marstal",
+   "type": "station",
+   "name": "Marstal",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[10.521825, 54.860785]]
+    },
+    "point_names": ["Marstal port, 0.5 km out on the line to Rudkøbing (OSM way 766352393)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st1:Rudkøbing",
+   "type": "station",
+   "name": "Rudkøbing",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[10.660906, 54.912043]]
+    },
+    "point_names": ["Rudkøbing port, 4.2 km out on the line to Marstal (OSM way 766352393)"],
+    "match_m": 150
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "system1",
+   "name": "ÆrøXpressen: Marstal–Rudkøbing",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "ÆrøXpressen's freight prices: Marstal–Rudkøbing",
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st1:Marstal", "st1:Rudkøbing", "sys1-1.12-19-m", "820"],
+    ["st1:Marstal", "st1:Rudkøbing", "sys1-1.8-12-m", "580"],
+    ["st1:Marstal", "st1:Rudkøbing", "sys1-1.up-to-8-m", "460"]
+   ],
+   "sources": ["s1", "s2"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "crossings": true,
+   "ferry": true
+  }
+ }
+}

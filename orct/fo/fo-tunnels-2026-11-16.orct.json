@@ -1,0 +1,172 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/fo-tunnels/2026-11-16",
+  "scheme": {
+   "id": "fo-tunnels",
+   "name": "Faroe Islands subsea tunnels",
+   "country": "FO"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-11-16",
+  "currency": "DKK",
+  "timezone": "Atlantic/Faroe",
+  "license": "MIT",
+  "method": "Tunnil's one-way prices for vehicles over 3,500 kg (the Faroese tunnel company; tunnels under løgtingslóg um undirsjóvartunlar): Vágatunnilin DKK 150 and Norðoyatunnilin DKK 150, charged only driving from Vágar and from Klaksvík (the price covers the return); Sandoyartunnilin DKK 800 each way; Eysturoyartunnilin Streymoy–Eysturoy DKK 800 and Strendur–Runavík DKK 200 each way. Free-flow (number plates); each charge is placed at the middle of the tunnel's longest way in OpenStreetMap; Eysturoyartunnilin's at the middle of each of its three branches (Streymoy DKK 800, Strendur and Runavík DKK 200), a trip through two branches paying the higher once. The page gives no date: valid_from is the day it was first read.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "fo-tunnels-2026-11-16.json"
+  },
+  "required_features": ["rule.passage_group", "type.point"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Tunnil: Prices - one way",
+   "url": "https://www.tunnil.fo/english"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Vehicles over 3,500 kg",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "pt-1",
+   "classes": [
+    {
+     "id": "pt-1.1",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "pt1",
+   "type": "point",
+   "name": "Vágatunnilin",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-7.078591, 62.108909]
+    },
+    "heading": 54.7,
+    "match_m": 150
+   }
+  },
+  {
+   "id": "pt2",
+   "type": "point",
+   "name": "Norðoyatunnilin",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-6.624378, 62.207631]
+    },
+    "heading": 258.0,
+    "match_m": 150
+   }
+  },
+  {
+   "id": "pt3",
+   "type": "point",
+   "name": "Sandoyartunnilin",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-6.818616, 61.918335]
+    },
+    "match_m": 150
+   }
+  },
+  {
+   "id": "pt4",
+   "type": "point",
+   "name": "Eysturoyartunnilin (Streymoy branch)",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-6.783747, 62.075172]
+    },
+    "match_m": 150
+   }
+  },
+  {
+   "id": "pt5",
+   "type": "point",
+   "name": "Eysturoyartunnilin (Strendur branch)",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-6.762666, 62.106337]
+    },
+    "match_m": 150
+   }
+  },
+  {
+   "id": "pt6",
+   "type": "point",
+   "name": "Eysturoyartunnilin (Runavík branch)",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-6.737624, 62.101623]
+    },
+    "match_m": 150
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "points",
+   "type": "point",
+   "component": "unspecified",
+   "unit": "passage",
+   "columns": ["object", "vehicle_class", "amount"],
+   "rows": [["pt1", "pt-1.1", "150"], ["pt2", "pt-1.1", "150"], ["pt3", "pt-1.1", "800"], ["pt4", "pt-1.1", "800"], ["pt5", "pt-1.1", "200"], ["pt6", "pt-1.1", "200"]],
+   "sources": ["s1"],
+   "basis": "transcribed"
+  }
+ ],
+ "rules": [
+  {
+   "id": "r1",
+   "kind": "passage_group",
+   "applies_to": ["points"],
+   "params": {
+    "objects": ["pt4", "pt5", "pt6"],
+    "minutes": 10,
+    "pays": "highest"
+   }
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "crossings": true,
+   "osm_extract": "2026-11-28"
+  }
+ }
+}

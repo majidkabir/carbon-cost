@@ -1,0 +1,1234 @@
+{
+ "country": "IT",
+ "currency": "EUR",
+ "valid_from": "2026-01-01",
+ "valid_to": "2026-12-31",
+ "crossings": true,
+ "name": "Italian open-system barriers: Milan ring roads, A32 Torino-Bardonecchia, A8 Milano-Varese, A9 Lainate-Como, A12 Roma-Civitavecchia and Civitavecchia-Tarquinia, A3 Napoli-Salerno, Tangenziale di Torino, closed-system barriers (Milan, Turin, Rome, Naples, Florence, Taranto, Salerno, Venice, Brennero, Tarvisio, Belluno, Venezia Est, Chiari, Liscate, Cordignano, Gallarate, Castelletto Stura, Rosignano, La Spezia, Pozzuolo Martesana, Castegnato), CAV's Padova-Venezia toll",
+ "law": "A fixed toll to the user per passage by class (A, B by height for two axles; 3, 4, 5 by axles), VAT included, from 1 January 2026. Milano Serravalle - Milano Tangenziali's tolls at the barriers of its semi-closed ring roads: A50 Tangenziale Ovest di Milano, Terrazzano barrier class 5 EUR 8.40; A51 Tangenziale Est di Milano, Vimercate barrier (Agrate Brianza) class 5 EUR 4.90; A52 Tangenziale Nord di Milano, Sesto San Giovanni barrier class 5 EUR 6.30. The ring roads' other km carry no toll; the barrier tolls include Autostrade per l'Italia's share where the table gives one. SITAF's tolls at the A32's two barriers, the open motorway's only toll stations (Avigliana for Rivoli-Susa, Salbertrand for Susa-Bardonecchia): Avigliana class 5 EUR 15.90; Salbertrand class 5 EUR 21.70 (Avigliana's are SITAF's unit rate per km, ANAS fee and 22% VAT times the barrier's 34.47 km, rounded to 10 cents). Autostrade per l'Italia's open A8 Milano-Varese, A9 Lainate-Como and A12 Roma-Civitavecchia, SAT's open A12 Civitavecchia-Tarquinia, Salerno Pompei Napoli's open A3 Napoli-Salerno and Ivrea Torino Piacenza's semi-closed Tangenziale di Torino (A55), the tolls Autostrade per l'Italia's station-to-station toll form gives for each barrier (read in a browser, as its service refuses scripted requests; it gives Avigliana's as SITAF does): Milano Nord class 5 EUR 4.60; Gallarate Nord class 5 EUR 4.10; Como Grandate class 5 EUR 6.00; Bruere class 5 EUR 2.80; Falchera class 5 EUR 3.90; Beinasco class 5 EUR 4.30; Trofarello class 5 EUR 4.90; Roma Ovest class 5 EUR 6.20; Aurelia class 5 EUR 6.20; Napoli Sud class 5 EUR 6.10; Nocera class 5 EUR 6.10; Tarquinia class 5 EUR 2.90; Torino Nord barrier (the Tangenziale di Torino's Settimo Torinese toll) class 5 EUR 3.40; Villanova barrier (the open Torino-Villanova stretch's toll) class 5 EUR 2.90. Their ramp stations (Lainate, Gallarate, Fino Mornasco, Maccarese, Torrimpietra, Civitavecchia Sud, the A3's thirteen from Ponticelli to Cava de' Tirreni, Vadò) aren't modelled; the Tangenziale's Settimo Torinese toll is collected at the A5's Torino Nord barrier, where it's charged (Ivrea Torino Piacenza's toll calculator gives Torino Nord-Settimo Nord as that toll), and the A21's open Torino-Villanova stretch's at the A21's Villanova barrier (its calculator charges Villanova B.-Asti Ovest as that toll and the km; OSM tags the stretch's own km toll-free). Closed-system barriers whose toll is more than the km to the next station at the motorway's rate: each charges a fixed toll for the free stretch on its other side and more, so its toll point charges the form's toll to the next station less the two stations' km apart (in Autostrade per l'Italia's station file) at the rate the motorway table gives that stretch, and the free stretch isn't charged by the km: Milano Sud class 5 EUR 3.65 (EUR 6.20 to Lodi, 13.4 km on); Milano Ovest class 5 EUR 2.61 (EUR 3.70 to Binasco, 6.4 km on); Milano Ghisolfa class 5 EUR 3.25 (EUR 4.10 to Rho, 2.5 km on); Milano Est class 5 EUR 2.70 (EUR 6.30 to Trezzo, 18.9 km on); Roma Est class 5 EUR 4.17 (EUR 5.30 to Tivoli, 4.5 km on); Firenze Ovest class 5 EUR 0.99 (EUR 1.90 to Prato Est, 4.8 km on); Taranto Nord class 5 EUR 2.05 (EUR 4.20 to Mottola-Castellaneta, 11.3 km on); Venezia class 5 EUR 5.20 (EUR 6.80 to Treviso Sud, 8.4 km on); Napoli Est class 5 EUR 4.03 (EUR 6.00 to Tufino, 10.3 km on); Salerno class 5 EUR 1.29 (EUR 2.30 to Castel San Giorgio, 5.3 km on); Brennero class 5 EUR 3.08 (EUR 3.10 to Vipiteno, 0.1 km on); Barriera di Torino class 5 EUR 7.18 (EUR 7.20 to Carmagnola, 0.1 km on); Ugovizza-Tarvisio class 5 EUR 3.43 (EUR 6.30 to Pontebba, 12.8 km on); Belluno class 5 EUR 1.86 (EUR 7.00 to Vittorio Veneto Sud, 22.9 km on); Venezia Est class 5 EUR 5.54 (EUR 7.30 to Meolo - Roncade, 9.3 km on); Chiari Est class 5 EUR 5.36 (EUR 7.50 to Chiari Ovest, 3.3 km on); Cordignano class 5 EUR 2.41 (EUR 3.80 to Godega, 7.4 km on); Gallarate Ovest class 5 EUR 2.81 (EUR 4.60 to Sesto Calende-Vergiate, 9.4 km on); Castelletto Stura class 5 EUR 2.60 (EUR 6.10 to S. Albano, 8.4 km on); Rosignano class 5 EUR 2.64 (EUR 18.30 to Collesalvetti, 29.1 km on); La Spezia class 5 EUR 3.73 (EUR 7.20 to Aulla, 10.3 km on); Pozzuolo Martesana class 5 EUR 0.95 (EUR 7.00 to Paullo, 10.4 km on); Liscate class 5 EUR 4.52 (7 km more than from the TEEM at Società di Progetto Brebemi S.p.A's rate, as Autostrade per l'Italia's route calculator charges); Castegnato class 5 EUR 4.52 (7 km of its link from the A4 at Società di Progetto Brebemi S.p.A's rate, as Autostrade per l'Italia's route calculator charges). The form's tolls are rounded to 10 cents, so these are within 5 cents. CAV's Padova-Venezia toll: the form and Autostrade per l'Italia's route calculator charge one toll from the A4's Padova Est to each of the A57's stations (Mirano Dolo, Mira-Oriago, the Venezia Mestre barrier) and none between them, so the A57 west of the barrier isn't charged by the km and a toll point on it by the A4/Passante junction charges that toll less CAV's A4 from Padova Est to the junction at its rate: class 5 EUR 5.74 (EUR 7.50 from Padova Est, 11 km of it on CAV's A4). Each barrier is placed at the toll point Autostrade per l'Italia's station file gives it (Milano Serravalle's Vimercate barrier is the A51's toll gate at Agrate Brianza, km 19.5).",
+ "sources": [
+  {
+   "title": "Milano Serravalle: tariffe e pedaggi 2022-2026, barriera di Terrazzano (A50)",
+   "url": "https://www.serravalle.it/uploads/pagine/Tariffe_e_pedaggi_2022_2026_Terrazzano_Tang_OVEST_MI2.pdf"
+  },
+  {
+   "title": "Milano Serravalle: tariffe e pedaggi 2022-2026, barriera di Vimercate (A51)",
+   "url": "https://www.serravalle.it/uploads/pagine/Tariffe_e_pedaggi_2022_2026_Vimercate_Tang_EST_MI6.pdf"
+  },
+  {
+   "title": "Milano Serravalle: tariffe e pedaggi 2022-2026, barriera di Sesto San Giovanni (A52)",
+   "url": "https://www.serravalle.it/uploads/pagine/Tariffe_e_pedaggi_2022_2026_Sesto_SG_Tang_NORD_MI1.pdf"
+  },
+  {
+   "title": "SITAF: A32 tariffs and passes (A32 toll tariffs effective from 01/01/2026)",
+   "url": "https://www.sitaf.it/en/tariffs-and-passes-a32/"
+  },
+  {
+   "title": "Autostrade per l'Italia: Info viabilità, Calcola il pedaggio da casello a casello (read in a browser; tools/tables/browser/it-aspi-barriers.txt)",
+   "url": "https://viabilita.autostrade.it/it/viabilita/traffico"
+  },
+  {
+   "title": "Autostrade per l'Italia: Info viabilità, Calcola il pedaggio da casello a casello, closed-system barriers (read in a browser; tools/tables/browser/it-aspi-closed-barriers.txt)",
+   "url": "https://viabilita.autostrade.it/it/viabilita/traffico"
+  },
+  {
+   "title": "Autostrade per l'Italia: Info viabilità's station file (toll stations, their network, road and toll point)",
+   "url": "https://viabilita.autostrade.it/json/caselli.json"
+  }
+ ],
+ "vehicles": "Classes B (two axles), 3, 4 and 5 (five axles or more)",
+ "min_kg": 3501,
+ "tolled_roads": "A50, A51 and A52 (Milan ring roads): the barriers of Terrazzano, Vimercate and Sesto San Giovanni; A32 Torino-Bardonecchia: the barriers of Avigliana and Salbertrand; A8 Milano-Varese: Milano Nord and Gallarate Nord; A9 Lainate-Como: Como Grandate; A12 Roma-Civitavecchia: Roma Ovest and Aurelia; A12 Civitavecchia-Tarquinia (SAT): Tarquinia; A3 Napoli-Salerno: Napoli Sud and Nocera; Tangenziale di Torino (A55): Bruere, Falchera, Beinasco and Trofarello, and its Settimo Torinese toll at the A5's Torino Nord barrier; A21 Torino-Villanova: its toll at the Villanova barrier; closed-system barriers: Milano Sud, Milano Ovest, Milano Ghisolfa, Milano Est, Roma Est, Firenze Ovest, Taranto Nord, Venezia, Napoli Est, Salerno, Brennero, Barriera di Torino, Ugovizza-Tarvisio, Belluno, Venezia Est, Chiari Est, Cordignano, Gallarate Ovest, Castelletto Stura, Rosignano, La Spezia, Pozzuolo Martesana, Liscate, Castegnato; A57 Padova-Venezia: CAV's toll at the A4/Passante junction.",
+ "point_match_km": 0.1,
+ "toll_points": [
+  {
+   "name": "A50 Tangenziale Ovest di Milano, Terrazzano barrier",
+   "lat": 45.54103,
+   "lon": 9.0587,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 5,
+     "rate": 8.4
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 7.0
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "rate": 4.6
+    },
+    {
+     "min_kg": 3501,
+     "rate": 3.6
+    }
+   ]
+  },
+  {
+   "name": "A51 Tangenziale Est di Milano, Vimercate barrier (Agrate Brianza)",
+   "lat": 45.561395,
+   "lon": 9.33303,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 5,
+     "rate": 4.9
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 4.1
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "rate": 2.6
+    },
+    {
+     "min_kg": 3501,
+     "rate": 2.1
+    }
+   ]
+  },
+  {
+   "name": "A52 Tangenziale Nord di Milano, Sesto San Giovanni barrier",
+   "lat": 45.55148,
+   "lon": 9.26361,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 5,
+     "rate": 6.3
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 5.2
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "rate": 3.3
+    },
+    {
+     "min_kg": 3501,
+     "rate": 2.7
+    }
+   ]
+  },
+  {
+   "name": "A32 Torino-Bardonecchia, Avigliana barrier",
+   "lat": 45.09461,
+   "lon": 7.39396,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 5,
+     "rate": 15.9
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 13.7
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "rate": 10.5
+    },
+    {
+     "min_kg": 3501,
+     "rate": 6.5
+    }
+   ]
+  },
+  {
+   "name": "A32 Torino-Bardonecchia, Salbertrand barrier",
+   "lat": 45.05822,
+   "lon": 6.86618,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 5,
+     "rate": 21.7
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 18.8
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "rate": 14.4
+    },
+    {
+     "min_kg": 3501,
+     "rate": 8.8
+    }
+   ]
+  },
+  {
+   "name": "A8 Milano-Varese, Milano Nord barrier",
+   "lat": 45.54788,
+   "lon": 9.06089,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 5,
+     "rate": 4.6
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 3.9
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "rate": 2.6
+    },
+    {
+     "min_kg": 3501,
+     "rate": 1.9
+    }
+   ]
+  },
+  {
+   "name": "A8 Milano-Varese, Gallarate Nord barrier",
+   "lat": 45.68449,
+   "lon": 8.8037,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 5,
+     "rate": 4.1
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 3.5
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "rate": 2.3
+    },
+    {
+     "min_kg": 3501,
+     "rate": 1.7
+    }
+   ]
+  },
+  {
+   "name": "A9 Lainate-Como, Como Grandate barrier",
+   "lat": 45.77392,
+   "lon": 9.04939,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 5,
+     "rate": 6.0
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 5.1
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "rate": 3.3
+    },
+    {
+     "min_kg": 3501,
+     "rate": 2.5
+    }
+   ]
+  },
+  {
+   "name": "Tangenziale di Torino (A55), Bruere barrier",
+   "lat": 45.08232,
+   "lon": 7.54072,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 5,
+     "rate": 2.8
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 2.4
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "rate": 1.6
+    },
+    {
+     "min_kg": 3501,
+     "rate": 1.5
+    }
+   ]
+  },
+  {
+   "name": "Tangenziale di Torino (A55), Falchera barrier",
+   "lat": 45.13466,
+   "lon": 7.71623,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 5,
+     "rate": 3.9
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 3.4
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "rate": 2.2
+    },
+    {
+     "min_kg": 3501,
+     "rate": 1.5
+    }
+   ]
+  },
+  {
+   "name": "Tangenziale di Torino (A55), Beinasco barrier",
+   "lat": 45.01391,
+   "lon": 7.58685,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 5,
+     "rate": 4.3
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 3.7
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "rate": 2.5
+    },
+    {
+     "min_kg": 3501,
+     "rate": 1.7
+    }
+   ]
+  },
+  {
+   "name": "Tangenziale di Torino (A55), Trofarello barrier",
+   "lat": 44.96596,
+   "lon": 7.73692,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 5,
+     "rate": 4.9
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 4.3
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "rate": 2.8
+    },
+    {
+     "min_kg": 3501,
+     "rate": 2.0
+    }
+   ]
+  },
+  {
+   "name": "A12 Roma-Civitavecchia, Roma Ovest barrier",
+   "lat": 41.89122,
+   "lon": 12.22674,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 5,
+     "rate": 6.2
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 5.3
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "rate": 3.5
+    },
+    {
+     "min_kg": 3501,
+     "rate": 2.6
+    }
+   ]
+  },
+  {
+   "name": "A12 Roma-Civitavecchia, Aurelia barrier",
+   "lat": 42.05929,
+   "lon": 11.82428,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 5,
+     "rate": 6.2
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 5.3
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "rate": 3.5
+    },
+    {
+     "min_kg": 3501,
+     "rate": 2.6
+    }
+   ]
+  },
+  {
+   "name": "A3 Napoli-Salerno, Napoli Sud barrier",
+   "lat": 40.84184,
+   "lon": 14.32797,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 5,
+     "rate": 6.1
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 5.3
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "rate": 4.2
+    },
+    {
+     "min_kg": 3501,
+     "rate": 2.4
+    }
+   ]
+  },
+  {
+   "name": "A3 Napoli-Salerno, Nocera barrier",
+   "lat": 40.73637,
+   "lon": 14.64118,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 5,
+     "rate": 6.1
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 5.3
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "rate": 4.2
+    },
+    {
+     "min_kg": 3501,
+     "rate": 2.4
+    }
+   ]
+  },
+  {
+   "name": "A12 Civitavecchia-Tarquinia, Tarquinia barrier",
+   "lat": 42.25695,
+   "lon": 11.72785,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 5,
+     "rate": 2.9
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 2.5
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "rate": 1.6
+    },
+    {
+     "min_kg": 3501,
+     "rate": 1.2
+    }
+   ]
+  },
+  {
+   "name": "A5 Torino-Quincinetto, Torino Nord barrier (the Tangenziale di Torino's Settimo Torinese toll)",
+   "lat": 45.14557,
+   "lon": 7.73537,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 5,
+     "rate": 3.4
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 3.0
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "rate": 2.0
+    },
+    {
+     "min_kg": 3501,
+     "rate": 1.4
+    }
+   ]
+  },
+  {
+   "name": "A21 Torino-Piacenza, Villanova barrier (the open Torino-Villanova stretch's toll)",
+   "lat": 44.95303,
+   "lon": 7.92318,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 5,
+     "rate": 2.9
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 2.4
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "rate": 1.6
+    },
+    {
+     "min_kg": 3501,
+     "rate": 1.2
+    }
+   ]
+  },
+  {
+   "name": "A1 Milano-Napoli, Milano Sud barrier",
+   "lat": 45.34934,
+   "lon": 9.30982,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 5,
+     "rate": 3.65
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 3.04
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "rate": 2.08
+    },
+    {
+     "min_kg": 3501,
+     "rate": 1.52
+    }
+   ]
+  },
+  {
+   "name": "A7 Milano-Serravalle, Milano Ovest barrier",
+   "lat": 45.38911,
+   "lon": 9.13876,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 5,
+     "rate": 2.61
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 2.18
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "rate": 1.49
+    },
+    {
+     "min_kg": 3501,
+     "rate": 1.04
+    }
+   ]
+  },
+  {
+   "name": "A4 Torino-Milano, Milano Ghisolfa barrier",
+   "lat": 45.51246,
+   "lon": 9.06107,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 5,
+     "rate": 3.25
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 2.79
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "rate": 1.75
+    },
+    {
+     "min_kg": 3501,
+     "rate": 1.44
+    }
+   ]
+  },
+  {
+   "name": "A4 Milano-Brescia, Milano Est barrier",
+   "lat": 45.5562,
+   "lon": 9.26845,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 5,
+     "rate": 2.7
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 2.26
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "rate": 1.49
+    },
+    {
+     "min_kg": 3501,
+     "rate": 1.18
+    }
+   ]
+  },
+  {
+   "name": "A24 Roma-L'Aquila, Roma Est barrier",
+   "lat": 41.92609,
+   "lon": 12.70355,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 5,
+     "rate": 4.17
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 3.55
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "rate": 2.28
+    },
+    {
+     "min_kg": 3501,
+     "rate": 1.82
+    }
+   ]
+  },
+  {
+   "name": "A11 Firenze-Pisa, Firenze Ovest barrier",
+   "lat": 43.8261,
+   "lon": 11.16179,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 5,
+     "rate": 0.99
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 0.83
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "rate": 0.59
+    },
+    {
+     "min_kg": 3501,
+     "rate": 0.41
+    }
+   ]
+  },
+  {
+   "name": "A14 Bologna-Taranto, Taranto Nord barrier",
+   "lat": 40.59812,
+   "lon": 16.98818,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 5,
+     "rate": 2.05
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 1.68
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "rate": 1.1
+    },
+    {
+     "min_kg": 3501,
+     "rate": 0.89
+    }
+   ]
+  },
+  {
+   "name": "A27 Venezia-Belluno, Venezia barrier",
+   "lat": 45.57661,
+   "lon": 12.28397,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 5,
+     "rate": 5.2
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 4.45
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "rate": 2.91
+    },
+    {
+     "min_kg": 3501,
+     "rate": 2.22
+    }
+   ]
+  },
+  {
+   "name": "A16 Napoli-Canosa, Napoli Est barrier",
+   "lat": 40.91625,
+   "lon": 14.47088,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 5,
+     "rate": 4.03
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 3.44
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "rate": 2.4
+    },
+    {
+     "min_kg": 3501,
+     "rate": 1.77
+    }
+   ]
+  },
+  {
+   "name": "A30 Caserta-Salerno, Salerno barrier",
+   "lat": 40.77256,
+   "lon": 14.727,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 5,
+     "rate": 1.29
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 1.05
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "rate": 0.74
+    },
+    {
+     "min_kg": 3501,
+     "rate": 0.57
+    }
+   ]
+  },
+  {
+   "name": "A22 Brennero-Modena, Brennero barrier",
+   "lat": 46.88512,
+   "lon": 11.4348,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 5,
+     "rate": 3.08
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 2.58
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "rate": 1.79
+    },
+    {
+     "min_kg": 3501,
+     "rate": 1.29
+    }
+   ]
+  },
+  {
+   "name": "A6 Torino-Savona, Barriera di Torino barrier",
+   "lat": 44.85416,
+   "lon": 7.74864,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 5,
+     "rate": 7.18
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 6.28
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "rate": 4.19
+    },
+    {
+     "min_kg": 3501,
+     "rate": 2.89
+    }
+   ]
+  },
+  {
+   "name": "A23 Palmanova-Tarvisio, Ugovizza-Tarvisio barrier",
+   "lat": 46.50684,
+   "lon": 13.48088,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 5,
+     "rate": 3.43
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 2.88
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "rate": 1.82
+    },
+    {
+     "min_kg": 3501,
+     "rate": 1.48
+    }
+   ]
+  },
+  {
+   "name": "A27 Venezia-Belluno, Belluno barrier",
+   "lat": 46.14972,
+   "lon": 12.31755,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 5,
+     "rate": 1.86
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 1.57
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "rate": 0.98
+    },
+    {
+     "min_kg": 3501,
+     "rate": 0.82
+    }
+   ]
+  },
+  {
+   "name": "A4 Venezia-Trieste, Venezia Est barrier",
+   "lat": 45.56917,
+   "lon": 12.33562,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 5,
+     "rate": 5.54
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 4.71
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "rate": 3.12
+    },
+    {
+     "min_kg": 3501,
+     "rate": 2.36
+    }
+   ]
+  },
+  {
+   "name": "A35 Brescia-Milano, Chiari Est barrier",
+   "lat": 45.52207,
+   "lon": 9.96128,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 5,
+     "rate": 5.36
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 4.41
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "rate": 2.78
+    },
+    {
+     "min_kg": 3501,
+     "rate": 2.28
+    }
+   ]
+  },
+  {
+   "name": "A28 Portogruaro-Conegliano, Cordignano barrier",
+   "lat": 45.92123,
+   "lon": 12.47892,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 5,
+     "rate": 2.41
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 2.02
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "rate": 1.32
+    },
+    {
+     "min_kg": 3501,
+     "rate": 1.01
+    }
+   ]
+  },
+  {
+   "name": "A8/A26 Gallarate-Gattico, Gallarate Ovest barrier",
+   "lat": 45.68873,
+   "lon": 8.77659,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 5,
+     "rate": 2.81
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 2.39
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "rate": 1.5
+    },
+    {
+     "min_kg": 3501,
+     "rate": 1.14
+    }
+   ]
+  },
+  {
+   "name": "A33 Asti-Cuneo, Castelletto Stura barrier",
+   "lat": 44.43113,
+   "lon": 7.60905,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 5,
+     "rate": 2.6
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 2.28
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "rate": 1.69
+    },
+    {
+     "min_kg": 3501,
+     "rate": 1.08
+    }
+   ]
+  },
+  {
+   "name": "A12 Livorno-Rosignano, Rosignano barrier",
+   "lat": 43.36937,
+   "lon": 10.50425,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 5,
+     "rate": 2.64
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 2.28
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "rate": 1.49
+    },
+    {
+     "min_kg": 3501,
+     "rate": 1.06
+    }
+   ]
+  },
+  {
+   "name": "A15 Parma-La Spezia, La Spezia barrier",
+   "lat": 44.1459,
+   "lon": 9.90392,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 5,
+     "rate": 3.73
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 3.19
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "rate": 2.05
+    },
+    {
+     "min_kg": 3501,
+     "rate": 1.5
+    }
+   ]
+  },
+  {
+   "name": "A58 Tangenziale Esterna, Pozzuolo Martesana barrier",
+   "lat": 45.51613,
+   "lon": 9.43567,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 5,
+     "rate": 0.95
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 0.74
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "rate": 0.49
+    },
+    {
+     "min_kg": 3501,
+     "rate": 0.41
+    }
+   ]
+  },
+  {
+   "name": "A35 Brescia-Milano, Liscate barrier",
+   "lat": 45.46587,
+   "lon": 9.4254,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 5,
+     "rate": 4.52
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 3.77
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "rate": 2.37
+    },
+    {
+     "min_kg": 3501,
+     "rate": 1.94
+    }
+   ]
+  },
+  {
+   "name": "A35 Brescia-Milano, Castegnato barrier",
+   "lat": 45.54536,
+   "lon": 10.11457,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 5,
+     "rate": 4.52
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 3.77
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "rate": 2.37
+    },
+    {
+     "min_kg": 3501,
+     "rate": 1.94
+    }
+   ]
+  },
+  {
+   "name": "A57 Padova-Venezia, Mirano Dolo junction (CAV's Padova Est-Venezia toll)",
+   "lat": 45.4513,
+   "lon": 12.099,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 5,
+     "rate": 5.74
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 4.91
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "rate": 3.3
+    },
+    {
+     "min_kg": 3501,
+     "rate": 2.46
+    }
+   ]
+  }
+ ],
+ "rows": []
+}

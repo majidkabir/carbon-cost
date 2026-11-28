@@ -1,0 +1,119 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/gb-humber-bridge/2026-11-13",
+  "scheme": {
+   "id": "gb-humber-bridge",
+   "name": "Humber Bridge toll",
+   "country": "GB"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-11-13",
+  "currency": "GBP",
+  "timezone": "Europe/London",
+  "license": "MIT",
+  "method": "Humber Bridge Board's tolls (Humber Bridge Acts 1959 and 2013) per crossing, either way, as published: two-axle vehicles of 3.5-7 t GBP 5.00, three axles or more over 7.5 t GBP 15.00; with `etc` the account price (4.00, 12.00). Two-axle trucks over 7 t are taken at the two-axle price. The page gives no date: valid_from is the day it was first read.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "gb-humber-bridge-2026-11-13.json"
+  },
+  "required_features": ["type.point", "user_classes"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Humber Bridge: Tolls and Ways to Pay (read in Chrome: tools/tables/browser/gb-humber.txt)",
+   "url": "https://www.humberbridge.co.uk/plan-your-trip/tolls-ways-to-pay/"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Vehicles over 3.5 t, by axles",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "pt-1",
+   "classes": [
+    {
+     "id": "pt-1.1",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "max": 2
+      }
+     }
+    },
+    {
+     "id": "pt-1.2",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 3
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "user_classes": [
+  {
+   "id": "electronic",
+   "label": "Electronic toll device or contract",
+   "payment": ["electronic"]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "pt1",
+   "type": "point",
+   "name": "Humber Bridge",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-0.450058, 53.706846]
+    },
+    "match_m": 150
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "points",
+   "type": "point",
+   "component": "unspecified",
+   "unit": "passage",
+   "columns": ["object", "vehicle_class", "user_class", "amount"],
+   "rows": [["pt1", "pt-1.1", null, "5"], ["pt1", "pt-1.1", "electronic", "4"], ["pt1", "pt-1.2", null, "15"], ["pt1", "pt-1.2", "electronic", "12"]],
+   "sources": ["s1"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "crossings": true,
+   "osm_extract": "2026-11-28"
+  }
+ }
+}

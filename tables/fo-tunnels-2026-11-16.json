@@ -1,0 +1,105 @@
+{
+ "country": "FO",
+ "currency": "DKK",
+ "valid_from": "2026-11-16",
+ "crossings": true,
+ "osm_extract": "2026-11-28",
+ "name": "Faroe Islands subsea tunnels",
+ "law": "Tunnil's one-way prices for vehicles over 3,500 kg (the Faroese tunnel company; tunnels under løgtingslóg um undirsjóvartunlar): Vágatunnilin DKK 150 and Norðoyatunnilin DKK 150, charged only driving from Vágar and from Klaksvík (the price covers the return); Sandoyartunnilin DKK 800 each way; Eysturoyartunnilin Streymoy–Eysturoy DKK 800 and Strendur–Runavík DKK 200 each way. Free-flow (number plates); each charge is placed at the middle of the tunnel's longest way in OpenStreetMap; Eysturoyartunnilin's at the middle of each of its three branches (Streymoy DKK 800, Strendur and Runavík DKK 200), a trip through two branches paying the higher once. The page gives no date: valid_from is the day it was first read.",
+ "sources": [
+  {
+   "title": "Tunnil: Prices - one way",
+   "url": "https://www.tunnil.fo/english"
+  }
+ ],
+ "vehicles": "Vehicles over 3,500 kg",
+ "min_kg": 3501,
+ "tolled_roads": "Vágatunnilin (Vágar–Streymoy), Norðoyatunnilin (Borðoy–Eysturoy), Sandoyartunnilin (Streymoy–Sandoy), Eysturoyartunnilin (Streymoy–Strendur–Runavík).",
+ "point_match_km": 0.15,
+ "toll_points": [
+  {
+   "name": "Vágatunnilin",
+   "lat": 62.108909,
+   "lon": -7.078591,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "rate": 150
+    }
+   ],
+   "heading": 54.7
+  },
+  {
+   "name": "Norðoyatunnilin",
+   "lat": 62.207631,
+   "lon": -6.624378,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "rate": 150
+    }
+   ],
+   "heading": 258.0
+  },
+  {
+   "name": "Sandoyartunnilin",
+   "lat": 61.918335,
+   "lon": -6.818616,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "rate": 800
+    }
+   ]
+  },
+  {
+   "name": "Eysturoyartunnilin (Streymoy branch)",
+   "lat": 62.075172,
+   "lon": -6.783747,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "rate": 800
+    }
+   ],
+   "group": 1,
+   "group_minutes": 10,
+   "group_pays": "highest"
+  },
+  {
+   "name": "Eysturoyartunnilin (Strendur branch)",
+   "lat": 62.106337,
+   "lon": -6.762666,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "rate": 200
+    }
+   ],
+   "group": 1,
+   "group_minutes": 10,
+   "group_pays": "highest"
+  },
+  {
+   "name": "Eysturoyartunnilin (Runavík branch)",
+   "lat": 62.101623,
+   "lon": -6.737624,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "rate": 200
+    }
+   ],
+   "group": 1,
+   "group_minutes": 10,
+   "group_pays": "highest"
+  }
+ ],
+ "rows": []
+}

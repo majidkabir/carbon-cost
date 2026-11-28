@@ -1,0 +1,229 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/dk-samsoelinjen/2026-01-01",
+  "scheme": {
+   "id": "dk-samsoelinjen",
+   "name": "SAMSØLINJEN's ferries Kalundborg–Ballen, trucks",
+   "country": "DK"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-01-01",
+  "valid_to": "2026-12-31",
+  "currency": "DKK",
+  "timezone": "Europe/Copenhagen",
+  "license": "MIT",
+  "method": "SAMSØLINJEN's freight prices for 2026 per single trip (excluding VAT) on Kalundborg–Ballen: Lastbil maks. 10 m DKK 191; Lastbil maks. 12 m DKK 293; Sættevogn maks. 17 m DKK 293; Vogntog maks. 19 m DKK 293; Tillæg pr. ekstra påbegyndt meter over 20 meter: DKK 17. By length, without VAT: DKK up to 10 m 191, 10-20 m 293, 20-21 m 310, 21-22 m 327, 22-23 m 344, 23-24 m 361, 24-25 m 378, 25-26 m 395. The road train's price runs to 20 m, where the price per metre over begins, as the state's contract prices goods vehicles over 10 m up to 20 m alike. Ports at OpenStreetMap's ferry terminals, priced where the line goes out on its car ferry line.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "dk-samsoelinjen-2026-01-01.json"
+  },
+  "required_features": ["type.od"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "SAMSØLINJEN: freight prices",
+   "url": "https://www.samsoelinjen.dk/alt-det-praktiske/fragt"
+  },
+  {
+   "id": "s2",
+   "title": "Transportministeriet: contract with Molslinjen on Ballen–Kalundborg 2025–2034, Bilag 2 pkt. 3.2",
+   "url": "https://www.trm.dk/media/rpchpvqy/faergekontrakt-for-samsoe-kalundborg-2024-2035ny.pdf"
+  },
+  {
+   "id": "s3",
+   "title": "OpenStreetMap (Overpass API): Denmark's ferry lines and terminals",
+   "url": "https://www.openstreetmap.org/"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Trucks over 3.5 t, by length (truck.length_m)",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "sys1-1",
+   "classes": [
+    {
+     "id": "sys1-1.up-to-10-m",
+     "label": "up to 10 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "max": 10
+      }
+     }
+    },
+    {
+     "id": "sys1-1.10-20-m",
+     "label": "10-20 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 10,
+       "max": 20
+      }
+     }
+    },
+    {
+     "id": "sys1-1.20-21-m",
+     "label": "20-21 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 20,
+       "max": 21
+      }
+     }
+    },
+    {
+     "id": "sys1-1.21-22-m",
+     "label": "21-22 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 21,
+       "max": 22
+      }
+     }
+    },
+    {
+     "id": "sys1-1.22-23-m",
+     "label": "22-23 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 22,
+       "max": 23
+      }
+     }
+    },
+    {
+     "id": "sys1-1.23-24-m",
+     "label": "23-24 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 23,
+       "max": 24
+      }
+     }
+    },
+    {
+     "id": "sys1-1.24-25-m",
+     "label": "24-25 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 24,
+       "max": 25
+      }
+     }
+    },
+    {
+     "id": "sys1-1.25-26-m",
+     "label": "25-26 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 25,
+       "max": 26
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "st1:Ballen",
+   "type": "station",
+   "name": "Ballen",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[10.650119, 55.810439]]
+    },
+    "point_names": ["Ballen port, 0.5 km out on the line to Kalundborg (OSM way 392728788)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st1:Kalundborg",
+   "type": "station",
+   "name": "Kalundborg",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[11.088593, 55.672809]]
+    },
+    "point_names": ["Kalundborg port, 0.5 km out on the line to Ballen (OSM way 392728788)"],
+    "match_m": 150
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "system1",
+   "name": "SAMSØLINJEN: Kalundborg–Ballen",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "SAMSØLINJEN's freight prices: Kalundborg–Ballen",
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st1:Kalundborg", "st1:Ballen", "sys1-1.10-20-m", "293"],
+    ["st1:Kalundborg", "st1:Ballen", "sys1-1.20-21-m", "310"],
+    ["st1:Kalundborg", "st1:Ballen", "sys1-1.21-22-m", "327"],
+    ["st1:Kalundborg", "st1:Ballen", "sys1-1.22-23-m", "344"],
+    ["st1:Kalundborg", "st1:Ballen", "sys1-1.23-24-m", "361"],
+    ["st1:Kalundborg", "st1:Ballen", "sys1-1.24-25-m", "378"],
+    ["st1:Kalundborg", "st1:Ballen", "sys1-1.25-26-m", "395"],
+    ["st1:Kalundborg", "st1:Ballen", "sys1-1.up-to-10-m", "191"]
+   ],
+   "sources": ["s1", "s2", "s3"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "crossings": true,
+   "ferry": true
+  }
+ }
+}

@@ -1,0 +1,113 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/is-hornafjordur/2026-09-01",
+  "scheme": {
+   "id": "is-hornafjordur",
+   "name": "Ring Road (1) through Hornafjörður",
+   "country": "IS"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-09-01",
+  "currency": "ISK",
+  "timezone": "Atlantic/Reykjavik",
+  "license": "MIT",
+  "method": "Spölur ehf.'s price list for the new Ring Road (1) section through Hornafjörður, single trips: vehicles of 3.5-7.5 t ISK 2100, over 7.5 t ISK 4500, by the total weight in the vehicle register; Vegagerðin's notice of 31 August 2026: collected from 2026-09-01, the same prices. Free-flow (cameras at the section's ends); placed at the longest bridge of the ways OpenStreetMap tags toll=yes there (the one over Hornafjarðarfljót), which a trip through the section crosses. Monthly discounts (for vehicles up to 7.5 t) aren't modelled.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "is-hornafjordur-2026-09-01.json"
+  },
+  "required_features": ["type.point"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Spölur: Verðskrá",
+   "url": "https://www.spolur.is/verdskra"
+  },
+  {
+   "id": "s2",
+   "title": "Vegagerðin: Hornafjörður Ring road tolls collected from September 1st onwards",
+   "url": "https://www.vegagerdin.is/en/about-us/operation/news/gjaldtaka-a-hringvegi-1-um-hornafjord-hefst-i-september"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Vehicles over 3.5 t",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "pt-1",
+   "classes": [
+    {
+     "id": "pt-1.1",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501,
+       "max": 7500
+      }
+     }
+    },
+    {
+     "id": "pt-1.2",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 7501
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "pt1",
+   "type": "point",
+   "name": "Hornafjörður (Ring Road 1)",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-15.337318, 64.293665]
+    },
+    "match_m": 100
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "points",
+   "type": "point",
+   "component": "unspecified",
+   "unit": "passage",
+   "columns": ["object", "vehicle_class", "amount"],
+   "rows": [["pt1", "pt-1.1", "2100"], ["pt1", "pt-1.2", "4500"]],
+   "sources": ["s1", "s2"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "crossings": true,
+   "charged_from": "2026-09-01",
+   "osm_extract": "2026-11-28"
+  }
+ }
+}

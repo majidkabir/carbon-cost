@@ -1,0 +1,105 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/nl-kiltunnel/2026-11-13",
+  "scheme": {
+   "id": "nl-kiltunnel",
+   "name": "Kiltunnel toll",
+   "country": "NL"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-11-13",
+  "currency": "EUR",
+  "timezone": "Europe/Amsterdam",
+  "license": "MIT",
+  "method": "The Kiltunnel's toll (Dordrecht–Hoeksche Waard) per passage, either way, for vehicles over 2.30 m high including load (trucks over 3.5 t are taken to be): EUR 5 cash, with `etc` the Telecard price, EUR 3.8. The page gives no date: valid_from is the day it was first read.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "nl-kiltunnel-2026-11-13.json"
+  },
+  "required_features": ["type.point", "user_classes"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Kiltunnel: Toltarieven",
+   "url": "https://kiltunnel.nl/tarieven"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Vehicles over 2.30 m high (here trucks over 3.5 t)",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "pt-1",
+   "classes": [
+    {
+     "id": "pt-1.1",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "user_classes": [
+  {
+   "id": "electronic",
+   "label": "Electronic toll device or contract",
+   "payment": ["electronic"]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "pt1",
+   "type": "point",
+   "name": "Kiltunnel",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [4.638273, 51.7726]
+    },
+    "match_m": 150
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "points",
+   "type": "point",
+   "component": "unspecified",
+   "unit": "passage",
+   "columns": ["object", "vehicle_class", "user_class", "amount"],
+   "rows": [["pt1", "pt-1.1", null, "5"], ["pt1", "pt-1.1", "electronic", "3.8"]],
+   "sources": ["s1"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "crossings": true,
+   "osm_extract": "2026-11-28"
+  }
+ }
+}

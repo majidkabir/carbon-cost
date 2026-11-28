@@ -1,0 +1,85 @@
+{
+ "country": "DK",
+ "currency": "DKK",
+ "valid_from": "2026-11-19",
+ "crossings": true,
+ "ferry": true,
+ "name": "Samsø Rederi's ferries Hou–Sælvig, trucks",
+ "law": "Samsø Rederi's prices for trucks on Hou–Sælvig per single trip with driver, after the state's freight subsidy: Max 10 m DKK 561.31 including VAT of 112.26 (before the subsidy 1192); 10-12 m DKK 605.96 including VAT of 121.19 (before the subsidy 1379); 12-17 m DKK 694.16 including VAT of 138.83 (before the subsidy 1840); 17-19 m DKK 721.00 including VAT of 144.20 (before the subsidy 1948); taken without the VAT: DKK up to 10 m 449.05, 10-12 m 484.77, 12-17 m 555.33, 17-19 m 576.8. The page gives no date: valid_from is the day it was first read. Ports at OpenStreetMap's ferry terminals, priced where the line goes out on its car ferry line.",
+ "sources": [
+  {
+   "title": "Samsø Rederi: freight prices",
+   "url": "https://www.tilsamsoe.dk/priser-lastbiler/"
+  },
+  {
+   "title": "OpenStreetMap (Overpass API): Denmark's ferry lines and terminals",
+   "url": "https://www.openstreetmap.org/"
+  }
+ ],
+ "vehicles": "Trucks over 3.5 t, by length (truck.length_m)",
+ "min_kg": 3501,
+ "tolled_roads": "Samsø Rederi's ferries Hou–Sælvig.",
+ "closed_systems": [
+  {
+   "name": "Samsø Rederi: Hou–Sælvig",
+   "law": "Samsø Rederi's freight prices: Hou–Sælvig",
+   "groups": [
+    {
+     "name": "up to 10 m",
+     "min_kg": 3501,
+     "max_length_m": 10
+    },
+    {
+     "name": "10-12 m",
+     "min_kg": 3501,
+     "max_length_m": 12,
+     "min_length_m": 10
+    },
+    {
+     "name": "12-17 m",
+     "min_kg": 3501,
+     "max_length_m": 17,
+     "min_length_m": 12
+    },
+    {
+     "name": "17-19 m",
+     "min_kg": 3501,
+     "max_length_m": 19,
+     "min_length_m": 17
+    }
+   ],
+   "stations": [
+    {
+     "name": "Hou",
+     "points": [
+      {
+       "name": "Hou port, 6.3 km out on the line to Sælvig (OSM way 38192155)",
+       "lat": 55.92655,
+       "lon": 10.34828
+      }
+     ]
+    },
+    {
+     "name": "Sælvig",
+     "points": [
+      {
+       "name": "Sælvig port, 0.5 km out on the line to Hou (OSM way 38192155)",
+       "lat": 55.868734,
+       "lon": 10.548473
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Hou|Sælvig": {
+     "up to 10 m": 449.05,
+     "10-12 m": 484.77,
+     "12-17 m": 555.33,
+     "17-19 m": 576.8
+    }
+   }
+  }
+ ],
+ "rows": []
+}

@@ -1,0 +1,706 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/es-seitt/2026-01-01",
+  "scheme": {
+   "id": "es-seitt",
+   "name": "Spanish state toll motorways (SEITT)",
+   "country": "ES"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-01-01",
+  "valid_to": "2026-12-31",
+  "currency": "EUR",
+  "timezone": "Europe/Madrid",
+  "license": "MIT",
+  "method": "Acuerdo del Consejo de Ministros de 9 de diciembre de 2025 (BOE 18/12/2025) and the Secretaría General de Transporte Terrestre's resolution of 10 December 2025: SEITT's 2026 tariffs by entry and exit, Pesados 1 (two or three axles) and Pesados 2 (four or more), cash prices, tag prices for trucks paying by Vía-T (etc), excluding 21% IVA; free from 00:00 to 06:00. Stations placed at OpenStreetMap's toll booths of their name (extract of 2026-11-27); 6 stations without one aren't priced. Only SEITT's AP-36, AP-41 and AP-7 Cartagena–Vera (not the Madrid radials or M-12); the concessions are separate tables (AP-6, AP-51 and AP-61; AP-71; AP-7 Málaga–Guadiaro; AP-66; AP-46; AP-7 Alicante–Cartagena) or not included (AP-9, AP-53, AP-68).",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "es-seitt-2026-01-01.json"
+  },
+  "required_features": ["time_classes", "type.od", "user_classes"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Spain: SEITT 2026 tariffs of the AP-36 Ocaña – La Roda toll motorway",
+   "url": "https://cdn.transportes.gob.es/portal-web-seitt/media/document/tarifas_ap36_2026_v1.pdf"
+  },
+  {
+   "id": "s2",
+   "title": "Spain: SEITT 2026 tariffs of the AP-41 Madrid – Toledo toll motorway",
+   "url": "https://cdn.transportes.gob.es/portal-web-seitt/media/document/precios_web_ap41_2026.pdf"
+  },
+  {
+   "id": "s3",
+   "title": "Spain: SEITT 2026 tariffs of the AP-7 Cartagena – Vera toll motorway",
+   "url": "https://cdn.transportes.gob.es/portal-web-seitt/media/document/tarifas_ap7cv_2026.pdf"
+  },
+  {
+   "id": "s4",
+   "title": "OpenStreetMap (Geofabrik extracts), toll booths",
+   "url": "https://download.geofabrik.de/europe/spain.html"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Trucks over 3.5 t (Pesados 1 and 2)",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "sys1-1",
+   "classes": [
+    {
+     "id": "sys1-1.Pesados-1",
+     "label": "Pesados 1",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "max": 3
+      }
+     }
+    },
+    {
+     "id": "sys1-1.Pesados-2",
+     "label": "Pesados 2",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 4
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "time_classes": [
+  {
+   "id": "sys1-free",
+   "label": "No charge",
+   "times": [["00:00", "06:00"]]
+  }
+ ],
+ "user_classes": [
+  {
+   "id": "electronic",
+   "label": "Electronic toll device or contract",
+   "payment": ["electronic"]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "st1:Troncal Corral Almaguer",
+   "type": "station",
+   "name": "Troncal Corral Almaguer",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-3.213087, 39.800317], [-3.212803, 39.800503]]
+    },
+    "point_names": ["booth", "booth"]
+   }
+  },
+  {
+   "id": "st1:Quintanar Orden",
+   "type": "station",
+   "name": "Quintanar Orden",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-3.073759, 39.630588], [-3.073665, 39.630626]]
+    },
+    "point_names": ["booth", "booth"]
+   }
+  },
+  {
+   "id": "st1:Mota Cuervo",
+   "type": "station",
+   "name": "Mota Cuervo",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-2.916739, 39.51967]]
+    },
+    "point_names": ["booth"]
+   }
+  },
+  {
+   "id": "st1:Pedernoso",
+   "type": "station",
+   "name": "Pedernoso",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-2.718178, 39.474381], [-2.718161, 39.474469]]
+    },
+    "point_names": ["booth", "booth"]
+   }
+  },
+  {
+   "id": "st2:Serranillos",
+   "type": "station",
+   "name": "Serranillos",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-3.894118, 40.21203], [-3.893951, 40.211972]]
+    },
+    "point_names": ["booth", "booth"]
+   }
+  },
+  {
+   "id": "st2:Carranque",
+   "type": "station",
+   "name": "Carranque",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-3.904456, 40.157945]]
+    },
+    "point_names": ["booth"]
+   }
+  },
+  {
+   "id": "st2:Illescas",
+   "type": "station",
+   "name": "Illescas",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-3.860599, 40.102888], [-3.860494, 40.103027]]
+    },
+    "point_names": ["booth", "booth"]
+   }
+  },
+  {
+   "id": "st2:Numancia",
+   "type": "station",
+   "name": "Numancia",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-3.846069, 40.074864], [-3.846033, 40.074789]]
+    },
+    "point_names": ["booth", "booth"]
+   }
+  },
+  {
+   "id": "st2:Villaluenga",
+   "type": "station",
+   "name": "Villaluenga",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-3.888873, 40.029351]]
+    },
+    "point_names": ["booth"]
+   }
+  },
+  {
+   "id": "st2:Villaseca",
+   "type": "station",
+   "name": "Villaseca",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-3.867566, 39.956523], [-3.867411, 39.956532]]
+    },
+    "point_names": ["booth", "booth"]
+   }
+  },
+  {
+   "id": "st3:Cuevas del Almanzora",
+   "type": "station",
+   "name": "Cuevas del Almanzora",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-1.799766, 37.305606], [-1.799638, 37.305546]]
+    },
+    "point_names": ["booth", "booth"]
+   }
+  },
+  {
+   "id": "st3:Pulpí",
+   "type": "station",
+   "name": "Pulpí",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-1.727379, 37.390658], [-1.727226, 37.390601]]
+    },
+    "point_names": ["booth", "booth"]
+   }
+  },
+  {
+   "id": "st3:Águilas",
+   "type": "station",
+   "name": "Águilas",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-1.620227, 37.436322], [-1.620125, 37.436241]]
+    },
+    "point_names": ["booth", "booth"]
+   }
+  },
+  {
+   "id": "st3:Cabo Cope",
+   "type": "station",
+   "name": "Cabo Cope",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-1.506919, 37.492336], [-1.50684, 37.492434]]
+    },
+    "point_names": ["booth", "booth"]
+   }
+  },
+  {
+   "id": "st3:Ramonete",
+   "type": "station",
+   "name": "Ramonete",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-1.435903, 37.547009], [-1.435878, 37.546862]]
+    },
+    "point_names": ["booth", "booth"]
+   }
+  },
+  {
+   "id": "st3:Mazarrón",
+   "type": "station",
+   "name": "Mazarrón",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-1.336067, 37.599864], [-1.335896, 37.599808]]
+    },
+    "point_names": ["booth", "booth"]
+   }
+  },
+  {
+   "id": "st3:Las Palas",
+   "type": "station",
+   "name": "Las Palas",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-1.178289, 37.647793], [-1.178284, 37.647672]]
+    },
+    "point_names": ["booth", "booth"]
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "system1",
+   "name": "AP-36 Ocaña – La Roda",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "SEITT tariff 2026 (ap36), cash and tag prices including 21% IVA, here excluding it; free 00:00–06:00",
+   "directed": true,
+   "columns": ["entry", "exit", "vehicle_class", "user_class", "time_class", "priority", "amount"],
+   "rows": [
+    ["st1:Mota Cuervo", "st1:Pedernoso", "sys1-1.Pesados-1", null, null, null, "2.7273"],
+    ["st1:Mota Cuervo", "st1:Pedernoso", "sys1-1.Pesados-2", null, null, null, "3.8843"],
+    ["st1:Mota Cuervo", "st1:Quintanar Orden", "sys1-1.Pesados-1", null, null, null, "2.8099"],
+    ["st1:Mota Cuervo", "st1:Quintanar Orden", "sys1-1.Pesados-2", null, null, null, "4.0496"],
+    ["st1:Mota Cuervo", "st1:Troncal Corral Almaguer", "sys1-1.Pesados-1", null, null, null, "9.7521"],
+    ["st1:Mota Cuervo", "st1:Troncal Corral Almaguer", "sys1-1.Pesados-2", null, null, null, "13.9256"],
+    ["st1:Pedernoso", "st1:Mota Cuervo", "sys1-1.Pesados-1", null, null, null, "2.7273"],
+    ["st1:Pedernoso", "st1:Mota Cuervo", "sys1-1.Pesados-2", null, null, null, "3.8843"],
+    ["st1:Pedernoso", "st1:Quintanar Orden", "sys1-1.Pesados-1", null, null, null, "5.4959"],
+    ["st1:Pedernoso", "st1:Quintanar Orden", "sys1-1.Pesados-2", null, null, null, "7.8512"],
+    ["st1:Pedernoso", "st1:Troncal Corral Almaguer", "sys1-1.Pesados-1", null, null, null, "12.438"],
+    ["st1:Pedernoso", "st1:Troncal Corral Almaguer", "sys1-1.Pesados-2", null, null, null, "17.7686"],
+    ["st1:Quintanar Orden", "st1:Mota Cuervo", "sys1-1.Pesados-1", null, null, null, "2.8099"],
+    ["st1:Quintanar Orden", "st1:Mota Cuervo", "sys1-1.Pesados-2", null, null, null, "4.0496"],
+    ["st1:Quintanar Orden", "st1:Pedernoso", "sys1-1.Pesados-1", null, null, null, "5.4959"],
+    ["st1:Quintanar Orden", "st1:Pedernoso", "sys1-1.Pesados-2", null, null, null, "7.8512"],
+    ["st1:Quintanar Orden", "st1:Troncal Corral Almaguer", "sys1-1.Pesados-1", null, null, null, "6.9421"],
+    ["st1:Quintanar Orden", "st1:Troncal Corral Almaguer", "sys1-1.Pesados-2", null, null, null, "9.9174"],
+    ["st1:Troncal Corral Almaguer", "st1:Mota Cuervo", "sys1-1.Pesados-1", null, null, null, "9.7521"],
+    ["st1:Troncal Corral Almaguer", "st1:Mota Cuervo", "sys1-1.Pesados-2", null, null, null, "13.9256"],
+    ["st1:Troncal Corral Almaguer", "st1:Pedernoso", "sys1-1.Pesados-1", null, null, null, "12.438"],
+    ["st1:Troncal Corral Almaguer", "st1:Pedernoso", "sys1-1.Pesados-2", null, null, null, "17.7686"],
+    ["st1:Troncal Corral Almaguer", "st1:Quintanar Orden", "sys1-1.Pesados-1", null, null, null, "6.9421"],
+    ["st1:Troncal Corral Almaguer", "st1:Quintanar Orden", "sys1-1.Pesados-2", null, null, null, "9.9174"],
+    ["st1:Mota Cuervo", "st1:Pedernoso", "sys1-1.Pesados-1", "electronic", null, null, "2.5207"],
+    ["st1:Mota Cuervo", "st1:Pedernoso", "sys1-1.Pesados-2", "electronic", null, null, "3.5124"],
+    ["st1:Mota Cuervo", "st1:Quintanar Orden", "sys1-1.Pesados-1", "electronic", null, null, "2.6033"],
+    ["st1:Mota Cuervo", "st1:Quintanar Orden", "sys1-1.Pesados-2", "electronic", null, null, "3.6364"],
+    ["st1:Mota Cuervo", "st1:Troncal Corral Almaguer", "sys1-1.Pesados-1", "electronic", null, null, "8.9669"],
+    ["st1:Mota Cuervo", "st1:Troncal Corral Almaguer", "sys1-1.Pesados-2", "electronic", null, null, "12.562"],
+    ["st1:Pedernoso", "st1:Mota Cuervo", "sys1-1.Pesados-1", "electronic", null, null, "2.5207"],
+    ["st1:Pedernoso", "st1:Mota Cuervo", "sys1-1.Pesados-2", "electronic", null, null, "3.5124"],
+    ["st1:Pedernoso", "st1:Quintanar Orden", "sys1-1.Pesados-1", "electronic", null, null, "5.0826"],
+    ["st1:Pedernoso", "st1:Quintanar Orden", "sys1-1.Pesados-2", "electronic", null, null, "7.1074"],
+    ["st1:Pedernoso", "st1:Troncal Corral Almaguer", "sys1-1.Pesados-1", "electronic", null, null, "11.4463"],
+    ["st1:Pedernoso", "st1:Troncal Corral Almaguer", "sys1-1.Pesados-2", "electronic", null, null, "16.0331"],
+    ["st1:Quintanar Orden", "st1:Mota Cuervo", "sys1-1.Pesados-1", "electronic", null, null, "2.6033"],
+    ["st1:Quintanar Orden", "st1:Mota Cuervo", "sys1-1.Pesados-2", "electronic", null, null, "3.6364"],
+    ["st1:Quintanar Orden", "st1:Pedernoso", "sys1-1.Pesados-1", "electronic", null, null, "5.0826"],
+    ["st1:Quintanar Orden", "st1:Pedernoso", "sys1-1.Pesados-2", "electronic", null, null, "7.1074"],
+    ["st1:Quintanar Orden", "st1:Troncal Corral Almaguer", "sys1-1.Pesados-1", "electronic", null, null, "6.405"],
+    ["st1:Quintanar Orden", "st1:Troncal Corral Almaguer", "sys1-1.Pesados-2", "electronic", null, null, "8.9669"],
+    ["st1:Troncal Corral Almaguer", "st1:Mota Cuervo", "sys1-1.Pesados-1", "electronic", null, null, "8.9669"],
+    ["st1:Troncal Corral Almaguer", "st1:Mota Cuervo", "sys1-1.Pesados-2", "electronic", null, null, "12.562"],
+    ["st1:Troncal Corral Almaguer", "st1:Pedernoso", "sys1-1.Pesados-1", "electronic", null, null, "11.4463"],
+    ["st1:Troncal Corral Almaguer", "st1:Pedernoso", "sys1-1.Pesados-2", "electronic", null, null, "16.0331"],
+    ["st1:Troncal Corral Almaguer", "st1:Quintanar Orden", "sys1-1.Pesados-1", "electronic", null, null, "6.405"],
+    ["st1:Troncal Corral Almaguer", "st1:Quintanar Orden", "sys1-1.Pesados-2", "electronic", null, null, "8.9669"],
+    [null, null, null, null, "sys1-free", 2, "0"]
+   ],
+   "sources": ["s1", "s2", "s3", "s4"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system2",
+   "name": "AP-41 Madrid – Toledo",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "SEITT tariff 2026 (ap41), cash and tag prices including 21% IVA, here excluding it; free 00:00–06:00",
+   "directed": true,
+   "columns": ["entry", "exit", "vehicle_class", "user_class", "time_class", "priority", "amount"],
+   "rows": [
+    ["st2:Carranque", "st2:Illescas", "sys1-1.Pesados-1", null, null, null, "1.1983"],
+    ["st2:Carranque", "st2:Illescas", "sys1-1.Pesados-2", null, null, null, "1.7355"],
+    ["st2:Carranque", "st2:Numancia", "sys1-1.Pesados-1", null, null, null, "1.6942"],
+    ["st2:Carranque", "st2:Numancia", "sys1-1.Pesados-2", null, null, null, "2.3967"],
+    ["st2:Carranque", "st2:Serranillos", "sys1-1.Pesados-1", null, null, null, "1.1157"],
+    ["st2:Carranque", "st2:Serranillos", "sys1-1.Pesados-2", null, null, null, "1.5702"],
+    ["st2:Carranque", "st2:Villaluenga", "sys1-1.Pesados-1", null, null, null, "2.4793"],
+    ["st2:Carranque", "st2:Villaluenga", "sys1-1.Pesados-2", null, null, null, "3.5537"],
+    ["st2:Carranque", "st2:Villaseca", "sys1-1.Pesados-1", null, null, null, "3.6777"],
+    ["st2:Carranque", "st2:Villaseca", "sys1-1.Pesados-2", null, null, null, "5.2479"],
+    ["st2:Illescas", "st2:Carranque", "sys1-1.Pesados-1", null, null, null, "1.1983"],
+    ["st2:Illescas", "st2:Carranque", "sys1-1.Pesados-2", null, null, null, "1.7355"],
+    ["st2:Illescas", "st2:Numancia", "sys1-1.Pesados-1", null, null, null, "0.4959"],
+    ["st2:Illescas", "st2:Numancia", "sys1-1.Pesados-2", null, null, null, "0.7025"],
+    ["st2:Illescas", "st2:Serranillos", "sys1-1.Pesados-1", null, null, null, "2.314"],
+    ["st2:Illescas", "st2:Serranillos", "sys1-1.Pesados-2", null, null, null, "3.3058"],
+    ["st2:Illescas", "st2:Villaluenga", "sys1-1.Pesados-1", null, null, null, "1.3223"],
+    ["st2:Illescas", "st2:Villaluenga", "sys1-1.Pesados-2", null, null, null, "1.8595"],
+    ["st2:Illescas", "st2:Villaseca", "sys1-1.Pesados-1", null, null, null, "2.4793"],
+    ["st2:Illescas", "st2:Villaseca", "sys1-1.Pesados-2", null, null, null, "3.5537"],
+    ["st2:Numancia", "st2:Carranque", "sys1-1.Pesados-1", null, null, null, "1.6942"],
+    ["st2:Numancia", "st2:Carranque", "sys1-1.Pesados-2", null, null, null, "2.3967"],
+    ["st2:Numancia", "st2:Illescas", "sys1-1.Pesados-1", null, null, null, "0.4959"],
+    ["st2:Numancia", "st2:Illescas", "sys1-1.Pesados-2", null, null, null, "0.7025"],
+    ["st2:Numancia", "st2:Serranillos", "sys1-1.Pesados-1", null, null, null, "2.7686"],
+    ["st2:Numancia", "st2:Serranillos", "sys1-1.Pesados-2", null, null, null, "3.9669"],
+    ["st2:Numancia", "st2:Villaluenga", "sys1-1.Pesados-1", null, null, null, "0.8264"],
+    ["st2:Numancia", "st2:Villaluenga", "sys1-1.Pesados-2", null, null, null, "1.1983"],
+    ["st2:Numancia", "st2:Villaseca", "sys1-1.Pesados-1", null, null, null, "2.0248"],
+    ["st2:Numancia", "st2:Villaseca", "sys1-1.Pesados-2", null, null, null, "2.8926"],
+    ["st2:Serranillos", "st2:Carranque", "sys1-1.Pesados-1", null, null, null, "1.1157"],
+    ["st2:Serranillos", "st2:Carranque", "sys1-1.Pesados-2", null, null, null, "1.5702"],
+    ["st2:Serranillos", "st2:Illescas", "sys1-1.Pesados-1", null, null, null, "2.314"],
+    ["st2:Serranillos", "st2:Illescas", "sys1-1.Pesados-2", null, null, null, "3.3058"],
+    ["st2:Serranillos", "st2:Numancia", "sys1-1.Pesados-1", null, null, null, "2.7686"],
+    ["st2:Serranillos", "st2:Numancia", "sys1-1.Pesados-2", null, null, null, "3.9669"],
+    ["st2:Serranillos", "st2:Villaluenga", "sys1-1.Pesados-1", null, null, null, "3.595"],
+    ["st2:Serranillos", "st2:Villaluenga", "sys1-1.Pesados-2", null, null, null, "5.124"],
+    ["st2:Serranillos", "st2:Villaseca", "sys1-1.Pesados-1", null, null, null, "4.7934"],
+    ["st2:Serranillos", "st2:Villaseca", "sys1-1.Pesados-2", null, null, null, "6.8182"],
+    ["st2:Villaluenga", "st2:Carranque", "sys1-1.Pesados-1", null, null, null, "2.4793"],
+    ["st2:Villaluenga", "st2:Carranque", "sys1-1.Pesados-2", null, null, null, "3.5537"],
+    ["st2:Villaluenga", "st2:Illescas", "sys1-1.Pesados-1", null, null, null, "1.3223"],
+    ["st2:Villaluenga", "st2:Illescas", "sys1-1.Pesados-2", null, null, null, "1.8595"],
+    ["st2:Villaluenga", "st2:Numancia", "sys1-1.Pesados-1", null, null, null, "0.8264"],
+    ["st2:Villaluenga", "st2:Numancia", "sys1-1.Pesados-2", null, null, null, "1.1983"],
+    ["st2:Villaluenga", "st2:Serranillos", "sys1-1.Pesados-1", null, null, null, "3.595"],
+    ["st2:Villaluenga", "st2:Serranillos", "sys1-1.Pesados-2", null, null, null, "5.124"],
+    ["st2:Villaluenga", "st2:Villaseca", "sys1-1.Pesados-1", null, null, null, "1.1983"],
+    ["st2:Villaluenga", "st2:Villaseca", "sys1-1.Pesados-2", null, null, null, "1.6942"],
+    ["st2:Villaseca", "st2:Carranque", "sys1-1.Pesados-1", null, null, null, "3.6777"],
+    ["st2:Villaseca", "st2:Carranque", "sys1-1.Pesados-2", null, null, null, "5.2479"],
+    ["st2:Villaseca", "st2:Illescas", "sys1-1.Pesados-1", null, null, null, "2.4793"],
+    ["st2:Villaseca", "st2:Illescas", "sys1-1.Pesados-2", null, null, null, "3.5537"],
+    ["st2:Villaseca", "st2:Numancia", "sys1-1.Pesados-1", null, null, null, "2.0248"],
+    ["st2:Villaseca", "st2:Numancia", "sys1-1.Pesados-2", null, null, null, "2.8926"],
+    ["st2:Villaseca", "st2:Serranillos", "sys1-1.Pesados-1", null, null, null, "4.7934"],
+    ["st2:Villaseca", "st2:Serranillos", "sys1-1.Pesados-2", null, null, null, "6.8182"],
+    ["st2:Villaseca", "st2:Villaluenga", "sys1-1.Pesados-1", null, null, null, "1.1983"],
+    ["st2:Villaseca", "st2:Villaluenga", "sys1-1.Pesados-2", null, null, null, "1.6942"],
+    ["st2:Carranque", "st2:Illescas", "sys1-1.Pesados-1", "electronic", null, null, "1.1157"],
+    ["st2:Carranque", "st2:Illescas", "sys1-1.Pesados-2", "electronic", null, null, "1.5702"],
+    ["st2:Carranque", "st2:Numancia", "sys1-1.Pesados-1", "electronic", null, null, "1.5289"],
+    ["st2:Carranque", "st2:Numancia", "sys1-1.Pesados-2", "electronic", null, null, "2.1488"],
+    ["st2:Carranque", "st2:Serranillos", "sys1-1.Pesados-1", "electronic", null, null, "1.0331"],
+    ["st2:Carranque", "st2:Serranillos", "sys1-1.Pesados-2", "electronic", null, null, "1.4463"],
+    ["st2:Carranque", "st2:Villaluenga", "sys1-1.Pesados-1", "electronic", null, null, "2.314"],
+    ["st2:Carranque", "st2:Villaluenga", "sys1-1.Pesados-2", "electronic", null, null, "3.2231"],
+    ["st2:Carranque", "st2:Villaseca", "sys1-1.Pesados-1", "electronic", null, null, "3.3884"],
+    ["st2:Carranque", "st2:Villaseca", "sys1-1.Pesados-2", "electronic", null, null, "4.7107"],
+    ["st2:Illescas", "st2:Carranque", "sys1-1.Pesados-1", "electronic", null, null, "1.1157"],
+    ["st2:Illescas", "st2:Carranque", "sys1-1.Pesados-2", "electronic", null, null, "1.5702"],
+    ["st2:Illescas", "st2:Numancia", "sys1-1.Pesados-1", "electronic", null, null, "0.4545"],
+    ["st2:Illescas", "st2:Numancia", "sys1-1.Pesados-2", "electronic", null, null, "0.6198"],
+    ["st2:Illescas", "st2:Serranillos", "sys1-1.Pesados-1", "electronic", null, null, "2.1074"],
+    ["st2:Illescas", "st2:Serranillos", "sys1-1.Pesados-2", "electronic", null, null, "2.9752"],
+    ["st2:Illescas", "st2:Villaluenga", "sys1-1.Pesados-1", "electronic", null, null, "1.1983"],
+    ["st2:Illescas", "st2:Villaluenga", "sys1-1.Pesados-2", "electronic", null, null, "1.6529"],
+    ["st2:Illescas", "st2:Villaseca", "sys1-1.Pesados-1", "electronic", null, null, "2.2727"],
+    ["st2:Illescas", "st2:Villaseca", "sys1-1.Pesados-2", "electronic", null, null, "3.1818"],
+    ["st2:Numancia", "st2:Carranque", "sys1-1.Pesados-1", "electronic", null, null, "1.5289"],
+    ["st2:Numancia", "st2:Carranque", "sys1-1.Pesados-2", "electronic", null, null, "2.1488"],
+    ["st2:Numancia", "st2:Illescas", "sys1-1.Pesados-1", "electronic", null, null, "0.4545"],
+    ["st2:Numancia", "st2:Illescas", "sys1-1.Pesados-2", "electronic", null, null, "0.6198"],
+    ["st2:Numancia", "st2:Serranillos", "sys1-1.Pesados-1", "electronic", null, null, "2.562"],
+    ["st2:Numancia", "st2:Serranillos", "sys1-1.Pesados-2", "electronic", null, null, "3.5537"],
+    ["st2:Numancia", "st2:Villaluenga", "sys1-1.Pesados-1", "electronic", null, null, "0.7851"],
+    ["st2:Numancia", "st2:Villaluenga", "sys1-1.Pesados-2", "electronic", null, null, "1.0744"],
+    ["st2:Numancia", "st2:Villaseca", "sys1-1.Pesados-1", "electronic", null, null, "1.8595"],
+    ["st2:Numancia", "st2:Villaseca", "sys1-1.Pesados-2", "electronic", null, null, "2.6033"],
+    ["st2:Serranillos", "st2:Carranque", "sys1-1.Pesados-1", "electronic", null, null, "1.0331"],
+    ["st2:Serranillos", "st2:Carranque", "sys1-1.Pesados-2", "electronic", null, null, "1.4463"],
+    ["st2:Serranillos", "st2:Illescas", "sys1-1.Pesados-1", "electronic", null, null, "2.1074"],
+    ["st2:Serranillos", "st2:Illescas", "sys1-1.Pesados-2", "electronic", null, null, "2.9752"],
+    ["st2:Serranillos", "st2:Numancia", "sys1-1.Pesados-1", "electronic", null, null, "2.562"],
+    ["st2:Serranillos", "st2:Numancia", "sys1-1.Pesados-2", "electronic", null, null, "3.5537"],
+    ["st2:Serranillos", "st2:Villaluenga", "sys1-1.Pesados-1", "electronic", null, null, "3.3058"],
+    ["st2:Serranillos", "st2:Villaluenga", "sys1-1.Pesados-2", "electronic", null, null, "4.6281"],
+    ["st2:Serranillos", "st2:Villaseca", "sys1-1.Pesados-1", "electronic", null, null, "4.3802"],
+    ["st2:Serranillos", "st2:Villaseca", "sys1-1.Pesados-2", "electronic", null, null, "6.157"],
+    ["st2:Villaluenga", "st2:Carranque", "sys1-1.Pesados-1", "electronic", null, null, "2.314"],
+    ["st2:Villaluenga", "st2:Carranque", "sys1-1.Pesados-2", "electronic", null, null, "3.2231"],
+    ["st2:Villaluenga", "st2:Illescas", "sys1-1.Pesados-1", "electronic", null, null, "1.1983"],
+    ["st2:Villaluenga", "st2:Illescas", "sys1-1.Pesados-2", "electronic", null, null, "1.6529"],
+    ["st2:Villaluenga", "st2:Numancia", "sys1-1.Pesados-1", "electronic", null, null, "0.7851"],
+    ["st2:Villaluenga", "st2:Numancia", "sys1-1.Pesados-2", "electronic", null, null, "1.0744"],
+    ["st2:Villaluenga", "st2:Serranillos", "sys1-1.Pesados-1", "electronic", null, null, "3.3058"],
+    ["st2:Villaluenga", "st2:Serranillos", "sys1-1.Pesados-2", "electronic", null, null, "4.6281"],
+    ["st2:Villaluenga", "st2:Villaseca", "sys1-1.Pesados-1", "electronic", null, null, "1.1157"],
+    ["st2:Villaluenga", "st2:Villaseca", "sys1-1.Pesados-2", "electronic", null, null, "1.5289"],
+    ["st2:Villaseca", "st2:Carranque", "sys1-1.Pesados-1", "electronic", null, null, "3.3884"],
+    ["st2:Villaseca", "st2:Carranque", "sys1-1.Pesados-2", "electronic", null, null, "4.7107"],
+    ["st2:Villaseca", "st2:Illescas", "sys1-1.Pesados-1", "electronic", null, null, "2.2727"],
+    ["st2:Villaseca", "st2:Illescas", "sys1-1.Pesados-2", "electronic", null, null, "3.1818"],
+    ["st2:Villaseca", "st2:Numancia", "sys1-1.Pesados-1", "electronic", null, null, "1.8595"],
+    ["st2:Villaseca", "st2:Numancia", "sys1-1.Pesados-2", "electronic", null, null, "2.6033"],
+    ["st2:Villaseca", "st2:Serranillos", "sys1-1.Pesados-1", "electronic", null, null, "4.3802"],
+    ["st2:Villaseca", "st2:Serranillos", "sys1-1.Pesados-2", "electronic", null, null, "6.157"],
+    ["st2:Villaseca", "st2:Villaluenga", "sys1-1.Pesados-1", "electronic", null, null, "1.1157"],
+    ["st2:Villaseca", "st2:Villaluenga", "sys1-1.Pesados-2", "electronic", null, null, "1.5289"],
+    [null, null, null, null, "sys1-free", 2, "0"]
+   ],
+   "sources": ["s1", "s2", "s3", "s4"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system3",
+   "name": "AP-7 Cartagena – Vera",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "SEITT tariff 2026 (ap7cv), cash and tag prices including 21% IVA, here excluding it; free 00:00–06:00",
+   "directed": true,
+   "columns": ["entry", "exit", "vehicle_class", "user_class", "time_class", "priority", "amount"],
+   "rows": [
+    ["st3:Cabo Cope", "st3:Cuevas del Almanzora", "sys1-1.Pesados-1", null, null, null, "4.7521"],
+    ["st3:Cabo Cope", "st3:Cuevas del Almanzora", "sys1-1.Pesados-2", null, null, null, "6.7769"],
+    ["st3:Cabo Cope", "st3:Las Palas", "sys1-1.Pesados-1", null, null, null, "4.8347"],
+    ["st3:Cabo Cope", "st3:Las Palas", "sys1-1.Pesados-2", null, null, null, "6.9421"],
+    ["st3:Cabo Cope", "st3:Mazarrón", "sys1-1.Pesados-1", null, null, null, "2.7686"],
+    ["st3:Cabo Cope", "st3:Mazarrón", "sys1-1.Pesados-2", null, null, null, "3.9669"],
+    ["st3:Cabo Cope", "st3:Pulpí", "sys1-1.Pesados-1", null, null, null, "3.2231"],
+    ["st3:Cabo Cope", "st3:Pulpí", "sys1-1.Pesados-2", null, null, null, "4.5868"],
+    ["st3:Cabo Cope", "st3:Ramonete", "sys1-1.Pesados-1", null, null, null, "1.157"],
+    ["st3:Cabo Cope", "st3:Ramonete", "sys1-1.Pesados-2", null, null, null, "1.6529"],
+    ["st3:Cabo Cope", "st3:Águilas", "sys1-1.Pesados-1", null, null, null, "1.6529"],
+    ["st3:Cabo Cope", "st3:Águilas", "sys1-1.Pesados-2", null, null, null, "2.314"],
+    ["st3:Cuevas del Almanzora", "st3:Cabo Cope", "sys1-1.Pesados-1", null, null, null, "4.7521"],
+    ["st3:Cuevas del Almanzora", "st3:Cabo Cope", "sys1-1.Pesados-2", null, null, null, "6.7769"],
+    ["st3:Cuevas del Almanzora", "st3:Las Palas", "sys1-1.Pesados-1", null, null, null, "9.5868"],
+    ["st3:Cuevas del Almanzora", "st3:Las Palas", "sys1-1.Pesados-2", null, null, null, "13.6777"],
+    ["st3:Cuevas del Almanzora", "st3:Mazarrón", "sys1-1.Pesados-1", null, null, null, "7.5207"],
+    ["st3:Cuevas del Almanzora", "st3:Mazarrón", "sys1-1.Pesados-2", null, null, null, "10.7438"],
+    ["st3:Cuevas del Almanzora", "st3:Pulpí", "sys1-1.Pesados-1", null, null, null, "1.5702"],
+    ["st3:Cuevas del Almanzora", "st3:Pulpí", "sys1-1.Pesados-2", null, null, null, "2.2314"],
+    ["st3:Cuevas del Almanzora", "st3:Ramonete", "sys1-1.Pesados-1", null, null, null, "5.9091"],
+    ["st3:Cuevas del Almanzora", "st3:Ramonete", "sys1-1.Pesados-2", null, null, null, "8.4298"],
+    ["st3:Cuevas del Almanzora", "st3:Águilas", "sys1-1.Pesados-1", null, null, null, "3.1405"],
+    ["st3:Cuevas del Almanzora", "st3:Águilas", "sys1-1.Pesados-2", null, null, null, "4.4628"],
+    ["st3:Las Palas", "st3:Cabo Cope", "sys1-1.Pesados-1", null, null, null, "4.8347"],
+    ["st3:Las Palas", "st3:Cabo Cope", "sys1-1.Pesados-2", null, null, null, "6.9421"],
+    ["st3:Las Palas", "st3:Cuevas del Almanzora", "sys1-1.Pesados-1", null, null, null, "9.5868"],
+    ["st3:Las Palas", "st3:Cuevas del Almanzora", "sys1-1.Pesados-2", null, null, null, "13.6777"],
+    ["st3:Las Palas", "st3:Mazarrón", "sys1-1.Pesados-1", null, null, null, "2.0661"],
+    ["st3:Las Palas", "st3:Mazarrón", "sys1-1.Pesados-2", null, null, null, "2.9752"],
+    ["st3:Las Palas", "st3:Pulpí", "sys1-1.Pesados-1", null, null, null, "8.0579"],
+    ["st3:Las Palas", "st3:Pulpí", "sys1-1.Pesados-2", null, null, null, "11.4876"],
+    ["st3:Las Palas", "st3:Ramonete", "sys1-1.Pesados-1", null, null, null, "3.719"],
+    ["st3:Las Palas", "st3:Ramonete", "sys1-1.Pesados-2", null, null, null, "5.2893"],
+    ["st3:Las Palas", "st3:Águilas", "sys1-1.Pesados-1", null, null, null, "6.4463"],
+    ["st3:Las Palas", "st3:Águilas", "sys1-1.Pesados-2", null, null, null, "9.2149"],
+    ["st3:Mazarrón", "st3:Cabo Cope", "sys1-1.Pesados-1", null, null, null, "2.7686"],
+    ["st3:Mazarrón", "st3:Cabo Cope", "sys1-1.Pesados-2", null, null, null, "3.9669"],
+    ["st3:Mazarrón", "st3:Cuevas del Almanzora", "sys1-1.Pesados-1", null, null, null, "7.5207"],
+    ["st3:Mazarrón", "st3:Cuevas del Almanzora", "sys1-1.Pesados-2", null, null, null, "10.7438"],
+    ["st3:Mazarrón", "st3:Las Palas", "sys1-1.Pesados-1", null, null, null, "2.0661"],
+    ["st3:Mazarrón", "st3:Las Palas", "sys1-1.Pesados-2", null, null, null, "2.9752"],
+    ["st3:Mazarrón", "st3:Pulpí", "sys1-1.Pesados-1", null, null, null, "5.9917"],
+    ["st3:Mazarrón", "st3:Pulpí", "sys1-1.Pesados-2", null, null, null, "8.5124"],
+    ["st3:Mazarrón", "st3:Ramonete", "sys1-1.Pesados-1", null, null, null, "1.6529"],
+    ["st3:Mazarrón", "st3:Ramonete", "sys1-1.Pesados-2", null, null, null, "2.314"],
+    ["st3:Mazarrón", "st3:Águilas", "sys1-1.Pesados-1", null, null, null, "4.3802"],
+    ["st3:Mazarrón", "st3:Águilas", "sys1-1.Pesados-2", null, null, null, "6.281"],
+    ["st3:Pulpí", "st3:Cabo Cope", "sys1-1.Pesados-1", null, null, null, "3.2231"],
+    ["st3:Pulpí", "st3:Cabo Cope", "sys1-1.Pesados-2", null, null, null, "4.5868"],
+    ["st3:Pulpí", "st3:Cuevas del Almanzora", "sys1-1.Pesados-1", null, null, null, "1.5702"],
+    ["st3:Pulpí", "st3:Cuevas del Almanzora", "sys1-1.Pesados-2", null, null, null, "2.2314"],
+    ["st3:Pulpí", "st3:Las Palas", "sys1-1.Pesados-1", null, null, null, "8.0579"],
+    ["st3:Pulpí", "st3:Las Palas", "sys1-1.Pesados-2", null, null, null, "11.4876"],
+    ["st3:Pulpí", "st3:Mazarrón", "sys1-1.Pesados-1", null, null, null, "5.9917"],
+    ["st3:Pulpí", "st3:Mazarrón", "sys1-1.Pesados-2", null, null, null, "8.5124"],
+    ["st3:Pulpí", "st3:Ramonete", "sys1-1.Pesados-1", null, null, null, "4.3802"],
+    ["st3:Pulpí", "st3:Ramonete", "sys1-1.Pesados-2", null, null, null, "6.2397"],
+    ["st3:Pulpí", "st3:Águilas", "sys1-1.Pesados-1", null, null, null, "1.6116"],
+    ["st3:Pulpí", "st3:Águilas", "sys1-1.Pesados-2", null, null, null, "2.2727"],
+    ["st3:Ramonete", "st3:Cabo Cope", "sys1-1.Pesados-1", null, null, null, "1.157"],
+    ["st3:Ramonete", "st3:Cabo Cope", "sys1-1.Pesados-2", null, null, null, "1.6529"],
+    ["st3:Ramonete", "st3:Cuevas del Almanzora", "sys1-1.Pesados-1", null, null, null, "5.9091"],
+    ["st3:Ramonete", "st3:Cuevas del Almanzora", "sys1-1.Pesados-2", null, null, null, "8.4298"],
+    ["st3:Ramonete", "st3:Las Palas", "sys1-1.Pesados-1", null, null, null, "3.719"],
+    ["st3:Ramonete", "st3:Las Palas", "sys1-1.Pesados-2", null, null, null, "5.2893"],
+    ["st3:Ramonete", "st3:Mazarrón", "sys1-1.Pesados-1", null, null, null, "1.6529"],
+    ["st3:Ramonete", "st3:Mazarrón", "sys1-1.Pesados-2", null, null, null, "2.314"],
+    ["st3:Ramonete", "st3:Pulpí", "sys1-1.Pesados-1", null, null, null, "4.3802"],
+    ["st3:Ramonete", "st3:Pulpí", "sys1-1.Pesados-2", null, null, null, "6.2397"],
+    ["st3:Ramonete", "st3:Águilas", "sys1-1.Pesados-1", null, null, null, "2.7686"],
+    ["st3:Ramonete", "st3:Águilas", "sys1-1.Pesados-2", null, null, null, "3.9669"],
+    ["st3:Águilas", "st3:Cabo Cope", "sys1-1.Pesados-1", null, null, null, "1.6529"],
+    ["st3:Águilas", "st3:Cabo Cope", "sys1-1.Pesados-2", null, null, null, "2.314"],
+    ["st3:Águilas", "st3:Cuevas del Almanzora", "sys1-1.Pesados-1", null, null, null, "3.1405"],
+    ["st3:Águilas", "st3:Cuevas del Almanzora", "sys1-1.Pesados-2", null, null, null, "4.4628"],
+    ["st3:Águilas", "st3:Las Palas", "sys1-1.Pesados-1", null, null, null, "6.4463"],
+    ["st3:Águilas", "st3:Las Palas", "sys1-1.Pesados-2", null, null, null, "9.2149"],
+    ["st3:Águilas", "st3:Mazarrón", "sys1-1.Pesados-1", null, null, null, "4.3802"],
+    ["st3:Águilas", "st3:Mazarrón", "sys1-1.Pesados-2", null, null, null, "6.281"],
+    ["st3:Águilas", "st3:Pulpí", "sys1-1.Pesados-1", null, null, null, "1.6116"],
+    ["st3:Águilas", "st3:Pulpí", "sys1-1.Pesados-2", null, null, null, "2.2727"],
+    ["st3:Águilas", "st3:Ramonete", "sys1-1.Pesados-1", null, null, null, "2.7686"],
+    ["st3:Águilas", "st3:Ramonete", "sys1-1.Pesados-2", null, null, null, "3.9669"],
+    ["st3:Cabo Cope", "st3:Cuevas del Almanzora", "sys1-1.Pesados-1", "electronic", null, null, "4.3802"],
+    ["st3:Cabo Cope", "st3:Cuevas del Almanzora", "sys1-1.Pesados-2", "electronic", null, null, "6.1157"],
+    ["st3:Cabo Cope", "st3:Las Palas", "sys1-1.Pesados-1", "electronic", null, null, "4.4628"],
+    ["st3:Cabo Cope", "st3:Las Palas", "sys1-1.Pesados-2", "electronic", null, null, "6.2397"],
+    ["st3:Cabo Cope", "st3:Mazarrón", "sys1-1.Pesados-1", "electronic", null, null, "2.562"],
+    ["st3:Cabo Cope", "st3:Mazarrón", "sys1-1.Pesados-2", "electronic", null, null, "3.5537"],
+    ["st3:Cabo Cope", "st3:Pulpí", "sys1-1.Pesados-1", "electronic", null, null, "2.9752"],
+    ["st3:Cabo Cope", "st3:Pulpí", "sys1-1.Pesados-2", "electronic", null, null, "4.1322"],
+    ["st3:Cabo Cope", "st3:Ramonete", "sys1-1.Pesados-1", "electronic", null, null, "1.0744"],
+    ["st3:Cabo Cope", "st3:Ramonete", "sys1-1.Pesados-2", "electronic", null, null, "1.4876"],
+    ["st3:Cabo Cope", "st3:Águilas", "sys1-1.Pesados-1", "electronic", null, null, "1.4876"],
+    ["st3:Cabo Cope", "st3:Águilas", "sys1-1.Pesados-2", "electronic", null, null, "2.1074"],
+    ["st3:Cuevas del Almanzora", "st3:Cabo Cope", "sys1-1.Pesados-1", "electronic", null, null, "4.3802"],
+    ["st3:Cuevas del Almanzora", "st3:Cabo Cope", "sys1-1.Pesados-2", "electronic", null, null, "6.1157"],
+    ["st3:Cuevas del Almanzora", "st3:Las Palas", "sys1-1.Pesados-1", "electronic", null, null, "8.843"],
+    ["st3:Cuevas del Almanzora", "st3:Las Palas", "sys1-1.Pesados-2", "electronic", null, null, "12.3554"],
+    ["st3:Cuevas del Almanzora", "st3:Mazarrón", "sys1-1.Pesados-1", "electronic", null, null, "6.9008"],
+    ["st3:Cuevas del Almanzora", "st3:Mazarrón", "sys1-1.Pesados-2", "electronic", null, null, "9.6694"],
+    ["st3:Cuevas del Almanzora", "st3:Pulpí", "sys1-1.Pesados-1", "electronic", null, null, "1.4463"],
+    ["st3:Cuevas del Almanzora", "st3:Pulpí", "sys1-1.Pesados-2", "electronic", null, null, "2.0248"],
+    ["st3:Cuevas del Almanzora", "st3:Ramonete", "sys1-1.Pesados-1", "electronic", null, null, "5.4545"],
+    ["st3:Cuevas del Almanzora", "st3:Ramonete", "sys1-1.Pesados-2", "electronic", null, null, "7.6033"],
+    ["st3:Cuevas del Almanzora", "st3:Águilas", "sys1-1.Pesados-1", "electronic", null, null, "2.8926"],
+    ["st3:Cuevas del Almanzora", "st3:Águilas", "sys1-1.Pesados-2", "electronic", null, null, "4.0496"],
+    ["st3:Las Palas", "st3:Cabo Cope", "sys1-1.Pesados-1", "electronic", null, null, "4.4628"],
+    ["st3:Las Palas", "st3:Cabo Cope", "sys1-1.Pesados-2", "electronic", null, null, "6.2397"],
+    ["st3:Las Palas", "st3:Cuevas del Almanzora", "sys1-1.Pesados-1", "electronic", null, null, "8.843"],
+    ["st3:Las Palas", "st3:Cuevas del Almanzora", "sys1-1.Pesados-2", "electronic", null, null, "12.3554"],
+    ["st3:Las Palas", "st3:Mazarrón", "sys1-1.Pesados-1", "electronic", null, null, "1.9008"],
+    ["st3:Las Palas", "st3:Mazarrón", "sys1-1.Pesados-2", "electronic", null, null, "2.686"],
+    ["st3:Las Palas", "st3:Pulpí", "sys1-1.Pesados-1", "electronic", null, null, "7.3967"],
+    ["st3:Las Palas", "st3:Pulpí", "sys1-1.Pesados-2", "electronic", null, null, "10.3306"],
+    ["st3:Las Palas", "st3:Ramonete", "sys1-1.Pesados-1", "electronic", null, null, "3.3884"],
+    ["st3:Las Palas", "st3:Ramonete", "sys1-1.Pesados-2", "electronic", null, null, "4.7521"],
+    ["st3:Las Palas", "st3:Águilas", "sys1-1.Pesados-1", "electronic", null, null, "5.9504"],
+    ["st3:Las Palas", "st3:Águilas", "sys1-1.Pesados-2", "electronic", null, null, "8.3058"],
+    ["st3:Mazarrón", "st3:Cabo Cope", "sys1-1.Pesados-1", "electronic", null, null, "2.562"],
+    ["st3:Mazarrón", "st3:Cabo Cope", "sys1-1.Pesados-2", "electronic", null, null, "3.5537"],
+    ["st3:Mazarrón", "st3:Cuevas del Almanzora", "sys1-1.Pesados-1", "electronic", null, null, "6.9008"],
+    ["st3:Mazarrón", "st3:Cuevas del Almanzora", "sys1-1.Pesados-2", "electronic", null, null, "9.6694"],
+    ["st3:Mazarrón", "st3:Las Palas", "sys1-1.Pesados-1", "electronic", null, null, "1.9008"],
+    ["st3:Mazarrón", "st3:Las Palas", "sys1-1.Pesados-2", "electronic", null, null, "2.686"],
+    ["st3:Mazarrón", "st3:Pulpí", "sys1-1.Pesados-1", "electronic", null, null, "5.4959"],
+    ["st3:Mazarrón", "st3:Pulpí", "sys1-1.Pesados-2", "electronic", null, null, "7.686"],
+    ["st3:Mazarrón", "st3:Ramonete", "sys1-1.Pesados-1", "electronic", null, null, "1.4876"],
+    ["st3:Mazarrón", "st3:Ramonete", "sys1-1.Pesados-2", "electronic", null, null, "2.1074"],
+    ["st3:Mazarrón", "st3:Águilas", "sys1-1.Pesados-1", "electronic", null, null, "4.0496"],
+    ["st3:Mazarrón", "st3:Águilas", "sys1-1.Pesados-2", "electronic", null, null, "5.6612"],
+    ["st3:Pulpí", "st3:Cabo Cope", "sys1-1.Pesados-1", "electronic", null, null, "2.9752"],
+    ["st3:Pulpí", "st3:Cabo Cope", "sys1-1.Pesados-2", "electronic", null, null, "4.1322"],
+    ["st3:Pulpí", "st3:Cuevas del Almanzora", "sys1-1.Pesados-1", "electronic", null, null, "1.4463"],
+    ["st3:Pulpí", "st3:Cuevas del Almanzora", "sys1-1.Pesados-2", "electronic", null, null, "2.0248"],
+    ["st3:Pulpí", "st3:Las Palas", "sys1-1.Pesados-1", "electronic", null, null, "7.3967"],
+    ["st3:Pulpí", "st3:Las Palas", "sys1-1.Pesados-2", "electronic", null, null, "10.3306"],
+    ["st3:Pulpí", "st3:Mazarrón", "sys1-1.Pesados-1", "electronic", null, null, "5.4959"],
+    ["st3:Pulpí", "st3:Mazarrón", "sys1-1.Pesados-2", "electronic", null, null, "7.686"],
+    ["st3:Pulpí", "st3:Ramonete", "sys1-1.Pesados-1", "electronic", null, null, "4.0083"],
+    ["st3:Pulpí", "st3:Ramonete", "sys1-1.Pesados-2", "electronic", null, null, "5.6198"],
+    ["st3:Pulpí", "st3:Águilas", "sys1-1.Pesados-1", "electronic", null, null, "1.4876"],
+    ["st3:Pulpí", "st3:Águilas", "sys1-1.Pesados-2", "electronic", null, null, "2.0661"],
+    ["st3:Ramonete", "st3:Cabo Cope", "sys1-1.Pesados-1", "electronic", null, null, "1.0744"],
+    ["st3:Ramonete", "st3:Cabo Cope", "sys1-1.Pesados-2", "electronic", null, null, "1.4876"],
+    ["st3:Ramonete", "st3:Cuevas del Almanzora", "sys1-1.Pesados-1", "electronic", null, null, "5.4545"],
+    ["st3:Ramonete", "st3:Cuevas del Almanzora", "sys1-1.Pesados-2", "electronic", null, null, "7.6033"],
+    ["st3:Ramonete", "st3:Las Palas", "sys1-1.Pesados-1", "electronic", null, null, "3.3884"],
+    ["st3:Ramonete", "st3:Las Palas", "sys1-1.Pesados-2", "electronic", null, null, "4.7521"],
+    ["st3:Ramonete", "st3:Mazarrón", "sys1-1.Pesados-1", "electronic", null, null, "1.4876"],
+    ["st3:Ramonete", "st3:Mazarrón", "sys1-1.Pesados-2", "electronic", null, null, "2.1074"],
+    ["st3:Ramonete", "st3:Pulpí", "sys1-1.Pesados-1", "electronic", null, null, "4.0083"],
+    ["st3:Ramonete", "st3:Pulpí", "sys1-1.Pesados-2", "electronic", null, null, "5.6198"],
+    ["st3:Ramonete", "st3:Águilas", "sys1-1.Pesados-1", "electronic", null, null, "2.562"],
+    ["st3:Ramonete", "st3:Águilas", "sys1-1.Pesados-2", "electronic", null, null, "3.5537"],
+    ["st3:Águilas", "st3:Cabo Cope", "sys1-1.Pesados-1", "electronic", null, null, "1.4876"],
+    ["st3:Águilas", "st3:Cabo Cope", "sys1-1.Pesados-2", "electronic", null, null, "2.1074"],
+    ["st3:Águilas", "st3:Cuevas del Almanzora", "sys1-1.Pesados-1", "electronic", null, null, "2.8926"],
+    ["st3:Águilas", "st3:Cuevas del Almanzora", "sys1-1.Pesados-2", "electronic", null, null, "4.0496"],
+    ["st3:Águilas", "st3:Las Palas", "sys1-1.Pesados-1", "electronic", null, null, "5.9504"],
+    ["st3:Águilas", "st3:Las Palas", "sys1-1.Pesados-2", "electronic", null, null, "8.3058"],
+    ["st3:Águilas", "st3:Mazarrón", "sys1-1.Pesados-1", "electronic", null, null, "4.0496"],
+    ["st3:Águilas", "st3:Mazarrón", "sys1-1.Pesados-2", "electronic", null, null, "5.6612"],
+    ["st3:Águilas", "st3:Pulpí", "sys1-1.Pesados-1", "electronic", null, null, "1.4876"],
+    ["st3:Águilas", "st3:Pulpí", "sys1-1.Pesados-2", "electronic", null, null, "2.0661"],
+    ["st3:Águilas", "st3:Ramonete", "sys1-1.Pesados-1", "electronic", null, null, "2.562"],
+    ["st3:Águilas", "st3:Ramonete", "sys1-1.Pesados-2", "electronic", null, null, "3.5537"],
+    [null, null, null, null, "sys1-free", 2, "0"]
+   ],
+   "sources": ["s1", "s2", "s3", "s4"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "osm_extract": "2026-11-27"
+  }
+ }
+}

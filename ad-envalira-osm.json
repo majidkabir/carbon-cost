@@ -1,0 +1,124 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-11-28T09:06:20Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "node",
+  "id": 1922647452,
+  "lat": 42.5490326,
+  "lon": 1.6971692,
+  "tags": {
+    "barrier": "toll_booth",
+    "payment:cash": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 7110383239,
+  "lat": 42.5490550,
+  "lon": 1.6972219,
+  "tags": {
+    "barrier": "toll_booth",
+    "payment:cards": "yes",
+    "payment:cash": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 7110383240,
+  "lat": 42.5490719,
+  "lon": 1.6972741,
+  "tags": {
+    "barrier": "toll_booth",
+    "payment:cards": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 7110383241,
+  "lat": 42.5490042,
+  "lon": 1.6971058,
+  "tags": {
+    "barrier": "toll_booth",
+    "payment:cash": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 7110383242,
+  "lat": 42.5489793,
+  "lon": 1.6970487,
+  "tags": {
+    "barrier": "toll_booth",
+    "payment:cards": "yes",
+    "payment:cash": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 7110383243,
+  "lat": 42.5489558,
+  "lon": 1.6969970,
+  "tags": {
+    "barrier": "toll_booth",
+    "payment:cards": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 6176755,
+  "bounds": {
+    "minlat": 42.5441932,
+    "minlon": 1.6994742,
+    "maxlat": 42.5467907,
+    "maxlon": 1.7331290
+  },
+  "geometry": [
+    { "lat": 42.5467824, "lon": 1.6994742 },
+    { "lat": 42.5466295, "lon": 1.6998057 },
+    { "lat": 42.5464968, "lon": 1.7000619 },
+    { "lat": 42.5463496, "lon": 1.7004173 },
+    { "lat": 42.5461713, "lon": 1.7007788 },
+    { "lat": 42.5458294, "lon": 1.7018192 },
+    { "lat": 42.5452381, "lon": 1.7037778 },
+    { "lat": 42.5447346, "lon": 1.7059444 },
+    { "lat": 42.5443489, "lon": 1.7089491 },
+    { "lat": 42.5441932, "lon": 1.7115664 },
+    { "lat": 42.5443276, "lon": 1.7156165 },
+    { "lat": 42.5447208, "lon": 1.7216998 },
+    { "lat": 42.5448666, "lon": 1.7232829 },
+    { "lat": 42.5450192, "lon": 1.7247736 },
+    { "lat": 42.5451927, "lon": 1.7262574 },
+    { "lat": 42.5453453, "lon": 1.7276596 },
+    { "lat": 42.5455967, "lon": 1.7295247 },
+    { "lat": 42.5458847, "lon": 1.7309963 },
+    { "lat": 42.5463434, "lon": 1.7322859 },
+    { "lat": 42.5467907, "lon": 1.7331290 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "foot": "no",
+    "highway": "trunk",
+    "horse": "no",
+    "lanes": "2",
+    "layer": "-1",
+    "maxheight": "4.3",
+    "maxspeed": "80",
+    "name": "Túnel d'Envalira",
+    "name:ca": "Túnel d'Envalira",
+    "oneway": "no",
+    "ref": "CG-2a",
+    "surface": "asphalt",
+    "toll": "yes",
+    "tunnel": "yes",
+    "wikipedia": "ca:Túnel d'Envalira"
+  }
+}
+
+  ]
+}

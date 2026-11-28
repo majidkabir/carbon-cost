@@ -1,0 +1,366 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/dk-bornholm/2027-01-01",
+  "scheme": {
+   "id": "dk-bornholm",
+   "name": "Bornholmslinjen's ferries to Bornholm, trucks",
+   "country": "DK"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2027-01-01",
+  "valid_to": "2027-12-31",
+  "currency": "DKK",
+  "timezone": "Europe/Copenhagen",
+  "license": "MIT",
+  "method": "Bornholmslinjen's freight prices for 2027 (per single trip, excluding VAT), loaded: Rønne–Køge lorry under 10 m 599, over 10 m 743, semi-trailer to 17 m 1078, road train to 19 m 1324 DKK and 39 DKK per metre over; Rønne–Ystad lorry under 10 m 534, over 10 m 643, semi-trailer to 17 m 998, road train to 19 m 1156 DKK and 21 DKK per metre over; Rønne–Sassnitz lorry under 10 m 1495, over 10 m 1695, semi-trailer to 17 m 2495, road train to 19 m 2495 DKK and 100 DKK per metre over. A truck's type from its length by Directive 96/53/EC's maximums: to 10 m and to 12 m a lorry, to 17 m an articulated vehicle, longer a road train (each started metre over 19 m at the price per metre). Empty trucks' prices and extra width (+100%) aren't used. Ports at OpenStreetMap's places, priced where the line goes out on its car ferry line. ",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "dk-bornholm-2027-01-01.json"
+  },
+  "required_features": ["type.od"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Bornholmslinjen: freight prices",
+   "url": "https://bornholmslinjen.com/practical-information/freight"
+  },
+  {
+   "id": "s2",
+   "title": "OpenStreetMap (Overpass API): ferry lines, terminals and places around Bornholm",
+   "url": "https://www.openstreetmap.org/"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Trucks over 3.5 t, by length (truck.length_m)",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "sys1-1",
+   "classes": [
+    {
+     "id": "sys1-1.up-to-10-m",
+     "label": "up to 10 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "max": 10
+      }
+     }
+    },
+    {
+     "id": "sys1-1.10-12-m",
+     "label": "10-12 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 10,
+       "max": 12
+      }
+     }
+    },
+    {
+     "id": "sys1-1.12-17-m",
+     "label": "12-17 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 12,
+       "max": 17
+      }
+     }
+    },
+    {
+     "id": "sys1-1.17-19-m",
+     "label": "17-19 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 17,
+       "max": 19
+      }
+     }
+    },
+    {
+     "id": "sys1-1.19-20-m",
+     "label": "19-20 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 19,
+       "max": 20
+      }
+     }
+    },
+    {
+     "id": "sys1-1.20-21-m",
+     "label": "20-21 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 20,
+       "max": 21
+      }
+     }
+    },
+    {
+     "id": "sys1-1.21-22-m",
+     "label": "21-22 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 21,
+       "max": 22
+      }
+     }
+    },
+    {
+     "id": "sys1-1.22-23-m",
+     "label": "22-23 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 22,
+       "max": 23
+      }
+     }
+    },
+    {
+     "id": "sys1-1.23-24-m",
+     "label": "23-24 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 23,
+       "max": 24
+      }
+     }
+    },
+    {
+     "id": "sys1-1.24-25-m",
+     "label": "24-25 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 24,
+       "max": 25
+      }
+     }
+    },
+    {
+     "id": "sys1-1.25-26-m",
+     "label": "25-26 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 25,
+       "max": 26
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "st1:Køge",
+   "type": "station",
+   "name": "Køge",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[12.202263, 55.454895]]
+    },
+    "point_names": ["Køge port, 0.5 km out on the line to Rønne (OSM way 157082988)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st1:Rønne",
+   "type": "station",
+   "name": "Rønne",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[14.625569, 55.087042]]
+    },
+    "point_names": ["Rønne port, 4.8 km out on the line to Køge (OSM way 157082988)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st2:Rønne",
+   "type": "station",
+   "name": "Rønne",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[14.627326, 55.08976]]
+    },
+    "point_names": ["Rønne port, 4.9 km out on the line to Ystad (OSM way 122285824)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st2:Ystad",
+   "type": "station",
+   "name": "Ystad",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[13.801016, 55.395578]]
+    },
+    "point_names": ["Ystad port, 3.8 km out on the line to Rønne (OSM way 122285824)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st3:Rønne",
+   "type": "station",
+   "name": "Rønne",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[14.638178, 55.081728]]
+    },
+    "point_names": ["Rønne port, 4.1 km out on the line to Sassnitz (OSM way 138471072)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st3:Sassnitz",
+   "type": "station",
+   "name": "Sassnitz",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[13.591477, 54.480362]]
+    },
+    "point_names": ["Sassnitz port, 0.5 km out on the line to Rønne (OSM way 138471072)"],
+    "match_m": 150
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "system1",
+   "name": "Bornholmslinjen: Rønne–Køge",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "Bornholmslinjen's freight prices 2027, loaded: Rønne–Køge",
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st1:Køge", "st1:Rønne", "sys1-1.10-12-m", "743"],
+    ["st1:Køge", "st1:Rønne", "sys1-1.12-17-m", "1078"],
+    ["st1:Køge", "st1:Rønne", "sys1-1.17-19-m", "1324"],
+    ["st1:Køge", "st1:Rønne", "sys1-1.19-20-m", "1363"],
+    ["st1:Køge", "st1:Rønne", "sys1-1.20-21-m", "1402"],
+    ["st1:Køge", "st1:Rønne", "sys1-1.21-22-m", "1441"],
+    ["st1:Køge", "st1:Rønne", "sys1-1.22-23-m", "1480"],
+    ["st1:Køge", "st1:Rønne", "sys1-1.23-24-m", "1519"],
+    ["st1:Køge", "st1:Rønne", "sys1-1.24-25-m", "1558"],
+    ["st1:Køge", "st1:Rønne", "sys1-1.25-26-m", "1597"],
+    ["st1:Køge", "st1:Rønne", "sys1-1.up-to-10-m", "599"]
+   ],
+   "sources": ["s1", "s2"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system2",
+   "name": "Bornholmslinjen: Rønne–Ystad",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "Bornholmslinjen's freight prices 2027, loaded: Rønne–Ystad",
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st2:Ystad", "st2:Rønne", "sys1-1.10-12-m", "643"],
+    ["st2:Ystad", "st2:Rønne", "sys1-1.12-17-m", "998"],
+    ["st2:Ystad", "st2:Rønne", "sys1-1.17-19-m", "1156"],
+    ["st2:Ystad", "st2:Rønne", "sys1-1.19-20-m", "1177"],
+    ["st2:Ystad", "st2:Rønne", "sys1-1.20-21-m", "1198"],
+    ["st2:Ystad", "st2:Rønne", "sys1-1.21-22-m", "1219"],
+    ["st2:Ystad", "st2:Rønne", "sys1-1.22-23-m", "1240"],
+    ["st2:Ystad", "st2:Rønne", "sys1-1.23-24-m", "1261"],
+    ["st2:Ystad", "st2:Rønne", "sys1-1.24-25-m", "1282"],
+    ["st2:Ystad", "st2:Rønne", "sys1-1.25-26-m", "1303"],
+    ["st2:Ystad", "st2:Rønne", "sys1-1.up-to-10-m", "534"]
+   ],
+   "sources": ["s1", "s2"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system3",
+   "name": "Bornholmslinjen: Rønne–Sassnitz",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "Bornholmslinjen's freight prices 2027, loaded: Rønne–Sassnitz",
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st3:Sassnitz", "st3:Rønne", "sys1-1.10-12-m", "1695"],
+    ["st3:Sassnitz", "st3:Rønne", "sys1-1.12-17-m", "2495"],
+    ["st3:Sassnitz", "st3:Rønne", "sys1-1.17-19-m", "2495"],
+    ["st3:Sassnitz", "st3:Rønne", "sys1-1.19-20-m", "2595"],
+    ["st3:Sassnitz", "st3:Rønne", "sys1-1.20-21-m", "2695"],
+    ["st3:Sassnitz", "st3:Rønne", "sys1-1.21-22-m", "2795"],
+    ["st3:Sassnitz", "st3:Rønne", "sys1-1.22-23-m", "2895"],
+    ["st3:Sassnitz", "st3:Rønne", "sys1-1.23-24-m", "2995"],
+    ["st3:Sassnitz", "st3:Rønne", "sys1-1.24-25-m", "3095"],
+    ["st3:Sassnitz", "st3:Rønne", "sys1-1.25-26-m", "3195"],
+    ["st3:Sassnitz", "st3:Rønne", "sys1-1.up-to-10-m", "1495"]
+   ],
+   "sources": ["s1", "s2"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "crossings": true,
+   "ferry": true
+  }
+ }
+}

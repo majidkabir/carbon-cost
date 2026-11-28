@@ -1,0 +1,725 @@
+{
+ "country": "PL",
+ "currency": "PLN",
+ "valid_from": "2012-02-11",
+ "crossings": true,
+ "osm_extract": "2026-11-28",
+ "name": "A1 Rusocin-Toruń (AmberOne, Gdańsk Transport Company)",
+ "law": "AmberOne's tolls including VAT, in force from 2012-02-11 (the per-km rates set by the Minister of Infrastructure): a closed system of twelve toll stations, priced from the station of entry to that of exit, the same for categories 2, 3 and 4 (two, three, or more than three axles, at least one with twin wheels): PLN 71 Rusocin-Nowa Wieś. The e-TOLL doesn't charge this stretch. The stations are placed at the motorway junctions of their names and their toll booths in OpenStreetMap. AmberGO automatic payment changes nothing in the price.",
+ "sources": [
+  {
+   "title": "AmberOne Autostrada A1: Kalkulator opłat i planowanie podróży (tabela opłat, system poboru, klasyfikacja pojazdów)",
+   "url": "https://a1.com.pl/kalkulator-oplat-i-planowanie-podrozy/"
+  },
+  {
+   "title": "OpenStreetMap (Overpass API): A1 junctions and toll booths",
+   "url": "https://www.openstreetmap.org/"
+  }
+ ],
+ "vehicles": "Vehicles over 3.5 t (categories 2-4)",
+ "min_kg": 3501,
+ "tolled_roads": "A1 Rusocin (Gdańsk) - Nowa Wieś (Toruń), 152 km.",
+ "closed_systems": [
+  {
+   "name": "A1 Rusocin-Toruń (AmberOne)",
+   "law": "AmberOne's tabela opłat, categories 2-4, PLN including VAT",
+   "groups": [
+    {
+     "name": "2-4",
+     "min_kg": 3501
+    }
+   ],
+   "stations": [
+    {
+     "name": "Rusocin",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 54.22679,
+       "lon": 18.61205
+      },
+      {
+       "name": "booth",
+       "lat": 54.22684,
+       "lon": 18.61263
+      },
+      {
+       "name": "junction",
+       "lat": 54.2352,
+       "lon": 18.60865
+      },
+      {
+       "name": "junction",
+       "lat": 54.2352,
+       "lon": 18.60888
+      }
+     ]
+    },
+    {
+     "name": "Stanisławie",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 54.09963,
+       "lon": 18.69492
+      },
+      {
+       "name": "booth",
+       "lat": 54.09963,
+       "lon": 18.69508
+      },
+      {
+       "name": "junction",
+       "lat": 54.1009,
+       "lon": 18.6923
+      },
+      {
+       "name": "junction",
+       "lat": 54.10588,
+       "lon": 18.69229
+      }
+     ]
+    },
+    {
+     "name": "Swarożyn",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 54.03487,
+       "lon": 18.67451
+      },
+      {
+       "name": "booth",
+       "lat": 54.03488,
+       "lon": 18.67436
+      },
+      {
+       "name": "junction",
+       "lat": 54.02966,
+       "lon": 18.67053
+      },
+      {
+       "name": "junction",
+       "lat": 54.03068,
+       "lon": 18.67057
+      }
+     ]
+    },
+    {
+     "name": "Pelplin",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 53.93024,
+       "lon": 18.64294
+      },
+      {
+       "name": "booth",
+       "lat": 53.93021,
+       "lon": 18.64311
+      },
+      {
+       "name": "junction",
+       "lat": 53.93294,
+       "lon": 18.64085
+      },
+      {
+       "name": "junction",
+       "lat": 53.93163,
+       "lon": 18.64091
+      }
+     ]
+    },
+    {
+     "name": "Kopytkowo",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 53.73874,
+       "lon": 18.63316
+      },
+      {
+       "name": "booth",
+       "lat": 53.73872,
+       "lon": 18.63332
+      },
+      {
+       "name": "junction",
+       "lat": 53.73446,
+       "lon": 18.62918
+      },
+      {
+       "name": "junction",
+       "lat": 53.73513,
+       "lon": 18.62911
+      }
+     ]
+    },
+    {
+     "name": "Warlubie",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 53.60336,
+       "lon": 18.61749
+      },
+      {
+       "name": "booth",
+       "lat": 53.60341,
+       "lon": 18.61738
+      },
+      {
+       "name": "junction",
+       "lat": 53.60585,
+       "lon": 18.62347
+      },
+      {
+       "name": "junction",
+       "lat": 53.60621,
+       "lon": 18.62358
+      }
+     ]
+    },
+    {
+     "name": "Nowe Marzy",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 53.46813,
+       "lon": 18.61443
+      },
+      {
+       "name": "booth",
+       "lat": 53.4682,
+       "lon": 18.61469
+      },
+      {
+       "name": "junction",
+       "lat": 53.47397,
+       "lon": 18.61771
+      },
+      {
+       "name": "junction",
+       "lat": 53.47432,
+       "lon": 18.61744
+      }
+     ]
+    },
+    {
+     "name": "Grudziądz",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 53.42842,
+       "lon": 18.69837
+      },
+      {
+       "name": "booth",
+       "lat": 53.42829,
+       "lon": 18.69844
+      },
+      {
+       "name": "junction",
+       "lat": 53.42638,
+       "lon": 18.69289
+      },
+      {
+       "name": "junction",
+       "lat": 53.42503,
+       "lon": 18.69271
+      }
+     ]
+    },
+    {
+     "name": "Lisewo",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 53.29069,
+       "lon": 18.70492
+      },
+      {
+       "name": "booth",
+       "lat": 53.29068,
+       "lon": 18.70476
+      },
+      {
+       "name": "junction",
+       "lat": 53.2853,
+       "lon": 18.70935
+      },
+      {
+       "name": "junction",
+       "lat": 53.29001,
+       "lon": 18.70782
+      }
+     ]
+    },
+    {
+     "name": "Turzno",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 53.0927,
+       "lon": 18.75554
+      },
+      {
+       "name": "booth",
+       "lat": 53.0928,
+       "lon": 18.75543
+      },
+      {
+       "name": "junction",
+       "lat": 53.08928,
+       "lon": 18.75028
+      },
+      {
+       "name": "junction",
+       "lat": 53.08742,
+       "lon": 18.75071
+      }
+     ]
+    },
+    {
+     "name": "Lubicz",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 53.03564,
+       "lon": 18.73763
+      },
+      {
+       "name": "booth",
+       "lat": 53.03545,
+       "lon": 18.73748
+      },
+      {
+       "name": "junction",
+       "lat": 53.03229,
+       "lon": 18.7314
+      },
+      {
+       "name": "junction",
+       "lat": 53.03689,
+       "lon": 18.7322
+      }
+     ]
+    },
+    {
+     "name": "Nowa Wieś",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 53.00975,
+       "lon": 18.73478
+      },
+      {
+       "name": "booth",
+       "lat": 53.00981,
+       "lon": 18.73427
+      }
+     ]
+    }
+   ],
+   "prices": {
+    "Rusocin|Stanisławie": {
+     "2-4": 8.3
+    },
+    "Rusocin|Swarożyn": {
+     "2-4": 11.6
+    },
+    "Rusocin|Pelplin": {
+     "2-4": 17.5
+    },
+    "Rusocin|Kopytkowo": {
+     "2-4": 26.9
+    },
+    "Rusocin|Warlubie": {
+     "2-4": 35.0
+    },
+    "Rusocin|Nowe Marzy": {
+     "2-4": 41.8
+    },
+    "Rusocin|Grudziądz": {
+     "2-4": 45.5
+    },
+    "Rusocin|Lisewo": {
+     "2-4": 52.9
+    },
+    "Rusocin|Turzno": {
+     "2-4": 63.4
+    },
+    "Rusocin|Lubicz": {
+     "2-4": 66.3
+    },
+    "Rusocin|Nowa Wieś": {
+     "2-4": 71.0
+    },
+    "Stanisławie|Rusocin": {
+     "2-4": 8.3
+    },
+    "Stanisławie|Swarożyn": {
+     "2-4": 3.3
+    },
+    "Stanisławie|Pelplin": {
+     "2-4": 9.2
+    },
+    "Stanisławie|Kopytkowo": {
+     "2-4": 18.6
+    },
+    "Stanisławie|Warlubie": {
+     "2-4": 26.7
+    },
+    "Stanisławie|Nowe Marzy": {
+     "2-4": 33.5
+    },
+    "Stanisławie|Grudziądz": {
+     "2-4": 37.2
+    },
+    "Stanisławie|Lisewo": {
+     "2-4": 44.6
+    },
+    "Stanisławie|Turzno": {
+     "2-4": 55.1
+    },
+    "Stanisławie|Lubicz": {
+     "2-4": 58.0
+    },
+    "Stanisławie|Nowa Wieś": {
+     "2-4": 62.7
+    },
+    "Swarożyn|Rusocin": {
+     "2-4": 11.6
+    },
+    "Swarożyn|Stanisławie": {
+     "2-4": 3.3
+    },
+    "Swarożyn|Pelplin": {
+     "2-4": 5.9
+    },
+    "Swarożyn|Kopytkowo": {
+     "2-4": 15.3
+    },
+    "Swarożyn|Warlubie": {
+     "2-4": 23.4
+    },
+    "Swarożyn|Nowe Marzy": {
+     "2-4": 30.2
+    },
+    "Swarożyn|Grudziądz": {
+     "2-4": 33.9
+    },
+    "Swarożyn|Lisewo": {
+     "2-4": 41.3
+    },
+    "Swarożyn|Turzno": {
+     "2-4": 51.8
+    },
+    "Swarożyn|Lubicz": {
+     "2-4": 54.7
+    },
+    "Swarożyn|Nowa Wieś": {
+     "2-4": 59.4
+    },
+    "Pelplin|Rusocin": {
+     "2-4": 17.5
+    },
+    "Pelplin|Stanisławie": {
+     "2-4": 9.2
+    },
+    "Pelplin|Swarożyn": {
+     "2-4": 5.9
+    },
+    "Pelplin|Kopytkowo": {
+     "2-4": 9.4
+    },
+    "Pelplin|Warlubie": {
+     "2-4": 17.5
+    },
+    "Pelplin|Nowe Marzy": {
+     "2-4": 24.3
+    },
+    "Pelplin|Grudziądz": {
+     "2-4": 28.0
+    },
+    "Pelplin|Lisewo": {
+     "2-4": 35.4
+    },
+    "Pelplin|Turzno": {
+     "2-4": 45.9
+    },
+    "Pelplin|Lubicz": {
+     "2-4": 48.8
+    },
+    "Pelplin|Nowa Wieś": {
+     "2-4": 53.5
+    },
+    "Kopytkowo|Rusocin": {
+     "2-4": 26.9
+    },
+    "Kopytkowo|Stanisławie": {
+     "2-4": 18.6
+    },
+    "Kopytkowo|Swarożyn": {
+     "2-4": 15.3
+    },
+    "Kopytkowo|Pelplin": {
+     "2-4": 9.4
+    },
+    "Kopytkowo|Warlubie": {
+     "2-4": 8.1
+    },
+    "Kopytkowo|Nowe Marzy": {
+     "2-4": 14.9
+    },
+    "Kopytkowo|Grudziądz": {
+     "2-4": 18.6
+    },
+    "Kopytkowo|Lisewo": {
+     "2-4": 26.0
+    },
+    "Kopytkowo|Turzno": {
+     "2-4": 36.5
+    },
+    "Kopytkowo|Lubicz": {
+     "2-4": 39.4
+    },
+    "Kopytkowo|Nowa Wieś": {
+     "2-4": 44.1
+    },
+    "Warlubie|Rusocin": {
+     "2-4": 35.0
+    },
+    "Warlubie|Stanisławie": {
+     "2-4": 26.7
+    },
+    "Warlubie|Swarożyn": {
+     "2-4": 23.4
+    },
+    "Warlubie|Pelplin": {
+     "2-4": 17.5
+    },
+    "Warlubie|Kopytkowo": {
+     "2-4": 8.1
+    },
+    "Warlubie|Nowe Marzy": {
+     "2-4": 6.8
+    },
+    "Warlubie|Grudziądz": {
+     "2-4": 10.5
+    },
+    "Warlubie|Lisewo": {
+     "2-4": 17.9
+    },
+    "Warlubie|Turzno": {
+     "2-4": 28.4
+    },
+    "Warlubie|Lubicz": {
+     "2-4": 31.3
+    },
+    "Warlubie|Nowa Wieś": {
+     "2-4": 36.0
+    },
+    "Nowe Marzy|Rusocin": {
+     "2-4": 41.8
+    },
+    "Nowe Marzy|Stanisławie": {
+     "2-4": 33.5
+    },
+    "Nowe Marzy|Swarożyn": {
+     "2-4": 30.2
+    },
+    "Nowe Marzy|Pelplin": {
+     "2-4": 24.3
+    },
+    "Nowe Marzy|Kopytkowo": {
+     "2-4": 14.9
+    },
+    "Nowe Marzy|Warlubie": {
+     "2-4": 6.8
+    },
+    "Nowe Marzy|Grudziądz": {
+     "2-4": 3.7
+    },
+    "Nowe Marzy|Lisewo": {
+     "2-4": 11.1
+    },
+    "Nowe Marzy|Turzno": {
+     "2-4": 21.6
+    },
+    "Nowe Marzy|Lubicz": {
+     "2-4": 24.5
+    },
+    "Nowe Marzy|Nowa Wieś": {
+     "2-4": 29.2
+    },
+    "Grudziądz|Rusocin": {
+     "2-4": 45.5
+    },
+    "Grudziądz|Stanisławie": {
+     "2-4": 37.2
+    },
+    "Grudziądz|Swarożyn": {
+     "2-4": 33.9
+    },
+    "Grudziądz|Pelplin": {
+     "2-4": 28.0
+    },
+    "Grudziądz|Kopytkowo": {
+     "2-4": 18.6
+    },
+    "Grudziądz|Warlubie": {
+     "2-4": 10.5
+    },
+    "Grudziądz|Nowe Marzy": {
+     "2-4": 3.7
+    },
+    "Grudziądz|Lisewo": {
+     "2-4": 7.4
+    },
+    "Grudziądz|Turzno": {
+     "2-4": 17.9
+    },
+    "Grudziądz|Lubicz": {
+     "2-4": 20.8
+    },
+    "Grudziądz|Nowa Wieś": {
+     "2-4": 25.5
+    },
+    "Lisewo|Rusocin": {
+     "2-4": 52.9
+    },
+    "Lisewo|Stanisławie": {
+     "2-4": 44.6
+    },
+    "Lisewo|Swarożyn": {
+     "2-4": 41.3
+    },
+    "Lisewo|Pelplin": {
+     "2-4": 35.4
+    },
+    "Lisewo|Kopytkowo": {
+     "2-4": 26.0
+    },
+    "Lisewo|Warlubie": {
+     "2-4": 17.9
+    },
+    "Lisewo|Nowe Marzy": {
+     "2-4": 11.1
+    },
+    "Lisewo|Grudziądz": {
+     "2-4": 7.4
+    },
+    "Lisewo|Turzno": {
+     "2-4": 10.5
+    },
+    "Lisewo|Lubicz": {
+     "2-4": 13.4
+    },
+    "Lisewo|Nowa Wieś": {
+     "2-4": 18.1
+    },
+    "Turzno|Rusocin": {
+     "2-4": 63.4
+    },
+    "Turzno|Stanisławie": {
+     "2-4": 55.1
+    },
+    "Turzno|Swarożyn": {
+     "2-4": 51.8
+    },
+    "Turzno|Pelplin": {
+     "2-4": 45.9
+    },
+    "Turzno|Kopytkowo": {
+     "2-4": 36.5
+    },
+    "Turzno|Warlubie": {
+     "2-4": 28.4
+    },
+    "Turzno|Nowe Marzy": {
+     "2-4": 21.6
+    },
+    "Turzno|Grudziądz": {
+     "2-4": 17.9
+    },
+    "Turzno|Lisewo": {
+     "2-4": 10.5
+    },
+    "Turzno|Lubicz": {
+     "2-4": 2.9
+    },
+    "Turzno|Nowa Wieś": {
+     "2-4": 7.6
+    },
+    "Lubicz|Rusocin": {
+     "2-4": 66.3
+    },
+    "Lubicz|Stanisławie": {
+     "2-4": 58.0
+    },
+    "Lubicz|Swarożyn": {
+     "2-4": 54.7
+    },
+    "Lubicz|Pelplin": {
+     "2-4": 48.8
+    },
+    "Lubicz|Kopytkowo": {
+     "2-4": 39.4
+    },
+    "Lubicz|Warlubie": {
+     "2-4": 31.3
+    },
+    "Lubicz|Nowe Marzy": {
+     "2-4": 24.5
+    },
+    "Lubicz|Grudziądz": {
+     "2-4": 20.8
+    },
+    "Lubicz|Lisewo": {
+     "2-4": 13.4
+    },
+    "Lubicz|Turzno": {
+     "2-4": 2.9
+    },
+    "Lubicz|Nowa Wieś": {
+     "2-4": 4.7
+    },
+    "Nowa Wieś|Rusocin": {
+     "2-4": 71.0
+    },
+    "Nowa Wieś|Stanisławie": {
+     "2-4": 62.7
+    },
+    "Nowa Wieś|Swarożyn": {
+     "2-4": 59.4
+    },
+    "Nowa Wieś|Pelplin": {
+     "2-4": 53.5
+    },
+    "Nowa Wieś|Kopytkowo": {
+     "2-4": 44.1
+    },
+    "Nowa Wieś|Warlubie": {
+     "2-4": 36.0
+    },
+    "Nowa Wieś|Nowe Marzy": {
+     "2-4": 29.2
+    },
+    "Nowa Wieś|Grudziądz": {
+     "2-4": 25.5
+    },
+    "Nowa Wieś|Lisewo": {
+     "2-4": 18.1
+    },
+    "Nowa Wieś|Turzno": {
+     "2-4": 7.6
+    },
+    "Nowa Wieś|Lubicz": {
+     "2-4": 4.7
+    }
+   }
+  }
+ ],
+ "rows": []
+}

@@ -1,0 +1,236 @@
+{
+ "country": "DE",
+ "currency": "EUR",
+ "valid_from": "2026-03-23",
+ "valid_to": "2026-05-05",
+ "crossings": true,
+ "ferry": true,
+ "name": "Elbe ferry Glückstadt–Wischhafen (FRS Elbfähre), trucks and their load",
+ "law": "FRS Elbfähre's fares for trucks and cargo, valid 1 January to 31 December 2026 (the Internet Archive's copy of 8 November 2026): a truck, unloaded and without its driver, net of 19% VAT, by its length over all: to 5 m EUR 13.87, to 6 m EUR 16.39, to 7 m EUR 19.75, to 8 m EUR 23.11, to 9 m EUR 24.37, to 10 m EUR 25.63, to 11 m EUR 27.73, to 12 m EUR 28.99, to 13 m EUR 30.25, to 14 m EUR 32.35, to 15 m EUR 34.03, to 16 m EUR 34.87, to 17 m EUR 36.13, to 18.35 m EUR 37.39, each further metre (overhanging ones too) EUR 4.20, at most 23 m; the load by weight, EUR 1.26 per started 1,000 kg. Plus the fuel surcharge per truck, EUR 1.80 gross (as of 2026-03-23), EUR 1.51 net. The driver's own fare (adults \"from\" EUR 3.40) isn't added, nor the surcharges for over 2.50 m wide (30%) or dangerous goods, nor the frequent travellers' discounts. Ports at OpenStreetMap's ferry terminals, priced where the line goes out on its car ferry line.",
+ "sources": [
+  {
+   "title": "FRS Elbfähre: LKW und Fracht (fares for trucks and cargo)",
+   "url": "https://www.frs-elbfaehre.de/fahrpreise/lkw-und-fracht"
+  },
+  {
+   "title": "FRS Elbfähre: Treibstoffzuschlag (fuel surcharge)",
+   "url": "https://www.frs-elbfaehre.de/treibstoffzuschlag"
+  },
+  {
+   "title": "OpenStreetMap (Overpass API): the ferry line and its terminals",
+   "url": "https://www.openstreetmap.org/"
+  }
+ ],
+ "vehicles": "Trucks over 3.5 t, by length (truck.length_m), and their load (cargo_kg)",
+ "min_kg": 3501,
+ "tolled_roads": "The Elbe ferry Glückstadt–Wischhafen.",
+ "closed_systems": [
+  {
+   "name": "Elbfähre Glückstadt–Wischhafen: the truck",
+   "law": "FRS Elbfähre's fares for trucks (unloaded, without the driver), net, by length",
+   "groups": [
+    {
+     "name": "up to 5 m",
+     "min_kg": 3501,
+     "max_length_m": 5.0
+    },
+    {
+     "name": "5-6 m",
+     "min_kg": 3501,
+     "max_length_m": 6.0,
+     "min_length_m": 5.0
+    },
+    {
+     "name": "6-7 m",
+     "min_kg": 3501,
+     "max_length_m": 7.0,
+     "min_length_m": 6.0
+    },
+    {
+     "name": "7-8 m",
+     "min_kg": 3501,
+     "max_length_m": 8.0,
+     "min_length_m": 7.0
+    },
+    {
+     "name": "8-9 m",
+     "min_kg": 3501,
+     "max_length_m": 9.0,
+     "min_length_m": 8.0
+    },
+    {
+     "name": "9-10 m",
+     "min_kg": 3501,
+     "max_length_m": 10.0,
+     "min_length_m": 9.0
+    },
+    {
+     "name": "10-11 m",
+     "min_kg": 3501,
+     "max_length_m": 11.0,
+     "min_length_m": 10.0
+    },
+    {
+     "name": "11-12 m",
+     "min_kg": 3501,
+     "max_length_m": 12.0,
+     "min_length_m": 11.0
+    },
+    {
+     "name": "12-13 m",
+     "min_kg": 3501,
+     "max_length_m": 13.0,
+     "min_length_m": 12.0
+    },
+    {
+     "name": "13-14 m",
+     "min_kg": 3501,
+     "max_length_m": 14.0,
+     "min_length_m": 13.0
+    },
+    {
+     "name": "14-15 m",
+     "min_kg": 3501,
+     "max_length_m": 15.0,
+     "min_length_m": 14.0
+    },
+    {
+     "name": "15-16 m",
+     "min_kg": 3501,
+     "max_length_m": 16.0,
+     "min_length_m": 15.0
+    },
+    {
+     "name": "16-17 m",
+     "min_kg": 3501,
+     "max_length_m": 17.0,
+     "min_length_m": 16.0
+    },
+    {
+     "name": "17-18.35 m",
+     "min_kg": 3501,
+     "max_length_m": 18.35,
+     "min_length_m": 17.0
+    },
+    {
+     "name": "18.35-19.35 m",
+     "min_kg": 3501,
+     "max_length_m": 19.35,
+     "min_length_m": 18.35
+    },
+    {
+     "name": "19.35-20.35 m",
+     "min_kg": 3501,
+     "max_length_m": 20.35,
+     "min_length_m": 19.35
+    },
+    {
+     "name": "20.35-21.35 m",
+     "min_kg": 3501,
+     "max_length_m": 21.35,
+     "min_length_m": 20.35
+    },
+    {
+     "name": "21.35-22.35 m",
+     "min_kg": 3501,
+     "max_length_m": 22.35,
+     "min_length_m": 21.35
+    },
+    {
+     "name": "22.35-23 m",
+     "min_kg": 3501,
+     "max_length_m": 23.0,
+     "min_length_m": 22.35
+    }
+   ],
+   "stations": [
+    {
+     "name": "Glückstadt",
+     "points": [
+      {
+       "name": "Glückstadt port, 0.5 km out on the line to Wischhafen (OSM way 50897526)",
+       "lat": 53.793962,
+       "lon": 9.398622
+      }
+     ]
+    },
+    {
+     "name": "Wischhafen",
+     "points": [
+      {
+       "name": "Wischhafen port, 0.5 km out on the line to Glückstadt (OSM way 50897526)",
+       "lat": 53.78884,
+       "lon": 9.352505
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Glückstadt|Wischhafen": {
+     "up to 5 m": 15.38,
+     "5-6 m": 17.9,
+     "6-7 m": 21.26,
+     "7-8 m": 24.62,
+     "8-9 m": 25.88,
+     "9-10 m": 27.14,
+     "10-11 m": 29.24,
+     "11-12 m": 30.5,
+     "12-13 m": 31.76,
+     "13-14 m": 33.86,
+     "14-15 m": 35.54,
+     "15-16 m": 36.38,
+     "16-17 m": 37.64,
+     "17-18.35 m": 38.9,
+     "18.35-19.35 m": 43.1,
+     "19.35-20.35 m": 47.3,
+     "20.35-21.35 m": 51.5,
+     "21.35-22.35 m": 55.7,
+     "22.35-23 m": 59.9
+    }
+   }
+  },
+  {
+   "name": "Elbfähre Glückstadt–Wischhafen: the load",
+   "law": "FRS Elbfähre's fare for loads by weight, net, per started 1,000 kg",
+   "groups": [
+    {
+     "name": "per started 1,000 kg of load",
+     "min_kg": 3501
+    }
+   ],
+   "stations": [
+    {
+     "name": "Glückstadt",
+     "points": [
+      {
+       "name": "Glückstadt port, 0.5 km out on the line to Wischhafen (OSM way 50897526)",
+       "lat": 53.793962,
+       "lon": 9.398622
+      }
+     ]
+    },
+    {
+     "name": "Wischhafen",
+     "points": [
+      {
+       "name": "Wischhafen port, 0.5 km out on the line to Glückstadt (OSM way 50897526)",
+       "lat": 53.78884,
+       "lon": 9.352505
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Glückstadt|Wischhafen": {
+     "per started 1,000 kg of load": 1.26
+    }
+   },
+   "unit": "t",
+   "mass_basis": "load_kg",
+   "mass_step_kg": 1000
+  }
+ ],
+ "rows": []
+}

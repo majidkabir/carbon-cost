@@ -111,6 +111,22 @@ const form = (w) => (n) => w.document.getElementById("f").elements.namedItem(n);
   f("diesel_price").value = "";
 }
 
+// An error's advice is itself read one way (as calc's).
+{
+  const w = page();
+  for (const [input, value, counts] of [["DE=1,200", "1,200", false], ["CHF=0,93;CZK=24.305", "24.305", false], ["DE=412.345", "412.345", true], ["DE=3.200", "3.200", true]]) {
+    let msg = "";
+    try { w.eval(`countryValues(${JSON.stringify(input)}, "x", ${counts})`); } catch (e) { msg = e.message; }
+    const m = msg.match(/write (\S+), or (\S+)$/);
+    check(m, `${input}: advice in ${JSON.stringify(msg)}`);
+    for (const way of m ? m.slice(1) : []) {
+      let err = "";
+      try { w.eval(`countryValues(${JSON.stringify(input.replace(value, way))}, "x", ${counts})`); } catch (e) { err = e.message; }
+      check(err === "", `${input}: the advice ${way} is refused: ${err}`);
+    }
+  }
+}
+
 // Lists by country as calc reads them: the cases both run.
 {
   const w = page();

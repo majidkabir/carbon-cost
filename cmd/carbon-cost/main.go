@@ -385,14 +385,14 @@ func countryValues(s string, counts bool) ([]countryValue, error) {
 			return nil, fmt.Errorf("%q is not COUNTRY=number", e)
 		}
 		if m[3] == "," && len(m[2]) <= 3 && len(m[4]) == 3 {
-			return nil, fmt.Errorf("%q: %s,%s is %s%s or %s.%s: write it without the comma, or with a decimal point", e, m[2], m[4], m[2], m[4], m[2], m[4])
+			return nil, ambiguous(s, m)
 		}
 		commas = commas || m[3] == ","
 		ms = append(ms, m)
 	}
 	for _, m := range ms {
 		if (commas || counts) && m[3] == "." && len(m[2]) <= 3 && len(m[4]) == 3 {
-			return nil, fmt.Errorf("%q: %s.%s is %s%s, or %s.%s to three decimals? write %s%s, or the decimals without the trailing zeros", s, m[2], m[4], m[2], m[4], m[2], m[4], m[2], m[4])
+			return nil, ambiguous(s, m)
 		}
 		num := m[2]
 		if m[4] != "" {
@@ -405,6 +405,23 @@ func countryValues(s string, counts bool) ([]countryValue, error) {
 		out = append(out, countryValue{strings.ToUpper(m[1]), v})
 	}
 	return out, nil
+}
+
+// ambiguous is the error for 1,200 or 3.200 (a thousand, or a decimal?):
+// the two ways to write it that are read one way (1200, or 1,2 / 3.2;
+// 24,3050 for three decimals that are all there).
+func ambiguous(s string, m []string) error {
+	num := m[2] + m[3] + m[4]
+	frac := strings.TrimRight(m[4], "0")
+	dec := m[2]
+	switch {
+	case frac == "":
+	case len(frac) == 3:
+		dec += m[3] + frac + "0"
+	default:
+		dec += m[3] + frac
+	}
+	return fmt.Errorf("%q: %s is %s%s or %s? write %s%s, or %s", s, num, m[2], m[4], strings.Replace(num, m[3], ".", 1), m[2], m[4], dec)
 }
 
 // listEntries splits a list as countryValues says.

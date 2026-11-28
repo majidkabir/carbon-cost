@@ -5,9 +5,11 @@ import (
 	"encoding/csv"
 	"encoding/json"
 	"flag"
+	"fmt"
 	"io"
 	"os"
 	"reflect"
+	"regexp"
 	"runtime/debug"
 	"slices"
 	"strings"
@@ -204,6 +206,26 @@ func TestCountryValues(t *testing.T) {
 		}
 		if (err != nil) != (want == nil) || want != nil && !reflect.DeepEqual(got, want) {
 			t.Errorf("%q: %v %v; want %v", in, got, err, want)
+		}
+	}
+	// An error's advice is itself read one way: each way it suggests, put in
+	// the list's place, is accepted.
+	advice := regexp.MustCompile(`write (\S+), or (\S+)$`)
+	for _, c := range []struct {
+		in, value string
+		counts    bool
+	}{{"DE=1,200", "1,200", false}, {"DE=1,200", "1,200", true}, {"DE=1,5,PL=1,200", "1,200", false}, {"CHF=0,93;CZK=24.305", "24.305", false},
+		{"DE=1,5;PL=1.459", "1.459", false}, {"DE=412.345", "412.345", true}, {"DE=3.200", "3.200", true}} {
+		_, err := countryValues(c.in, c.counts)
+		m := advice.FindStringSubmatch(fmt.Sprint(err))
+		if m == nil {
+			t.Errorf("%q: %v: no advice", c.in, err)
+			continue
+		}
+		for _, w := range m[1:] {
+			if _, err := countryValues(strings.Replace(c.in, c.value, w, 1), c.counts); err != nil {
+				t.Errorf("%q: the advice %q is refused: %v", c.in, w, err)
+			}
 		}
 	}
 	// Each flag that takes a list, and what it reads; a country twice adds

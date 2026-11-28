@@ -174,6 +174,18 @@ def test_sources_missing():
         assert lez == [1], "the LEZ wasn't built"
     finally:
         gb_london.lez = real
+    # A crash in one zone's build (an empty OSM answer) doesn't stop the other.
+    lez.clear()
+    real_ccz, gb_london.ccz = gb_london.ccz, lambda *a: json.loads("")
+    gb_london.lez = lambda *a: lez.append(1)
+    try:
+        with contextlib.redirect_stdout(io.StringIO()):
+            gb_london.main(d, d)
+        raise AssertionError("London built with a crash")
+    except SystemExit:
+        assert lez == [1], "the LEZ wasn't built after the Congestion Charge crashed"
+    finally:
+        gb_london.ccz, gb_london.lez = real_ccz, real
     # GOV.UK's page fetched but no longer saying a weekend's bank holiday moves.
     open(os.path.join(d, "gb-bank-holidays.html"), "w").write("<p>Bank holidays</p>")
     try:
@@ -189,8 +201,10 @@ def test_sources_missing():
 
 
 def test_check_browser_fr():
-    """An FR page read 2027-02-10 is kept by build.py to 2027-05-13; check_browser
-    asks for it two weeks before."""
+    """An FR page read 2027-02-10 is kept by build.py to 2027-05-13 (92 days
+    past its tariff year); check_browser asks for it two weeks before. (A
+    page kept only to its tariff year's end, 31 January, is asked for at
+    the latest from 1 February, the day the new tariffs come.)"""
     import check_browser
     keep = fr.in_force_to({"valid_from": "", "read_on": "2027-02-10"})
     import datetime

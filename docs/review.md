@@ -56,11 +56,13 @@ line here, so the next change is checked for it.
 - A workflow step is run on the empty case (no tables built) and on a
   crash (a step piped into tee runs with pipefail: shell: bash) before it
   is pushed.
-- A source a table needs that isn't fetched stops the build, loudly, and
-  the builder's other tables are still built.
+- A source added for a table, not fetched, stops its build loudly, and
+  the builder's other tables are still built, on a stop or a crash
+  (older sources fall back on reuse.py's last copy).
 - Dates a builder generates (substitute days) cover every year the table
-  can be used in; a reminder to read a page again comes before the data
-  stops (test_next_year.py runs both).
+  can be used in; a reminder to read a page again comes before a page
+  kept past its tariff year stops, and on the yearly change's day
+  (test_next_year.py runs both).
 
 ## Road classes (tools/roads)
 

@@ -175,8 +175,8 @@ def main(fetched, out, browser=os.path.join(os.path.dirname(os.path.abspath(__fi
     for name, build in (("Congestion Charge", lambda: ccz(fetched, out)), ("LEZ", lambda: lez(browser, fetched, out))):
         try:
             build()
-        except SystemExit as e:
-            print(f"::error title=London {name}::{e}")
+        except (SystemExit, Exception) as e:  # a stop, or a crash (an empty OSM answer)
+            print(f"::error title=London {name}::{e!r}" if not isinstance(e, SystemExit) else f"::error title=London {name}::{e}")
             failed.append(name)
     if failed:
         sys.exit("London: not built: " + ", ".join(failed))

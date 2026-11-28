@@ -68,7 +68,8 @@ def main(*args):
         if path in fr:
             # A page can change on another day too (the Normandie bridges'
             # on 1 May 2026): read again two weeks before tools/fr/build.py
-            # stops keeping what it showed (READ_KEEPS_DAYS).
+            # stops keeping what it showed past its tariff year
+            # (READ_KEEPS_DAYS); the yearly change from 1 February itself.
             shown = "tools/fr/" + os.path.basename(os.path.dirname(path)) + "/" + os.path.basename(path)
         day = read_on(path)
         said = "tariffs from" if shown.endswith(".items.txt") else "read"

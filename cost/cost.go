@@ -583,7 +583,7 @@ func (m Missing) Message() string {
 		return fmt.Sprintf("%s %s (%s): not priced, it goes by the time of day (give time)", m.Area, what, m.Name)
 	}
 	if m.Reason == "days_unknown" {
-		return fmt.Sprintf("%s %s (%s): priced for the days the notes say, but its days can't be counted here, so more or fewer may be due (see the notes)", m.Area, what, m.Name)
+		return fmt.Sprintf("%s %s (%s): priced for the days the notes say, but its days can't be counted here, so another number may be due (see the notes)", m.Area, what, m.Name)
 	}
 	if m.Reason == "before_table" {
 		return fmt.Sprintf("%s %s (%s): the rates here start on %s, after the trip's day, so it isn't priced", m.Area, what, m.Name, m.Starts)

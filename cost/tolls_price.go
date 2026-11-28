@@ -497,10 +497,17 @@ func (p *pricer) kmDays(ds *tariffs.Dataset, country, region string) []kmDay {
 	for _, s := range sp {
 		total += s[1] - s[0]
 	}
-	if p.req.Time == "" || total <= 0 {
+	if total <= 0 {
 		return []kmDay{{p.noon(ds), 1}}
 	}
-	at := func(pos float64) time.Time { t, _ := passage(p.req, p.date, pos, country); return t }
+	// With no time, the days a 00:00 departure is there on (as the charges
+	// by the day count them), each at noon: its hours aren't known.
+	req := p.req
+	untimed := req.Time == ""
+	if untimed {
+		req.Time = "00:00"
+	}
+	at := func(pos float64) time.Time { t, _ := passage(req, p.date, pos, country); return t }
 	day := func(t time.Time) string { return t.Format(time.DateOnly) }
 	var out []kmDay
 	add := func(t time.Time, km float64) {
@@ -530,6 +537,11 @@ func (p *pricer) kmDays(ds *tariffs.Dataset, country, region string) []kmDay {
 			}
 			add(a, hi-from)
 			from = hi
+		}
+	}
+	if untimed {
+		for i, d := range out {
+			out[i].at = time.Date(d.at.Year(), d.at.Month(), d.at.Day(), 12, 0, 0, 0, ds.TZ())
 		}
 	}
 	return out
@@ -769,17 +781,29 @@ func (p *pricer) tripDaysORCT(ds *tariffs.Dataset, ch *orct.Charge, country stri
 	n := len(out)
 	unknown, varies, calendarMore := false, false, other != "" && len(p.useDays(at, sp, country, other)) > n
 	if req.Time == "" {
-		for m := 1; m < 1440 && !(varies && (other == "" || calendarMore)); m++ {
+		// (A count by 24 hours is the same for every departure: only the
+		// calendar days of a table that doesn't say its day are counted.)
+		for m := 1; m < 1440 && (basis == "calendar" || other != "") && !(varies && (other == "" || calendarMore)) && !(basis == "24h" && calendarMore); m++ {
 			r := req
 			r.Time = fmt.Sprintf("%02d:%02d", m/60, m%60)
 			varies = varies || len(p.useDays(r, sp, country, basis)) != n
 			calendarMore = calendarMore || other != "" && len(p.useDays(r, sp, country, other)) > n
 		}
-		// A wait for a driving ban in the country (not timed without a
-		// time) may make its stretch longer.
-		if slices.ContainsFunc(p.out.Bans, func(b BanHit) bool { return b.Country == country }) {
+		// A wait for a driving ban (not timed without a time) in the
+		// country may make its stretch longer; one in a country driven
+		// between two of its stretches, the time between them (Vilnius -
+		// Warsaw - Vilnius on a Polish holiday). One before or after all
+		// its stretches moves its passages alike.
+		between := func(cc string) bool {
+			if len(sp) < 2 {
+				return false
+			}
+			lo, hi := sp[0][1], sp[len(sp)-1][0]
+			return slices.ContainsFunc(req.spans[cc], func(s [2]float64) bool { return s[0] < hi && s[1] > lo })
+		}
+		if slices.ContainsFunc(p.out.Bans, func(b BanHit) bool { return b.Country == country || between(b.Country) }) {
 			varies = true
-			how += "; with driving bans there, their waits may make more"
+			how += "; with driving bans on its way, their waits may make more"
 		}
 		if varies {
 			how += ": another departure makes another count (give time)"
@@ -802,7 +826,7 @@ func (p *pricer) tripDaysORCT(ds *tariffs.Dataset, ch *orct.Charge, country stri
 	}
 	if day == "" {
 		return out, fmt.Sprintf("a time-based charge whose table doesn't say if its day is a calendar day or 24 hours: the trip is there on %d %s%s%s%s%s; a longer period may cost less.",
-			n, unit, how, of, rest, map[bool]string{true: ", the fewest (as calendar days, more)", false: ""}[calendarMore]), unknown
+			n, unit, how, of, rest, map[bool]string{true: ", the fewest (calendar days may be more)", false: ""}[calendarMore]), unknown
 	}
 	return out, fmt.Sprintf("a time-based charge for each %s of use: the trip is there on %d %s%s%s%s; a longer period may cost less.",
 		map[string]string{"calendar": "calendar day", "24h": "24 hours"}[day], n, unit, how, of, rest), unknown

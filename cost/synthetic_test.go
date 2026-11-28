@@ -218,8 +218,12 @@ func TestTripDays(t *testing.T) {
 	for _, c := range []struct {
 		at      string
 		unknown bool
-	}{{"20:00", true}, {"08:00", false}} {
-		p := newPricer(Request{Time: c.at, spans: map[string][][2]float64{"LV": {{0, 600}}}}, date, &Response{}, nil)
+	}{{"20:00", true}, {"08:00", false}, {"", true}} { // no time: other departures make more calendar days
+		sp := [][2]float64{{0, 600}}
+		if c.at == "" {
+			sp = [][2]float64{{200, 800}}
+		}
+		p := newPricer(Request{Time: c.at, spans: map[string][][2]float64{"LV": sp}}, date, &Response{}, nil)
 		if _, note, unknown := p.tripDaysORCT(lv, networkOf(lv).perDay, "LV"); unknown != c.unknown {
 			t.Errorf("LV at %s: unknown %v, want %v (%s)", c.at, unknown, c.unknown, note)
 		}
@@ -367,7 +371,7 @@ func TestDaysEnteredLater(t *testing.T) {
 
 // Bans and days: a ban in the country may lengthen its stretch (unknown);
 // one elsewhere moves its passages alike, which a 24-hour count doesn't
-// feel.
+// feel, unless it lies between two of its stretches.
 func TestDaysAndBans(t *testing.T) {
 	date := time.Date(2026, 11, 11, 0, 0, 0, 0, time.UTC)
 	lt, ok := all(t).Find("LT", date)
@@ -378,14 +382,40 @@ func TestDaysAndBans(t *testing.T) {
 	for _, c := range []struct {
 		ban     string
 		unknown bool
-	}{{"", false}, {"PL", false}, {"LT", true}} {
+		spans   map[string][][2]float64
+	}{{"", false, nil}, {"PL", false, nil}, {"LT", true, nil},
+		// Vilnius - Warsaw - Vilnius: a wait in Poland lies between LT's stretches.
+		{"PL", true, map[string][][2]float64{"LT": {{0, 170}, {1070, 1240}}, "PL": {{170, 1070}}}}} {
 		out := &Response{}
 		if c.ban != "" {
 			out.Bans = []BanHit{{Country: c.ban}}
 		}
-		p := newPricer(Request{spans: map[string][][2]float64{"LT": {{300, 500}}}}, date, out, nil)
+		sp := c.spans
+		if sp == nil {
+			sp = map[string][][2]float64{"LT": {{300, 500}}}
+		}
+		p := newPricer(Request{spans: sp}, date, out, nil)
 		if _, note, unknown := p.tripDaysORCT(lt, nw.perDay, "LT"); unknown != c.unknown {
 			t.Errorf("ban in %q: unknown %v, want %v (%s)", c.ban, unknown, c.unknown, note)
 		}
+	}
+}
+
+// A trip with no time: its km by day as a 00:00 departure has them (as the
+// charges by the day count it), each at noon: a table starting the next
+// day prices that day's km (the Dutch HGV charge from 1 July 2026).
+func TestKmDaysWithoutTime(t *testing.T) {
+	date := time.Date(2026, 6, 30, 0, 0, 0, 0, time.UTC)
+	nl, ok := all(t).Find("NL", date)
+	if !ok {
+		t.Fatal("NL")
+	}
+	p := newPricer(Request{spans: map[string][][2]float64{"NL": {{0, 1700}}}}, date, &Response{}, nil)
+	var days []string
+	for _, d := range p.kmDays(nl, "NL", "") {
+		days = append(days, d.at.Format("2006-01-02 15:04"))
+	}
+	if len(days) != 2 || days[0] != "2026-06-30 12:00" || days[1] != "2026-07-01 12:00" {
+		t.Errorf("km days %v; want 30 June and 1 July, at noon", days)
 	}
 }

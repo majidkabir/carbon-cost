@@ -1,0 +1,1839 @@
+{
+ "country": "PL",
+ "currency": "PLN",
+ "valid_from": "2025-09-11",
+ "crossings": true,
+ "motor_axles": true,
+ "osm_extract": "2026-11-28",
+ "name": "A2 Świecko-Konin (Autostrada Wielkopolska)",
+ "law": "Autostrada Wielkopolska's price list (cennik przejazdów) from 2025-09-11 for the A2 Świecko-Nowy Tomyśl-Konin (Autostrada Wielkopolska II and Autostrada Wielkopolska), the price from station to station paid at the plazas: category 2 (two axles with twin wheels, or two axles with trailers) PLN 229 Konin Modła-Świecko, category 3 (three axles, or two axles with twin wheels with trailers) PLN 328, category 4 (more than three axles, or three axles with trailers) PLN 478. A semi-trailer counts as a trailer (Prawo o ruchu drogowym art. 2 pkt 44). The category goes by the motor vehicle's own axles (give truck.motor_axles; without it all the truck's axles count) and whether it tows a trailer. The Poznań ring between Poznań Zachód and Poznań Wschód is free. The e-TOLL doesn't charge this stretch. The stations are placed at the motorway junctions of their names and their toll booths in OpenStreetMap. Videotolling prices (Poznań-Konin) aren't modelled. Rebuilt from the Internet Archive's copies of these pages and the files their publisher still serves (2025).",
+ "sources": [
+  {
+   "title": "Autostrada Wielkopolska: Cennik przejazdów",
+   "url": "https://web.archive.org/web/20260318155435/https://www.autostrada-a2.pl/oplaty/"
+  },
+  {
+   "title": "Autostrada Wielkopolska: Change of toll rates for A2 Nowy Tomyśl – Konin section (from 11 September 2025)",
+   "url": "https://www.autostrada-a2.pl/en/news/change-of-toll-rates-for-a2-nowy-tomysl-konin-section/"
+  },
+  {
+   "title": "Autostrada Wielkopolska: tabela opłat, kategoria 2",
+   "url": "https://www.autostrada-a2.pl/wp-content/uploads/2025/09/AW-tabele-oplat-09.2025_02.pdf"
+  },
+  {
+   "title": "Autostrada Wielkopolska: tabela opłat, kategoria 3",
+   "url": "https://www.autostrada-a2.pl/wp-content/uploads/2025/09/AW-tabele-oplat-09.2025_03.pdf"
+  },
+  {
+   "title": "Autostrada Wielkopolska: tabela opłat, kategoria 4",
+   "url": "https://www.autostrada-a2.pl/wp-content/uploads/2025/09/AW-tabele-oplat-09.2025_04.pdf"
+  },
+  {
+   "title": "OpenStreetMap (Overpass API): A2 junctions and toll booths",
+   "url": "https://www.openstreetmap.org/"
+  }
+ ],
+ "vehicles": "Vehicles over 3.5 t (categories 2-4)",
+ "min_kg": 3501,
+ "tolled_roads": "A2 Świecko (German border) - Konin (Modła), 255 km; free between Poznań Zachód and Poznań Wschód.",
+ "closed_systems": [
+  {
+   "name": "A2 Świecko-Konin (Autostrada Wielkopolska)",
+   "law": "Autostrada Wielkopolska's tabele opłat, categories 2-4, PLN",
+   "groups": [
+    {
+     "name": "4",
+     "min_kg": 3501,
+     "min_axles": 4
+    },
+    {
+     "name": "4 (3 axles with trailer)",
+     "min_kg": 3501,
+     "min_axles": 3,
+     "max_axles": 3,
+     "trailer": true
+    },
+    {
+     "name": "3",
+     "min_kg": 3501,
+     "min_axles": 3,
+     "max_axles": 3,
+     "trailer": false
+    },
+    {
+     "name": "3 (2 axles with trailer)",
+     "min_kg": 3501,
+     "max_axles": 2,
+     "trailer": true
+    },
+    {
+     "name": "2",
+     "min_kg": 3501,
+     "max_axles": 2,
+     "trailer": false
+    }
+   ],
+   "stations": [
+    {
+     "name": "Konin Modła",
+     "points": [
+      {
+       "name": "junction",
+       "lat": 52.16361,
+       "lon": 18.20158
+      },
+      {
+       "name": "junction",
+       "lat": 52.16219,
+       "lon": 18.21523
+      }
+     ]
+    },
+    {
+     "name": "Sługocin",
+     "points": [
+      {
+       "name": "junction",
+       "lat": 52.20539,
+       "lon": 18.01988
+      },
+      {
+       "name": "junction",
+       "lat": 52.20499,
+       "lon": 18.02194
+      }
+     ]
+    },
+    {
+     "name": "Słupca",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 52.25552,
+       "lon": 17.82311
+      },
+      {
+       "name": "booth",
+       "lat": 52.25562,
+       "lon": 17.82316
+      },
+      {
+       "name": "junction",
+       "lat": 52.25521,
+       "lon": 17.81382
+      },
+      {
+       "name": "junction",
+       "lat": 52.25308,
+       "lon": 17.82517
+      }
+     ]
+    },
+    {
+     "name": "Września",
+     "points": [
+      {
+       "name": "junction",
+       "lat": 52.31586,
+       "lon": 17.52995
+      },
+      {
+       "name": "junction",
+       "lat": 52.31451,
+       "lon": 17.53806
+      }
+     ]
+    },
+    {
+     "name": "Poznań Wschód",
+     "points": [
+      {
+       "name": "junction",
+       "lat": 52.31987,
+       "lon": 17.12122
+      },
+      {
+       "name": "junction",
+       "lat": 52.31648,
+       "lon": 17.13251
+      }
+     ]
+    },
+    {
+     "name": "Poznań Krzesiny",
+     "points": [
+      {
+       "name": "junction",
+       "lat": 52.34668,
+       "lon": 16.99069
+      },
+      {
+       "name": "junction",
+       "lat": 52.34499,
+       "lon": 17.00986
+      }
+     ]
+    },
+    {
+     "name": "Poznań Luboń",
+     "points": [
+      {
+       "name": "junction",
+       "lat": 52.35352,
+       "lon": 16.90725
+      },
+      {
+       "name": "junction",
+       "lat": 52.35376,
+       "lon": 16.903
+      }
+     ]
+    },
+    {
+     "name": "Poznań Komorniki",
+     "points": [
+      {
+       "name": "junction",
+       "lat": 52.35081,
+       "lon": 16.84736
+      },
+      {
+       "name": "junction",
+       "lat": 52.35029,
+       "lon": 16.82698
+      }
+     ]
+    },
+    {
+     "name": "Poznań Zachód",
+     "points": [
+      {
+       "name": "junction",
+       "lat": 52.35051,
+       "lon": 16.77656
+      },
+      {
+       "name": "junction",
+       "lat": 52.35043,
+       "lon": 16.76265
+      }
+     ]
+    },
+    {
+     "name": "Buk",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 52.3782,
+       "lon": 16.56848
+      },
+      {
+       "name": "booth",
+       "lat": 52.37833,
+       "lon": 16.56848
+      },
+      {
+       "name": "junction",
+       "lat": 52.37652,
+       "lon": 16.56674
+      },
+      {
+       "name": "junction",
+       "lat": 52.37822,
+       "lon": 16.56061
+      }
+     ]
+    },
+    {
+     "name": "Nowy Tomyśl",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 52.36153,
+       "lon": 16.09969
+      },
+      {
+       "name": "booth",
+       "lat": 52.3615,
+       "lon": 16.09954
+      },
+      {
+       "name": "junction",
+       "lat": 52.3589,
+       "lon": 16.10078
+      },
+      {
+       "name": "junction",
+       "lat": 52.35969,
+       "lon": 16.10418
+      }
+     ]
+    },
+    {
+     "name": "Trzciel",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 52.33185,
+       "lon": 15.87114
+      },
+      {
+       "name": "booth",
+       "lat": 52.33189,
+       "lon": 15.87102
+      },
+      {
+       "name": "junction",
+       "lat": 52.32906,
+       "lon": 15.8728
+      },
+      {
+       "name": "junction",
+       "lat": 52.32885,
+       "lon": 15.86509
+      }
+     ]
+    },
+    {
+     "name": "Jordanowo",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 52.32116,
+       "lon": 15.54589
+      },
+      {
+       "name": "booth",
+       "lat": 52.32115,
+       "lon": 15.54639
+      },
+      {
+       "name": "junction",
+       "lat": 52.32364,
+       "lon": 15.55039
+      },
+      {
+       "name": "junction",
+       "lat": 52.32406,
+       "lon": 15.54172
+      }
+     ]
+    },
+    {
+     "name": "Torzym",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 52.32286,
+       "lon": 15.08328
+      },
+      {
+       "name": "booth",
+       "lat": 52.32288,
+       "lon": 15.08346
+      },
+      {
+       "name": "junction",
+       "lat": 52.32515,
+       "lon": 15.08745
+      },
+      {
+       "name": "junction",
+       "lat": 52.32475,
+       "lon": 15.07723
+      }
+     ]
+    },
+    {
+     "name": "Rzepin",
+     "points": [
+      {
+       "name": "junction",
+       "lat": 52.33284,
+       "lon": 14.87359
+      },
+      {
+       "name": "junction",
+       "lat": 52.33446,
+       "lon": 14.88411
+      }
+     ]
+    }
+   ],
+   "prices": {
+    "Konin Modła|Sługocin": {
+     "4": 0.0,
+     "4 (3 axles with trailer)": 0.0,
+     "3": 0.0,
+     "3 (2 axles with trailer)": 0.0,
+     "2": 0.0
+    },
+    "Konin Modła|Słupca": {
+     "4": 146.0,
+     "4 (3 axles with trailer)": 146.0,
+     "3": 96.0,
+     "3 (2 axles with trailer)": 96.0,
+     "2": 63.0
+    },
+    "Konin Modła|Września": {
+     "4": 146.0,
+     "4 (3 axles with trailer)": 146.0,
+     "3": 96.0,
+     "3 (2 axles with trailer)": 96.0,
+     "2": 63.0
+    },
+    "Konin Modła|Poznań Wschód": {
+     "4": 292.0,
+     "4 (3 axles with trailer)": 292.0,
+     "3": 192.0,
+     "3 (2 axles with trailer)": 192.0,
+     "2": 126.0
+    },
+    "Konin Modła|Poznań Krzesiny": {
+     "4": 292.0,
+     "4 (3 axles with trailer)": 292.0,
+     "3": 192.0,
+     "3 (2 axles with trailer)": 192.0,
+     "2": 126.0
+    },
+    "Konin Modła|Poznań Luboń": {
+     "4": 292.0,
+     "4 (3 axles with trailer)": 292.0,
+     "3": 192.0,
+     "3 (2 axles with trailer)": 192.0,
+     "2": 126.0
+    },
+    "Konin Modła|Poznań Komorniki": {
+     "4": 292.0,
+     "4 (3 axles with trailer)": 292.0,
+     "3": 192.0,
+     "3 (2 axles with trailer)": 192.0,
+     "2": 126.0
+    },
+    "Konin Modła|Poznań Zachód": {
+     "4": 292.0,
+     "4 (3 axles with trailer)": 292.0,
+     "3": 192.0,
+     "3 (2 axles with trailer)": 192.0,
+     "2": 126.0
+    },
+    "Konin Modła|Buk": {
+     "4": 345.0,
+     "4 (3 axles with trailer)": 345.0,
+     "3": 227.0,
+     "3 (2 axles with trailer)": 227.0,
+     "2": 149.0
+    },
+    "Konin Modła|Nowy Tomyśl": {
+     "4": 438.0,
+     "4 (3 axles with trailer)": 438.0,
+     "3": 288.0,
+     "3 (2 axles with trailer)": 288.0,
+     "2": 189.0
+    },
+    "Konin Modła|Trzciel": {
+     "4": 445.0,
+     "4 (3 axles with trailer)": 445.0,
+     "3": 295.0,
+     "3 (2 axles with trailer)": 295.0,
+     "2": 196.0
+    },
+    "Konin Modła|Jordanowo": {
+     "4": 456.0,
+     "4 (3 axles with trailer)": 456.0,
+     "3": 306.0,
+     "3 (2 axles with trailer)": 306.0,
+     "2": 207.0
+    },
+    "Konin Modła|Torzym": {
+     "4": 471.0,
+     "4 (3 axles with trailer)": 471.0,
+     "3": 321.0,
+     "3 (2 axles with trailer)": 321.0,
+     "2": 222.0
+    },
+    "Konin Modła|Rzepin": {
+     "4": 478.0,
+     "4 (3 axles with trailer)": 478.0,
+     "3": 328.0,
+     "3 (2 axles with trailer)": 328.0,
+     "2": 229.0
+    },
+    "Sługocin|Konin Modła": {
+     "4": 0.0,
+     "4 (3 axles with trailer)": 0.0,
+     "3": 0.0,
+     "3 (2 axles with trailer)": 0.0,
+     "2": 0.0
+    },
+    "Sługocin|Słupca": {
+     "4": 146.0,
+     "4 (3 axles with trailer)": 146.0,
+     "3": 96.0,
+     "3 (2 axles with trailer)": 96.0,
+     "2": 63.0
+    },
+    "Sługocin|Września": {
+     "4": 146.0,
+     "4 (3 axles with trailer)": 146.0,
+     "3": 96.0,
+     "3 (2 axles with trailer)": 96.0,
+     "2": 63.0
+    },
+    "Sługocin|Poznań Wschód": {
+     "4": 292.0,
+     "4 (3 axles with trailer)": 292.0,
+     "3": 192.0,
+     "3 (2 axles with trailer)": 192.0,
+     "2": 126.0
+    },
+    "Sługocin|Poznań Krzesiny": {
+     "4": 292.0,
+     "4 (3 axles with trailer)": 292.0,
+     "3": 192.0,
+     "3 (2 axles with trailer)": 192.0,
+     "2": 126.0
+    },
+    "Sługocin|Poznań Luboń": {
+     "4": 292.0,
+     "4 (3 axles with trailer)": 292.0,
+     "3": 192.0,
+     "3 (2 axles with trailer)": 192.0,
+     "2": 126.0
+    },
+    "Sługocin|Poznań Komorniki": {
+     "4": 292.0,
+     "4 (3 axles with trailer)": 292.0,
+     "3": 192.0,
+     "3 (2 axles with trailer)": 192.0,
+     "2": 126.0
+    },
+    "Sługocin|Poznań Zachód": {
+     "4": 292.0,
+     "4 (3 axles with trailer)": 292.0,
+     "3": 192.0,
+     "3 (2 axles with trailer)": 192.0,
+     "2": 126.0
+    },
+    "Sługocin|Buk": {
+     "4": 345.0,
+     "4 (3 axles with trailer)": 345.0,
+     "3": 227.0,
+     "3 (2 axles with trailer)": 227.0,
+     "2": 149.0
+    },
+    "Sługocin|Nowy Tomyśl": {
+     "4": 438.0,
+     "4 (3 axles with trailer)": 438.0,
+     "3": 288.0,
+     "3 (2 axles with trailer)": 288.0,
+     "2": 189.0
+    },
+    "Sługocin|Trzciel": {
+     "4": 445.0,
+     "4 (3 axles with trailer)": 445.0,
+     "3": 295.0,
+     "3 (2 axles with trailer)": 295.0,
+     "2": 196.0
+    },
+    "Sługocin|Jordanowo": {
+     "4": 456.0,
+     "4 (3 axles with trailer)": 456.0,
+     "3": 306.0,
+     "3 (2 axles with trailer)": 306.0,
+     "2": 207.0
+    },
+    "Sługocin|Torzym": {
+     "4": 471.0,
+     "4 (3 axles with trailer)": 471.0,
+     "3": 321.0,
+     "3 (2 axles with trailer)": 321.0,
+     "2": 222.0
+    },
+    "Sługocin|Rzepin": {
+     "4": 478.0,
+     "4 (3 axles with trailer)": 478.0,
+     "3": 328.0,
+     "3 (2 axles with trailer)": 328.0,
+     "2": 229.0
+    },
+    "Słupca|Konin Modła": {
+     "4": 146.0,
+     "4 (3 axles with trailer)": 146.0,
+     "3": 96.0,
+     "3 (2 axles with trailer)": 96.0,
+     "2": 63.0
+    },
+    "Słupca|Sługocin": {
+     "4": 146.0,
+     "4 (3 axles with trailer)": 146.0,
+     "3": 96.0,
+     "3 (2 axles with trailer)": 96.0,
+     "2": 63.0
+    },
+    "Słupca|Września": {
+     "4": 60.0,
+     "4 (3 axles with trailer)": 60.0,
+     "3": 40.0,
+     "3 (2 axles with trailer)": 40.0,
+     "2": 26.0
+    },
+    "Słupca|Poznań Wschód": {
+     "4": 206.0,
+     "4 (3 axles with trailer)": 206.0,
+     "3": 136.0,
+     "3 (2 axles with trailer)": 136.0,
+     "2": 89.0
+    },
+    "Słupca|Poznań Krzesiny": {
+     "4": 206.0,
+     "4 (3 axles with trailer)": 206.0,
+     "3": 136.0,
+     "3 (2 axles with trailer)": 136.0,
+     "2": 89.0
+    },
+    "Słupca|Poznań Luboń": {
+     "4": 206.0,
+     "4 (3 axles with trailer)": 206.0,
+     "3": 136.0,
+     "3 (2 axles with trailer)": 136.0,
+     "2": 89.0
+    },
+    "Słupca|Poznań Komorniki": {
+     "4": 206.0,
+     "4 (3 axles with trailer)": 206.0,
+     "3": 136.0,
+     "3 (2 axles with trailer)": 136.0,
+     "2": 89.0
+    },
+    "Słupca|Poznań Zachód": {
+     "4": 206.0,
+     "4 (3 axles with trailer)": 206.0,
+     "3": 136.0,
+     "3 (2 axles with trailer)": 136.0,
+     "2": 89.0
+    },
+    "Słupca|Buk": {
+     "4": 259.0,
+     "4 (3 axles with trailer)": 259.0,
+     "3": 171.0,
+     "3 (2 axles with trailer)": 171.0,
+     "2": 112.0
+    },
+    "Słupca|Nowy Tomyśl": {
+     "4": 352.0,
+     "4 (3 axles with trailer)": 352.0,
+     "3": 232.0,
+     "3 (2 axles with trailer)": 232.0,
+     "2": 152.0
+    },
+    "Słupca|Trzciel": {
+     "4": 359.0,
+     "4 (3 axles with trailer)": 359.0,
+     "3": 239.0,
+     "3 (2 axles with trailer)": 239.0,
+     "2": 159.0
+    },
+    "Słupca|Jordanowo": {
+     "4": 370.0,
+     "4 (3 axles with trailer)": 370.0,
+     "3": 250.0,
+     "3 (2 axles with trailer)": 250.0,
+     "2": 170.0
+    },
+    "Słupca|Torzym": {
+     "4": 385.0,
+     "4 (3 axles with trailer)": 385.0,
+     "3": 265.0,
+     "3 (2 axles with trailer)": 265.0,
+     "2": 185.0
+    },
+    "Słupca|Rzepin": {
+     "4": 392.0,
+     "4 (3 axles with trailer)": 392.0,
+     "3": 272.0,
+     "3 (2 axles with trailer)": 272.0,
+     "2": 192.0
+    },
+    "Września|Konin Modła": {
+     "4": 146.0,
+     "4 (3 axles with trailer)": 146.0,
+     "3": 96.0,
+     "3 (2 axles with trailer)": 96.0,
+     "2": 63.0
+    },
+    "Września|Sługocin": {
+     "4": 146.0,
+     "4 (3 axles with trailer)": 146.0,
+     "3": 96.0,
+     "3 (2 axles with trailer)": 96.0,
+     "2": 63.0
+    },
+    "Września|Słupca": {
+     "4": 60.0,
+     "4 (3 axles with trailer)": 60.0,
+     "3": 40.0,
+     "3 (2 axles with trailer)": 40.0,
+     "2": 26.0
+    },
+    "Września|Poznań Wschód": {
+     "4": 146.0,
+     "4 (3 axles with trailer)": 146.0,
+     "3": 96.0,
+     "3 (2 axles with trailer)": 96.0,
+     "2": 63.0
+    },
+    "Września|Poznań Krzesiny": {
+     "4": 146.0,
+     "4 (3 axles with trailer)": 146.0,
+     "3": 96.0,
+     "3 (2 axles with trailer)": 96.0,
+     "2": 63.0
+    },
+    "Września|Poznań Luboń": {
+     "4": 146.0,
+     "4 (3 axles with trailer)": 146.0,
+     "3": 96.0,
+     "3 (2 axles with trailer)": 96.0,
+     "2": 63.0
+    },
+    "Września|Poznań Komorniki": {
+     "4": 146.0,
+     "4 (3 axles with trailer)": 146.0,
+     "3": 96.0,
+     "3 (2 axles with trailer)": 96.0,
+     "2": 63.0
+    },
+    "Września|Poznań Zachód": {
+     "4": 146.0,
+     "4 (3 axles with trailer)": 146.0,
+     "3": 96.0,
+     "3 (2 axles with trailer)": 96.0,
+     "2": 63.0
+    },
+    "Września|Buk": {
+     "4": 199.0,
+     "4 (3 axles with trailer)": 199.0,
+     "3": 131.0,
+     "3 (2 axles with trailer)": 131.0,
+     "2": 86.0
+    },
+    "Września|Nowy Tomyśl": {
+     "4": 292.0,
+     "4 (3 axles with trailer)": 292.0,
+     "3": 192.0,
+     "3 (2 axles with trailer)": 192.0,
+     "2": 126.0
+    },
+    "Września|Trzciel": {
+     "4": 299.0,
+     "4 (3 axles with trailer)": 299.0,
+     "3": 199.0,
+     "3 (2 axles with trailer)": 199.0,
+     "2": 133.0
+    },
+    "Września|Jordanowo": {
+     "4": 310.0,
+     "4 (3 axles with trailer)": 310.0,
+     "3": 210.0,
+     "3 (2 axles with trailer)": 210.0,
+     "2": 144.0
+    },
+    "Września|Torzym": {
+     "4": 325.0,
+     "4 (3 axles with trailer)": 325.0,
+     "3": 225.0,
+     "3 (2 axles with trailer)": 225.0,
+     "2": 159.0
+    },
+    "Września|Rzepin": {
+     "4": 332.0,
+     "4 (3 axles with trailer)": 332.0,
+     "3": 232.0,
+     "3 (2 axles with trailer)": 232.0,
+     "2": 166.0
+    },
+    "Poznań Wschód|Konin Modła": {
+     "4": 292.0,
+     "4 (3 axles with trailer)": 292.0,
+     "3": 192.0,
+     "3 (2 axles with trailer)": 192.0,
+     "2": 126.0
+    },
+    "Poznań Wschód|Sługocin": {
+     "4": 292.0,
+     "4 (3 axles with trailer)": 292.0,
+     "3": 192.0,
+     "3 (2 axles with trailer)": 192.0,
+     "2": 126.0
+    },
+    "Poznań Wschód|Słupca": {
+     "4": 206.0,
+     "4 (3 axles with trailer)": 206.0,
+     "3": 136.0,
+     "3 (2 axles with trailer)": 136.0,
+     "2": 89.0
+    },
+    "Poznań Wschód|Września": {
+     "4": 146.0,
+     "4 (3 axles with trailer)": 146.0,
+     "3": 96.0,
+     "3 (2 axles with trailer)": 96.0,
+     "2": 63.0
+    },
+    "Poznań Wschód|Poznań Krzesiny": {
+     "4": 0.0,
+     "4 (3 axles with trailer)": 0.0,
+     "3": 0.0,
+     "3 (2 axles with trailer)": 0.0,
+     "2": 0.0
+    },
+    "Poznań Wschód|Poznań Luboń": {
+     "4": 0.0,
+     "4 (3 axles with trailer)": 0.0,
+     "3": 0.0,
+     "3 (2 axles with trailer)": 0.0,
+     "2": 0.0
+    },
+    "Poznań Wschód|Poznań Komorniki": {
+     "4": 0.0,
+     "4 (3 axles with trailer)": 0.0,
+     "3": 0.0,
+     "3 (2 axles with trailer)": 0.0,
+     "2": 0.0
+    },
+    "Poznań Wschód|Poznań Zachód": {
+     "4": 0.0,
+     "4 (3 axles with trailer)": 0.0,
+     "3": 0.0,
+     "3 (2 axles with trailer)": 0.0,
+     "2": 0.0
+    },
+    "Poznań Wschód|Buk": {
+     "4": 53.0,
+     "4 (3 axles with trailer)": 53.0,
+     "3": 35.0,
+     "3 (2 axles with trailer)": 35.0,
+     "2": 23.0
+    },
+    "Poznań Wschód|Nowy Tomyśl": {
+     "4": 146.0,
+     "4 (3 axles with trailer)": 146.0,
+     "3": 96.0,
+     "3 (2 axles with trailer)": 96.0,
+     "2": 63.0
+    },
+    "Poznań Wschód|Trzciel": {
+     "4": 153.0,
+     "4 (3 axles with trailer)": 153.0,
+     "3": 103.0,
+     "3 (2 axles with trailer)": 103.0,
+     "2": 70.0
+    },
+    "Poznań Wschód|Jordanowo": {
+     "4": 164.0,
+     "4 (3 axles with trailer)": 164.0,
+     "3": 114.0,
+     "3 (2 axles with trailer)": 114.0,
+     "2": 81.0
+    },
+    "Poznań Wschód|Torzym": {
+     "4": 179.0,
+     "4 (3 axles with trailer)": 179.0,
+     "3": 129.0,
+     "3 (2 axles with trailer)": 129.0,
+     "2": 96.0
+    },
+    "Poznań Wschód|Rzepin": {
+     "4": 186.0,
+     "4 (3 axles with trailer)": 186.0,
+     "3": 136.0,
+     "3 (2 axles with trailer)": 136.0,
+     "2": 103.0
+    },
+    "Poznań Krzesiny|Konin Modła": {
+     "4": 292.0,
+     "4 (3 axles with trailer)": 292.0,
+     "3": 192.0,
+     "3 (2 axles with trailer)": 192.0,
+     "2": 126.0
+    },
+    "Poznań Krzesiny|Sługocin": {
+     "4": 292.0,
+     "4 (3 axles with trailer)": 292.0,
+     "3": 192.0,
+     "3 (2 axles with trailer)": 192.0,
+     "2": 126.0
+    },
+    "Poznań Krzesiny|Słupca": {
+     "4": 206.0,
+     "4 (3 axles with trailer)": 206.0,
+     "3": 136.0,
+     "3 (2 axles with trailer)": 136.0,
+     "2": 89.0
+    },
+    "Poznań Krzesiny|Września": {
+     "4": 146.0,
+     "4 (3 axles with trailer)": 146.0,
+     "3": 96.0,
+     "3 (2 axles with trailer)": 96.0,
+     "2": 63.0
+    },
+    "Poznań Krzesiny|Poznań Wschód": {
+     "4": 0.0,
+     "4 (3 axles with trailer)": 0.0,
+     "3": 0.0,
+     "3 (2 axles with trailer)": 0.0,
+     "2": 0.0
+    },
+    "Poznań Krzesiny|Poznań Luboń": {
+     "4": 0.0,
+     "4 (3 axles with trailer)": 0.0,
+     "3": 0.0,
+     "3 (2 axles with trailer)": 0.0,
+     "2": 0.0
+    },
+    "Poznań Krzesiny|Poznań Komorniki": {
+     "4": 0.0,
+     "4 (3 axles with trailer)": 0.0,
+     "3": 0.0,
+     "3 (2 axles with trailer)": 0.0,
+     "2": 0.0
+    },
+    "Poznań Krzesiny|Poznań Zachód": {
+     "4": 0.0,
+     "4 (3 axles with trailer)": 0.0,
+     "3": 0.0,
+     "3 (2 axles with trailer)": 0.0,
+     "2": 0.0
+    },
+    "Poznań Krzesiny|Buk": {
+     "4": 53.0,
+     "4 (3 axles with trailer)": 53.0,
+     "3": 35.0,
+     "3 (2 axles with trailer)": 35.0,
+     "2": 23.0
+    },
+    "Poznań Krzesiny|Nowy Tomyśl": {
+     "4": 146.0,
+     "4 (3 axles with trailer)": 146.0,
+     "3": 96.0,
+     "3 (2 axles with trailer)": 96.0,
+     "2": 63.0
+    },
+    "Poznań Krzesiny|Trzciel": {
+     "4": 153.0,
+     "4 (3 axles with trailer)": 153.0,
+     "3": 103.0,
+     "3 (2 axles with trailer)": 103.0,
+     "2": 70.0
+    },
+    "Poznań Krzesiny|Jordanowo": {
+     "4": 164.0,
+     "4 (3 axles with trailer)": 164.0,
+     "3": 114.0,
+     "3 (2 axles with trailer)": 114.0,
+     "2": 81.0
+    },
+    "Poznań Krzesiny|Torzym": {
+     "4": 179.0,
+     "4 (3 axles with trailer)": 179.0,
+     "3": 129.0,
+     "3 (2 axles with trailer)": 129.0,
+     "2": 96.0
+    },
+    "Poznań Krzesiny|Rzepin": {
+     "4": 186.0,
+     "4 (3 axles with trailer)": 186.0,
+     "3": 136.0,
+     "3 (2 axles with trailer)": 136.0,
+     "2": 103.0
+    },
+    "Poznań Luboń|Konin Modła": {
+     "4": 292.0,
+     "4 (3 axles with trailer)": 292.0,
+     "3": 192.0,
+     "3 (2 axles with trailer)": 192.0,
+     "2": 126.0
+    },
+    "Poznań Luboń|Sługocin": {
+     "4": 292.0,
+     "4 (3 axles with trailer)": 292.0,
+     "3": 192.0,
+     "3 (2 axles with trailer)": 192.0,
+     "2": 126.0
+    },
+    "Poznań Luboń|Słupca": {
+     "4": 206.0,
+     "4 (3 axles with trailer)": 206.0,
+     "3": 136.0,
+     "3 (2 axles with trailer)": 136.0,
+     "2": 89.0
+    },
+    "Poznań Luboń|Września": {
+     "4": 146.0,
+     "4 (3 axles with trailer)": 146.0,
+     "3": 96.0,
+     "3 (2 axles with trailer)": 96.0,
+     "2": 63.0
+    },
+    "Poznań Luboń|Poznań Wschód": {
+     "4": 0.0,
+     "4 (3 axles with trailer)": 0.0,
+     "3": 0.0,
+     "3 (2 axles with trailer)": 0.0,
+     "2": 0.0
+    },
+    "Poznań Luboń|Poznań Krzesiny": {
+     "4": 0.0,
+     "4 (3 axles with trailer)": 0.0,
+     "3": 0.0,
+     "3 (2 axles with trailer)": 0.0,
+     "2": 0.0
+    },
+    "Poznań Luboń|Poznań Komorniki": {
+     "4": 0.0,
+     "4 (3 axles with trailer)": 0.0,
+     "3": 0.0,
+     "3 (2 axles with trailer)": 0.0,
+     "2": 0.0
+    },
+    "Poznań Luboń|Poznań Zachód": {
+     "4": 0.0,
+     "4 (3 axles with trailer)": 0.0,
+     "3": 0.0,
+     "3 (2 axles with trailer)": 0.0,
+     "2": 0.0
+    },
+    "Poznań Luboń|Buk": {
+     "4": 53.0,
+     "4 (3 axles with trailer)": 53.0,
+     "3": 35.0,
+     "3 (2 axles with trailer)": 35.0,
+     "2": 23.0
+    },
+    "Poznań Luboń|Nowy Tomyśl": {
+     "4": 146.0,
+     "4 (3 axles with trailer)": 146.0,
+     "3": 96.0,
+     "3 (2 axles with trailer)": 96.0,
+     "2": 63.0
+    },
+    "Poznań Luboń|Trzciel": {
+     "4": 153.0,
+     "4 (3 axles with trailer)": 153.0,
+     "3": 103.0,
+     "3 (2 axles with trailer)": 103.0,
+     "2": 70.0
+    },
+    "Poznań Luboń|Jordanowo": {
+     "4": 164.0,
+     "4 (3 axles with trailer)": 164.0,
+     "3": 114.0,
+     "3 (2 axles with trailer)": 114.0,
+     "2": 81.0
+    },
+    "Poznań Luboń|Torzym": {
+     "4": 179.0,
+     "4 (3 axles with trailer)": 179.0,
+     "3": 129.0,
+     "3 (2 axles with trailer)": 129.0,
+     "2": 96.0
+    },
+    "Poznań Luboń|Rzepin": {
+     "4": 186.0,
+     "4 (3 axles with trailer)": 186.0,
+     "3": 136.0,
+     "3 (2 axles with trailer)": 136.0,
+     "2": 103.0
+    },
+    "Poznań Komorniki|Konin Modła": {
+     "4": 292.0,
+     "4 (3 axles with trailer)": 292.0,
+     "3": 192.0,
+     "3 (2 axles with trailer)": 192.0,
+     "2": 126.0
+    },
+    "Poznań Komorniki|Sługocin": {
+     "4": 292.0,
+     "4 (3 axles with trailer)": 292.0,
+     "3": 192.0,
+     "3 (2 axles with trailer)": 192.0,
+     "2": 126.0
+    },
+    "Poznań Komorniki|Słupca": {
+     "4": 206.0,
+     "4 (3 axles with trailer)": 206.0,
+     "3": 136.0,
+     "3 (2 axles with trailer)": 136.0,
+     "2": 89.0
+    },
+    "Poznań Komorniki|Września": {
+     "4": 146.0,
+     "4 (3 axles with trailer)": 146.0,
+     "3": 96.0,
+     "3 (2 axles with trailer)": 96.0,
+     "2": 63.0
+    },
+    "Poznań Komorniki|Poznań Wschód": {
+     "4": 0.0,
+     "4 (3 axles with trailer)": 0.0,
+     "3": 0.0,
+     "3 (2 axles with trailer)": 0.0,
+     "2": 0.0
+    },
+    "Poznań Komorniki|Poznań Krzesiny": {
+     "4": 0.0,
+     "4 (3 axles with trailer)": 0.0,
+     "3": 0.0,
+     "3 (2 axles with trailer)": 0.0,
+     "2": 0.0
+    },
+    "Poznań Komorniki|Poznań Luboń": {
+     "4": 0.0,
+     "4 (3 axles with trailer)": 0.0,
+     "3": 0.0,
+     "3 (2 axles with trailer)": 0.0,
+     "2": 0.0
+    },
+    "Poznań Komorniki|Poznań Zachód": {
+     "4": 0.0,
+     "4 (3 axles with trailer)": 0.0,
+     "3": 0.0,
+     "3 (2 axles with trailer)": 0.0,
+     "2": 0.0
+    },
+    "Poznań Komorniki|Buk": {
+     "4": 53.0,
+     "4 (3 axles with trailer)": 53.0,
+     "3": 35.0,
+     "3 (2 axles with trailer)": 35.0,
+     "2": 23.0
+    },
+    "Poznań Komorniki|Nowy Tomyśl": {
+     "4": 146.0,
+     "4 (3 axles with trailer)": 146.0,
+     "3": 96.0,
+     "3 (2 axles with trailer)": 96.0,
+     "2": 63.0
+    },
+    "Poznań Komorniki|Trzciel": {
+     "4": 153.0,
+     "4 (3 axles with trailer)": 153.0,
+     "3": 103.0,
+     "3 (2 axles with trailer)": 103.0,
+     "2": 70.0
+    },
+    "Poznań Komorniki|Jordanowo": {
+     "4": 164.0,
+     "4 (3 axles with trailer)": 164.0,
+     "3": 114.0,
+     "3 (2 axles with trailer)": 114.0,
+     "2": 81.0
+    },
+    "Poznań Komorniki|Torzym": {
+     "4": 179.0,
+     "4 (3 axles with trailer)": 179.0,
+     "3": 129.0,
+     "3 (2 axles with trailer)": 129.0,
+     "2": 96.0
+    },
+    "Poznań Komorniki|Rzepin": {
+     "4": 186.0,
+     "4 (3 axles with trailer)": 186.0,
+     "3": 136.0,
+     "3 (2 axles with trailer)": 136.0,
+     "2": 103.0
+    },
+    "Poznań Zachód|Konin Modła": {
+     "4": 292.0,
+     "4 (3 axles with trailer)": 292.0,
+     "3": 192.0,
+     "3 (2 axles with trailer)": 192.0,
+     "2": 126.0
+    },
+    "Poznań Zachód|Sługocin": {
+     "4": 292.0,
+     "4 (3 axles with trailer)": 292.0,
+     "3": 192.0,
+     "3 (2 axles with trailer)": 192.0,
+     "2": 126.0
+    },
+    "Poznań Zachód|Słupca": {
+     "4": 206.0,
+     "4 (3 axles with trailer)": 206.0,
+     "3": 136.0,
+     "3 (2 axles with trailer)": 136.0,
+     "2": 89.0
+    },
+    "Poznań Zachód|Września": {
+     "4": 146.0,
+     "4 (3 axles with trailer)": 146.0,
+     "3": 96.0,
+     "3 (2 axles with trailer)": 96.0,
+     "2": 63.0
+    },
+    "Poznań Zachód|Poznań Wschód": {
+     "4": 0.0,
+     "4 (3 axles with trailer)": 0.0,
+     "3": 0.0,
+     "3 (2 axles with trailer)": 0.0,
+     "2": 0.0
+    },
+    "Poznań Zachód|Poznań Krzesiny": {
+     "4": 0.0,
+     "4 (3 axles with trailer)": 0.0,
+     "3": 0.0,
+     "3 (2 axles with trailer)": 0.0,
+     "2": 0.0
+    },
+    "Poznań Zachód|Poznań Luboń": {
+     "4": 0.0,
+     "4 (3 axles with trailer)": 0.0,
+     "3": 0.0,
+     "3 (2 axles with trailer)": 0.0,
+     "2": 0.0
+    },
+    "Poznań Zachód|Poznań Komorniki": {
+     "4": 0.0,
+     "4 (3 axles with trailer)": 0.0,
+     "3": 0.0,
+     "3 (2 axles with trailer)": 0.0,
+     "2": 0.0
+    },
+    "Poznań Zachód|Buk": {
+     "4": 53.0,
+     "4 (3 axles with trailer)": 53.0,
+     "3": 35.0,
+     "3 (2 axles with trailer)": 35.0,
+     "2": 23.0
+    },
+    "Poznań Zachód|Nowy Tomyśl": {
+     "4": 146.0,
+     "4 (3 axles with trailer)": 146.0,
+     "3": 96.0,
+     "3 (2 axles with trailer)": 96.0,
+     "2": 63.0
+    },
+    "Poznań Zachód|Trzciel": {
+     "4": 153.0,
+     "4 (3 axles with trailer)": 153.0,
+     "3": 103.0,
+     "3 (2 axles with trailer)": 103.0,
+     "2": 70.0
+    },
+    "Poznań Zachód|Jordanowo": {
+     "4": 164.0,
+     "4 (3 axles with trailer)": 164.0,
+     "3": 114.0,
+     "3 (2 axles with trailer)": 114.0,
+     "2": 81.0
+    },
+    "Poznań Zachód|Torzym": {
+     "4": 179.0,
+     "4 (3 axles with trailer)": 179.0,
+     "3": 129.0,
+     "3 (2 axles with trailer)": 129.0,
+     "2": 96.0
+    },
+    "Poznań Zachód|Rzepin": {
+     "4": 186.0,
+     "4 (3 axles with trailer)": 186.0,
+     "3": 136.0,
+     "3 (2 axles with trailer)": 136.0,
+     "2": 103.0
+    },
+    "Buk|Konin Modła": {
+     "4": 345.0,
+     "4 (3 axles with trailer)": 345.0,
+     "3": 227.0,
+     "3 (2 axles with trailer)": 227.0,
+     "2": 149.0
+    },
+    "Buk|Sługocin": {
+     "4": 345.0,
+     "4 (3 axles with trailer)": 345.0,
+     "3": 227.0,
+     "3 (2 axles with trailer)": 227.0,
+     "2": 149.0
+    },
+    "Buk|Słupca": {
+     "4": 259.0,
+     "4 (3 axles with trailer)": 259.0,
+     "3": 171.0,
+     "3 (2 axles with trailer)": 171.0,
+     "2": 112.0
+    },
+    "Buk|Września": {
+     "4": 199.0,
+     "4 (3 axles with trailer)": 199.0,
+     "3": 131.0,
+     "3 (2 axles with trailer)": 131.0,
+     "2": 86.0
+    },
+    "Buk|Poznań Wschód": {
+     "4": 53.0,
+     "4 (3 axles with trailer)": 53.0,
+     "3": 35.0,
+     "3 (2 axles with trailer)": 35.0,
+     "2": 23.0
+    },
+    "Buk|Poznań Krzesiny": {
+     "4": 53.0,
+     "4 (3 axles with trailer)": 53.0,
+     "3": 35.0,
+     "3 (2 axles with trailer)": 35.0,
+     "2": 23.0
+    },
+    "Buk|Poznań Luboń": {
+     "4": 53.0,
+     "4 (3 axles with trailer)": 53.0,
+     "3": 35.0,
+     "3 (2 axles with trailer)": 35.0,
+     "2": 23.0
+    },
+    "Buk|Poznań Komorniki": {
+     "4": 53.0,
+     "4 (3 axles with trailer)": 53.0,
+     "3": 35.0,
+     "3 (2 axles with trailer)": 35.0,
+     "2": 23.0
+    },
+    "Buk|Poznań Zachód": {
+     "4": 53.0,
+     "4 (3 axles with trailer)": 53.0,
+     "3": 35.0,
+     "3 (2 axles with trailer)": 35.0,
+     "2": 23.0
+    },
+    "Buk|Nowy Tomyśl": {
+     "4": 93.0,
+     "4 (3 axles with trailer)": 93.0,
+     "3": 61.0,
+     "3 (2 axles with trailer)": 61.0,
+     "2": 40.0
+    },
+    "Buk|Trzciel": {
+     "4": 100.0,
+     "4 (3 axles with trailer)": 100.0,
+     "3": 68.0,
+     "3 (2 axles with trailer)": 68.0,
+     "2": 47.0
+    },
+    "Buk|Jordanowo": {
+     "4": 111.0,
+     "4 (3 axles with trailer)": 111.0,
+     "3": 79.0,
+     "3 (2 axles with trailer)": 79.0,
+     "2": 58.0
+    },
+    "Buk|Torzym": {
+     "4": 126.0,
+     "4 (3 axles with trailer)": 126.0,
+     "3": 94.0,
+     "3 (2 axles with trailer)": 94.0,
+     "2": 73.0
+    },
+    "Buk|Rzepin": {
+     "4": 133.0,
+     "4 (3 axles with trailer)": 133.0,
+     "3": 101.0,
+     "3 (2 axles with trailer)": 101.0,
+     "2": 80.0
+    },
+    "Nowy Tomyśl|Konin Modła": {
+     "4": 438.0,
+     "4 (3 axles with trailer)": 438.0,
+     "3": 288.0,
+     "3 (2 axles with trailer)": 288.0,
+     "2": 189.0
+    },
+    "Nowy Tomyśl|Sługocin": {
+     "4": 438.0,
+     "4 (3 axles with trailer)": 438.0,
+     "3": 288.0,
+     "3 (2 axles with trailer)": 288.0,
+     "2": 189.0
+    },
+    "Nowy Tomyśl|Słupca": {
+     "4": 352.0,
+     "4 (3 axles with trailer)": 352.0,
+     "3": 232.0,
+     "3 (2 axles with trailer)": 232.0,
+     "2": 152.0
+    },
+    "Nowy Tomyśl|Września": {
+     "4": 292.0,
+     "4 (3 axles with trailer)": 292.0,
+     "3": 192.0,
+     "3 (2 axles with trailer)": 192.0,
+     "2": 126.0
+    },
+    "Nowy Tomyśl|Poznań Wschód": {
+     "4": 146.0,
+     "4 (3 axles with trailer)": 146.0,
+     "3": 96.0,
+     "3 (2 axles with trailer)": 96.0,
+     "2": 63.0
+    },
+    "Nowy Tomyśl|Poznań Krzesiny": {
+     "4": 146.0,
+     "4 (3 axles with trailer)": 146.0,
+     "3": 96.0,
+     "3 (2 axles with trailer)": 96.0,
+     "2": 63.0
+    },
+    "Nowy Tomyśl|Poznań Luboń": {
+     "4": 146.0,
+     "4 (3 axles with trailer)": 146.0,
+     "3": 96.0,
+     "3 (2 axles with trailer)": 96.0,
+     "2": 63.0
+    },
+    "Nowy Tomyśl|Poznań Komorniki": {
+     "4": 146.0,
+     "4 (3 axles with trailer)": 146.0,
+     "3": 96.0,
+     "3 (2 axles with trailer)": 96.0,
+     "2": 63.0
+    },
+    "Nowy Tomyśl|Poznań Zachód": {
+     "4": 146.0,
+     "4 (3 axles with trailer)": 146.0,
+     "3": 96.0,
+     "3 (2 axles with trailer)": 96.0,
+     "2": 63.0
+    },
+    "Nowy Tomyśl|Buk": {
+     "4": 93.0,
+     "4 (3 axles with trailer)": 93.0,
+     "3": 61.0,
+     "3 (2 axles with trailer)": 61.0,
+     "2": 40.0
+    },
+    "Nowy Tomyśl|Trzciel": {
+     "4": 7.0,
+     "4 (3 axles with trailer)": 7.0,
+     "3": 7.0,
+     "3 (2 axles with trailer)": 7.0,
+     "2": 7.0
+    },
+    "Nowy Tomyśl|Jordanowo": {
+     "4": 18.0,
+     "4 (3 axles with trailer)": 18.0,
+     "3": 18.0,
+     "3 (2 axles with trailer)": 18.0,
+     "2": 18.0
+    },
+    "Nowy Tomyśl|Torzym": {
+     "4": 33.0,
+     "4 (3 axles with trailer)": 33.0,
+     "3": 33.0,
+     "3 (2 axles with trailer)": 33.0,
+     "2": 33.0
+    },
+    "Nowy Tomyśl|Rzepin": {
+     "4": 40.0,
+     "4 (3 axles with trailer)": 40.0,
+     "3": 40.0,
+     "3 (2 axles with trailer)": 40.0,
+     "2": 40.0
+    },
+    "Trzciel|Konin Modła": {
+     "4": 445.0,
+     "4 (3 axles with trailer)": 445.0,
+     "3": 295.0,
+     "3 (2 axles with trailer)": 295.0,
+     "2": 196.0
+    },
+    "Trzciel|Sługocin": {
+     "4": 445.0,
+     "4 (3 axles with trailer)": 445.0,
+     "3": 295.0,
+     "3 (2 axles with trailer)": 295.0,
+     "2": 196.0
+    },
+    "Trzciel|Słupca": {
+     "4": 359.0,
+     "4 (3 axles with trailer)": 359.0,
+     "3": 239.0,
+     "3 (2 axles with trailer)": 239.0,
+     "2": 159.0
+    },
+    "Trzciel|Września": {
+     "4": 299.0,
+     "4 (3 axles with trailer)": 299.0,
+     "3": 199.0,
+     "3 (2 axles with trailer)": 199.0,
+     "2": 133.0
+    },
+    "Trzciel|Poznań Wschód": {
+     "4": 153.0,
+     "4 (3 axles with trailer)": 153.0,
+     "3": 103.0,
+     "3 (2 axles with trailer)": 103.0,
+     "2": 70.0
+    },
+    "Trzciel|Poznań Krzesiny": {
+     "4": 153.0,
+     "4 (3 axles with trailer)": 153.0,
+     "3": 103.0,
+     "3 (2 axles with trailer)": 103.0,
+     "2": 70.0
+    },
+    "Trzciel|Poznań Luboń": {
+     "4": 153.0,
+     "4 (3 axles with trailer)": 153.0,
+     "3": 103.0,
+     "3 (2 axles with trailer)": 103.0,
+     "2": 70.0
+    },
+    "Trzciel|Poznań Komorniki": {
+     "4": 153.0,
+     "4 (3 axles with trailer)": 153.0,
+     "3": 103.0,
+     "3 (2 axles with trailer)": 103.0,
+     "2": 70.0
+    },
+    "Trzciel|Poznań Zachód": {
+     "4": 153.0,
+     "4 (3 axles with trailer)": 153.0,
+     "3": 103.0,
+     "3 (2 axles with trailer)": 103.0,
+     "2": 70.0
+    },
+    "Trzciel|Buk": {
+     "4": 100.0,
+     "4 (3 axles with trailer)": 100.0,
+     "3": 68.0,
+     "3 (2 axles with trailer)": 68.0,
+     "2": 47.0
+    },
+    "Trzciel|Nowy Tomyśl": {
+     "4": 7.0,
+     "4 (3 axles with trailer)": 7.0,
+     "3": 7.0,
+     "3 (2 axles with trailer)": 7.0,
+     "2": 7.0
+    },
+    "Trzciel|Jordanowo": {
+     "4": 11.0,
+     "4 (3 axles with trailer)": 11.0,
+     "3": 11.0,
+     "3 (2 axles with trailer)": 11.0,
+     "2": 11.0
+    },
+    "Trzciel|Torzym": {
+     "4": 26.0,
+     "4 (3 axles with trailer)": 26.0,
+     "3": 26.0,
+     "3 (2 axles with trailer)": 26.0,
+     "2": 26.0
+    },
+    "Trzciel|Rzepin": {
+     "4": 33.0,
+     "4 (3 axles with trailer)": 33.0,
+     "3": 33.0,
+     "3 (2 axles with trailer)": 33.0,
+     "2": 33.0
+    },
+    "Jordanowo|Konin Modła": {
+     "4": 456.0,
+     "4 (3 axles with trailer)": 456.0,
+     "3": 306.0,
+     "3 (2 axles with trailer)": 306.0,
+     "2": 207.0
+    },
+    "Jordanowo|Sługocin": {
+     "4": 456.0,
+     "4 (3 axles with trailer)": 456.0,
+     "3": 306.0,
+     "3 (2 axles with trailer)": 306.0,
+     "2": 207.0
+    },
+    "Jordanowo|Słupca": {
+     "4": 370.0,
+     "4 (3 axles with trailer)": 370.0,
+     "3": 250.0,
+     "3 (2 axles with trailer)": 250.0,
+     "2": 170.0
+    },
+    "Jordanowo|Września": {
+     "4": 310.0,
+     "4 (3 axles with trailer)": 310.0,
+     "3": 210.0,
+     "3 (2 axles with trailer)": 210.0,
+     "2": 144.0
+    },
+    "Jordanowo|Poznań Wschód": {
+     "4": 164.0,
+     "4 (3 axles with trailer)": 164.0,
+     "3": 114.0,
+     "3 (2 axles with trailer)": 114.0,
+     "2": 81.0
+    },
+    "Jordanowo|Poznań Krzesiny": {
+     "4": 164.0,
+     "4 (3 axles with trailer)": 164.0,
+     "3": 114.0,
+     "3 (2 axles with trailer)": 114.0,
+     "2": 81.0
+    },
+    "Jordanowo|Poznań Luboń": {
+     "4": 164.0,
+     "4 (3 axles with trailer)": 164.0,
+     "3": 114.0,
+     "3 (2 axles with trailer)": 114.0,
+     "2": 81.0
+    },
+    "Jordanowo|Poznań Komorniki": {
+     "4": 164.0,
+     "4 (3 axles with trailer)": 164.0,
+     "3": 114.0,
+     "3 (2 axles with trailer)": 114.0,
+     "2": 81.0
+    },
+    "Jordanowo|Poznań Zachód": {
+     "4": 164.0,
+     "4 (3 axles with trailer)": 164.0,
+     "3": 114.0,
+     "3 (2 axles with trailer)": 114.0,
+     "2": 81.0
+    },
+    "Jordanowo|Buk": {
+     "4": 111.0,
+     "4 (3 axles with trailer)": 111.0,
+     "3": 79.0,
+     "3 (2 axles with trailer)": 79.0,
+     "2": 58.0
+    },
+    "Jordanowo|Nowy Tomyśl": {
+     "4": 18.0,
+     "4 (3 axles with trailer)": 18.0,
+     "3": 18.0,
+     "3 (2 axles with trailer)": 18.0,
+     "2": 18.0
+    },
+    "Jordanowo|Trzciel": {
+     "4": 11.0,
+     "4 (3 axles with trailer)": 11.0,
+     "3": 11.0,
+     "3 (2 axles with trailer)": 11.0,
+     "2": 11.0
+    },
+    "Jordanowo|Torzym": {
+     "4": 15.0,
+     "4 (3 axles with trailer)": 15.0,
+     "3": 15.0,
+     "3 (2 axles with trailer)": 15.0,
+     "2": 15.0
+    },
+    "Jordanowo|Rzepin": {
+     "4": 22.0,
+     "4 (3 axles with trailer)": 22.0,
+     "3": 22.0,
+     "3 (2 axles with trailer)": 22.0,
+     "2": 22.0
+    },
+    "Torzym|Konin Modła": {
+     "4": 471.0,
+     "4 (3 axles with trailer)": 471.0,
+     "3": 321.0,
+     "3 (2 axles with trailer)": 321.0,
+     "2": 222.0
+    },
+    "Torzym|Sługocin": {
+     "4": 471.0,
+     "4 (3 axles with trailer)": 471.0,
+     "3": 321.0,
+     "3 (2 axles with trailer)": 321.0,
+     "2": 222.0
+    },
+    "Torzym|Słupca": {
+     "4": 385.0,
+     "4 (3 axles with trailer)": 385.0,
+     "3": 265.0,
+     "3 (2 axles with trailer)": 265.0,
+     "2": 185.0
+    },
+    "Torzym|Września": {
+     "4": 325.0,
+     "4 (3 axles with trailer)": 325.0,
+     "3": 225.0,
+     "3 (2 axles with trailer)": 225.0,
+     "2": 159.0
+    },
+    "Torzym|Poznań Wschód": {
+     "4": 179.0,
+     "4 (3 axles with trailer)": 179.0,
+     "3": 129.0,
+     "3 (2 axles with trailer)": 129.0,
+     "2": 96.0
+    },
+    "Torzym|Poznań Krzesiny": {
+     "4": 179.0,
+     "4 (3 axles with trailer)": 179.0,
+     "3": 129.0,
+     "3 (2 axles with trailer)": 129.0,
+     "2": 96.0
+    },
+    "Torzym|Poznań Luboń": {
+     "4": 179.0,
+     "4 (3 axles with trailer)": 179.0,
+     "3": 129.0,
+     "3 (2 axles with trailer)": 129.0,
+     "2": 96.0
+    },
+    "Torzym|Poznań Komorniki": {
+     "4": 179.0,
+     "4 (3 axles with trailer)": 179.0,
+     "3": 129.0,
+     "3 (2 axles with trailer)": 129.0,
+     "2": 96.0
+    },
+    "Torzym|Poznań Zachód": {
+     "4": 179.0,
+     "4 (3 axles with trailer)": 179.0,
+     "3": 129.0,
+     "3 (2 axles with trailer)": 129.0,
+     "2": 96.0
+    },
+    "Torzym|Buk": {
+     "4": 126.0,
+     "4 (3 axles with trailer)": 126.0,
+     "3": 94.0,
+     "3 (2 axles with trailer)": 94.0,
+     "2": 73.0
+    },
+    "Torzym|Nowy Tomyśl": {
+     "4": 33.0,
+     "4 (3 axles with trailer)": 33.0,
+     "3": 33.0,
+     "3 (2 axles with trailer)": 33.0,
+     "2": 33.0
+    },
+    "Torzym|Trzciel": {
+     "4": 26.0,
+     "4 (3 axles with trailer)": 26.0,
+     "3": 26.0,
+     "3 (2 axles with trailer)": 26.0,
+     "2": 26.0
+    },
+    "Torzym|Jordanowo": {
+     "4": 15.0,
+     "4 (3 axles with trailer)": 15.0,
+     "3": 15.0,
+     "3 (2 axles with trailer)": 15.0,
+     "2": 15.0
+    },
+    "Torzym|Rzepin": {
+     "4": 7.0,
+     "4 (3 axles with trailer)": 7.0,
+     "3": 7.0,
+     "3 (2 axles with trailer)": 7.0,
+     "2": 7.0
+    },
+    "Rzepin|Konin Modła": {
+     "4": 478.0,
+     "4 (3 axles with trailer)": 478.0,
+     "3": 328.0,
+     "3 (2 axles with trailer)": 328.0,
+     "2": 229.0
+    },
+    "Rzepin|Sługocin": {
+     "4": 478.0,
+     "4 (3 axles with trailer)": 478.0,
+     "3": 328.0,
+     "3 (2 axles with trailer)": 328.0,
+     "2": 229.0
+    },
+    "Rzepin|Słupca": {
+     "4": 392.0,
+     "4 (3 axles with trailer)": 392.0,
+     "3": 272.0,
+     "3 (2 axles with trailer)": 272.0,
+     "2": 192.0
+    },
+    "Rzepin|Września": {
+     "4": 332.0,
+     "4 (3 axles with trailer)": 332.0,
+     "3": 232.0,
+     "3 (2 axles with trailer)": 232.0,
+     "2": 166.0
+    },
+    "Rzepin|Poznań Wschód": {
+     "4": 186.0,
+     "4 (3 axles with trailer)": 186.0,
+     "3": 136.0,
+     "3 (2 axles with trailer)": 136.0,
+     "2": 103.0
+    },
+    "Rzepin|Poznań Krzesiny": {
+     "4": 186.0,
+     "4 (3 axles with trailer)": 186.0,
+     "3": 136.0,
+     "3 (2 axles with trailer)": 136.0,
+     "2": 103.0
+    },
+    "Rzepin|Poznań Luboń": {
+     "4": 186.0,
+     "4 (3 axles with trailer)": 186.0,
+     "3": 136.0,
+     "3 (2 axles with trailer)": 136.0,
+     "2": 103.0
+    },
+    "Rzepin|Poznań Komorniki": {
+     "4": 186.0,
+     "4 (3 axles with trailer)": 186.0,
+     "3": 136.0,
+     "3 (2 axles with trailer)": 136.0,
+     "2": 103.0
+    },
+    "Rzepin|Poznań Zachód": {
+     "4": 186.0,
+     "4 (3 axles with trailer)": 186.0,
+     "3": 136.0,
+     "3 (2 axles with trailer)": 136.0,
+     "2": 103.0
+    },
+    "Rzepin|Buk": {
+     "4": 133.0,
+     "4 (3 axles with trailer)": 133.0,
+     "3": 101.0,
+     "3 (2 axles with trailer)": 101.0,
+     "2": 80.0
+    },
+    "Rzepin|Nowy Tomyśl": {
+     "4": 40.0,
+     "4 (3 axles with trailer)": 40.0,
+     "3": 40.0,
+     "3 (2 axles with trailer)": 40.0,
+     "2": 40.0
+    },
+    "Rzepin|Trzciel": {
+     "4": 33.0,
+     "4 (3 axles with trailer)": 33.0,
+     "3": 33.0,
+     "3 (2 axles with trailer)": 33.0,
+     "2": 33.0
+    },
+    "Rzepin|Jordanowo": {
+     "4": 22.0,
+     "4 (3 axles with trailer)": 22.0,
+     "3": 22.0,
+     "3 (2 axles with trailer)": 22.0,
+     "2": 22.0
+    },
+    "Rzepin|Torzym": {
+     "4": 7.0,
+     "4 (3 axles with trailer)": 7.0,
+     "3": 7.0,
+     "3 (2 axles with trailer)": 7.0,
+     "2": 7.0
+    }
+   }
+  }
+ ],
+ "rows": [],
+ "valid_to": "2026-03-10"
+}

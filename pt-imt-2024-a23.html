@@ -1,0 +1,960 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+
+<script type="text/javascript">
+	_uacct = "UA-4040981-3";
+	urchinTracker();
+</script>
+<html id="ctl00_Html1" __expr-val-dir="ltr" lang="pt-pt" dir="ltr">
+<head id="ctl00_Head1"><link REL="SHORTCUT ICON" href="/sites/IMTT/SiteCollectionImages/icon.ico" /><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><meta http-equiv="Expires" content="0" /><META NAME="ROBOTS" CONTENT="NOHTMLINDEX"/><title>
+	
+	Taxas de Portagem A23
+
+</title><link rel="stylesheet" type="text/css" href="/_layouts/2070/styles/HtmlEditorCustomStyles.css?rev=Fbt%2BwJwajXZQra%2BYNhlGpg%3D%3D"/>
+<link rel="stylesheet" type="text/css" href="/_layouts/2070/styles/HtmlEditorTableFormats.css?rev=EM4WDIMW2vtuMw8r6rIxQw%3D%3D"/>
+<link rel="stylesheet" type="text/css" href="/_layouts/2070/styles/core.css?rev=rai4%2BH5y%2BSYjfODewzpzQg%3D%3D"/>
+<link rel="stylesheet" type="text/css" href="/sites/IMTT/Style%20Library/pt-pt/Core%20Styles/IMTT.css"/>
+
+	<!--Styles used for positioning, font and spacing definitions-->	
+	
+	<!--Placeholder for additional overrides-->
+	
+	
+	<style type="text/css"></style>
+	
+	<!--Styles used for positioning, font and spacing definitions-->	
+	<script src="/_layouts/2070/init.js?rev=TygNVtwVRHv5ee0Fh43%2Feg%3D%3D"></script>
+
+
+
+
+	
+<script type="text/javascript">
+	/* Limpa a text box da pesquisa se tiver la a string Pesquisar */
+	function cleanSearch (obj)
+	{
+		if (obj.value == "Pesquisar")
+		{
+			obj.value = "";
+		}
+	}
+	/* Preenche a text box da pesquisa coma a palavra Pesquisar se tiver la uma string vazia */
+	function fillSearch (obj)
+	{
+		if (obj.value == "")
+		{
+			obj.value = "Pesquisar";
+		}
+	}
+
+	function ReplaceSpecialCharacteres(value)
+    {
+        var result = value;
+        result = result.replace(/ã/g, "a").replace(/á/g, "a").replace(/à/g, "a").replace(/â/g, "a").replace(/ä/g, "a");
+        result = result.replace(/é/g, "e").replace(/è/g, "e").replace(/ê/g, "e").replace(/ë/g, "e");
+        result = result.replace(/í/g, "i").replace(/ì/g, "i").replace(/î/g, "i").replace(/ï/g, "i");
+        result = result.replace(/õ/g, "o").replace(/ó/g, "o").replace(/ò/g, "o").replace(/ô/g, "o").replace(/ö/g, "o");
+        result = result.replace(/ú/g, "u").replace(/ù/g, "u").replace(/û/g, "u").replace(/ü/g, "u");
+        result = result.replace(/Ã/g, "A").replace(/Á/g, "A").replace(/À/g, "A").replace(/Â/g, "A").replace(/Ä/g, "A");
+        result = result.replace(/É/g, "E").replace(/È/g, "E").replace(/Ê/g, "E").replace(/Ë/g, "E");
+        result = result.replace(/Í/g, "I").replace(/Ì/g, "I").replace(/Î/g, "I").replace(/Ï/g, "I");
+        result = result.replace(/Õ/g, "O").replace(/Ó/g, "O").replace(/Ò/g, "O").replace(/Ô/g, "O").replace(/Ö/g, "O");
+        result = result.replace(/Ú/g, "U").replace(/Ù/g, "U").replace(/Û/g, "U").replace(/Ü/g, "U");
+        result = result.replace(/ç/g, "c").replace(/Ç/g, "C");
+        result = result.replace(/´/g, "").replace(/`/g, "").replace(/~/g, "").replace(/^/g, "");
+        return result;
+    }
+	function returnSearch()
+	{		
+		if ( window.event.keyCode==13 )		
+		{														
+			if (location.href.search('/Portugues/') > 0) 
+			{
+				window.location = "/sites/IMTT/Portugues/Procurar/Paginas/results.aspx?k=" + document.getElementById('ctl00_PlaceHolderSearchArea_tbxSearch').value;
+			}
+			else
+			{
+				window.location = "/sites/IMTT/English/Procurar/Pages/results.aspx?k=" + document.getElementById('ctl00_PlaceHolderSearchArea_tbxSearch').value;
+			}			
+ 			return false;
+		}		
+		else
+		{
+			return true;
+			
+		}
+	}
+	function WebForm_DoPostBackWithOptions(objecto)
+	{
+	}
+	function WebForm_PostBackOptions(objecto)
+	{
+	}
+</script>
+</head>
+
+<body class="body" onload="javascript:">
+	<form name="aspnetForm" method="post" action="/sites/IMTT/Portugues/InfraestruturasRodoviarias/RedeRodoviaria/Paginas/TaxasdePortagemA23.aspx" id="aspnetForm">
+<input type="hidden" name="__REQUESTDIGEST" id="__REQUESTDIGEST" value="0x8525833287195FDF64D5AB25B85D04BE47C2A007D4D3112A8CAFCF77C1F14EC290991B5050849D6744F9CC727DD90E28A6FC7821F6E4802FB9868E530511F56C,04 Feb 2024 06:02:02 -0000" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTE2NDk3Mjk3NzcPFgIeC1JldHVyblN0YWNrZBYCZg9kFgJmD2QWBAIBD2QWAgIFD2QWAmYPZBYCAgEPFgIeE1ByZXZpb3VzQ29udHJvbE1vZGULKYgBTWljcm9zb2Z0LlNoYXJlUG9pbnQuV2ViQ29udHJvbHMuU1BDb250cm9sTW9kZSwgTWljcm9zb2Z0LlNoYXJlUG9pbnQsIFZlcnNpb249MTIuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49NzFlOWJjZTExMWU5NDI5YwFkAgMPZBYOAgEPFgIeB1Zpc2libGVoFgQCAQ9kFgICAQ8WAh8CaBYCZg9kFgQCAg9kFgICAw8WAh8CaGQCAw8PFgIeCUFjY2Vzc0tleQUBL2RkAgMPDxYCHwJoZBYCAgIPDxYCHwJnFgIeBXN0eWxlBQ5kaXNwbGF5OmJsb2NrO2QCAw9kFgICAw9kFgICAQ8PFgIfAmdkFgQCAQ8PFgIfAmhkFhwCAQ8PFgIfAmhkZAIDDxYCHwJoZAIFDw8WAh8CaGRkAgcPFgIfAmhkAgkPDxYCHwJoZGQCCw8PFgIfAmhkZAINDw8WAh8CaGRkAg8PDxYEHgdFbmFibGVkaB8CaGRkAhEPDxYCHwJoZGQCEw8PFgQfBWgfAmhkZAIVDw8WAh8CaGRkAhcPFgIfAmhkAhkPFgIfAmhkAhsPDxYCHwJnZGQCAw8PFgIfAmdkFgYCAQ8PFgIfAmdkZAIDDw8WBh4YcGVyc2lzdGVkRXJyb3JBY3Rpb25UcmVlZB4bcGVyc2lzdGVkRXJyb3JBY3Rpb25UcmVlSWRzZB8CZ2RkAgUPDxYCHwJnZGQCBQ8PFgIfAmhkFgICAQ88KwAJAQAPFgQeCERhdGFLZXlzFgAeC18hSXRlbUNvdW50ZmRkAgYPDxYCHwJoZGQCCw8WAh4FY2xhc3MFCGxlZnROYXYxZAIRD2QWAgIBD2QWBgIBDxYCHwELKwQBZAIDDxYCHwoFL3BhZ2luYUNvbnRldWRvRGl2U3ViVGl0dWxvLXBhZ2luYWdlcmFsY29udGV1ZG9zFgICAw8WAh8BCysEAWQCCQ8WAh8BCysEAWQCEw8WAh4EVGV4dAV+wqkgMjAwOCAtIDIwMjQgd3d3LmltdHQucHQgLSBUb2RvcyBvcyBkaXJlaXRvcyByZXNlcnZhZG9zIHwgU2l0ZSBvcHRpbWl6YWRvIHBhcmEgMTAyNHg3NjgsIElFNyssIEZGMisgfCBEZXNlbnZvbHZpZG8gcG9yIENQQ2lzZGRPfJS6a56G+H44Lskt9pwGHUjKZg==" />
+
+<script type="text/JavaScript" language="JavaScript">
+<!--
+var L_Menu_BaseUrl="/sites/IMTT/Portugues/InfraestruturasRodoviarias/RedeRodoviaria";
+var L_Menu_LCID="2070";
+var L_Menu_SiteTheme="";
+//-->
+</script>
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBQLHhoKyCgLIuuCvBgKQ1MOIDwKd0IOYDALK4aiSBpki11hNMzSv2htkEngVtUdmsL22" />
+		
+		<div id="master" class="master">
+			
+		
+		<div id="masterContentArea" class="masterContent">
+				
+				<div id="designConsoleArea">
+					
+		  																		
+				</div>
+			
+				<div class="console">
+					
+<!-- Console -->
+<span id="ctl00_ctl06_publishingContext1"></span>
+
+<!-- Console -->
+
+				</div>
+				<a name="topo"></a>
+				<div  class="headerImage" >
+					
+					<a href="/sites/IMTT/Portugues" class="logo">
+						<img class="imageLogo" style="border:0px" alt="IMT - Instituto da Mobilidade e dos Transportes,I.P." src="/sites/IMTT/SiteCollectionImages/IMTlogotipo.png"/>
+					</a>
+										
+					<div class="superior">					
+					<div class="AlteraIdioma">										
+							
+							  
+                    		
+					</div>	
+   					<div class="search">		
+							
+							<div class="searchBoxDiv">
+								<label id="lblPesquisar" for="ctl00_PlaceHolderSearchArea_tbxSearch" style="visibility:hidden; display:none;">
+								Pesquisar</label>
+								<input name="ctl00$PlaceHolderSearchArea$tbxSearch" type="text" value="Pesquisar" id="ctl00_PlaceHolderSearchArea_tbxSearch" class="searchBox" onkeypress="return returnSearch();" onfocus="cleanSearch (this)" onblur="fillSearch (this)" />								
+							</div>
+							<div class="fundo-pesquisa">
+								<input type="submit" name="ctl00$PlaceHolderSearchArea$btnSearch" value="" onclick="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$PlaceHolderSearchArea$btnSearch&quot;, &quot;&quot;, true, &quot;&quot;, &quot;&quot;, false, false))" id="ctl00_PlaceHolderSearchArea_btnSearch" title="Pesquisar" class="searchButton" />
+							</div>	
+						
+					</div>		
+					<div class="cleaner">&nbsp;</div>	
+					<!--
+					<div class="utilitariosDiv">	
+						<div class="utilitarioscss">
+	<div class="util-first-item">
+		<div>
+			<a href="/sites/IMTT/Portugues/PerguntasFrequentes/TransportesRodoviarios/Paginas/TransportesRodoviarios.aspx">Perguntas Frequentes</a>
+		</div>
+	</div><div class="util-items">
+		<div>
+			<a href="/sites/IMTT/Portugues/SubscricaoNoticias/Paginas/SubscricaoNoticias.aspx">Subscrição de Notícias</a>
+		</div>
+	</div><div class="util-items">
+		<div>
+			<a href="/sites/IMTT/Portugues/MapaSite/Paginas/MapaSite.aspx">Mapa do Site</a>
+		</div>
+	</div><div class="cleaner">
+
+	</div>
+</div>
+	   					
+   					</div>
+					-->
+					<div class="contactos">
+						<div id="globalNavArea" class="globalNav" >		
+							<div class="topNavItem">
+	<a href="/sites/IMTT/Portugues/PerguntasFrequentes/Paginas/FAQ.aspx">Perguntas Frequentes</a>
+</div><div class="topNavItem">
+	<a href="/sites/IMTT/Portugues/Contactos/Paginas/Sede.aspx">Contactos</a>
+</div> 				
+						</div>
+					</div>																																																								
+					</div>							
+					<div class="cleaner">&nbsp;</div>
+				</div>
+									
+				<div id="mainArea" class="main">	
+					<div class="lefty">			
+							
+							<div id="currNavArea" class="currNav">
+							
+								<!--
+								<div class="topo-menu-esquerdo">
+								</div>
+								-->
+																					
+								<div >	
+									<div class="menu-corpo">
+										<div class="coluna-esquerda-menu-principal">
+											<div id="ctl00_divInicio" class="leftNav1">
+												
+												<a href="/sites/IMTT/Portugues">
+													Início
+												</a>
+												</div>
+											<div class="leftNav1">
+	<a href="/sites/IMTT/Portugues/IMTT/Paginas/OIMT.aspx">O IMT</a>
+</div><div class="leftNav1">
+	<a href="/sites/IMTT/Portugues/BibliotecaeArquivo/Paginas/BibliotecaeArquivo.aspx">Biblioteca e Arquivo</a>
+</div><div class="leftNav1">
+	<a href="/sites/IMTT/Portugues/Noticias/Paginas/Noticias.aspx">Notícias</a>
+</div><div class="leftNav1">
+	<a href="/sites/IMTT/Portugues/novidadeslegislativas/Paginas/NovidadesLegislativas.aspx">Novidades Legislativas</a>
+</div><div class="leftNav1">
+	<a href="/sites/IMTT/Portugues/eventos-iniciativas/Paginas/eventos-iniciativas.aspx">Eventos/Iniciativas</a>
+</div><div class="leftNav1">
+	<a href="/sites/IMTT/Portugues/CONDUTORES/Paginas/Condutores.aspx">Condutores</a>
+</div><div class="leftNav1">
+	<a href="/sites/IMTT/Portugues/EnsinoConducao/Paginas/EnsinodaConducao.aspx">Ensino da Condução</a>
+</div><div class="leftNav1">
+	<a href="/SITES/IMTT/PORTUGUES/VEICULOS/Paginas/Veiculos.aspx">Veículos</a>
+</div><div class="leftNavSelected1">
+	<a href="/sites/IMTT/Portugues/InfraestruturasRodoviarias/Paginas/InfraestruturasRodoviarias.aspx">Infraestruturas Rodoviárias</a>
+</div><div class="leftNav2">
+	<a href="/sites/IMTT/Portugues/InfraestruturasRodoviarias/Auditores-Seguranca-Rodoviaria/Paginas/Auditores-Seguranca-Rodoviaria.aspx">Auditores de Segurança Rodoviária</a>
+</div><div class="leftNavSelected2">
+	<a href="/sites/IMTT/Portugues/InfraestruturasRodoviarias/RedeRodoviaria/Paginas/RedeRodoviaria.aspx">Rede Rodoviária</a>
+</div><div class="leftNav2">
+	<a href="/sites/IMTT/Portugues/InfraestruturasRodoviarias/DireitosUtentes/Paginas/DireitosdosUtentes.aspx">Direitos dos Utentes</a>
+</div><div class="leftNav2">
+	<a href="/sites/IMTT/Portugues/InfraestruturasRodoviarias/InovacaoNormalizacao/Paginas/InovacaoNormalizacao.aspx">Inovação e Normalização</a>
+</div><div class="leftNav2">
+	<a href="/sites/IMTT/Portugues/InfraestruturasRodoviarias/SistemadeIdentificacaoEletronicadeVeiculos/Paginas/SIEV.aspx">Serviço Eletrónico Nacional de Portagem e Serviço Eletrónico Europeu de Portagens</a>
+</div><div class="leftNav1">
+	<a href="/sites/IMTT/Portugues/TransportesRodoviarios/Paginas/TransportesRodoviarios.aspx">Transportes Rodoviários</a>
+</div><div class="leftNav1">
+	<a href="/sites/IMTT/Portugues/TransportesFerroviarios/Paginas/TransportesFerroviarios.aspx">Transportes Ferroviários</a>
+</div><div class="leftNav1">
+	<a href="/sites/IMTT/Portugues/AgentesdeFiscalizacao/Paginas/AgentesdeFiscalizacao.aspx">Agentes de Fiscalização</a>
+</div><div class="leftNav1">
+	<a href="/sites/IMTT/Portugues/Tarifas/Paginas/T%c3%adtulos%20de%20Transporte%20e%20Tarifas.aspx">Títulos de Transporte e Tarifas</a>
+</div><div class="leftNav1">
+	<a href="/sites/IMTT/Portugues/TransportePorCabo/Paginas/InstalacoesporCabo.aspx">Transportes por Cabo</a>
+</div><div class="leftNav1">
+	<a href="/sites/IMTT/Portugues/TransporteMaritimo/Paginas/TransporteMaritimo.aspx">Atividades Marítimo-Portuárias</a>
+</div><div class="leftNav1">
+	<a href="/sites/IMTT/Portugues/Planeamento/Paginas/Planeamento.aspx">Planeamento</a>
+</div><div class="leftNav1">
+	<a href="/sites/IMTT/Portugues/ProgramasApoio/Paginas/ProgramasdeApoio.aspx">Programas de Apoio</a>
+</div><div class="leftNav1">
+	<a href="/sites/IMTT/Portugues/Legislacao/Paginas/Legislacao.aspx">Legislação</a>
+</div><div class="leftNav1">
+	<a href="/sites/IMTT/Portugues/Formularios/Paginas/Formularios.aspx">Formulários</a>
+</div><div class="leftNav1">
+	<a href="/sites/IMTT/Portugues/Links/Paginas/Links.aspx">Links</a>
+</div>           
+																		
+										<div class="navSpacer">
+										
+										
+										</div>
+
+									</div>
+								</div>
+								</div>
+							
+							<div class="bottom-menu-esquerdo">
+							</div>
+							
+							
+								
+
+								<div class="topo-menu-esquerdo">
+								</div>	
+								
+								<div class="servicoslinha-usercontrol">	
+								<div class="rightMenuNormalLevel2">
+	<a href="http://www.imtonline.pt/" target="_blank">IMT online</a>
+</div><div class="rightMenuNormalLevel2">
+	<a href="https://servicos.imt-ip.pt/ValidarDocumentos.aspx" target="_blank">Validação de Documentos</a>
+</div><div class="rightMenuNormalLevel2">
+	<a href="http://plc.imtt.pt/plcweb/online/plc.zul" target="_blank">Licenciamento/Certificação</a>
+</div><div class="rightMenuNormalLevel2">
+	<a href="/sites/IMTT/Portugues/Links-Extra/Simuladores/Paginas/Simulador.aspx">Simuladores</a>
+</div><div class="rightMenuNormalLevel2">
+	<a href="/MatriculasCanceladas/matriculas.asp" target="_blank">Matriculas Canceladas</a>
+</div>
+        						
+								</div>
+																
+								<div class="bottom-menu-esquerdo">
+								</div>																							
+								
+							</div>	
+													
+								
+					</div>
+					<div id="mapPath" class="mapPath">
+						<div class="print" >
+							
+							<div id="breadcrumb" >	
+								<span id="ctl00_PlaceHolderTitleBreadcrumb_CustomBreadcrumb1" class="breadcrumb"><span><a alt="Infraestruturas Rodoviárias" href="/sites/IMTT/Portugues/InfraestruturasRodoviarias/Paginas/InfraestruturasRodoviarias.aspx">Infraestruturas Rodoviárias</a></span><span class="breadCumbSeparator"> > </span><span><a alt="Rede Rodoviária" href="/sites/IMTT/Portugues/InfraestruturasRodoviarias/RedeRodoviaria/Paginas/RedeRodoviaria.aspx">Rede Rodoviária</a></span></span>								 					 
+							</div>										
+											
+						</div>
+					</div>
+							
+					<div id="centralArea" class="centralArea">													
+						
+										
+												
+								
+						<div id="ctl00_MSO_ContentDiv" class="mainContainer">							
+							
+							<div id="pageTitleArea" class="pageTitle">
+								
+							</div>												
+							<div id="mainContentArea" class="mainContent">
+								
+	<h1 style="display:none;">
+		Taxas de Portagem A23
+	</h1>
+	<div class="paginaConteudoDiv">
+
+		<div id="ctl00_PlaceHolderMain_paginaConteudoDivTitulo" class="paginaConteudoDivSubTitulo-paginageralconteudos">
+			<div class="proteinas">
+			</div>								
+				<input type="submit" name="ctl00$PlaceHolderMain$btnImprimirImg" value="" onclick="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$PlaceHolderMain$btnImprimirImg&quot;, &quot;&quot;, true, &quot;&quot;, &quot;&quot;, false, false))" id="ctl00_PlaceHolderMain_btnImprimirImg" accesskey="P" title="Imprimir" class="printButton" />	
+					
+		   	Taxas de Portagem A23&nbsp;
+		</div>		   
+							
+		<input type="submit" name="ctl00$PlaceHolderMain$setavoltar" value="" onclick="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$PlaceHolderMain$setavoltar&quot;, &quot;&quot;, true, &quot;&quot;, &quot;&quot;, false, false))" id="ctl00_PlaceHolderMain_setavoltar" title="Voltar" class="voltar-link" />
+													
+	    <br>
+	    <div class="linhaTituloSemMenu">
+   		    <img src="../../../../SiteCollectionImages/setaTitulo.jpg" id="ctl00_PlaceHolderMain_Image1" Class="imgLinhaTitulo" alt="Título" />
+	    </div>
+	    <br>
+		<div class="paginaConteudoDivTextoSemMenu">
+			<div id="ctl00_PlaceHolderMain_RichHtmlField1__ControlWrapper_RichHtmlField" style="display:inline"><p align=center><font color="#808184" face=Arial><strong>A23<br></strong></font><font color="#808184" face=Arial><strong> </strong></p>
+<p align=center>
+<table class=MsoNormalTable style="width:441.4pt;border-collapse:collapse" cellspacing=0 cellpadding=0 width=589 border=0>
+<tbody>
+<tr style="height:15.6pt">
+<td style="height:15.6pt;width:40.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" valign=bottom width=54 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"><strong>IP - A23</strong></span></p></td>
+<td style="height:15.6pt;width:23.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" valign=bottom width=32 nowrap></td>
+<td style="height:15.6pt;width:191.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" valign=bottom width=256 nowrap></td>
+<td style="height:15.6pt;width:54.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" valign=bottom width=73 nowrap></td>
+<td style="height:15.6pt;width:43.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" valign=bottom width=58 nowrap></td>
+<td style="height:15.6pt;width:28.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" valign=bottom width=38 nowrap></td>
+<td style="height:15.6pt;width:28.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" valign=bottom width=38 nowrap></td>
+<td style="height:15.6pt;width:28.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" valign=bottom width=38 nowrap></td></tr>
+<tr style="height:15pt">
+<td style="border-top:windowtext 1pt solid;height:15pt;border-right:windowtext 1pt solid;width:40.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:windowtext 1pt solid;padding-right:3.5pt" rowspan=2 width=54>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=left><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">Auto Estrada</span></p></td>
+<td style="border-top:windowtext 1pt solid;height:15pt;border-right:medium none;width:23.8pt;border-bottom:black 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" rowspan=2 width=32 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=left><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td>
+<td style="border-top:windowtext 1pt solid;height:15pt;border-right:windowtext 1pt solid;width:191.8pt;border-bottom:black 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:windowtext 1pt solid;padding-right:3.5pt" rowspan=2 width=256 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=left><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">Lanço</span></p></td>
+<td style="border-top:windowtext 1pt solid;height:15pt;border-right:windowtext 1pt solid;width:54.8pt;border-bottom:medium none;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=73>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=left><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">Extensão</span></p></td>
+<td style="border-top:windowtext 1pt solid;height:15pt;border-right:black 1pt solid;width:130.2pt;border-bottom:black 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=174 colspan=4 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=left><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">Taxas de Portagem para 2024</span></p></td></tr>
+<tr style="height:22.8pt">
+<td style="border-top:medium none;height:22.8pt;border-right:windowtext 1pt solid;width:54.8pt;border-bottom:medium none;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=73>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=left><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">c/ Port. (km)</span></p></td>
+<td style="border-top:medium none;height:22.8pt;border-right:medium none;width:43.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" valign=bottom width=58 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=left><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">Cl 1</span></p></td>
+<td style="border-top:medium none;height:22.8pt;border-right:medium none;width:28.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" valign=bottom width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=left><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">Cl 2</span></p></td>
+<td style="border-top:medium none;height:22.8pt;border-right:medium none;width:28.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" valign=bottom width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=left><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">Cl 3</span></p></td>
+<td style="border-top:medium none;height:22.8pt;border-right:windowtext 1pt solid;width:28.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" valign=bottom width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=left><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">Cl 4</span></p></td></tr>
+<tr style="height:15pt">
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:40.8pt;border-bottom:medium none;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:windowtext 1pt solid;padding-right:3.5pt" rowspan=9 width=54 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=left><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">A23</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:23.8pt;border-bottom:medium none;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=32 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=left><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">1</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:191.8pt;border-bottom:medium none;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" valign=bottom width=256 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal" align=left><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">A1/IP1 - Zibreira</span></p></td>
+<td style="border-top:windowtext 1pt solid;height:15pt;border-right:windowtext 1pt solid;width:54.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" valign=top rowspan=3 width=73 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=left><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">13,5</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:43.8pt;border-bottom:black 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" valign=top rowspan=3 width=58 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=left><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">0,50</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:28.8pt;border-bottom:black 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" valign=top rowspan=3 width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=left><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">0,85</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:28.8pt;border-bottom:black 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" valign=top rowspan=3 width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=left><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">1,10</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:28.8pt;border-bottom:black 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" valign=top rowspan=3 width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=left><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">1,20</span></p></td></tr>
+<tr style="height:15pt">
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:23.8pt;border-bottom:medium none;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=32 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=left><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">2</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:191.8pt;border-bottom:medium none;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" valign=bottom width=256 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal" align=left><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">Zibreira - Torres Novas</span></p></td></tr>
+<tr style="height:15pt">
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:23.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=32 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=left><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">3</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:191.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" valign=bottom width=256 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal" align=left><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">Torres Novas - Entroncamento</span></p></td></tr>
+<tr style="height:15pt">
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:23.8pt;border-bottom:medium none;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=32 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=left><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">4</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:191.8pt;border-bottom:medium none;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" valign=bottom width=256 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal" align=left><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">Entroncamento - Atalaia</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:54.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" valign=top rowspan=3 width=73 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=left><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">12,2</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:43.8pt;border-bottom:black 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" valign=top rowspan=3 width=58 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=left><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">0,45</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:28.8pt;border-bottom:black 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" valign=top rowspan=3 width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=left><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">0,75</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:28.8pt;border-bottom:black 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" valign=top rowspan=3 width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=left><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">1,00</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:28.8pt;border-bottom:black 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" valign=top rowspan=3 width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=left><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">1,10</span></p></td></tr>
+<tr style="height:15pt">
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:23.8pt;border-bottom:medium none;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=32 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=left><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">5</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:191.8pt;border-bottom:medium none;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" valign=bottom width=256 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal" align=left><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">Atalaia - Roda</span></p></td></tr>
+<tr style="height:15pt">
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:23.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=32 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=left><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">6</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:191.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" valign=bottom width=256 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal" align=left><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">Roda - Constância Oeste</span></p></td></tr>
+<tr style="height:15pt">
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:23.8pt;border-bottom:medium none;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=32 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=left><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">7</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:191.8pt;border-bottom:medium none;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" valign=bottom width=256 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal" align=left><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">Constância Oeste - Contância Centro</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:54.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" valign=top rowspan=3 width=73 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=left><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">11,3</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:43.8pt;border-bottom:black 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" valign=top rowspan=3 width=58 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=left><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">0,45</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:28.8pt;border-bottom:black 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" valign=top rowspan=3 width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=left><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">0,70</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:28.8pt;border-bottom:black 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" valign=top rowspan=3 width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=left><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">0,95</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:28.8pt;border-bottom:black 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" valign=top rowspan=3 width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=left><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">1,00</span></p></td></tr>
+<tr style="height:15pt">
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:23.8pt;border-bottom:medium none;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=32 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=left><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">8</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:191.8pt;border-bottom:medium none;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" valign=bottom width=256 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal" align=left><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">Constância Centro - Montalvo/Abrantes</span></p></td></tr>
+<tr style="height:15pt">
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:23.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=32 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=left><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">9</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:191.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" valign=bottom width=256 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal" align=left><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">Montalvo/Abrantes - Abrantes Oeste</span></p></td></tr>
+<tr style="height:15.6pt">
+<td style="border-top:medium none;height:15.6pt;border-right:medium none;width:40.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:windowtext 1pt solid;padding-right:3.5pt" valign=bottom width=54 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=left><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td>
+<td style="border-top:medium none;height:15.6pt;border-right:windowtext 1pt solid;width:23.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:windowtext 1pt solid;padding-right:3.5pt" width=32 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=left><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td>
+<td style="border-top:medium none;height:15.6pt;border-right:windowtext 1pt solid;width:191.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" valign=bottom width=256 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=left><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">Total</span></p></td>
+<td style="border-top:medium none;height:15.6pt;border-right:windowtext 1pt solid;width:54.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" valign=bottom width=73 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=left><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">37,0</span></p></td>
+<td style="border-top:medium none;height:15.6pt;border-right:medium none;width:43.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" valign=bottom width=58 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=left><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">1,40</span></p></td>
+<td style="border-top:medium none;height:15.6pt;border-right:medium none;width:28.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" valign=bottom width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=left><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">2,30</span></p></td>
+<td style="border-top:medium none;height:15.6pt;border-right:medium none;width:28.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" valign=bottom width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=left><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">3,05</span></p></td>
+<td style="border-top:medium none;height:15.6pt;border-right:windowtext 1pt solid;width:28.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" valign=bottom width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=left><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">3,30</span></p></td></tr></tbody></table></p></font>
+<p></p>
+<p align=center>  
+<table class=MsoNormalTable style="width:440.6pt;border-collapse:collapse" cellspacing=0 cellpadding=0 width=587 border=0>
+<tbody>
+<tr style="height:15.6pt">
+<td style="height:15.6pt;width:63.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=85 colspan=2 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><b><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">Beira Interior</span></b></p></td>
+<td style="height:15.6pt;width:191.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=256 nowrap></td>
+<td style="height:15.6pt;width:54.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=73 nowrap></td>
+<td style="height:15.6pt;width:43.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=58 nowrap></td>
+<td style="height:15.6pt;width:28.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=38 nowrap></td>
+<td style="height:15.6pt;width:28.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=38 nowrap></td>
+<td style="height:15.6pt;width:28.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=38 nowrap></td></tr>
+<tr style="height:15pt">
+<td style="border-top:windowtext 1pt solid;height:15pt;border-right:windowtext 1pt solid;width:43.3pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:windowtext 1pt solid;padding-right:3.5pt" rowspan=2 width=58>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">Auto estrada</span></p></td>
+<td style="border-top:windowtext 1pt solid;height:15pt;border-right:medium none;width:20.5pt;border-bottom:black 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" valign=bottom rowspan=2 width=27 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td>
+<td style="border-top:windowtext 1pt solid;height:15pt;border-right:windowtext 1pt solid;width:191.8pt;border-bottom:black 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:windowtext 1pt solid;padding-right:3.5pt" rowspan=2 width=256 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">Lanço</span></p></td>
+<td style="border-top:windowtext 1pt solid;height:15pt;border-right:windowtext 1pt solid;width:54.8pt;border-bottom:medium none;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=73>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">Extensão</span></p></td>
+<td style="border-top:windowtext 1pt solid;height:15pt;border-right:black 1pt solid;width:130.2pt;border-bottom:black 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=174 colspan=4 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">Taxas de Portagem para 2024</span></p></td></tr>
+<tr style="height:15pt">
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:54.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=73>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">c/Port.(km)</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:43.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=58 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">Cl 1</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:28.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">Cl 2</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:28.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">Cl 3</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:28.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">Cl 4</span></p></td></tr>
+<tr style="height:15pt">
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:43.3pt;border-bottom:black 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:windowtext 1pt solid;padding-right:3.5pt" rowspan=28 width=58 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">A23</span></p></td>
+<td style="height:15pt;width:20.5pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=27 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">1</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:191.8pt;border-bottom:medium none;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:windowtext 1pt solid;padding-right:3.5pt" width=256 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"><span> </span>Abrantes Oeste - Abrantes Este</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:54.8pt;border-bottom:black 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:windowtext 1pt solid;padding-right:3.5pt" valign=top rowspan=2 width=73 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">12,1</span></p></td>
+<td style="height:15pt;width:43.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=58 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:right;line-height:normal" align=right><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">0,45</span></p></td>
+<td style="height:15pt;width:28.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:right;line-height:normal" align=right><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">0,75</span></p></td>
+<td style="height:15pt;width:28.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:right;line-height:normal" align=right><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">1,00</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:28.8pt;border-bottom:medium none;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:right;line-height:normal" align=right><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">1,10</span></p></td></tr>
+<tr style="height:15pt">
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:20.5pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=27 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">2</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:191.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:windowtext 1pt solid;padding-right:3.5pt" width=256 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"><span> </span>Abrantes Este - Mouriscas</span></p></td>
+<td style="height:15pt;width:43.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=58 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td>
+<td style="height:15pt;width:28.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=38 nowrap></td>
+<td style="height:15pt;width:28.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=38 nowrap></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:28.8pt;border-bottom:medium none;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td></tr>
+<tr style="height:15pt">
+<td style="height:15pt;width:20.5pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=27 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">3</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:191.8pt;border-bottom:medium none;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:windowtext 1pt solid;padding-right:3.5pt" width=256 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"><span> </span>Mouriscas - Mação</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:54.8pt;border-bottom:black 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:windowtext 1pt solid;padding-right:3.5pt" valign=top rowspan=2 width=73 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">14,4</span></p></td>
+<td style="border-top:windowtext 1pt solid;height:15pt;border-right:medium none;width:43.8pt;border-bottom:medium none;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=58 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:right;line-height:normal" align=right><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">0,50</span></p></td>
+<td style="border-top:windowtext 1pt solid;height:15pt;border-right:medium none;width:28.8pt;border-bottom:medium none;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:right;line-height:normal" align=right><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">0,95</span></p></td>
+<td style="border-top:windowtext 1pt solid;height:15pt;border-right:medium none;width:28.8pt;border-bottom:medium none;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:right;line-height:normal" align=right><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">1,20</span></p></td>
+<td style="border-top:windowtext 1pt solid;height:15pt;border-right:windowtext 1pt solid;width:28.8pt;border-bottom:medium none;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:right;line-height:normal" align=right><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">1,30</span></p></td></tr>
+<tr style="height:15pt">
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:20.5pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=27 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">4</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:191.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:windowtext 1pt solid;padding-right:3.5pt" width=256 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"><span> </span>Mação - Gavião</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:43.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=58 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:28.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:28.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:28.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td></tr>
+<tr style="height:15pt">
+<td style="height:15pt;width:20.5pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=27 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">5</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:191.8pt;border-bottom:medium none;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:windowtext 1pt solid;padding-right:3.5pt" width=256 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"><span> </span>Gavião - Envendos</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:54.8pt;border-bottom:black 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:windowtext 1pt solid;padding-right:3.5pt" valign=top rowspan=2 width=73 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">13,8</span></p></td>
+<td style="height:15pt;width:43.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=58 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:right;line-height:normal" align=right><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">0,50</span></p></td>
+<td style="height:15pt;width:28.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:right;line-height:normal" align=right><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">0,85</span></p></td>
+<td style="height:15pt;width:28.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:right;line-height:normal" align=right><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">1,10</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:28.8pt;border-bottom:medium none;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:right;line-height:normal" align=right><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">1,25</span></p></td></tr>
+<tr style="height:15pt">
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:20.5pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=27 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">6</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:191.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:windowtext 1pt solid;padding-right:3.5pt" width=256 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"><span> </span>Envendos - Gardete</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:43.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=58 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:28.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:28.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:28.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td></tr>
+<tr style="height:15pt">
+<td style="height:15pt;width:20.5pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=27 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">7</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:191.8pt;border-bottom:medium none;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:windowtext 1pt solid;padding-right:3.5pt" width=256 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"><span> </span>Gardete - Riscada</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:54.8pt;border-bottom:black 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:windowtext 1pt solid;padding-right:3.5pt" valign=top rowspan=3 width=73 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">14,7</span></p></td>
+<td style="height:15pt;width:43.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=58 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:right;line-height:normal" align=right><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">0,55</span></p></td>
+<td style="height:15pt;width:28.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:right;line-height:normal" align=right><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">0,95</span></p></td>
+<td style="height:15pt;width:28.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:right;line-height:normal" align=right><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">1,20</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:28.8pt;border-bottom:medium none;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:right;line-height:normal" align=right><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">1,35</span></p></td></tr>
+<tr style="height:15pt">
+<td style="height:15pt;width:20.5pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=27 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">8</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:191.8pt;border-bottom:medium none;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:windowtext 1pt solid;padding-right:3.5pt" width=256 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"><span> </span>Riscada - Fratel</span></p></td>
+<td style="height:15pt;width:43.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=58 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td>
+<td style="height:15pt;width:28.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=38 nowrap></td>
+<td style="height:15pt;width:28.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=38 nowrap></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:28.8pt;border-bottom:medium none;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td></tr>
+<tr style="height:15pt">
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:20.5pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=27 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">9</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:191.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:windowtext 1pt solid;padding-right:3.5pt" width=256 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"><span> </span>Fratel - Perdigão</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:43.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=58 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:28.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:28.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:28.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td></tr>
+<tr style="height:15pt">
+<td style="height:15pt;width:20.5pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=27 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">10</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:191.8pt;border-bottom:medium none;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:windowtext 1pt solid;padding-right:3.5pt" width=256 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"><span> </span>Perdigão - Alvaiade</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:54.8pt;border-bottom:black 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:windowtext 1pt solid;padding-right:3.5pt" valign=top rowspan=2 width=73 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">16,2</span></p></td>
+<td style="height:15pt;width:43.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=58 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:right;line-height:normal" align=right><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">0,60</span></p></td>
+<td style="height:15pt;width:28.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:right;line-height:normal" align=right><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">1,05</span></p></td>
+<td style="height:15pt;width:28.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:right;line-height:normal" align=right><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">1,35</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:28.8pt;border-bottom:medium none;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:right;line-height:normal" align=right><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">1,50</span></p></td></tr>
+<tr style="height:15pt">
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:20.5pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=27 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">11</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:191.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:windowtext 1pt solid;padding-right:3.5pt" width=256 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"><span> </span>Alvaiade - Sarnadas / Retaxo</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:43.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=58 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:28.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:28.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:28.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td></tr>
+<tr style="height:15pt">
+<td style="height:15pt;width:20.5pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=27 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">12</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:191.8pt;border-bottom:medium none;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:windowtext 1pt solid;padding-right:3.5pt" width=256 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"><span> </span>Sarnadas / Retaxo - Castelo Branco Sul</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:54.8pt;border-bottom:black 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:windowtext 1pt solid;padding-right:3.5pt" valign=top rowspan=2 width=73 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">10,1</span></p></td>
+<td style="height:15pt;width:43.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=58 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:right;line-height:normal" align=right><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">0,35</span></p></td>
+<td style="height:15pt;width:28.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:right;line-height:normal" align=right><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">0,65</span></p></td>
+<td style="height:15pt;width:28.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:right;line-height:normal" align=right><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">0,80</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:28.8pt;border-bottom:medium none;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:right;line-height:normal" align=right><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">0,90</span></p></td></tr>
+<tr style="height:15pt">
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:20.5pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=27 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">13</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:191.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:windowtext 1pt solid;padding-right:3.5pt" width=256 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"><span> </span>Castelo Branco Sul - Hospital</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:43.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=58 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:28.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:28.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:28.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td></tr>
+<tr style="height:15pt">
+<td style="height:15pt;width:20.5pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=27 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">14</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:191.8pt;border-bottom:medium none;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:windowtext 1pt solid;padding-right:3.5pt" width=256 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"><span> </span>Hospital - Castelo Branco Norte</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:54.8pt;border-bottom:black 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:windowtext 1pt solid;padding-right:3.5pt" valign=top rowspan=2 width=73 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">11,6</span></p></td>
+<td style="height:15pt;width:43.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=58 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:right;line-height:normal" align=right><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">0,45</span></p></td>
+<td style="height:15pt;width:28.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:right;line-height:normal" align=right><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">0,75</span></p></td>
+<td style="height:15pt;width:28.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:right;line-height:normal" align=right><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">0,95</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:28.8pt;border-bottom:medium none;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:right;line-height:normal" align=right><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">1,05</span></p></td></tr>
+<tr style="height:15pt">
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:20.5pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=27 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">15</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:191.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:windowtext 1pt solid;padding-right:3.5pt" width=256 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"><span> </span>Castelo Branco Norte - Alcains</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:43.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=58 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:28.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:28.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:28.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td></tr>
+<tr style="height:15.6pt">
+<td style="height:15.6pt;width:20.5pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=27 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">16</span></p></td>
+<td style="border-top:medium none;height:15.6pt;border-right:medium none;width:191.8pt;border-bottom:medium none;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:windowtext 1pt solid;padding-right:3.5pt" width=256 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"><span> </span>Alcains - Lardosa</span></p></td>
+<td style="border-top:medium none;height:15.6pt;border-right:windowtext 1pt solid;width:54.8pt;border-bottom:black 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:windowtext 1pt solid;padding-right:3.5pt" valign=top rowspan=2 width=73 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">12,8</span></p></td>
+<td style="height:15.6pt;width:43.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=58 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:right;line-height:normal" align=right><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">0,45</span></p></td>
+<td style="height:15.6pt;width:28.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:right;line-height:normal" align=right><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">0,80</span></p></td>
+<td style="height:15.6pt;width:28.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:right;line-height:normal" align=right><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">1,05</span></p></td>
+<td style="border-top:medium none;height:15.6pt;border-right:windowtext 1pt solid;width:28.8pt;border-bottom:medium none;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:right;line-height:normal" align=right><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">1,20</span></p></td></tr>
+<tr style="height:15pt">
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:20.5pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=27 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">17</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:191.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:windowtext 1pt solid;padding-right:3.5pt" width=256 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"><span> </span>Lardosa - Soalheira</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:43.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=58 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:28.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:28.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:28.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td></tr>
+<tr style="height:15pt">
+<td style="height:15pt;width:20.5pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=27 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">18</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:191.8pt;border-bottom:medium none;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:windowtext 1pt solid;padding-right:3.5pt" width=256 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"><span> </span>Soalheira - Castelo Novo</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:54.8pt;border-bottom:black 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:windowtext 1pt solid;padding-right:3.5pt" valign=top rowspan=2 width=73 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">13,6</span></p></td>
+<td style="height:15pt;width:43.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=58 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:right;line-height:normal" align=right><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">0,50</span></p></td>
+<td style="height:15pt;width:28.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:right;line-height:normal" align=right><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">0,85</span></p></td>
+<td style="height:15pt;width:28.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:right;line-height:normal" align=right><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">1,15</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:28.8pt;border-bottom:medium none;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:right;line-height:normal" align=right><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">1,25</span></p></td></tr>
+<tr style="height:15pt">
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:20.5pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=27 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">19</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:191.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:windowtext 1pt solid;padding-right:3.5pt" width=256 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"><span> </span>Castelo Novo - Fundão</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:43.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=58 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:28.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:28.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:28.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td></tr>
+<tr style="height:15pt">
+<td style="height:15pt;width:20.5pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=27 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">20</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:191.8pt;border-bottom:medium none;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:windowtext 1pt solid;padding-right:3.5pt" width=256 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"><span> </span>Fundão - Alcaria</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:54.8pt;border-bottom:black 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:windowtext 1pt solid;padding-right:3.5pt" valign=top rowspan=3 width=73 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">16,6</span></p></td>
+<td style="height:15pt;width:43.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=58 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:right;line-height:normal" align=right><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">0,60</span></p></td>
+<td style="height:15pt;width:28.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:right;line-height:normal" align=right><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">1,00</span></p></td>
+<td style="height:15pt;width:28.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:right;line-height:normal" align=right><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">1,40</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:28.8pt;border-bottom:medium none;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:right;line-height:normal" align=right><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">1,55</span></p></td></tr>
+<tr style="height:15pt">
+<td style="height:15pt;width:20.5pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=27 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">21</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:191.8pt;border-bottom:medium none;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:windowtext 1pt solid;padding-right:3.5pt" width=256 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"><span> </span>Alcaria - Covilhã Sul</span></p></td>
+<td style="height:15pt;width:43.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=58 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td>
+<td style="height:15pt;width:28.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=38 nowrap></td>
+<td style="height:15pt;width:28.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=38 nowrap></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:28.8pt;border-bottom:medium none;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td></tr>
+<tr style="height:15pt">
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:20.5pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=27 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">22</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:191.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:windowtext 1pt solid;padding-right:3.5pt" width=256 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"><span> </span>Covilhã Sul - Covilhã Norte</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:43.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=58 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:28.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:28.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:28.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td></tr>
+<tr style="height:15pt">
+<td style="height:15pt;width:20.5pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=27 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">23</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:191.8pt;border-bottom:medium none;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:windowtext 1pt solid;padding-right:3.5pt" width=256 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"><span> </span>Covilhã Norte - Belmonte Sul</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:54.8pt;border-bottom:black 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:windowtext 1pt solid;padding-right:3.5pt" valign=top rowspan=2 width=73 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">17,6</span></p></td>
+<td style="height:15pt;width:43.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=58 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:right;line-height:normal" align=right><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">0,65</span></p></td>
+<td style="height:15pt;width:28.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:right;line-height:normal" align=right><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">1,15</span></p></td>
+<td style="height:15pt;width:28.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:right;line-height:normal" align=right><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">1,45</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:28.8pt;border-bottom:medium none;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:right;line-height:normal" align=right><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">1,65</span></p></td></tr>
+<tr style="height:15pt">
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:20.5pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=27 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">24</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:191.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:windowtext 1pt solid;padding-right:3.5pt" width=256 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"><span> </span>Belmonte Sul - Belmonte Norte</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:43.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=58 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:28.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:28.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:28.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td></tr>
+<tr style="height:15pt">
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:20.5pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=27 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">25</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:191.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:windowtext 1pt solid;padding-right:3.5pt" width=256 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"><span> </span>Belmonte Norte - Benespera</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:54.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:windowtext 1pt solid;padding-right:3.5pt" valign=top width=73 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">9,0</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:43.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=58 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:right;line-height:normal" align=right><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">0,35</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:28.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:right;line-height:normal" align=right><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">0,60</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:28.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:right;line-height:normal" align=right><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">0,75</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:28.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:right;line-height:normal" align=right><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">0,80</span></p></td></tr>
+<tr style="height:15pt">
+<td style="height:15pt;width:20.5pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=27 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">26</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:191.8pt;border-bottom:medium none;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:windowtext 1pt solid;padding-right:3.5pt" width=256 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"><span> </span>Benespera - Guarda</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:54.8pt;border-bottom:black 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:windowtext 1pt solid;padding-right:3.5pt" valign=top rowspan=2 width=73 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">15,0</span></p></td>
+<td style="height:15pt;width:43.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=58 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:right;line-height:normal" align=right><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">0,55</span></p></td>
+<td style="height:15pt;width:28.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:right;line-height:normal" align=right><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">0,95</span></p></td>
+<td style="height:15pt;width:28.8pt;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:right;line-height:normal" align=right><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">1,25</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:28.8pt;border-bottom:medium none;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:right;line-height:normal" align=right><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">1,40</span></p></td></tr>
+<tr style="height:15pt">
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:20.5pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=27 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">27</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:191.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:windowtext 1pt solid;padding-right:3.5pt" width=256 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"><span> </span>Guarda - Pinhel</span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:43.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=58 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:28.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:medium none;width:28.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td>
+<td style="border-top:medium none;height:15pt;border-right:windowtext 1pt solid;width:28.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;line-height:normal"><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td></tr>
+<tr style="height:15.6pt">
+<td style="border-top:medium none;height:15.6pt;border-right:medium none;width:20.5pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" width=27 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif"> </span></p></td>
+<td style="border-top:medium none;height:15.6pt;border-right:windowtext 1pt solid;width:191.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:windowtext 1pt solid;padding-right:3.5pt" valign=bottom width=256 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">Total</span></p></td>
+<td style="border-top:medium none;height:15.6pt;border-right:windowtext 1pt solid;width:54.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" valign=bottom width=73 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">177,5</span></p></td>
+<td style="border-top:medium none;height:15.6pt;border-right:medium none;width:43.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" valign=bottom width=58 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">6,50</span></p></td>
+<td style="border-top:medium none;height:15.6pt;border-right:medium none;width:28.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" valign=bottom width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">11,30</span></p></td>
+<td style="border-top:medium none;height:15.6pt;border-right:medium none;width:28.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" valign=bottom width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">14,65</span></p></td>
+<td style="border-top:medium none;height:15.6pt;border-right:windowtext 1pt solid;width:28.8pt;border-bottom:windowtext 1pt solid;padding-bottom:0cm;padding-top:0cm;padding-left:3.5pt;border-left:medium none;padding-right:3.5pt" valign=bottom width=38 nowrap>
+<p class=MsoNormal style="margin-bottom:0cm;text-align:center;line-height:normal" align=center><span style="font-size:9pt;font-family:&quot;arial&quot;,sans-serif">16,30</span></p></td></tr></tbody></table></p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p></div>
+		</div>	
+	</div>
+
+							</div>
+																						
+						</div>																			
+					</div>			
+					<div class="cleaner">&nbsp;</div>								
+					</div>	
+					
+			</div>				
+			
+			<div class="linksBottomLeft">	
+				
+				
+				
+				<a href="http://www.portugal.gov.pt/pt/ministerios/mpi.aspx" target="_blank" title="Ministério do Planeamento e das Infraestruturas">
+					<div class="ministerio">
+					</div>
+				</a>
+			</div>							
+					
+			<div id="rodape" class="rodape">
+				<div id="rodape1" class="rodapeLeft" style="height:32px;">						
+					<a href="/sites/IMTT/Portugues/CopyRight/Paginas/TermosdeUtilizacao.aspx">
+						<span title="Termos de Utilização" class="copyright">Termos de Utilização</span>
+					</a>					
+					<span title="Copyright"> - Copyright</span>															
+					© 2008 - 2024 www.imtt.pt - Todos os direitos reservados | Site optimizado para 1024x768, IE7+, FF2+ | Desenvolvido por CPCis								
+				</div>			
+				<div class="link-topo">
+					<a href="#topo">
+						Topo					
+					</a>
+				</div>
+			</div>				
+			<div class="acordoortografico"> 
+				<span title="AcordoOrtografico" >Os conteúdos deste site, publicados a partir de 1 de Janeiro de 2012, cumprem as regras do Acordo Ortográfico.</span>
+			</div>		
+			<div id="acessibilidade" class="acessibilidades">
+				<img src="/sites/IMTT/SiteCollectionImages/MundoAcessiblidade.gif" id="ctl00_ctl00_mundoAcessibilidade" alt="Símbolo de Acessibilidade à Web" title="Símbolo de Acessibilidade à Web" />
+					
+					[<a href="/sites/IMTT/Portugues/Links-Extra/Paginas/Acessibilidade.aspx" accesskey="D" title="Símbolo de Acessibilidade à Web">D</a>]
+					
+				<a href="http://www.w3.org/WAI/WCAG1AA-Conformance" target="_blank"><img src="/sites/IMTT/SiteCollectionImages/wcag1AA.png" id="ctl00_DoubleAConformance" style="border:0px transparent none" alt="Level Double-A conformance icon,W3C-WAI Web Content Accessibility Guidelines 1.0" title="Level Double-A conformance icon,W3C-WAI Web Content Accessibility Guidelines 1.0" /></a>
+			</div>
+				<div class="cleaner">&nbsp;</div>				
+			</div>
+					
+	
+
+<script type="text/javascript">
+//<![CDATA[
+var __wpmExportWarning='This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.';var __wpmCloseProviderWarning='You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.';var __wpmDeleteWarning='You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.';//]]>
+</script>
+</form>	
+ <script type="text/javascript" src="/_Incapsula_Resource?SWJIYLWA=719d34d31c8e3a6e6fffd425f7e032f3&ns=31&cb=1709018818" async></script></body>
+</html>

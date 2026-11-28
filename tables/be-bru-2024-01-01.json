@@ -1,0 +1,740 @@
+{
+ "country": "BE",
+ "currency": "EUR",
+ "valid_from": "2024-01-01",
+ "valid_to": "2024-06-30",
+ "vehicles": "Vehicles over 3.5 t maximum authorised mass for goods transport, by mass band (3.5-12 t, 12-32 t, over 32 t)",
+ "min_kg": 3501,
+ "region": "BE-BRU",
+ "name": "Belgian kilometre charge, Brussels-Capital Region",
+ "tolled_roads": "All roads in the Brussels-Capital Region: highway and urban-area rates.",
+ "law": "Viapass rate grid from 1 January 2024, Brussels, highway and urban area (all local and regional roads that are not highway).",
+ "sources": [
+  {
+   "title": "Viapass: kilometer charge rates from 1 January 2024 (rate grid, transcribed in tools/history/transcribed/be-grids.json)",
+   "url": "https://viapass.be/en/news/kilometer-charge-what-will-change-on-january-1st.html"
+  },
+  {
+   "title": "The rate grid image",
+   "url": "https://viapass.be/files/Image/news/2023/TABLE-01-24-EN-1.png"
+  }
+ ],
+ "rows": [
+  {
+   "component": "km_charge",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    0
+   ],
+   "rate": 0.181,
+   "road": "motorway"
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 12001,
+   "max_kg": 32000,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    0
+   ],
+   "rate": 0.243,
+   "road": "motorway"
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 32001,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    0
+   ],
+   "rate": 0.248,
+   "road": "motorway"
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    1
+   ],
+   "rate": 0.181,
+   "road": "motorway"
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 12001,
+   "max_kg": 32000,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    1
+   ],
+   "rate": 0.243,
+   "road": "motorway"
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 32001,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    1
+   ],
+   "rate": 0.248,
+   "road": "motorway"
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    2
+   ],
+   "rate": 0.181,
+   "road": "motorway"
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 12001,
+   "max_kg": 32000,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    2
+   ],
+   "rate": 0.243,
+   "road": "motorway"
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 32001,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    2
+   ],
+   "rate": 0.248,
+   "road": "motorway"
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    3
+   ],
+   "rate": 0.156,
+   "road": "motorway"
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 12001,
+   "max_kg": 32000,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    3
+   ],
+   "rate": 0.218,
+   "road": "motorway"
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 32001,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    3
+   ],
+   "rate": 0.223,
+   "road": "motorway"
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    4
+   ],
+   "rate": 0.118,
+   "road": "motorway"
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 12001,
+   "max_kg": 32000,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    4
+   ],
+   "rate": 0.18,
+   "road": "motorway"
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 32001,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    4
+   ],
+   "rate": 0.185,
+   "road": "motorway"
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    5
+   ],
+   "rate": 0.104,
+   "road": "motorway"
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 12001,
+   "max_kg": 32000,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    5
+   ],
+   "rate": 0.166,
+   "road": "motorway"
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 32001,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    5
+   ],
+   "rate": 0.171,
+   "road": "motorway"
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.092,
+   "road": "motorway"
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 12001,
+   "max_kg": 32000,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.154,
+   "road": "motorway"
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 32001,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.159,
+   "road": "motorway"
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.092,
+   "road": "motorway"
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 12001,
+   "max_kg": 32000,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.154,
+   "road": "motorway"
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 32001,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.159,
+   "road": "motorway"
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    0
+   ],
+   "rate": 0.233,
+   "road": "other"
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 12001,
+   "max_kg": 32000,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    0
+   ],
+   "rate": 0.326,
+   "road": "other"
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 32001,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    0
+   ],
+   "rate": 0.362,
+   "road": "other"
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    1
+   ],
+   "rate": 0.233,
+   "road": "other"
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 12001,
+   "max_kg": 32000,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    1
+   ],
+   "rate": 0.326,
+   "road": "other"
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 32001,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    1
+   ],
+   "rate": 0.362,
+   "road": "other"
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    2
+   ],
+   "rate": 0.233,
+   "road": "other"
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 12001,
+   "max_kg": 32000,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    2
+   ],
+   "rate": 0.326,
+   "road": "other"
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 32001,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    2
+   ],
+   "rate": 0.362,
+   "road": "other"
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    3
+   ],
+   "rate": 0.202,
+   "road": "other"
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 12001,
+   "max_kg": 32000,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    3
+   ],
+   "rate": 0.295,
+   "road": "other"
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 32001,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    3
+   ],
+   "rate": 0.331,
+   "road": "other"
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    4
+   ],
+   "rate": 0.163,
+   "road": "other"
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 12001,
+   "max_kg": 32000,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    4
+   ],
+   "rate": 0.256,
+   "road": "other"
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 32001,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    4
+   ],
+   "rate": 0.292,
+   "road": "other"
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    5
+   ],
+   "rate": 0.147,
+   "road": "other"
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 12001,
+   "max_kg": 32000,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    5
+   ],
+   "rate": 0.24,
+   "road": "other"
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 32001,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    5
+   ],
+   "rate": 0.276,
+   "road": "other"
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.123,
+   "road": "other"
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 12001,
+   "max_kg": 32000,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.216,
+   "road": "other"
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 32001,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.251,
+   "road": "other"
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.123,
+   "road": "other"
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 12001,
+   "max_kg": 32000,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.216,
+   "road": "other"
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 32001,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.251,
+   "road": "other"
+  }
+ ]
+}

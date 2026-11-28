@@ -1,0 +1,413 @@
+{
+ "country": "BE",
+ "currency": "EUR",
+ "valid_from": "2027-01-01",
+ "valid_to": "2027-12-31",
+ "vehicles": "Vehicles over 3.5 t maximum authorised mass for goods transport, by mass band (3.5-12 t, 12-32 t, over 32 t)",
+ "min_kg": 3501,
+ "region": "BE-VLG",
+ "name": "Belgian kilometre charge, Flemish Region",
+ "tolled_roads": "The Flemish toll road network (motorways and listed regional and local roads).",
+ "law": "Viapass rate grid ed. 01/01/2027, Flanders: the rates indexed on 1 January 2027 (Flanders now indexes on 1 January, before on 1 July), with the CO2 class element; the published rates are totals, the CO2 part is not shown separately. Zero-emission trucks pay 60% of the infrastructure part in 2027 and no external-cost part until 31 December 2029; their share rises to 80% (40% reduction) on 1 January 2028, so the table ends on 31 December 2027.",
+ "sources": [
+  {
+   "title": "Viapass: kilometer charge changes from 1 January 2027 (rate grid, ed. 01/01/2027)",
+   "url": "https://www.viapass.be/en/news/kilometer-charge-changes-planned-from-january-1-2027.html"
+  },
+  {
+   "title": "The rate grid image",
+   "url": "https://www.viapass.be/files/Image/news/2026/2027-01-01-rates-EN.jpg"
+  }
+ ],
+ "rows": [
+  {
+   "component": "km_charge",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    0
+   ],
+   "rate": 0.214
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 12001,
+   "max_kg": 32000,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    0
+   ],
+   "rate": 0.356
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 32001,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    0
+   ],
+   "rate": 0.411
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    1,
+    2
+   ],
+   "rate": 0.207
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 12001,
+   "max_kg": 32000,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    1,
+    2
+   ],
+   "rate": 0.347
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 32001,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    1,
+    2
+   ],
+   "rate": 0.4
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    3
+   ],
+   "rate": 0.179
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 12001,
+   "max_kg": 32000,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    3
+   ],
+   "rate": 0.319
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 32001,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    3
+   ],
+   "rate": 0.373
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    4
+   ],
+   "rate": 0.136
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 12001,
+   "max_kg": 32000,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    4
+   ],
+   "rate": 0.273
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 32001,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    4
+   ],
+   "rate": 0.327
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    5
+   ],
+   "rate": 0.119
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 12001,
+   "max_kg": 32000,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    5
+   ],
+   "rate": 0.256
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 32001,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    5
+   ],
+   "rate": 0.311
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "co2_class": [
+    1
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.105
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 12001,
+   "max_kg": 32000,
+   "co2_class": [
+    1
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.242
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 32001,
+   "co2_class": [
+    1
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.297
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "co2_class": [
+    2
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.103
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 12001,
+   "max_kg": 32000,
+   "co2_class": [
+    2
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.24
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 32001,
+   "co2_class": [
+    2
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.293
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "co2_class": [
+    3
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.101
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 12001,
+   "max_kg": 32000,
+   "co2_class": [
+    3
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.236
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 32001,
+   "co2_class": [
+    3
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.289
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "co2_class": [
+    4
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.085
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 12001,
+   "max_kg": 32000,
+   "co2_class": [
+    4
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.211
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 32001,
+   "co2_class": [
+    4
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.255
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.019
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 12001,
+   "max_kg": 32000,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.065
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 32001,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.078
+  }
+ ]
+}

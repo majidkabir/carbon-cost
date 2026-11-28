@@ -1,0 +1,123 @@
+{
+ "country": "LV",
+ "currency": "EUR",
+ "valid_from": "2017-08-22",
+ "name": "Latvian road user charge (autoceļu lietošanas nodeva)",
+ "law": "Autoceļu lietošanas nodevas likums, Annex 2 as worded by the amendments of 28 July 2017 (in force 22 August 2017): a time-based charge in euro for 1 day, 7 days, 30 days or a year, by maximum mass (3001-3500 kg, 3501-12000 kg, 12001 kg and over), axles (up to 3, or 4 and more, over 12 t) and EURO class (0-II, III, IV and better). The table keeps the 1-day rate. A fee, without VAT. Rebuilt from the Internet Archive's copies of these pages (2024). Annex 2 was replaced from 1 January 2025 by the law of 4 December 2024 (Grozījumi Autoceļu lietošanas nodevas likumā).",
+ "sources": [
+  {
+   "title": "Autoceļu lietošanas nodevas likums, consolidated (likumi.lv)",
+   "url": "https://web.archive.org/web/20240414145630/https://likumi.lv/ta/id/185656-autocelu-lietosanas-nodevas-likums"
+  },
+  {
+   "title": "Annex 2 was replaced from 1 January 2025 by the law of 4 December 2024 (Grozījumi Autoceļu lietošanas nodevas likumā)",
+   "url": "https://likumi.lv/ta/id/357477"
+  }
+ ],
+ "vehicles": "Goods vehicles and combinations from 3001 kg maximum mass",
+ "min_kg": 3001,
+ "tolled_roads": "The state main and regional road sections listed in Annex 1 of the law. Any use of them on a day needs that day's charge.",
+ "per_day": true,
+ "rows": [
+  {
+   "component": "toll",
+   "min_kg": 3001,
+   "max_kg": 3500,
+   "rate": 6
+  },
+  {
+   "component": "toll",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    0,
+    1,
+    2
+   ],
+   "rate": 9
+  },
+  {
+   "component": "toll",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    3
+   ],
+   "rate": 8
+  },
+  {
+   "component": "toll",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    4,
+    5,
+    6
+   ],
+   "rate": 8
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "max_axles": 3,
+   "euro": [
+    0,
+    1,
+    2
+   ],
+   "rate": 12
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "euro": [
+    0,
+    1,
+    2
+   ],
+   "rate": 12
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "max_axles": 3,
+   "euro": [
+    3
+   ],
+   "rate": 9
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "euro": [
+    3
+   ],
+   "rate": 11
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "max_axles": 3,
+   "euro": [
+    4,
+    5,
+    6
+   ],
+   "rate": 8
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "euro": [
+    4,
+    5,
+    6
+   ],
+   "rate": 11
+  }
+ ],
+ "valid_to": "2024-12-31"
+}

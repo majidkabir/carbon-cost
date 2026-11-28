@@ -1,0 +1,100 @@
+{
+ "country": "PL",
+ "currency": "PLN",
+ "valid_from": "2023-04-03",
+ "crossings": true,
+ "motor_axles": true,
+ "osm_extract": "2026-11-28",
+ "name": "A4 Katowice-Kraków (Stalexport Autostrada Małopolska)",
+ "law": "Stalexport Autostrada Małopolska's tolls (cennik) from 2023-04-03, collected at each of the two toll plazas (Mysłowice and Balice), either way, as the price paid at the plaza: category 2 (two axles with twin wheels, or two axles with trailers) PLN 27, category 3 (three axles, or two axles with twin wheels with trailers) PLN 27, category 4 (more than three axles, or three axles with trailers) PLN 46. A semi-trailer counts as a trailer (Prawo o ruchu drogowym art. 2 pkt 44). The category goes by the motor vehicle's own axles (give truck.motor_axles; without it all the truck's axles count) and whether it tows a trailer. The e-TOLL doesn't charge this stretch. The plazas are placed at their named toll booths in OpenStreetMap. Discounts for automatic payment (A4Go, videotolling) aren't modelled. Rebuilt from the Internet Archive's copies of these pages (2023).",
+ "sources": [
+  {
+   "title": "Stalexport Autostrada Małopolska: press release of 30.03.2023, the tolls from 2023-04-03 at each toll plaza",
+   "url": "https://www.autostrada-a4.com.pl/en/o-nas/komunikaty-prasowe/New-toll-rates-on-the-A4-Katowice-Krakow-motorway-do-not-apply-to-everyone--you-may-still-be-allowed-to-pay-the-previous-rate-at-the-toll-plaza/idn:2551"
+  },
+  {
+   "title": "OpenStreetMap (Overpass API): toll booths of the Mysłowice (Brzęczkowice) and Balice plazas",
+   "url": "https://www.openstreetmap.org/"
+  },
+  {
+   "title": "Internet Archive copy of https://www.autostrada-a4.com.pl/en/about-us/komunikaty-prasowe/New-toll-rates-on-the-A4-Katowice-Krakow-motorway-do-not-apply-to-everyone--you-may-still-be-allowed-to-pay-the-previous-rate-at-the-toll-plaza/idn:2551 (20250211)",
+   "url": "https://web.archive.org/web/20250211190901/https://www.autostrada-a4.com.pl/en/about-us/komunikaty-prasowe/New-toll-rates-on-the-A4-Katowice-Krakow-motorway-do-not-apply-to-everyone--you-may-still-be-allowed-to-pay-the-previous-rate-at-the-toll-plaza/idn:2551"
+  }
+ ],
+ "vehicles": "Vehicles over 3.5 t",
+ "min_kg": 3501,
+ "tolled_roads": "A4 Katowice (Murckowska) - Kraków (Balice), km 340.2-401.1: toll plazas at Mysłowice (Brzęczkowice) and Balice.",
+ "point_match_km": 0.3,
+ "toll_points": [
+  {
+   "name": "A4 Mysłowice toll plaza",
+   "lat": 50.196736,
+   "lon": 19.185826,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 4,
+     "rate": 46
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "trailer": true,
+     "rate": 46
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "trailer": false,
+     "rate": 27
+    },
+    {
+     "max_axles": 2,
+     "trailer": true,
+     "rate": 27
+    },
+    {
+     "max_axles": 2,
+     "trailer": false,
+     "rate": 27
+    }
+   ]
+  },
+  {
+   "name": "A4 Balice toll plaza",
+   "lat": 50.08319,
+   "lon": 19.791352,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 4,
+     "rate": 46
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "trailer": true,
+     "rate": 46
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "trailer": false,
+     "rate": 27
+    },
+    {
+     "max_axles": 2,
+     "trailer": true,
+     "rate": 27
+    },
+    {
+     "max_axles": 2,
+     "trailer": false,
+     "rate": 27
+    }
+   ]
+  }
+ ],
+ "rows": [],
+ "valid_to": "2024-01-15"
+}

@@ -1,0 +1,168 @@
+{
+ "country": "PL",
+ "currency": "PLN",
+ "valid_from": "2026-01-01",
+ "valid_to": "2026-01-31",
+ "name": "Polish electronic toll (e-TOLL)",
+ "law": "Ustawa o drogach publicznych, art. 13ha; the rates for 2026 announced in M.P. 2025 poz. 1244 (obwieszczenie of 3 December 2025): annex 1 (class A and S roads) and annex 2 (class GP and G roads), by permissible total mass (with trailer: over 3.5 t and under 12 t; 12 t or more) and EURO class (max. EURO 2, EURO 3, EURO 4, min. EURO 5); no CO2 component.",
+ "sources": [
+  {
+   "title": "Monitor Polski: M.P. 2025 poz. 1244 (obwieszczenie of 3 December 2025)",
+   "url": "https://eli.gov.pl/api/acts/MP/2025/1244/text/O/M20251244.pdf"
+  }
+ ],
+ "vehicles": "Motor vehicles and combinations over 3.5 t permissible total mass (with trailer), and buses",
+ "min_kg": 3501,
+ "tolled_roads": "e-TOLL sections of national roads: motorways and expressways (class A, S) and main roads (GP, G). Not included: the concession motorway sections (A1 Rusocin-Toruń, A2 Świecko-Konin, A4 Katowice-Kraków), charged by their operators.",
+ "motorway_share": 1,
+ "rows": [
+  {
+   "component": "toll",
+   "road": "motorway",
+   "min_kg": 3501,
+   "max_kg": 11999,
+   "euro": [
+    0,
+    1,
+    2
+   ],
+   "rate": 0.6
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "min_kg": 3501,
+   "max_kg": 11999,
+   "euro": [
+    3
+   ],
+   "rate": 0.52
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "min_kg": 3501,
+   "max_kg": 11999,
+   "euro": [
+    4
+   ],
+   "rate": 0.43
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "min_kg": 3501,
+   "max_kg": 11999,
+   "rate": 0.31
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "min_kg": 12000,
+   "euro": [
+    0,
+    1,
+    2
+   ],
+   "rate": 0.8
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "min_kg": 12000,
+   "euro": [
+    3
+   ],
+   "rate": 0.69
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "min_kg": 12000,
+   "euro": [
+    4
+   ],
+   "rate": 0.56
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "min_kg": 12000,
+   "rate": 0.42
+  },
+  {
+   "component": "toll",
+   "road": "other",
+   "min_kg": 3501,
+   "max_kg": 11999,
+   "euro": [
+    0,
+    1,
+    2
+   ],
+   "rate": 0.49
+  },
+  {
+   "component": "toll",
+   "road": "other",
+   "min_kg": 3501,
+   "max_kg": 11999,
+   "euro": [
+    3
+   ],
+   "rate": 0.43
+  },
+  {
+   "component": "toll",
+   "road": "other",
+   "min_kg": 3501,
+   "max_kg": 11999,
+   "euro": [
+    4
+   ],
+   "rate": 0.35
+  },
+  {
+   "component": "toll",
+   "road": "other",
+   "min_kg": 3501,
+   "max_kg": 11999,
+   "rate": 0.25
+  },
+  {
+   "component": "toll",
+   "road": "other",
+   "min_kg": 12000,
+   "euro": [
+    0,
+    1,
+    2
+   ],
+   "rate": 0.62
+  },
+  {
+   "component": "toll",
+   "road": "other",
+   "min_kg": 12000,
+   "euro": [
+    3
+   ],
+   "rate": 0.56
+  },
+  {
+   "component": "toll",
+   "road": "other",
+   "min_kg": 12000,
+   "euro": [
+    4
+   ],
+   "rate": 0.45
+  },
+  {
+   "component": "toll",
+   "road": "other",
+   "min_kg": 12000,
+   "rate": 0.32
+  }
+ ]
+}

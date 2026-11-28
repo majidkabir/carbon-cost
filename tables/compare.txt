@@ -1,0 +1,265 @@
+at/at-2024-01-01.orct.json: same as committed
+at/at-2025-01-01.orct.json: same as committed
+at/at-2026-01-01.orct.json: same as committed
+be/be-bru-2024-01-01.orct.json: same as committed
+be/be-bru-2024-07-01.orct.json: same as committed
+be/be-bru-2025-07-01.orct.json: same as committed
+be/be-bru-2026-01-01.orct.json: same as committed
+be/be-bru-2026-07-01.orct.json: same as committed
+be/be-bru-2027-01-01.orct.json: same as committed
+be/be-vlg-2024-01-01.orct.json: same as committed
+be/be-vlg-2024-07-01.orct.json: same as committed
+be/be-vlg-2025-07-01.orct.json: same as committed
+be/be-vlg-2026-01-01.orct.json: same as committed
+be/be-vlg-2026-07-01.orct.json: same as committed
+be/be-vlg-2027-01-01.orct.json: same as committed
+be/be-wal-2024-01-01.orct.json: same as committed
+be/be-wal-2025-01-01.orct.json: same as committed
+be/be-wal-2026-01-01.orct.json: same as committed
+be/be-wal-2026-07-01.orct.json: same as committed
+be/be-wal-2027-01-01.orct.json: same as committed
+bg/bg-2024-01-01.orct.json: same as committed
+bg/bg-2025-04-01.orct.json: same as committed
+bg/bg-2025-09-01.orct.json: same as committed
+bg/bg-2026-01-01.orct.json: same as committed
+bg/bg-2026-06-01.orct.json: same as committed
+by/by-2024-01-01.orct.json: same as committed
+by/by-2024-09-20.orct.json: same as committed
+by/by-2025-09-01.orct.json: same as committed
+ch/ch-2024-01-01.orct.json: same as committed
+ch/ch-2025-01-01.orct.json: same as committed
+cz/cz-2021-01-01.orct.json: same as committed
+cz/cz-2024-03-01.orct.json: same as committed
+cz/cz-2024-03-25.orct.json: same as committed
+cz/cz-2025-01-01.orct.json: same as committed
+cz/cz-2026-01-01.orct.json: same as committed
+de/de-2023-12-01.orct.json: same as committed
+de/de-2024-07-01.orct.json: same as committed
+dk/dk-2020-01-01.orct.json: same as committed
+dk/dk-2025-01-01.orct.json: same as committed
+dk/dk-2026-01-01.orct.json: same as committed
+dk/dk-bridges-2024-01-01.orct.json: same as committed
+dk/dk-bridges-2025-01-01.orct.json: same as committed
+::warning title=es/es-seitt-2025-01-01.orct.json::differs from tariffs/data/es/es-seitt-2025-01-01.orct.json
+20c20
+<   "method": "Acuerdo del Consejo de Ministros de 3 de diciembre de 2024 (BOE 18/12/2024), SEITT's tariff regime for 2025-2032: SEITT's 2025 tariffs by entry and exit, Pesados 1 (two or three axles) and Pesados 2 (four or more), cash prices, tag prices for trucks paying by Vía-T (etc), excluding 21% IVA; free from 00:00 to 06:00. Stations placed at OpenStreetMap's toll booths of their name (extract of 2026-11-26); 4 stations without one aren't priced. Only SEITT's AP-36, AP-41 and AP-7 Cartagena–Vera (not the Madrid radials or M-12); the concessions are separate tables (AP-6, AP-51 and AP-61; AP-71; AP-7 Málaga–Guadiaro; AP-66; AP-46; AP-7 Alicante–Cartagena) or not included (AP-9, AP-53, AP-68). The AP-41's 2025 tariff isn't served or archived any more, so it isn't priced here.",
+---
+>   "method": "Acuerdo del Consejo de Ministros de 3 de diciembre de 2024 (BOE 18/12/2024), SEITT's tariff regime for 2025-2032: SEITT's 2025 tariffs by entry and exit, Pesados 1 (two or three axles) and Pesados 2 (four or more), cash prices, tag prices for trucks paying by Vía-T (etc), excluding 21% IVA; free from 00:00 to 06:00. Stations placed at OpenStreetMap's toll booths of their name (extract of 2026-11-27); 4 stations without one aren't priced. Only SEITT's AP-36, AP-41 and AP-7 Cartagena–Vera (not the Madrid radials or M-12); the concessions are separate tables (AP-6, AP-51 and AP-61; AP-71; AP-7 Málaga–Guadiaro; AP-66; AP-46; AP-7 Alicante–Cartagena) or not included (AP-9, AP-53, AP-68). The AP-41's 2025 tariff isn't served or archived any more, so it isn't priced here.",
+491c491
+<    "osm_extract": "2026-11-26"
+---
+>    "osm_extract": "2026-11-27"
+fr/fr-2024-01-01.orct.json: same as committed
+fr/fr-2024-02-01.orct.json: same as committed
+fr/fr-2025-02-01.orct.json: same as committed
+fr/frejus-2024-01-01.orct.json: same as committed
+fr/frejus-2025-01-01.orct.json: same as committed
+fr/mont-blanc-2024-01-01.orct.json: same as committed
+fr/mont-blanc-2025-01-01.orct.json: same as committed
+gb/gb-2023-08-01.orct.json: same as committed
+gb/gb-2025-04-01.orct.json: same as committed
+::warning title=gr/gr-2024-01-01.orct.json::differs from tariffs/data/gr/gr-2024-01-01.orct.json
+50c50
+<    "title": "Aegean Motorway: Τιμές Διοδίων 2026",
+---
+>    "title": "Aegean Motorway: Τιμές Διοδίων 2024",
+1527c1527
+<    "osm_extract": "2026-11-26"
+---
+>    "osm_extract": "2026-11-27"
+::warning title=gr/gr-2025-01-01.orct.json::differs from tariffs/data/gr/gr-2025-01-01.orct.json
+50c50
+<    "title": "Aegean Motorway: Τιμές Διοδίων 2026",
+---
+>    "title": "Aegean Motorway: Τιμές Διοδίων 2025",
+1617c1617
+<    "osm_extract": "2026-11-26"
+---
+>    "osm_extract": "2026-11-27"
+hr/hr-2024-01-01.orct.json: same as committed
+hr/hr-2025-07-01.orct.json: same as committed
+hu/hu-2024-01-01.orct.json: same as committed
+hu/hu-2024-04-01.orct.json: same as committed
+hu/hu-2024-09-01.orct.json: same as committed
+hu/hu-2025-06-08.orct.json: same as committed
+hu/hu-2026-01-01.orct.json: same as committed
+::warning title=ie/ie-2024-01-01.orct.json::differs from tariffs/data/ie/ie-2024-01-01.orct.json
+20c20
+<   "method": "Roads Act 1993 (Part V) and the toll bye-laws of each scheme, maximum tolls for 2024 as published by Transport Infrastructure Ireland per toll road: goods vehicles over 3,500 kg by axles (2 or 3, 4 or more) on the PPP roads, excluding 23% VAT; on the M50 (no VAT) by weight, at the unregistered price, or the tag price for trucks paying by tag. Heavy goods vehicles use the Dublin Port Tunnel free. Each toll is charged at its plaza (M50: its gantry), placed with OpenStreetMap's toll booths (2026-11-26T21:21:01Z). From TII's pages as the Internet Archive kept them, read in a browser into tools/history/browser/ie-2024.json.",
+---
+>   "method": "Roads Act 1993 (Part V) and the toll bye-laws of each scheme, maximum tolls for 2024 as published by Transport Infrastructure Ireland per toll road: goods vehicles over 3,500 kg by axles (2 or 3, 4 or more) on the PPP roads, excluding 23% VAT; on the M50 (no VAT) by weight, at the unregistered price, or the tag price for trucks paying by tag. Heavy goods vehicles use the Dublin Port Tunnel free. Each toll is charged at its plaza (M50: its gantry), placed with OpenStreetMap's toll booths (2026-11-27T21:21:21Z). From TII's pages as the Internet Archive kept them, read in a browser into tools/history/browser/ie-2024.json.",
+319c319
+<    "osm_extract": "2026-11-26"
+---
+>    "osm_extract": "2026-11-27"
+::warning title=ie/ie-2025-01-01.orct.json::differs from tariffs/data/ie/ie-2025-01-01.orct.json
+20c20
+<   "method": "Roads Act 1993 (Part V) and the toll bye-laws of each scheme, maximum tolls for 2025 as published by Transport Infrastructure Ireland per toll road: goods vehicles over 3,500 kg by axles (2 or 3, 4 or more) on the PPP roads, excluding 23% VAT; on the M50 (no VAT) by weight, at the unregistered price, or the tag price for trucks paying by tag. Heavy goods vehicles use the Dublin Port Tunnel free. Each toll is charged at its plaza (M50: its gantry), placed with OpenStreetMap's toll booths (2026-11-26T21:21:01Z). From TII's pages as the Internet Archive kept them, read in a browser into tools/history/browser/ie-2025.json.",
+---
+>   "method": "Roads Act 1993 (Part V) and the toll bye-laws of each scheme, maximum tolls for 2025 as published by Transport Infrastructure Ireland per toll road: goods vehicles over 3,500 kg by axles (2 or 3, 4 or more) on the PPP roads, excluding 23% VAT; on the M50 (no VAT) by weight, at the unregistered price, or the tag price for trucks paying by tag. Heavy goods vehicles use the Dublin Port Tunnel free. Each toll is charged at its plaza (M50: its gantry), placed with OpenStreetMap's toll booths (2026-11-27T21:21:21Z). From TII's pages as the Internet Archive kept them, read in a browser into tools/history/browser/ie-2025.json.",
+319c319
+<    "osm_extract": "2026-11-26"
+---
+>    "osm_extract": "2026-11-27"
+is/is-2024-01-01.orct.json: same as committed
+is/is-2025-01-01.orct.json: same as committed
+it/it-2025-01-01.orct.json: same as committed
+it/it-barriers-2025-01-01.orct.json: same as committed
+li/li-2024-01-01.orct.json: same as committed
+li/li-2025-01-01.orct.json: same as committed
+lt/lt-2024-01-01.orct.json: same as committed
+lt/lt-2024-08-31.orct.json: same as committed
+lt/lt-2025-05-16.orct.json: same as committed
+lt/lt-2025-07-01.orct.json: same as committed
+lt/lt-2026-01-01.orct.json: same as committed
+lt/lt-2026-04-11.orct.json: same as committed
+lu/lu-2019-07-01.orct.json: same as committed
+lv/lv-2017-08-22.orct.json: same as committed
+lv/lv-2025-01-01.orct.json: same as committed
+::warning title=mk/mk-2024-01-01.orct.json::differs from tariffs/data/mk/mk-2024-01-01.orct.json
+493c493
+<    "osm_extract": "2026-11-26"
+---
+>    "osm_extract": "2026-11-27"
+nl/nl-2024-01-01.orct.json: same as committed
+nl/nl-2025-03-25.orct.json: same as committed
+nl/nl-2026-07-01.orct.json: same as committed
+nl/nl-2026-09-01.orct.json: same as committed
+nl/nl-2027-01-01.orct.json: same as committed
+no/no-2024-01-01.orct.json: same as committed
+pl/pl-2024-01-01.orct.json: same as committed
+pl/pl-2025-01-01.orct.json: same as committed
+pl/pl-2026-01-01.orct.json: same as committed
+pl/pl-2026-02-01.orct.json: same as committed
+::warning title=pl/pl-a2-2024-03-11.orct.json::differs from tariffs/data/pl/pl-a2-2024-03-11.orct.json
+1400c1400
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=pl/pl-a2-2024-09-11.orct.json::differs from tariffs/data/pl/pl-a2-2024-09-11.orct.json
+1400c1400
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=pl/pl-a2-2025-03-11.orct.json::differs from tariffs/data/pl/pl-a2-2025-03-11.orct.json
+1400c1400
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=pl/pl-a2-2025-09-11.orct.json::differs from tariffs/data/pl/pl-a2-2025-09-11.orct.json
+1400c1400
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=pl/pl-a2-2026-03-11.orct.json::differs from tariffs/data/pl/pl-a2-2026-03-11.orct.json
+1400c1400
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=pl/pl-a4-2023-04-03.orct.json::differs from tariffs/data/pl/pl-a4-2023-04-03.orct.json
+167c167
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=pl/pl-a4-2024-01-16.orct.json::differs from tariffs/data/pl/pl-a4-2024-01-16.orct.json
+162c162
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=pl/pl-a4-2024-04-01.orct.json::differs from tariffs/data/pl/pl-a4-2024-04-01.orct.json
+162c162
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=pl/pl-a4-2025-04-01.orct.json::differs from tariffs/data/pl/pl-a4-2025-04-01.orct.json
+162c162
+<    "osm_extract": "2026-11-27"
+---
+>    "osm_extract": "2026-11-28"
+::warning title=pt/pt-2024-01-01.orct.json::differs from tariffs/data/pt/pt-2024-01-01.orct.json
+20c20
+<   "method": "IMT, Taxas de Portagem de 2024: the toll of each lanço by class, set by the concession contracts and validated by IMT; class 2 (two axles, 1.1 m or higher at the front axle), 3 (three axles), 4 (more than three), excluding IVA (23%; 6% on the Lusoponte Tejo crossings, which charge northbound only). A trip pays each lanço it drives: each is a toll point in its middle, placed along the motorway by IMT's lengths at OpenStreetMap's junctions (extract of 2026-11-26). 36 lanços that couldn't be placed (branches, short runs, misfits) aren't charged. Only the concessions IMT's page lists (Brisa, Oeste, Brisal, Douro Litoral, Lusoponte, IP's A21). Built from the Internet Archive's copies of the 2024 pages. IMT's 2024 pages, one per motorway; the A32 page has no 2024 copy and the former SCUT roads (electronic tolls, abolished on 1 January 2025) have no page, so neither is priced.",
+---
+>   "method": "IMT, Taxas de Portagem de 2024: the toll of each lanço by class, set by the concession contracts and validated by IMT; class 2 (two axles, 1.1 m or higher at the front axle), 3 (three axles), 4 (more than three), excluding IVA (23%; 6% on the Lusoponte Tejo crossings, which charge northbound only). A trip pays each lanço it drives: each is a toll point in its middle, placed along the motorway by IMT's lengths at OpenStreetMap's junctions (extract of 2026-11-27). 36 lanços that couldn't be placed (branches, short runs, misfits) aren't charged. Only the concessions IMT's page lists (Brisa, Oeste, Brisal, Douro Litoral, Lusoponte, IP's A21). Built from the Internet Archive's copies of the 2024 pages. IMT's 2024 pages, one per motorway; the A32 page has no 2024 copy and the former SCUT roads (electronic tolls, abolished on 1 January 2025) have no page, so neither is priced.",
+3951c3951
+<    "osm_extract": "2026-11-26"
+---
+>    "osm_extract": "2026-11-27"
+::warning title=pt/pt-2025-01-01.orct.json::differs from tariffs/data/pt/pt-2025-01-01.orct.json
+20c20
+<   "method": "IMT, Taxas de Portagem de 2025: the toll of each lanço by class, set by the concession contracts and validated by IMT; class 2 (two axles, 1.1 m or higher at the front axle), 3 (three axles), 4 (more than three), excluding IVA (23%; 6% on the Lusoponte Tejo crossings, which charge northbound only). A trip pays each lanço it drives: each is a toll point in its middle, placed along the motorway by IMT's lengths at OpenStreetMap's junctions (extract of 2026-11-26). 19 lanços that couldn't be placed (branches, short runs, misfits) aren't charged. Only the concessions IMT's page lists (Brisa, Oeste, Brisal, Douro Litoral, Lusoponte, IP's A21). Built from the Internet Archive's copies of the 2025 pages.",
+---
+>   "method": "IMT, Taxas de Portagem de 2025: the toll of each lanço by class, set by the concession contracts and validated by IMT; class 2 (two axles, 1.1 m or higher at the front axle), 3 (three axles), 4 (more than three), excluding IVA (23%; 6% on the Lusoponte Tejo crossings, which charge northbound only). A trip pays each lanço it drives: each is a toll point in its middle, placed along the motorway by IMT's lengths at OpenStreetMap's junctions (extract of 2026-11-27). 19 lanços that couldn't be placed (branches, short runs, misfits) aren't charged. Only the concessions IMT's page lists (Brisa, Oeste, Brisal, Douro Litoral, Lusoponte, IP's A21). Built from the Internet Archive's copies of the 2025 pages.",
+4030c4030
+<    "osm_extract": "2026-11-26"
+---
+>    "osm_extract": "2026-11-27"
+ro/ro-2024-01-01.orct.json: same as committed
+ro/ro-2025-08-01.orct.json: same as committed
+ro/ro-2025-09-08.orct.json: same as committed
+ro/ro-2026-10-01.orct.json: same as committed
+rs/rs-2024-01-01.orct.json: same as committed
+rs/rs-2024-07-10.orct.json: same as committed
+rs/rs-2025-01-10.orct.json: same as committed
+rs/rs-2025-07-04.orct.json: same as committed
+rs/rs-2025-07-10.orct.json: same as committed
+rs/rs-2026-01-01.orct.json: same as committed
+rs/rs-2026-01-14.orct.json: same as committed
+se/se-2024-01-01.orct.json: same as committed
+se/se-2025-01-01.orct.json: same as committed
+se/se-2025-03-25.orct.json: same as committed
+si/si-2024-01-01.orct.json: same as committed
+si/si-2024-07-15.orct.json: same as committed
+si/si-2025-01-01.orct.json: same as committed
+si/si-2025-07-01.orct.json: same as committed
+si/si-2025-11-01.orct.json: same as committed
+si/si-2026-01-01.orct.json: same as committed
+si/si-2026-04-01.orct.json: same as committed
+si/si-2026-10-26.orct.json: same as committed
+sk/sk-2020-07-01.orct.json: same as committed
+sk/sk-2025-07-01.orct.json: same as committed
+::warning title=tr/tr-2024-01-01.orct.json::differs from tariffs/data/tr/tr-2024-01-01.orct.json
+20c20
+<   "method": "Karayollarında Geçiş Ücretlerinin Belirlenmesi ve Uygulanmasına Dair Yönetmelik; KGM's 2024 tariffs. Bridges (Osmangazi) per passage either way; motorways by entry and exit station. By KGM class: 2 (two axles of 3.20 m or more wheelbase), 3 (three axles), 4 (four and five axles), 5 (six or more), excluding 20% KDV (VAT). Bridges placed at their main span, stations at their toll booths (else the motorway junction of their name) in OpenStreetMap (extract of 2026-11-26); 31 stations OSM doesn't name aren't placed, a trip from or to one priced from the next placed station. The Osmangazi bridge is charged at its own tariff (Gebze–Bursa's price for it, its own tariff of that year not being archived), Gebze–Bursa's prices taken without it; Kuzey Çevre's tickets include the Yavuz Sultan Selim bridge, which isn't charged again on them. Built from the Internet Archive's copies of the 2024 pages. KGM's tariffs from 1 January 2024, as the Internet Archive kept them in April 2024. İzmir–Çeşme's and Ankara–Niğde's January 2024 tariffs weren't archived, so they aren't priced. The bridges' own 2024 tariffs weren't archived: the 15 Temmuz Şehitler, Fatih Sultan Mehmet and Yavuz Sultan Selim bridges aren't priced alone (Kuzey Çevre's tickets include the Yavuz Sultan Selim bridge); the Osmangazi bridge is priced at Gebze–Bursa's price for it and the 1915 Çanakkale bridge as a station of Malkara–Çanakkale.",
+---
+>   "method": "Karayollarında Geçiş Ücretlerinin Belirlenmesi ve Uygulanmasına Dair Yönetmelik; KGM's 2024 tariffs. Bridges (Osmangazi) per passage either way; motorways by entry and exit station. By KGM class: 2 (two axles of 3.20 m or more wheelbase), 3 (three axles), 4 (four and five axles), 5 (six or more), excluding 20% KDV (VAT). Bridges placed at their main span, stations at their toll booths (else the motorway junction of their name) in OpenStreetMap (extract of 2026-11-27); 31 stations OSM doesn't name aren't placed, a trip from or to one priced from the next placed station. The Osmangazi bridge is charged at its own tariff (Gebze–Bursa's price for it, its own tariff of that year not being archived), Gebze–Bursa's prices taken without it; Kuzey Çevre's tickets include the Yavuz Sultan Selim bridge, which isn't charged again on them. Built from the Internet Archive's copies of the 2024 pages. KGM's tariffs from 1 January 2024, as the Internet Archive kept them in April 2024. İzmir–Çeşme's and Ankara–Niğde's January 2024 tariffs weren't archived, so they aren't priced. The bridges' own 2024 tariffs weren't archived: the 15 Temmuz Şehitler, Fatih Sultan Mehmet and Yavuz Sultan Selim bridges aren't priced alone (Kuzey Çevre's tickets include the Yavuz Sultan Selim bridge); the Osmangazi bridge is priced at Gebze–Bursa's price for it and the 1915 Çanakkale bridge as a station of Malkara–Çanakkale.",
+6434c6434
+<    "osm_extract": "2026-11-26"
+---
+>    "osm_extract": "2026-11-27"
+::warning title=tr/tr-2024-05-15.orct.json::differs from tariffs/data/tr/tr-2024-05-15.orct.json
+20c20
+<   "method": "Karayollarında Geçiş Ücretlerinin Belirlenmesi ve Uygulanmasına Dair Yönetmelik; KGM's 2024 tariffs. Bridges (Osmangazi) per passage either way; motorways by entry and exit station. By KGM class: 2 (two axles of 3.20 m or more wheelbase), 3 (three axles), 4 (four and five axles), 5 (six or more), excluding 20% KDV (VAT). Bridges placed at their main span, stations at their toll booths (else the motorway junction of their name) in OpenStreetMap (extract of 2026-11-26); 34 stations OSM doesn't name aren't placed, a trip from or to one priced from the next placed station. The Osmangazi bridge is charged at its own tariff (Gebze–Bursa's price for it, its own tariff of that year not being archived), Gebze–Bursa's prices taken without it; Kuzey Çevre's tickets include the Yavuz Sultan Selim bridge, which isn't charged again on them. Built from the Internet Archive's copies of the 2024 pages. KGM's tariffs from 15 May 2024, as the Internet Archive kept them in May 2024. The bridges' own 2024 tariffs weren't archived: the 15 Temmuz Şehitler, Fatih Sultan Mehmet and Yavuz Sultan Selim bridges aren't priced alone (Kuzey Çevre's tickets include the Yavuz Sultan Selim bridge); the Osmangazi bridge is priced at Gebze–Bursa's price for it and the 1915 Çanakkale bridge as a station of Malkara–Çanakkale.",
+---
+>   "method": "Karayollarında Geçiş Ücretlerinin Belirlenmesi ve Uygulanmasına Dair Yönetmelik; KGM's 2024 tariffs. Bridges (Osmangazi) per passage either way; motorways by entry and exit station. By KGM class: 2 (two axles of 3.20 m or more wheelbase), 3 (three axles), 4 (four and five axles), 5 (six or more), excluding 20% KDV (VAT). Bridges placed at their main span, stations at their toll booths (else the motorway junction of their name) in OpenStreetMap (extract of 2026-11-27); 34 stations OSM doesn't name aren't placed, a trip from or to one priced from the next placed station. The Osmangazi bridge is charged at its own tariff (Gebze–Bursa's price for it, its own tariff of that year not being archived), Gebze–Bursa's prices taken without it; Kuzey Çevre's tickets include the Yavuz Sultan Selim bridge, which isn't charged again on them. Built from the Internet Archive's copies of the 2024 pages. KGM's tariffs from 15 May 2024, as the Internet Archive kept them in May 2024. The bridges' own 2024 tariffs weren't archived: the 15 Temmuz Şehitler, Fatih Sultan Mehmet and Yavuz Sultan Selim bridges aren't priced alone (Kuzey Çevre's tickets include the Yavuz Sultan Selim bridge); the Osmangazi bridge is priced at Gebze–Bursa's price for it and the 1915 Çanakkale bridge as a station of Malkara–Çanakkale.",
+7147c7147
+<    "osm_extract": "2026-11-26"
+---
+>    "osm_extract": "2026-11-27"
+::warning title=tr/tr-2024-08-16.orct.json::differs from tariffs/data/tr/tr-2024-08-16.orct.json
+20c20
+<   "method": "Karayollarında Geçiş Ücretlerinin Belirlenmesi ve Uygulanmasına Dair Yönetmelik; KGM's 2024 tariffs. Bridges (Osmangazi) per passage either way; motorways by entry and exit station. By KGM class: 2 (two axles of 3.20 m or more wheelbase), 3 (three axles), 4 (four and five axles), 5 (six or more), excluding 20% KDV (VAT). Bridges placed at their main span, stations at their toll booths (else the motorway junction of their name) in OpenStreetMap (extract of 2026-11-26); 3 stations OSM doesn't name aren't placed, a trip from or to one priced from the next placed station. The Osmangazi bridge is charged at its own tariff (Gebze–Bursa's price for it, its own tariff of that year not being archived), Gebze–Bursa's prices taken without it; Kuzey Çevre's tickets include the Yavuz Sultan Selim bridge, which isn't charged again on them. Built from the Internet Archive's copies of the 2024 pages. KGM raised every tariff from 16 August 2024; of those, the Internet Archive kept only Gebze–Orhangazi–İzmir's (with the Osmangazi bridge's price in its Gebze–Bursa table) and Kuzey Marmara Anadolu's, so only those are priced until the 2025 tariffs.",
+---
+>   "method": "Karayollarında Geçiş Ücretlerinin Belirlenmesi ve Uygulanmasına Dair Yönetmelik; KGM's 2024 tariffs. Bridges (Osmangazi) per passage either way; motorways by entry and exit station. By KGM class: 2 (two axles of 3.20 m or more wheelbase), 3 (three axles), 4 (four and five axles), 5 (six or more), excluding 20% KDV (VAT). Bridges placed at their main span, stations at their toll booths (else the motorway junction of their name) in OpenStreetMap (extract of 2026-11-27); 3 stations OSM doesn't name aren't placed, a trip from or to one priced from the next placed station. The Osmangazi bridge is charged at its own tariff (Gebze–Bursa's price for it, its own tariff of that year not being archived), Gebze–Bursa's prices taken without it; Kuzey Çevre's tickets include the Yavuz Sultan Selim bridge, which isn't charged again on them. Built from the Internet Archive's copies of the 2024 pages. KGM raised every tariff from 16 August 2024; of those, the Internet Archive kept only Gebze–Orhangazi–İzmir's (with the Osmangazi bridge's price in its Gebze–Bursa table) and Kuzey Marmara Anadolu's, so only those are priced until the 2025 tariffs.",
+1837c1837
+<    "osm_extract": "2026-11-26"
+---
+>    "osm_extract": "2026-11-27"
+::warning title=tr/tr-2025-01-13.orct.json::differs from tariffs/data/tr/tr-2025-01-13.orct.json
+20c20
+<   "method": "Karayollarında Geçiş Ücretlerinin Belirlenmesi ve Uygulanmasına Dair Yönetmelik; KGM's 2025 tariffs. Bridges (15 Temmuz Şehitler, Fatih Sultan Mehmet, Osmangazi, Yavuz Sultan Selim) per passage either way; motorways by entry and exit station. By KGM class: 2 (two axles of 3.20 m or more wheelbase), 3 (three axles), 4 (four and five axles), 5 (six or more), excluding 20% KDV (VAT). Trucks may not use 15 Temmuz Şehitler or FSM (UKOME decision) but pay their tariff if they do. Bridges placed at their main span, stations at their toll booths (else the motorway junction of their name) in OpenStreetMap (extract of 2026-11-26); 29 stations OSM doesn't name aren't placed, a trip from or to one priced from the next placed station. The Osmangazi bridge is charged at its own tariff, Gebze–Bursa's prices taken without it; Kuzey Çevre's tickets include the Yavuz Sultan Selim bridge, which isn't charged again on them. Built from the Internet Archive's copies of the 2025 pages. KGM's tariffs from 13 January 2025 (the 2025 list, its files named ADO Aydın–Denizli, ANO Ankara–Niğde, MAÇ Menemen–Aliağa–Çandarlı, ÇOK Malkara–Çanakkale, GOİ Gebze–Orhangazi–İzmir), as the Internet Archive kept them in January 2025.",
+---
+>   "method": "Karayollarında Geçiş Ücretlerinin Belirlenmesi ve Uygulanmasına Dair Yönetmelik; KGM's 2025 tariffs. Bridges (15 Temmuz Şehitler, Fatih Sultan Mehmet, Osmangazi, Yavuz Sultan Selim) per passage either way; motorways by entry and exit station. By KGM class: 2 (two axles of 3.20 m or more wheelbase), 3 (three axles), 4 (four and five axles), 5 (six or more), excluding 20% KDV (VAT). Trucks may not use 15 Temmuz Şehitler or FSM (UKOME decision) but pay their tariff if they do. Bridges placed at their main span, stations at their toll booths (else the motorway junction of their name) in OpenStreetMap (extract of 2026-11-27); 29 stations OSM doesn't name aren't placed, a trip from or to one priced from the next placed station. The Osmangazi bridge is charged at its own tariff, Gebze–Bursa's prices taken without it; Kuzey Çevre's tickets include the Yavuz Sultan Selim bridge, which isn't charged again on them. Built from the Internet Archive's copies of the 2025 pages. KGM's tariffs from 13 January 2025 (the 2025 list, its files named ADO Aydın–Denizli, ANO Ankara–Niğde, MAÇ Menemen–Aliağa–Çandarlı, ÇOK Malkara–Çanakkale, GOİ Gebze–Orhangazi–İzmir), as the Internet Archive kept them in January 2025.",
+8119c8119
+<    "osm_extract": "2026-11-26"
+---
+>    "osm_extract": "2026-11-27"
+::warning title=tr/tr-2026-01-01.orct.json::differs from tariffs/data/tr/tr-2026-01-01.orct.json
+20c20
+<   "method": "Karayollarında Geçiş Ücretlerinin Belirlenmesi ve Uygulanmasına Dair Yönetmelik; KGM's 2026 tariffs. Bridges (15 Temmuz Şehitler, Fatih Sultan Mehmet, Osmangazi, Yavuz Sultan Selim) per passage either way; motorways by entry and exit station. By KGM class: 2 (two axles of 3.20 m or more wheelbase), 3 (three axles), 4 (four and five axles), 5 (six or more), excluding 20% KDV (VAT). Trucks may not use 15 Temmuz Şehitler or FSM (UKOME decision) but pay their tariff if they do. Bridges placed at their main span, stations at their toll booths (else the motorway junction of their name) in OpenStreetMap (extract of 2026-11-26); 28 stations OSM doesn't name aren't placed, a trip from or to one priced from the next placed station. The Osmangazi bridge is charged at its own tariff, Gebze–Bursa's prices taken without it; Kuzey Çevre's tickets include the Yavuz Sultan Selim bridge, which isn't charged again on them. Built from the Internet Archive's copies of the 2026 pages. KGM's tariffs from 1 January 2026, as the Internet Archive kept them on 31 December 2025 (the Çeşmeli – Erdemli – Kızkalesi motorway had no tariff yet).",
+---
+>   "method": "Karayollarında Geçiş Ücretlerinin Belirlenmesi ve Uygulanmasına Dair Yönetmelik; KGM's 2026 tariffs. Bridges (15 Temmuz Şehitler, Fatih Sultan Mehmet, Osmangazi, Yavuz Sultan Selim) per passage either way; motorways by entry and exit station. By KGM class: 2 (two axles of 3.20 m or more wheelbase), 3 (three axles), 4 (four and five axles), 5 (six or more), excluding 20% KDV (VAT). Trucks may not use 15 Temmuz Şehitler or FSM (UKOME decision) but pay their tariff if they do. Bridges placed at their main span, stations at their toll booths (else the motorway junction of their name) in OpenStreetMap (extract of 2026-11-27); 28 stations OSM doesn't name aren't placed, a trip from or to one priced from the next placed station. The Osmangazi bridge is charged at its own tariff, Gebze–Bursa's prices taken without it; Kuzey Çevre's tickets include the Yavuz Sultan Selim bridge, which isn't charged again on them. Built from the Internet Archive's copies of the 2026 pages. KGM's tariffs from 1 January 2026, as the Internet Archive kept them on 31 December 2025 (the Çeşmeli – Erdemli – Kızkalesi motorway had no tariff yet).",
+8230c8230
+<    "osm_extract": "2026-11-26"
+---
+>    "osm_extract": "2026-11-27"

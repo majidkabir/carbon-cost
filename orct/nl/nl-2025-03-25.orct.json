@@ -1,0 +1,398 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/nl/2025-03-25",
+  "scheme": {
+   "id": "nl",
+   "name": "Dutch heavy vehicle tax (belasting zware motorrijtuigen, Eurovignette)",
+   "country": "NL"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2025-03-25",
+  "valid_to": "2026-06-30",
+  "currency": "EUR",
+  "timezone": "Europe/Amsterdam",
+  "license": "MIT",
+  "method": "Wet belasting zware motorrijtuigen, art. 10 fourth paragraph, as worded by the Wet of 26 June 2024 (Stb. 2024, 240) in force 25 March 2025 (Stb. 2025, 41), and corrected with retroactive effect to that date by Stb. 2025, 445 (the Eurovignette protocol's amounts prevail): the tax for a day by CO2 emission class, EURO class (CO2 class 1) and axles (at most three, at least four, with the trailer). The law lapsed on 1 July 2026 when the vrachtwagenheffing started. Not subject to VAT.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "nl-2025-03-25.json"
+  },
+  "required_features": ["type.period"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Wet belasting zware motorrijtuigen, in force on 2025-03-25 (wetten.overheid.nl)",
+   "url": "https://wetten.overheid.nl/jci1.3:c:BWBR0007678&g=2025-03-25&z=2025-03-25"
+  },
+  {
+   "id": "s2",
+   "title": "Staatsblad 2025, 41 (entry into force 25 March 2025)",
+   "url": "https://zoek.officielebekendmakingen.nl/stb-2025-41.pdf"
+  },
+  {
+   "id": "s3",
+   "title": "Eurovignetten portal, user description: validity from 0:00 on the first day to 24:00 on the last",
+   "url": "https://www.eurovignettes.eu/download/Nutzerbeschreibung_20260701_EN.pdf"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Goods motor vehicles whose maximum mass, alone or with the trailer, is 12,000 kg or more",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 12000
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "toll-1",
+   "classes": [
+    {
+     "id": "toll-1.1",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12000
+      },
+      "train_axles": {
+       "max": 3
+      },
+      "co2_class": [2]
+     }
+    },
+    {
+     "id": "toll-1.2",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12000
+      },
+      "train_axles": {
+       "min": 4
+      },
+      "co2_class": [2]
+     }
+    },
+    {
+     "id": "toll-1.3",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12000
+      },
+      "train_axles": {
+       "max": 3
+      },
+      "co2_class": [3]
+     }
+    },
+    {
+     "id": "toll-1.4",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12000
+      },
+      "train_axles": {
+       "min": 4
+      },
+      "co2_class": [3]
+     }
+    },
+    {
+     "id": "toll-1.5",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12000
+      },
+      "train_axles": {
+       "max": 3
+      },
+      "co2_class": [4]
+     }
+    },
+    {
+     "id": "toll-1.6",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12000
+      },
+      "train_axles": {
+       "min": 4
+      },
+      "co2_class": [4]
+     }
+    },
+    {
+     "id": "toll-1.7",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12000
+      },
+      "train_axles": {
+       "max": 3
+      },
+      "co2_class": [5]
+     }
+    },
+    {
+     "id": "toll-1.8",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12000
+      },
+      "train_axles": {
+       "min": 4
+      },
+      "co2_class": [5]
+     }
+    },
+    {
+     "id": "toll-1.9",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12000
+      },
+      "train_axles": {
+       "max": 3
+      },
+      "euro_class": ["0"],
+      "co2_class": [1]
+     }
+    },
+    {
+     "id": "toll-1.10",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12000
+      },
+      "train_axles": {
+       "min": 4
+      },
+      "euro_class": ["0"],
+      "co2_class": [1]
+     }
+    },
+    {
+     "id": "toll-1.11",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12000
+      },
+      "train_axles": {
+       "max": 3
+      },
+      "euro_class": ["1"],
+      "co2_class": [1]
+     }
+    },
+    {
+     "id": "toll-1.12",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12000
+      },
+      "train_axles": {
+       "min": 4
+      },
+      "euro_class": ["1"],
+      "co2_class": [1]
+     }
+    },
+    {
+     "id": "toll-1.13",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12000
+      },
+      "train_axles": {
+       "max": 3
+      },
+      "euro_class": ["2"],
+      "co2_class": [1]
+     }
+    },
+    {
+     "id": "toll-1.14",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12000
+      },
+      "train_axles": {
+       "min": 4
+      },
+      "euro_class": ["2"],
+      "co2_class": [1]
+     }
+    },
+    {
+     "id": "toll-1.15",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12000
+      },
+      "train_axles": {
+       "max": 3
+      },
+      "euro_class": ["3"],
+      "co2_class": [1]
+     }
+    },
+    {
+     "id": "toll-1.16",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12000
+      },
+      "train_axles": {
+       "min": 4
+      },
+      "euro_class": ["3"],
+      "co2_class": [1]
+     }
+    },
+    {
+     "id": "toll-1.17",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12000
+      },
+      "train_axles": {
+       "max": 3
+      },
+      "euro_class": ["4"],
+      "co2_class": [1]
+     }
+    },
+    {
+     "id": "toll-1.18",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12000
+      },
+      "train_axles": {
+       "min": 4
+      },
+      "euro_class": ["4"],
+      "co2_class": [1]
+     }
+    },
+    {
+     "id": "toll-1.19",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12000
+      },
+      "train_axles": {
+       "max": 3
+      },
+      "euro_class": ["5", "EEV"],
+      "co2_class": [1]
+     }
+    },
+    {
+     "id": "toll-1.20",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12000
+      },
+      "train_axles": {
+       "min": 4
+      },
+      "euro_class": ["5", "EEV"],
+      "co2_class": [1]
+     }
+    },
+    {
+     "id": "toll-1.21",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12000
+      },
+      "train_axles": {
+       "max": 3
+      },
+      "euro_class": ["6"],
+      "co2_class": [1]
+     }
+    },
+    {
+     "id": "toll-1.22",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12000
+      },
+      "train_axles": {
+       "min": 4
+      },
+      "euro_class": ["6"],
+      "co2_class": [1]
+     }
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "roads",
+   "type": "network",
+   "network": {
+    "description": "Motorways (autosnelwegen)."
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "toll",
+   "type": "period",
+   "component": "unspecified",
+   "unit": "product",
+   "component_label": "toll",
+   "day_basis": "calendar",
+   "columns": ["object", "vehicle_class", "product", "amount"],
+   "rows": [
+    ["roads", "toll-1.1", "P1D", "7"],
+    ["roads", "toll-1.2", "P1D", "12"],
+    ["roads", "toll-1.3", "P1D", "6"],
+    ["roads", "toll-1.4", "P1D", "10"],
+    ["roads", "toll-1.5", "P1D", "5"],
+    ["roads", "toll-1.6", "P1D", "8"],
+    ["roads", "toll-1.7", "P1D", "2"],
+    ["roads", "toll-1.8", "P1D", "4"],
+    ["roads", "toll-1.9", "P1D", "14"],
+    ["roads", "toll-1.10", "P1D", "24"],
+    ["roads", "toll-1.11", "P1D", "12"],
+    ["roads", "toll-1.12", "P1D", "21"],
+    ["roads", "toll-1.13", "P1D", "11"],
+    ["roads", "toll-1.14", "P1D", "18"],
+    ["roads", "toll-1.15", "P1D", "9"],
+    ["roads", "toll-1.16", "P1D", "16"],
+    ["roads", "toll-1.17", "P1D", "9"],
+    ["roads", "toll-1.18", "P1D", "14"],
+    ["roads", "toll-1.19", "P1D", "8"],
+    ["roads", "toll-1.20", "P1D", "14"],
+    ["roads", "toll-1.21", "P1D", "8"],
+    ["roads", "toll-1.22", "P1D", "13"]
+   ],
+   "sources": ["s1", "s2", "s3"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "shared_vignette": "eurovignette"
+  }
+ }
+}

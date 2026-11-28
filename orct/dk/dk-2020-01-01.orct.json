@@ -1,0 +1,95 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/dk/2020-01-01",
+  "scheme": {
+   "id": "dk",
+   "name": "Danish road user charge (vejbenyttelsesafgift, Eurovignette)",
+   "country": "DK"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2020-01-01",
+  "valid_to": "2024-12-31",
+  "currency": "DKK",
+  "timezone": "Europe/Copenhagen",
+  "license": "MIT",
+  "method": "Lov om afgift af vejbenyttelse, LBK nr. 174 af 24/02/2020, § 3, stk. 4, nr. 5: 89 kroner a day for trucks registered abroad of 12 t or more, whatever their emission norm and axles; § 4 adjusts the amounts each 1 January only if the euro's value in kroner has changed by 5% or more. The period starts at the start of a day (§ 2, stk. 5). The law ended on 1 January 2025 (lov nr. 763 af 13/06/2023), replaced by the km-based vejafgift.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "dk-2020-01-01.json"
+  },
+  "required_features": ["type.period"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Lov om afgift af vejbenyttelse, LBK nr. 174 af 24/02/2020 (Retsinformation)",
+   "url": "https://www.retsinformation.dk/eli/lta/2020/174"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Trucks and combinations registered abroad of 12 t or more total weight",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 12000
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "toll-1",
+   "classes": [
+    {
+     "id": "toll-1.1",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12000
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "roads",
+   "type": "network",
+   "network": {
+    "description": "Motorways (motorvejsstrækningerne)."
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "toll",
+   "type": "period",
+   "component": "unspecified",
+   "unit": "product",
+   "component_label": "toll",
+   "day_basis": "calendar",
+   "columns": ["object", "vehicle_class", "product", "amount"],
+   "rows": [["roads", "toll-1.1", "P1D", "89"]],
+   "sources": ["s1"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "shared_vignette": "eurovignette"
+  }
+ }
+}

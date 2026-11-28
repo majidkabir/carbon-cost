@@ -1,0 +1,496 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/mk/2024-01-01",
+  "scheme": {
+   "id": "mk",
+   "name": "North Macedonian road tolls (патарина)",
+   "country": "MK"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2024-01-01",
+  "valid_to": "2025-04-30",
+  "currency": "EUR",
+  "timezone": "Europe/Skopje",
+  "license": "MIT",
+  "method": "Закон за јавните патишта, член 58; Одлука за висината и начинот на наплата на надоместокот за употреба на пат (Службен весник 118/2019), art. 5 (in force from 12 June 2019 until Службен весник 88/2025 replaced it on 1 May 2025; the table here starts on 1 January 2024): a toll per toll station, by category (trucks: III with two or three axles, IV with four or more). The price in euro paid in cash; electronic payment by card or tag earns a discount on top-ups. Stations placed with OpenStreetMap's toll booths, a booth on a one-way carriageway charging that direction. Stations with no toll booth in OpenStreetMap aren't priced: Миравци (Клучка Миравци-Клучка Демир Капија); Миравци (Клучка Миравци-Клучка Гевгелија); Смоквица (Клучка Смоквица - КлучкаГевгелија); Смоквица (Клучка Смоквица -Клучка Демир Капија).",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "mk-2024-01-01.json"
+  },
+  "required_features": ["type.point"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Службен весник 118/2019: Одлука за патарина (PESR)",
+   "url": "https://roads.org.mk/wp-content/uploads/2023/01/odluka-za-patarina-2019-1.pdf"
+  },
+  {
+   "id": "s2",
+   "title": "OpenStreetMap (Geofabrik extract), toll booths",
+   "url": "https://download.geofabrik.de/europe/macedonia.html"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Trucks over 3.5 t (categories III and IV)",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "pt-1",
+   "classes": [
+    {
+     "id": "pt-1.1",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "max": 3
+      }
+     }
+    },
+    {
+     "id": "pt-1.2",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 4
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "pt1",
+   "type": "point",
+   "name": "Романовце",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [21.698788, 42.110037]
+    },
+    "heading": 193.2,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt2",
+   "type": "point",
+   "name": "Романовце",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [21.699077, 42.10998]
+    },
+    "heading": 16.2,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt3",
+   "type": "point",
+   "name": "Петровец",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [21.619752, 41.942102]
+    },
+    "heading": 302.4,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt4",
+   "type": "point",
+   "name": "Петровец",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [21.619599, 41.941932]
+    },
+    "heading": 123.4,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt5",
+   "type": "point",
+   "name": "Сопот",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [21.74481, 41.775798]
+    },
+    "heading": 166.0,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt6",
+   "type": "point",
+   "name": "Отовица",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [21.767612, 41.778484]
+    },
+    "heading": 322.2,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt7",
+   "type": "point",
+   "name": "Стоби",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [21.913272, 41.593432]
+    },
+    "heading": 328.1,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt8",
+   "type": "point",
+   "name": "Стоби",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [21.913011, 41.593309]
+    },
+    "heading": 148.1,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt9",
+   "type": "point",
+   "name": "Миладиновци",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [21.641493, 41.983275]
+    },
+    "heading": 69.9,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt10",
+   "type": "point",
+   "name": "Миладиновци",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [21.641413, 41.983436]
+    },
+    "heading": 249.5,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt11",
+   "type": "point",
+   "name": "Тетово",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [20.956669, 41.976362]
+    },
+    "heading": 187.8,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt12",
+   "type": "point",
+   "name": "Тетово",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [20.956874, 41.976343]
+    },
+    "heading": 10.0,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt13",
+   "type": "point",
+   "name": "Гостивар",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [20.917663, 41.819955]
+    },
+    "heading": 10.6,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt14",
+   "type": "point",
+   "name": "Гостивар",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [20.917506, 41.819975]
+    },
+    "heading": 190.4,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt15",
+   "type": "point",
+   "name": "Глумово",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [21.292679, 41.98837]
+    },
+    "heading": 97.8,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt16",
+   "type": "point",
+   "name": "Глумово",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [21.292695, 41.988536]
+    },
+    "heading": 278.9,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt17",
+   "type": "point",
+   "name": "Желино",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [21.077112, 41.989879]
+    },
+    "heading": 67.5,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt18",
+   "type": "point",
+   "name": "Желино",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [21.077054, 41.989992]
+    },
+    "heading": 251.1,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt19",
+   "type": "point",
+   "name": "Демир Капија",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [22.2086, 41.417436]
+    },
+    "heading": 250.6,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt20",
+   "type": "point",
+   "name": "Демир Капија",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [22.208648, 41.417306]
+    },
+    "heading": 71.6,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt21",
+   "type": "point",
+   "name": "Гевгелија",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [22.492367, 41.235537]
+    },
+    "heading": 180.4,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt22",
+   "type": "point",
+   "name": "Гевгелија",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [22.492642, 41.235532]
+    },
+    "heading": 0.6,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt23",
+   "type": "point",
+   "name": "Кадрифаково",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [22.058247, 41.808913]
+    },
+    "heading": 288.2,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt24",
+   "type": "point",
+   "name": "Кадрифаково",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [22.05819, 41.80878]
+    },
+    "heading": 104.7,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt25",
+   "type": "point",
+   "name": "Преод",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [21.866256, 41.920305]
+    },
+    "heading": 108.1,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt26",
+   "type": "point",
+   "name": "Преод",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [21.866302, 41.920414]
+    },
+    "heading": 288.0,
+    "match_m": 100
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "points",
+   "type": "point",
+   "component": "unspecified",
+   "unit": "passage",
+   "columns": ["object", "vehicle_class", "amount"],
+   "rows": [
+    ["pt1", "pt-1.1", "2.5"],
+    ["pt1", "pt-1.2", "4"],
+    ["pt2", "pt-1.1", "2.5"],
+    ["pt2", "pt-1.2", "4"],
+    ["pt3", "pt-1.1", "2"],
+    ["pt3", "pt-1.2", "3"],
+    ["pt4", "pt-1.1", "2"],
+    ["pt4", "pt-1.2", "3"],
+    ["pt5", "pt-1.1", "4"],
+    ["pt5", "pt-1.2", "5.5"],
+    ["pt6", "pt-1.1", "4"],
+    ["pt6", "pt-1.2", "5.5"],
+    ["pt7", "pt-1.1", "3"],
+    ["pt7", "pt-1.2", "4.5"],
+    ["pt8", "pt-1.1", "3"],
+    ["pt8", "pt-1.2", "4.5"],
+    ["pt9", "pt-1.1", "2"],
+    ["pt9", "pt-1.2", "2.5"],
+    ["pt10", "pt-1.1", "2"],
+    ["pt10", "pt-1.2", "2.5"],
+    ["pt11", "pt-1.1", "1.5"],
+    ["pt11", "pt-1.2", "2"],
+    ["pt12", "pt-1.1", "1.5"],
+    ["pt12", "pt-1.2", "2"],
+    ["pt13", "pt-1.1", "1.5"],
+    ["pt13", "pt-1.2", "2"],
+    ["pt14", "pt-1.1", "1.5"],
+    ["pt14", "pt-1.2", "2"],
+    ["pt15", "pt-1.1", "2"],
+    ["pt15", "pt-1.2", "3"],
+    ["pt16", "pt-1.1", "2"],
+    ["pt16", "pt-1.2", "3"],
+    ["pt17", "pt-1.1", "2"],
+    ["pt17", "pt-1.2", "3"],
+    ["pt18", "pt-1.1", "2"],
+    ["pt18", "pt-1.2", "3"],
+    ["pt19", "pt-1.1", "4"],
+    ["pt19", "pt-1.2", "6"],
+    ["pt20", "pt-1.1", "4"],
+    ["pt20", "pt-1.2", "6"],
+    ["pt21", "pt-1.1", "5"],
+    ["pt21", "pt-1.2", "7"],
+    ["pt22", "pt-1.1", "5"],
+    ["pt22", "pt-1.2", "7"],
+    ["pt23", "pt-1.1", "2.5"],
+    ["pt23", "pt-1.2", "4"],
+    ["pt24", "pt-1.1", "2.5"],
+    ["pt24", "pt-1.2", "4"],
+    ["pt25", "pt-1.1", "3"],
+    ["pt25", "pt-1.2", "4.5"],
+    ["pt26", "pt-1.1", "3"],
+    ["pt26", "pt-1.2", "4.5"]
+   ],
+   "sources": ["s1", "s2"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "osm_extract": "2026-11-27"
+  }
+ }
+}

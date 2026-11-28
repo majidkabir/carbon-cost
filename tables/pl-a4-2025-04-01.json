@@ -1,0 +1,96 @@
+{
+ "country": "PL",
+ "currency": "PLN",
+ "valid_from": "2025-04-01",
+ "crossings": true,
+ "motor_axles": true,
+ "osm_extract": "2026-11-28",
+ "name": "A4 Katowice-Kraków (Stalexport Autostrada Małopolska)",
+ "law": "Stalexport Autostrada Małopolska's tolls (cennik) from 2025-04-01, collected at each of the two toll plazas (Mysłowice and Balice), either way, as the price paid at the plaza (VAT included: the plaza's ticket is the VAT invoice, rozporządzenie Ministra Finansów of 29 October 2021, Dz.U. 2021 poz. 1979, § 3): category 2 (two axles with twin wheels, or two axles with trailers) PLN 30, category 3 (three axles, or two axles with twin wheels with trailers) PLN 30, category 4 (more than three axles, or three axles with trailers) PLN 52. A semi-trailer counts as a trailer (Prawo o ruchu drogowym art. 2 pkt 44). The category goes by the motor vehicle's own axles (give truck.motor_axles; without it all the truck's axles count) and whether it tows a trailer. The e-TOLL doesn't charge this stretch. The plazas are placed at their named toll booths in OpenStreetMap. Discounts for automatic payment (A4Go, videotolling) aren't modelled. Rebuilt from the Internet Archive's copies of these pages (2025).",
+ "sources": [
+  {
+   "title": "Stalexport Autostrada Małopolska: Opłaty i sposoby wnoszenia opłat (cennik)",
+   "url": "https://web.archive.org/web/20251213012354/https://www.autostrada-a4.com.pl/pl/oplaty/oplaty-i-sposoby-wnoszenia-oplat-cennik"
+  },
+  {
+   "title": "OpenStreetMap (Overpass API): toll booths of the Mysłowice (Brzęczkowice) and Balice plazas",
+   "url": "https://www.openstreetmap.org/"
+  }
+ ],
+ "vehicles": "Vehicles over 3.5 t",
+ "min_kg": 3501,
+ "tolled_roads": "A4 Katowice (Murckowska) - Kraków (Balice), km 340.2-401.1: toll plazas at Mysłowice (Brzęczkowice) and Balice.",
+ "point_match_km": 0.3,
+ "toll_points": [
+  {
+   "name": "A4 Mysłowice toll plaza",
+   "lat": 50.196736,
+   "lon": 19.185826,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 4,
+     "rate": 52
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "trailer": true,
+     "rate": 52
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "trailer": false,
+     "rate": 30
+    },
+    {
+     "max_axles": 2,
+     "trailer": true,
+     "rate": 30
+    },
+    {
+     "max_axles": 2,
+     "trailer": false,
+     "rate": 30
+    }
+   ]
+  },
+  {
+   "name": "A4 Balice toll plaza",
+   "lat": 50.08319,
+   "lon": 19.791352,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 4,
+     "rate": 52
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "trailer": true,
+     "rate": 52
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "trailer": false,
+     "rate": 30
+    },
+    {
+     "max_axles": 2,
+     "trailer": true,
+     "rate": 30
+    },
+    {
+     "max_axles": 2,
+     "trailer": false,
+     "rate": 30
+    }
+   ]
+  }
+ ],
+ "rows": [],
+ "valid_to": "2026-03-31"
+}

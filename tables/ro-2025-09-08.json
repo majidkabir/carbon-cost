@@ -1,0 +1,57 @@
+{
+ "country": "RO",
+ "currency": "EUR",
+ "valid_from": "2025-09-08",
+ "valid_to": "2026-09-30",
+ "name": "Romanian road user charge (rovinieta)",
+ "law": "Ordonanța Guvernului nr. 15/2002, art. 1 and Anexa nr. 1 as replaced by OG nr. 23/2025 (Monitorul Oficial nr. 808 of 29 August 2025) from 8 September 2025: the rovinieta is a time-based charge in euro, including VAT, for periods from 1 day to 12 months, by the maximum authorised mass of the vehicle or combination and its axles: C 7.5 euro a day, D 13 euro a day, E 17 euro a day, F 28.5 euro a day (C over 3.5 to 7.5 t, D over 7.5 to under 12 t, E 12 t and over with up to 3 axles, F 12 t and over with 4 or more). A day runs from 00:00 to 24:00 (art. 1 alin. (8)). Paid in lei at the BNR rate of the month before (art. 6). Rates here exclude 21% VAT. Bridge tolls (tarif de trecere: Fetești–Cernavodă, Giurgeni–Vadu Oii, Giurgiu–Ruse) aren't included. Legea nr. 226/2023 (art. 24, art. 29, as prorogued by Legea nr. 103/2026) repealed the ordinance and started TollRo on 1 October 2026.",
+ "sources": [
+  {
+   "title": "Portal Legislativ: OG 15/2002, consolidation of 08.09.2025, OG nr. 23/2025 (Internet Archive copy)",
+   "url": "https://web.archive.org/web/20251215073420id_/https://legislatie.just.ro/Public/DetaliiDocument/301686"
+  },
+  {
+   "title": "ANAF: Legea nr. 141/2025 (Monitorul Oficial nr. 699/2025): 21% VAT from 1 August 2025, OG 15/2002 Anexa nr. 1 from 1 September 2025 (Internet Archive copy)",
+   "url": "https://web.archive.org/web/20251029222437id_/https://static.anaf.ro/static/10/Anaf/legislatie/L_141_2025.pdf"
+  },
+  {
+   "title": "CNAIR: rovinieta and peaj tariffs from 8 September 2025 under OG 23/2025 (Internet Archive copy)",
+   "url": "https://web.archive.org/web/20250907021509id_/https://www.cnadnr.ro/sites/default/files/comunicate-de-presa/Tabele%20ROVINIETA%20PEAJ%20_0.pdf"
+  },
+  {
+   "title": "CNAIR eToll: Legea nr. 226/2023 as published on the Acte normative page (PDF), consolidated on 30 September 2026",
+   "url": "https://portal.etoll.ro/documents/d/guest/legea-nr-226-2023-privind-aplicarea-unor-tarife-rutiere-pe-reteaua-de-drumuri-nationale-din-romania"
+  }
+ ],
+ "vehicles": "Goods vehicles over 3.5 t maximum authorised mass (the vehicle or combination)",
+ "min_kg": 3501,
+ "tolled_roads": "National roads, expressways and motorways, except national roads inside municipalities (between the town entry and exit signs).",
+ "per_day": true,
+ "day": "calendar",
+ "rows": [
+  {
+   "component": "toll",
+   "min_kg": 3501,
+   "max_kg": 7500,
+   "rate": 6.1983
+  },
+  {
+   "component": "toll",
+   "min_kg": 7501,
+   "max_kg": 11999,
+   "rate": 10.7438
+  },
+  {
+   "component": "toll",
+   "min_kg": 12000,
+   "max_axles": 3,
+   "rate": 14.0496
+  },
+  {
+   "component": "toll",
+   "min_kg": 12000,
+   "min_axles": 4,
+   "rate": 23.5537
+  }
+ ]
+}

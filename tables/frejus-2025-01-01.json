@@ -1,0 +1,58 @@
+{
+ "country": "FR",
+ "currency": "EUR",
+ "valid_from": "2025-01-01",
+ "valid_to": "2025-12-31",
+ "crossings": true,
+ "name": "Fréjus road tunnel toll",
+ "law": "Tunnel routier du Fréjus: SFTRF's prices on the French platform from 2025-01-01, one way, EUR including 20% VAT, here excluding it; class 3 (two axles) and 4 (three or more), over 3 m high. Truck prices are given for EURO 5 and 6. Built from the Internet Archive's copies of the 2025 pages.",
+ "sources": [
+  {
+   "title": "SFTRF: Fréjus tunnel prices from 2025-01-01 (French platform)",
+   "url": "https://www.sftrf.fr/tarifs-tunnel/"
+  },
+  {
+   "title": "Internet Archive copy of https://www.sftrf.fr/wp-content/uploads/2025/01/Tarifs_tunnel_2025_France.pdf (20250715)",
+   "url": "https://web.archive.org/web/20250715123420/https://www.sftrf.fr/wp-content/uploads/2025/01/Tarifs_tunnel_2025_France.pdf"
+  }
+ ],
+ "vehicles": "Vehicles over 3.5 t",
+ "min_kg": 3501,
+ "tolled_roads": "The Fréjus road tunnel (T4, Modane-Bardonecchia), priced at the French platform's one-way price whichever the direction.",
+ "closed_systems": [
+  {
+   "name": "Fréjus road tunnel",
+   "law": "SFTRF price list for the French platform, one way (course simple), EUR including 20% VAT, here excluding it.",
+   "groups": [
+    {
+     "name": "3",
+     "min_kg": 3501,
+     "max_axles": 2
+    },
+    {
+     "name": "4",
+     "min_kg": 3501,
+     "min_axles": 3
+    }
+   ],
+   "stations": [
+    {
+     "name": "Tunnel du Fréjus",
+     "points": [
+      {
+       "name": "toll plaza",
+       "lat": 45.19439,
+       "lon": 6.67415
+      }
+     ]
+    }
+   ],
+   "prices": {
+    "Tunnel du Fréjus|Tunnel du Fréjus": {
+     "3": 165.92,
+     "4": 333.42
+    }
+   }
+  }
+ ]
+}

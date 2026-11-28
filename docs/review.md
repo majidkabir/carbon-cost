@@ -18,7 +18,9 @@ line here, so the next change is checked for it.
   basis, the route's positions) is taken over every value it can take,
   not one or two samples (every departure minute, so DST days too); the
   test case enters the country mid-trip. What stands for the input (a
-  departure of 00:00) is the same in every country of the trip.
+  departure of 00:00 for the charges by the day) is the same in every
+  country of the trip; a change to how an untimed trip is timed is
+  checked against lapsed() and an origin whose time zone is ahead.
 - The request and its result are in `TestInvariants` (cost); a new class
   of mistake is a new invariant there.
 

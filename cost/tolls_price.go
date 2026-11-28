@@ -497,17 +497,13 @@ func (p *pricer) kmDays(ds *tariffs.Dataset, country, region string) []kmDay {
 	for _, s := range sp {
 		total += s[1] - s[0]
 	}
-	if total <= 0 {
+	// With no time, all at noon of the trip's day: a 00:00 departure's days
+	// would put the first hour of a trip from a zone ahead on the day
+	// before, and lapsed() prices a table's last day at noon.
+	if p.req.Time == "" || total <= 0 {
 		return []kmDay{{p.noon(ds), 1}}
 	}
-	// With no time, the days a 00:00 departure is there on (as the charges
-	// by the day count them), each at noon: its hours aren't known.
-	req := p.req
-	untimed := req.Time == ""
-	if untimed {
-		req.Time = "00:00"
-	}
-	at := func(pos float64) time.Time { t, _ := passage(req, p.date, pos, country); return t }
+	at := func(pos float64) time.Time { t, _ := passage(p.req, p.date, pos, country); return t }
 	day := func(t time.Time) string { return t.Format(time.DateOnly) }
 	var out []kmDay
 	add := func(t time.Time, km float64) {
@@ -537,11 +533,6 @@ func (p *pricer) kmDays(ds *tariffs.Dataset, country, region string) []kmDay {
 			}
 			add(a, hi-from)
 			from = hi
-		}
-	}
-	if untimed {
-		for i, d := range out {
-			out[i].at = time.Date(d.at.Year(), d.at.Month(), d.at.Day(), 12, 0, 0, 0, ds.TZ())
 		}
 	}
 	return out

@@ -401,21 +401,17 @@ func TestDaysAndBans(t *testing.T) {
 	}
 }
 
-// A trip with no time: its km by day as a 00:00 departure has them (as the
-// charges by the day count it), each at noon: a table starting the next
-// day prices that day's km (the Dutch HGV charge from 1 July 2026).
-func TestKmDaysWithoutTime(t *testing.T) {
-	date := time.Date(2026, 6, 30, 0, 0, 0, 0, time.UTC)
-	nl, ok := all(t).Find("NL", date)
-	if !ok {
-		t.Fatal("NL")
-	}
-	p := newPricer(Request{spans: map[string][][2]float64{"NL": {{0, 1700}}}}, date, &Response{}, nil)
-	var days []string
-	for _, d := range p.kmDays(nl, "NL", "") {
-		days = append(days, d.at.Format("2006-01-02 15:04"))
-	}
-	if len(days) != 2 || days[0] != "2026-06-30 12:00" || days[1] != "2026-07-01 12:00" {
-		t.Errorf("km days %v; want 30 June and 1 July, at noon", days)
+// A CO2 price on diesel whose table ended before the trip's day is missing
+// as "ended", timed or not, however far in the country is entered
+// (lapsed prices the table's last day at noon; untimed km are at noon of
+// the trip's day).
+func TestLapsedFuelCO2(t *testing.T) {
+	day := time.Date(2027, 1, 5, 0, 0, 0, 0, time.UTC)
+	for _, at := range []string{"08:00", ""} {
+		req := Request{Time: at, origin: "CZ", spans: map[string][][2]float64{"CZ": {{0, 1700}}, "DE": {{1700, 1900}}}}
+		ms := lapsed(all(t), req, &Response{CountryKm: map[string]float64{"CZ": 1700, "DE": 200}}, &track{}, 300, day)
+		if !slices.ContainsFunc(ms, func(m Missing) bool { return m.Area == "DE" && m.Charge == FuelCO2 && m.Reason == "ended" }) {
+			t.Errorf("time %q: %+v; want DE's CO2 price on diesel ended", at, ms)
+		}
 	}
 }

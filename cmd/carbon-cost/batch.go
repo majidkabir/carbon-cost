@@ -188,7 +188,7 @@ var listFlags = map[string]bool{"country-km": true, "fuel-bought": true, "shipme
 	"fx": true, "env-zone-km": true, "diesel-price": true}
 
 // digitComma is a number with a decimal comma.
-var digitComma = regexp.MustCompile(`(^|[^0-9.,])([0-9]+),([0-9]+)`)
+var digitComma = regexp.MustCompile(`(^|[^0-9.])([0-9]+),([0-9]+)`)
 
 // groupedInList is a number such as 12.500 in a list.
 var groupedInList = regexp.MustCompile(`(?:^|[=:,;\s])-?\d{1,3}(?:\.\d{3})+(?:$|[,;:\s])`)
@@ -336,6 +336,12 @@ func priceCSV(ctx context.Context, calc func(context.Context, cost.Request) (cos
 	}
 	trips, bad := make([]cost.Request, len(rows)-1), make([]string, len(rows)-1)
 	for i, row := range rows[1:] {
+		// More cells than the header names: a cell with the separator in
+		// it, unquoted (DE=320,PL=410 in a comma CSV), not to be cut.
+		if len(row) > len(head) && slices.ContainsFunc(row[len(head):], func(c string) bool { return strings.TrimSpace(c) != "" }) {
+			bad[i] = fmt.Sprintf("%d cells, the header names %d: quote a cell with %q in it (\"DE=320%sPL=410\")", len(row), len(head), rune(comma), string(rune(comma)))
+			continue
+		}
 		a := slices.Clone(base)
 		for k, name := range head {
 			name = strings.TrimPrefix(strings.TrimSpace(name), "-")

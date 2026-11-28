@@ -588,17 +588,20 @@ $("clearpath").addEventListener("click", () => setDriven(null));
 // or by commas before the next country or after a value that has its
 // decimal point or comma already (PL=1.25,1.45). A value has a decimal
 // point (1.45), or a decimal comma (320,5; 1,45) but for 1,200 (1200, or
-// 1.2?), which is refused, as is 1.200 in a list that has decimal commas.
-// As calc reads them (cmd/carbon-cost/testdata/countryvalues.json is
-// both's cases).
-function countryValues(s, what) {
+// 1.2?), which is refused, as is 1.200 in a list that has decimal commas,
+// or in a list of counts (km, litres). As calc reads them
+// (cmd/carbon-cost/testdata/countryvalues.json is both's cases).
+function countryValues(s, what, counts) {
   const trim = (x) => x.replace(/^[ \t]+|[ \t]+$/g, "");
   const entries = [];
   let start = 0;
   for (let i = 0; i < s.length; i++) {
     if (s[i] === ",") {
       const rest = s.slice(i + 1).replace(/^[ \t]+/, ""), value = s.slice(start, i).split(/[=:]/).pop();
-      if (!/^[A-Za-z]/.test(rest) && !/[.,]/.test(value)) continue; // a decimal comma
+      // A bare value after one with its decimal point or comma (PL=1.25,1.45),
+      // not DE=1.234,5 (1234.5, the European way?).
+      const next = rest.split(";")[0].split(",")[0];
+      if (!/^[A-Za-z]/.test(rest) && !(/[.,]/.test(value) && next.includes("."))) continue; // a decimal comma, or refused with the entry
     } else if (s[i] !== ";") continue;
     entries.push(trim(s.slice(start, i)));
     start = i + 1;
@@ -614,15 +617,17 @@ function countryValues(s, what) {
   }
   const commas = ms.some((m) => m[3] === ",");
   return ms.map((m) => {
-    if (commas && m[3] === "." && m[2].length <= 3 && m[4].length === 3)
-      throw new Error(`${what}: with decimal commas, ${m[2]}.${m[4]} is ${m[2]}${m[4]} or ${m[2]},${m[4]}: write it so`);
-    return [m[1] ? m[1].toUpperCase() : "", +(m[2] + (m[4] ? "." + m[4] : ""))];
+    if ((commas || counts) && m[3] === "." && m[2].length <= 3 && m[4].length === 3)
+      throw new Error(`${what}: ${m[2]}.${m[4]} is ${m[2]}${m[4]} or ${m[2]},${m[4]} here: write ${m[2]}${m[4]}, or ${m[2]},${m[4]} with ; between the countries`);
+    const v = +(m[2] + (m[4] ? "." + m[4] : ""));
+    if (!isFinite(v)) throw new Error(`${what}: ${m[2]} is no number`);
+    return [m[1] ? m[1].toUpperCase() : "", v];
   });
 }
 // A list by country, no bare values: a country given twice adds up where
 // sum (km), else is refused (as calc's byCountry).
 function pairs(s, what, sum) {
-  const vals = countryValues(s, what);
+  const vals = countryValues(s, what, sum); // the lists that add up are counts (km)
   if (!vals.length) return undefined;
   const out = {};
   for (const [cc, v] of vals) {
@@ -666,7 +671,7 @@ function buildRequest() {
     req.diesel_eur_per_l = v;
   }
   // Each purchase as given, a country twice too (as calc's -fuel-bought).
-  const bought = countryValues(f.fuel_bought.value, "Diesel bought");
+  const bought = countryValues(f.fuel_bought.value, "Diesel bought", true);
   if (bought.some(([cc]) => !cc)) throw new Error("Diesel bought: a purchase without its country (COUNTRY=litres)");
   if (bought.length) req.fuel_purchases = bought.map(([country, litres]) => ({ country, litres }));
   else req.fuel_country = f.fuel_country.value.trim().toUpperCase() || undefined;

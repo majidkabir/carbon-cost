@@ -97,6 +97,13 @@ const form = (w) => (n) => w.document.getElementById("f").elements.namedItem(n);
   f("country_km").value = "DE=120, PL=300, DE=80";
   check(w.eval("buildRequest()").country_km.DE === 200, "km DE twice: " + JSON.stringify(w.eval("buildRequest()").country_km));
   f("country_km").value = "";
+  for (const [field, v] of [["country_km", "DE=3.200, PL=4.100"], ["fuel_bought", "DE=1.200"], ["diesel_price", "DE=1.234,5"], ["diesel_price", "DE=1.5, DE=1.6"], ["country_km", "DE=1" + "0".repeat(400)]]) {
+    f(field).value = v;
+    err = "";
+    try { w.eval("buildRequest()"); } catch (e) { err = e.message; }
+    check(err !== "", `${field} ${v.slice(0, 20)} refused: ` + (err || "no error"));
+    f(field).value = "";
+  }
   f("diesel_price").value = "0";
   err = "";
   try { w.eval("buildRequest()"); } catch (e) { err = e.message; }

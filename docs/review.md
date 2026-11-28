@@ -33,9 +33,12 @@ line here, so the next change is checked for it.
   what it reads it also writes (`calc -csv`, `report`), and everything that
   reads the value back reads it so (`report`'s date column); a test gives
   each, one case a row.
-- A number is read only where it reads one way: 1,200 and 12.500 (a
-  thousand, or a decimal?) are refused where they could be either; the
+- A number is read only where it reads one way: 1,200 is refused, and
+  12.500 where the list or file uses decimal commas or counts km or
+  litres (a decimal point stays one for prices, rates and shares); the
   Go and page parsers run the same cases (testdata/countryvalues.json).
+- A CSV row is read whole: more cells than the header names (a list cell
+  unquoted) is an error, not cut.
 - A claim that a tool's output is read ("as Excel writes it") has a test
   with that output as the tool writes it, quotes and all.
 

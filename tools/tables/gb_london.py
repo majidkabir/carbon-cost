@@ -64,9 +64,11 @@ def write(out, z, slug):
 
 def ccz(fetched, out):
     cc_p, gz_p, osm_p, bh_p = (os.path.join(fetched, f) for f in ("gb-tfl-cc.html", "gb-gazette-cc-2026.html", "gb-london-ccz-osm.json", "gb-bank-holidays.html"))
-    if not all(os.path.exists(p) for p in (cc_p, gz_p, osm_p, bh_p)):
+    if not all(os.path.exists(p) for p in (cc_p, gz_p, osm_p)):
         print("Congestion Charge: a source wasn't fetched; not built")
         return
+    if not os.path.exists(bh_p):
+        sys.exit("Congestion Charge: GOV.UK's bank holidays page (gb-bank-holidays) wasn't fetched")
     t, gz = text(cc_p), text(gz_p)
     # The substitute day for a bank holiday on a weekend (GOV.UK).
     if not re.search(r"If a bank holiday is on a weekend, a .substitute. weekday becomes a bank holiday, normally the following Monday", text(bh_p)):
@@ -102,15 +104,18 @@ def ccz(fetched, out):
               f"(give etc), from {since}, halved on {halved} (the Gazette notice).") if off else ""
         z = {"country": "GB", "currency": "GBP", "valid_from": vf, "name": "London Congestion Charge", "law": law + f", GBP {charge:g} ({'before' if vf < since else 'from'} {since}, the Gazette notice)." + cv,
              "sources": src, "min_kg": 0, "charge": charge, **hours, "no_charge": ["12-25", "01-01"], "polygons": poly, "osm_extract": stamp}
-        # The New Year's Day bank holiday's substitute Monday, within the
-        # table's years (to 2099 for an open one).
-        last = int(vt[:4]) if vt else 2099
-        z["no_charge_dates"] = new_year_substitutes(int(vf[:4]), last)
+        z["no_charge_dates"] = new_year_substitutes(*substitute_years(vf, vt))
         if off:
             z["discounts"] = [{"name": "Cleaner Vehicle Discount (electric, Auto Pay)", "percent": off, "co2_class": [5], "etc": True}]
         if vt:
             z["valid_to"] = vt
         write(out, z, "congestion-charge")
+
+
+def substitute_years(vf, vt):
+    """The years a table's substitute days are listed for: its own, to
+    2099 for an open one (the API takes no later year)."""
+    return int(vf[:4]), int(vt[:4]) if vt else 2099
 
 
 def new_year_substitutes(first, last):
@@ -164,8 +169,17 @@ def lez(browser, fetched, out):
 
 
 def main(fetched, out, browser=os.path.join(os.path.dirname(os.path.abspath(__file__)), "browser")):
-    ccz(fetched, out)
-    lez(browser, fetched, out)
+    # Each zone built whatever the other's sources say; the build fails at
+    # the end if one stopped.
+    failed = []
+    for name, build in (("Congestion Charge", lambda: ccz(fetched, out)), ("LEZ", lambda: lez(browser, fetched, out))):
+        try:
+            build()
+        except SystemExit as e:
+            print(f"::error title=London {name}::{e}")
+            failed.append(name)
+    if failed:
+        sys.exit("London: not built: " + ", ".join(failed))
 
 
 if __name__ == "__main__":

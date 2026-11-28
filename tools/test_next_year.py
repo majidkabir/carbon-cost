@@ -152,6 +152,66 @@ def test_es():
         es_stretch.source_years = real
 
 
+def test_sources_missing():
+    """A source a table needs, missing: the build stops (AP-68's concession
+    end, London's bank holidays), and London's other zone is still built."""
+    import es_ap68, gb_london
+    d = tempfile.mkdtemp()
+    try:
+        es_ap68.main(d, d)
+        raise AssertionError("AP-68 built without its concession's end")
+    except SystemExit:
+        pass
+    for f in ("gb-tfl-cc.html", "gb-gazette-cc-2026.html", "gb-london-ccz-osm.json"):
+        open(os.path.join(d, f), "w").write("")
+    lez = []
+    real, gb_london.lez = gb_london.lez, lambda *a: lez.append(1)
+    try:
+        with contextlib.redirect_stdout(io.StringIO()):
+            gb_london.main(d, d)
+        raise AssertionError("London built without GOV.UK's bank holidays")
+    except SystemExit:
+        assert lez == [1], "the LEZ wasn't built"
+    finally:
+        gb_london.lez = real
+    # GOV.UK's page fetched but no longer saying a weekend's bank holiday moves.
+    open(os.path.join(d, "gb-bank-holidays.html"), "w").write("<p>Bank holidays</p>")
+    try:
+        gb_london.ccz(d, d)
+        raise AssertionError("London built without GOV.UK's substitute day")
+    except SystemExit as e:
+        assert "GOV.UK" in str(e), e
+    for f in os.listdir(d):
+        os.remove(os.path.join(d, f))
+    os.rmdir(d)
+    # An open table lists the substitute days to 2099; a closed one its own years.
+    assert gb_london.substitute_years("2030-03-04", None) == (2030, 2099) and gb_london.substitute_years("2026-01-02", "2030-03-03") == (2026, 2030)
+
+
+def test_check_browser_fr():
+    """An FR page read 2027-02-10 is kept by build.py to 2027-05-13; check_browser
+    asks for it two weeks before."""
+    import check_browser
+    keep = fr.in_force_to({"valid_from": "", "read_on": "2027-02-10"})
+    import datetime
+    due = datetime.date.fromisoformat(keep) + datetime.timedelta(days=1 - 14)  # 14 days before the first day not kept
+    d = tempfile.mkdtemp()
+    os.makedirs(os.path.join(d, "browser"))
+    open(os.path.join(d, "browser", "x.txt"), "w").write("# read 2027-02-10 in a browser\n")
+    real = check_browser.FR
+    check_browser.FR = d
+    try:
+        for day, warn in ((due - datetime.timedelta(days=1), False), (due, True)):
+            with contextlib.redirect_stdout(io.StringIO()) as said:
+                check_browser.main(day.isoformat())
+            assert ("::warning title=tools/fr/browser/x.txt" in said.getvalue()) == warn, (day, [l for l in said.getvalue().splitlines() if "x.txt" in l])
+    finally:
+        check_browser.FR = real
+        os.remove(os.path.join(d, "browser", "x.txt"))
+        os.rmdir(os.path.join(d, "browser"))
+        os.rmdir(d)
+
+
 if __name__ == "__main__":
     test_hu()
     test_fr()
@@ -159,4 +219,6 @@ if __name__ == "__main__":
     test_gr()
     test_fr_read_on()
     test_es()
+    test_sources_missing()
+    test_check_browser_fr()
     print("test_next_year: ok")

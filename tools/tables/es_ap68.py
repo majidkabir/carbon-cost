@@ -81,8 +81,7 @@ def main(fetched, out, year=None):
     year = year or es_stretch.source_years("ap68")[-1]  # the newest table
     ends = concession_end(fetched)
     if ends is None:
-        print("AP-68: es-ap68-concession-end (the concession's end) wasn't fetched; not built")
-        return
+        sys.exit("AP-68: es-ap68-concession-end (the Government's answer on the concession's end) wasn't fetched")
     end, said = ends
     text = open(os.path.join(fetched, f"es-min-ap68-{year}.txt"), encoding="utf-8").read()
     flat = re.sub(r"\s+", " ", text)

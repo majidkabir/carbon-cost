@@ -27,8 +27,8 @@ def tariff_year_end(day):
 
 # A page read in a browser shows the tariffs in force the day it was read;
 # beyond its own tariff year they are taken as in force only so long after
-# (check_browser.py has it read again by then): a page can change on
-# another day (the Normandie bridges' on 1 May 2026).
+# (check_browser.py asks for it to be read again two weeks before): a page
+# can change on another day (the Normandie bridges' on 1 May 2026).
 READ_KEEPS_DAYS = 92
 
 

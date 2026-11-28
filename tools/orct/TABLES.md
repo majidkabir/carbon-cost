@@ -221,8 +221,10 @@ type TollPoint struct {
 	// station by the time of day, instead of Rate.
 	Schedule string `json:"schedule,omitempty"`
 	// FreeHours: from and to (HH:MM, both included) the station charges
-	// nothing.
+	// nothing; FreeDates: days of the year (MM-DD) it charges nothing
+	// (Christmas Day).
 	FreeHours []string `json:"free_hours,omitempty"`
+	FreeDates []string `json:"free_dates,omitempty"`
 	// NightHours: from and to (HH:MM, both included) its classes charge
 	// their NightRate (NightETCRate by tag).
 	NightHours []string `json:"night_hours,omitempty"`
@@ -498,8 +500,10 @@ type Zone struct {
 	Weekdays []string `json:"weekdays,omitempty"`
 	Weekends []string `json:"weekends,omitempty"`
 	// NoCharge: days of the year (MM-DD, from and to, both included,
-	// wrapping past the year's end) when the zone charges nothing.
-	NoCharge []string `json:"no_charge,omitempty"`
+	// wrapping past the year's end) when the zone charges nothing;
+	// NoChargeDates: days besides (YYYY-MM-DD: a substitute bank holiday).
+	NoCharge      []string `json:"no_charge,omitempty"`
+	NoChargeDates []string `json:"no_charge_dates,omitempty"`
 	// Polygons: the zone's outer rings, [lon, lat] points; Holes: inner
 	// rings cut out of them.
 	Polygons [][][2]float64 `json:"polygons"`

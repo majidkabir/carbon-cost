@@ -35,6 +35,7 @@ jobs:
             git fetch -q --depth 1 origin fr-out && git show FETCH_HEAD:osm-booths.geojsonseq > out/osm-booths.geojsonseq
           fi
       - name: Parse and build
+        shell: bash  # -eo pipefail: a step piped into tee fails when it does
         run: |
           python3 tools/fr/parse.py tools/fr/documents.json out out/pairs.csv
           gares=$(ls out/stations/Gares-Peage_20* | sort | tail -1)
@@ -43,6 +44,7 @@ jobs:
       - name: Convert to ORCT and compare
         # The table becomes an ORCT dataset right away; only that is kept
         # (tariffs/data/fr).
+        shell: bash  # -eo pipefail: a build.py that fails fails the step
         run: |
           mkdir -p out/tables
           # One table per tariff period of the year (each prices the

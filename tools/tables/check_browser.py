@@ -13,6 +13,7 @@ HERE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "browser")
 # France's pages and brochures read in Chrome (tools/fr): the motorways'
 # tariffs change each 1 February.
 FR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "fr")
+FR_READ_KEEPS_DAYS = int(re.search(r"^READ_KEEPS_DAYS = (\d+)$", open(os.path.join(FR, "build.py"), encoding="utf-8").read(), re.M).group(1))
 
 # Capture -> (yearly change day as MM-DD or None, maximum age in days).
 RULES = {
@@ -66,12 +67,12 @@ def main(*args):
         name, shown = os.path.basename(path)[:-4], "browser/" + os.path.basename(path)
         if path in fr:
             # A page can change on another day too (the Normandie bridges'
-            # on 1 May 2026): read each quarter, as tools/fr/build.py keeps
-            # what it showed (READ_KEEPS_DAYS).
+            # on 1 May 2026): read again two weeks before tools/fr/build.py
+            # stops keeping what it showed (READ_KEEPS_DAYS).
             shown = "tools/fr/" + os.path.basename(os.path.dirname(path)) + "/" + os.path.basename(path)
         day = read_on(path)
         said = "tariffs from" if shown.endswith(".items.txt") else "read"
-        change, age = (("02-01", 366) if "sanef" in shown else ("02-01", 92)) if path in fr else RULES.get(name, (None, 183))
+        change, age = (("02-01", 366) if "sanef" in shown else ("02-01", FR_READ_KEEPS_DAYS - 14)) if path in fr else RULES.get(name, (None, 183))
         why = []
         if day is None:
             why.append("no date read in its header")

@@ -63,11 +63,14 @@ def write(out, z, slug):
 
 
 def ccz(fetched, out):
-    cc_p, gz_p, osm_p = (os.path.join(fetched, f) for f in ("gb-tfl-cc.html", "gb-gazette-cc-2026.html", "gb-london-ccz-osm.json"))
-    if not all(os.path.exists(p) for p in (cc_p, gz_p, osm_p)):
+    cc_p, gz_p, osm_p, bh_p = (os.path.join(fetched, f) for f in ("gb-tfl-cc.html", "gb-gazette-cc-2026.html", "gb-london-ccz-osm.json", "gb-bank-holidays.html"))
+    if not all(os.path.exists(p) for p in (cc_p, gz_p, osm_p, bh_p)):
         print("Congestion Charge: a source wasn't fetched; not built")
         return
     t, gz = text(cc_p), text(gz_p)
+    # The substitute day for a bank holiday on a weekend (GOV.UK).
+    if not re.search(r"If a bank holiday is on a weekend, a .substitute. weekday becomes a bank holiday, normally the following Monday", text(bh_p)):
+        sys.exit("Congestion Charge: GOV.UK's bank holidays page no longer says a weekend's bank holiday moves to the following Monday")
     m = re.search(r"£(\d+) daily charge \(if paid on the day or in advance\).*?drive within the Congestion Charge zone (\d?\d:\d\d)-(\d?\d:\d\d) Monday-Friday and (\d?\d:\d\d)-(\d?\d:\d\d) Sat-Sun and bank holidays\. No charge between Christmas Day and New Year.s Day bank holiday", t)
     g = re.search(r"increase the level of the Congestion Charge from £(\d+) to £(\d+) .{0,80}?from (\d+) January (\d{4})", gz)
     if not m or not g or g.group(2) != m.group(1):
@@ -100,8 +103,8 @@ def ccz(fetched, out):
         z = {"country": "GB", "currency": "GBP", "valid_from": vf, "name": "London Congestion Charge", "law": law + f", GBP {charge:g} ({'before' if vf < since else 'from'} {since}, the Gazette notice)." + cv,
              "sources": src, "min_kg": 0, "charge": charge, **hours, "no_charge": ["12-25", "01-01"], "polygons": poly, "osm_extract": stamp}
         # The New Year's Day bank holiday's substitute Monday, within the
-        # table's years (ten from an open one's start).
-        last = int((vt or vf)[:4]) + (0 if vt else 10)
+        # table's years (to 2099 for an open one).
+        last = int(vt[:4]) if vt else 2099
         z["no_charge_dates"] = new_year_substitutes(int(vf[:4]), last)
         if off:
             z["discounts"] = [{"name": "Cleaner Vehicle Discount (electric, Auto Pay)", "percent": off, "co2_class": [5], "etc": True}]

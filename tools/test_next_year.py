@@ -91,6 +91,17 @@ def test_gr():
             except SystemExit:
                 got = None
             assert got == want, (aegean, got)
+        # Attiki Odos from its Chrome copy (gr-attiki.html not fetched).
+        os.remove(os.path.join(d, "gr-attiki.html"))
+        open(os.path.join(d, "gr-attiki.txt"), "w", encoding="utf-8").write("# read in Chrome\nΗ «Νέα Αττική Οδός Παραχώρηση Α.Ε.» ανακοινώνει ότι το 2027 και σύμφωνα με το άρθρο 18.4.1\n")
+        open(os.path.join(d, "gr-aegean.html"), "w", encoding="utf-8").write("<p>Έναρξη ισχύος του τρέχοντος τιμοκαταλόγου 01 Ιανουαρίου 2027 – 00:01</p>")
+        assert gr.price_year(d) == "2027"
+        open(os.path.join(d, "gr-attiki.txt"), "w", encoding="utf-8").write("# read in Chrome\nΗ «Νέα Αττική Οδός Παραχώρηση Α.Ε.» ανακοινώνει ότι το 2026 και\n")
+        try:
+            gr.price_year(d)
+            raise AssertionError("Attiki's Chrome copy of 2026 among 2027's pages")
+        except SystemExit:
+            pass
     finally:
         gr.BROWSER = real
         for f in os.listdir(d):

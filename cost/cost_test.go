@@ -2032,7 +2032,8 @@ func TestCongestionCharge(t *testing.T) {
 		{"2030-03-06", "10:00", 13.5, true, true}, {"2025-06-04", "10:00", 15, true, true},
 		// To the New Year's Day bank holiday: its substitute Monday 3 January
 		// 2028 (1 January a Saturday), not the Tuesday after.
-		{"2028-01-03", "10:00", 0, false, false}, {"2028-01-04", "10:00", 18, false, false}, {"2027-01-04", "10:00", 18, false, false}} {
+		{"2028-01-03", "10:00", 0, false, false}, {"2028-01-04", "10:00", 18, false, false}, {"2027-01-04", "10:00", 18, false, false},
+		{"2050-01-03", "10:00", 0, false, false}, {"2056-01-03", "10:00", 0, false, false}} {
 		d, _ := time.Parse("2006-01-02", tc.date)
 		truck := truck40
 		if tc.ev {
